@@ -1,7 +1,8 @@
 package kr.co.iei.admin;
 
+import org.springframework.stereotype.Controller;
 
-@controller
+@Controller
 public class AdminController {
 
 }
