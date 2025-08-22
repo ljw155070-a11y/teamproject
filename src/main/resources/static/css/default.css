@@ -21,3 +21,16 @@
   font-family: ns-black;
   src: url(/font/NotoSansKR-Black.ttf);
 }
+
+*{
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-family: ns-r;
+	list-style-type: none;
+}
+.content-title{
+    font-size: 22;
+    color: #EBA854 ;
+    font-family: ns-b;
+}
