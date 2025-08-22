@@ -1,15 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.recipe .select{
+		padding : 8px 12px;
+		width : 100px;
+		border-radius:20px;
+		text-align:center;
+		font-size:16px;
+	}
+	
+	.recipe{
+		width:1080px;
+		margin:0 auto;
+	}
+	.content-title{
+		text-align:center;
+	    font-size: 22px;
+    	color: #EBA854 ;
+    	font-family: ns-b;
+    	/*임시 적용 헤더 완성되면 뺄 예정*/
+	}
+	.recipe .select:hover{
+		cursor:pointer;
+	}
+
+</style>
 </head>
 <body>
 
 	<th:block th:include="common/header"></th:block>
 	
 	<main class="recipe content">
-	레시피 접속 테스트
+		<section class="recipe content-head">
+			<div class="content-title">레시피 게시판</div>
+			<div>
+				<select class="recipe select">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
+				</select>
+			</div>
+		</section>
 	</main>
 	
 	<th:block th:include="common/footer"></th:block>
