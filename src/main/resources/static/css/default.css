@@ -1,0 +1,23 @@
+:root{
+	/*메인 색상*/
+	--main1 : #EBA854;	/*content 타이틀*/
+	--main2 : #FF9D23;	/*메인 색상 주황색*/
+	--main3 : #E8E846;	/*별점 색상*/
+	--main4 : #BFBFBF;	/*약간 흐릿한 글씨*/
+}
+@font-face {
+  font-family: ns-l;
+  src: url(/font/NotoSansKR-Light.ttf);
+}
+@font-face {
+  font-family: ns-r;
+  src: url(/font/NotoSansKR-Regular.ttf);
+}
+@font-face {
+  font-family: ns-b;
+  src: url(/font/NotoSansKR-Bold.ttf);
+}
+@font-face {
+  font-family: ns-black;
+  src: url(/font/NotoSansKR-Black.ttf);
+}
