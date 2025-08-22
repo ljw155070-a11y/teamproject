@@ -1,5 +1,23 @@
 package kr.co.iei.qna.model.vo;
 
-public class Qna {
+import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Alias(value="qna")
+public class Qna {
+	private int qnaNo;
+	private int memberNo;
+	private String qnaTitle;
+	private String qnaContent;
+	private Date qnaDate;
+	private int qnaCount;
+	private Date qnaUpdateDate;
 }
