@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.recipe{
+	body{
+		background-color:#eeeeee;
+		/*임시 적용 헤더 완성되면 제거*/
+	}
+	.recipe.content{
+		padding : 50px 0px;
+	}
+	
+	.content-title{
+		text-align:center;
+	    font-size: 22px;
+    	color: #EBA854 ;
+    	font-family: ns-b;
+    	/*임시 적용 헤더 완성되면 제거*/
+	}
+
+	.recipe.content{
 		width:1080px;
 		margin:0 auto;
 	}
-	.recipe.inputSelect,.recipe.inputSubmit,.recipe.inputText{
+	.content-head form{
+		display:flex;
+		justify-content:space-between;
+		align-items:center;
+	}
+	.recipe.searchInput{
 		margin : 30px 0px;
 		padding : 8px 12px;
 		width : 10%;
@@ -16,26 +39,35 @@
 		text-align:center;
 		font-size:16px;
 		border : 1px solid #BFBFBF;
+		background-color:white;
+		
 	}
-	.recipe.inputText{
-		width : 75%;
+	.recipe.searchInput.div{
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		width:80%;
+		
+	}
+	.recipe.searchInput.div input{
+		border : none;
+		width : 95%;
+	}
+	.recipe.searchInput.div button{
+		border : none;
+		background-color: transparent;
+		color : #EBA854;
 	}
 	
-	
-	.content-title{
-		text-align:center;
-	    font-size: 22px;
-    	color: #EBA854 ;
-    	font-family: ns-b;
-    	/*임시 적용 헤더 완성되면 뺄 예정*/
+	.recipe.searchInput.div span{
+		font-size : 28px;
 	}
-	.recipe .select:hover{
+	.recipe.select:hover{
 		cursor:pointer;
 	}
 	
-	.recipe.content{
-		padding : 50px 0px;
-	}
+	
+
 </style>
 </head>
 <body>
@@ -45,17 +77,19 @@
 	<main class="recipe content">
 		<section class="recipe content-head">
 			<div class="content-title">레시피 게시판</div>
-			<div>
-				<form action="/search" method="get" id="searchForm">
-					<select class="recipe inputSelect" name="field">
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-						<option value="writer">작성자</option>
-					</select>
-					<input class="recipe inputText" type="text" name="searchInput" placeholder="검색어를 입력하세요">
-					<input class="recipe inputSubmit" type="submit" value="검색">
-				</form>
-			</div>
+			
+			<form action="/search" method="get" id="searchForm">
+				<select class="recipe searchInput select" name="field">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
+				</select>
+				
+				<div class="recipe searchInput div">
+					<input type="text" name="searchInput" placeholder="검색어를 입력하세요">
+					<button type="submit" class="recipe select"><span class="material-icons">search</span></button>
+				</div>
+			</form>
 		</section>
 	</main>
 	
