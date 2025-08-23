@@ -14,7 +14,7 @@ public class RecipeService {
 	@Autowired
 	private RecipeDao recipeDao;
 
-	public HashMap<String, Object> recipeList(int reqPage) {
+	public HashMap<String,Object> recipeList(int reqPage) {
 		//현재 게시글 총 몇개인가?
 		int allRecipeCount=recipeDao.allRecipeCount();
 		//34개임
@@ -25,11 +25,42 @@ public class RecipeService {
 		//rownum 식 : 
 		//		시작 넘버 = (reqPage*10)-9
 		//		끝 넘버 = reqPage*10
-		System.out.println(allRecipeCount);
-		List<Recipe> list = recipeDao.recipeList(reqPage);
-		for(Recipe r : list) {
-			System.out.println("글번호"+r.getRecipeNo());
-		}
-		return null;
+		int listSize=10;
+		
+		int endNum=reqPage*listSize;
+		int startNum=endNum-listSize+1;
+		
+		List<Recipe> list = recipeDao.recipeList(startNum,endNum);
+		
+		//띄워줘야 할 페이지 버튼들 계산
+		//전체 게시글 개수(allRecipeCount)/페이지당 띄울 게시글 개수(listSize)
+		HashMap<String,Object> reqPageSet = new HashMap<>();
+		//key : 
+		//1) 현재 요청된 페이지 번호 (reqPage)
+		//2) 시작 페이지 번호 (reqPage-2), 만약 0이면 x
+		//3) 끝 페이지 번호 (reqPage+2)
+		
+		HashMap<String,Integer> pageInfo = new HashMap<>();
+		int startPageNo;
+		int endPageNo;
+		int totalPageNo = (int)Math.ceil(allRecipeCount/(double)listSize);
+		startPageNo = Math.max(1,reqPage - 2);
+		//요청된 페이지를 2로 뺐을 때, 1이 더 크면 1으로 반환
+		endPageNo = Math.min(totalPageNo, reqPage+2);
+		//요청된 페이지를 2로 더했을 때, 전체 페이지 개수가 더 작으면 그걸로 반환
+		
+		//시작 페이지, 끝 페이지 준비 완료
+		
+		pageInfo.put("reqPage", reqPage);				//요청된 페이지 번호
+		pageInfo.put("startPageNo", startPageNo);		//현재 기준 시작 페이지 번호
+		pageInfo.put("endPageNo", endPageNo);			//현재 기준 끝 페이지 번호
+		pageInfo.put("allRecipeCount", allRecipeCount);	//전체 레시피 게시글 수
+		pageInfo.put("totalPageNo",totalPageNo);		//전체 페이지 번호
+		// 이러면 페이지 준비 끝, 하나의 해시맵으로 합치기
+		
+		reqPageSet.put("pageInfo",pageInfo);
+		reqPageSet.put("list", list);
+		
+		return reqPageSet;
 	}
 }

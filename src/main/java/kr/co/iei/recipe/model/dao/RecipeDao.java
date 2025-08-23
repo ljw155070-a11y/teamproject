@@ -9,7 +9,7 @@ import kr.co.iei.recipe.model.vo.Recipe;
 @Mapper
 public interface RecipeDao {
 
-	List<Recipe> recipeList(int reqPage);
+	List<Recipe> recipeList(int startNum, int endNum);
 
 	int allRecipeCount();
 	

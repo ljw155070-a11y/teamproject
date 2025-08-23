@@ -1,6 +1,7 @@
 package kr.co.iei.recipe.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.iei.recipe.model.service.RecipeService;
+import kr.co.iei.recipe.model.vo.Recipe;
 
 @Controller
 @RequestMapping(value="/recipe")
@@ -19,7 +21,7 @@ public class RecipeController {
 	@GetMapping(value="/list")
 	public String recipeList(Model model,int reqPage) {
 		//reqPage 의 값에 해당하는 페이지에 리스트를 전달
-		HashMap<String, Object> reqList = recipeService.recipeList(reqPage);
+		HashMap<String,Object> reqList = recipeService.recipeList(reqPage);
 		model.addAttribute("reqList",reqList);
 		model.addAttribute("reqPage",reqPage);
 		return "recipe/list";
