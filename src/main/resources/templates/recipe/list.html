@@ -4,18 +4,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.recipe .select{
-		padding : 8px 12px;
-		width : 100px;
-		border-radius:20px;
-		text-align:center;
-		font-size:16px;
-	}
-	
 	.recipe{
 		width:1080px;
 		margin:0 auto;
 	}
+	.recipe.inputSelect,.recipe.inputSubmit,.recipe.inputText{
+		margin-top : 30px;
+		padding : 8px 12px;
+		width : 10%;
+		border-radius:20px;
+		text-align:center;
+		font-size:16px;
+		border : 1px solid #BFBFBF;
+	}
+	.recipe.inputText{
+		width : 75%;
+	}
+	
+	
 	.content-title{
 		text-align:center;
 	    font-size: 22px;
@@ -26,7 +32,10 @@
 	.recipe .select:hover{
 		cursor:pointer;
 	}
-
+	
+	.recipe.content{
+		padding : 50px 0px;
+	}
 </style>
 </head>
 <body>
@@ -37,11 +46,15 @@
 		<section class="recipe content-head">
 			<div class="content-title">레시피 게시판</div>
 			<div>
-				<select class="recipe select">
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-					<option value="writer">작성자</option>
-				</select>
+				<form action="/search" method="get" id="searchForm">
+					<select class="recipe inputSelect" name="field">
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="writer">작성자</option>
+					</select>
+					<input class="recipe inputText" type="text" name="searchInput" placeholder="검색어를 입력하세요">
+					<input class="recipe inputSubmit" type="submit" value="검색">
+				</form>
 			</div>
 		</section>
 	</main>
