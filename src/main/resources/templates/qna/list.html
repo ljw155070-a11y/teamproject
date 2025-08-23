@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="qna content">
+		<section class="qna content-head">
+			<div class="content-title">질문 게시판</div>
+			<div class="qna content-wrap">
+			<button class="qna contentInputBox" placeholder="글쓰기"></button><!--누르면 질문 입력창으로 넘어갈 버튼-->
+
+			<ul class="search-menu">
+				<li>
+					<a href="#">제목
+					<span class="material-icons">keyboard_arrow_down</span></a>
+					<ul class="sub-menu">
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</li>
+			</ul><!-- 검색창 왼쪽 제목분류 칸-->
+			
+			<div class="qnaSearch">
+			<input type="text" name="qnaSearchInput" placeholder="검색할 내용을 입력하세요">			
+			<button type="submit" class="qnaSearchBox"><span class="material-icons">search</span></button>
+			</div><!-- 검색할 내용 입력창 -->			
+			
+			<form action="/qnaList" method="get" id="qnaListForm">
+				<th>글 번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일/수정일</th>
+			</form><!-- qnaListForm전체를 감싸는 form -->
+			</div><!-- qna content-wrap전체를 감싸는 div-->
+		</section>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>
