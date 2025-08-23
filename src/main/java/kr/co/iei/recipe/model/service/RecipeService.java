@@ -44,11 +44,79 @@ public class RecipeService {
 		int startPageNo;
 		int endPageNo;
 		int totalPageNo = (int)Math.ceil(allRecipeCount/(double)listSize);
-		startPageNo = Math.max(1,reqPage - 2);
+		int pageCounts = 5;	//한 페이지에 선택 가능한 페이지를 몇개 출력할지
+		int pageWindowDiv=(pageCounts-1)/2;	//현재 기준 양옆에 몇개가 와야할지
+		startPageNo = Math.max(1,reqPage - pageWindowDiv);
 		//요청된 페이지를 2로 뺐을 때, 1이 더 크면 1으로 반환
-		endPageNo = Math.min(totalPageNo, reqPage+2);
+		//startPageNo 가 1이면 reqPage-2
+		endPageNo = Math.min(totalPageNo, reqPage+pageWindowDiv);
 		//요청된 페이지를 2로 더했을 때, 전체 페이지 개수가 더 작으면 그걸로 반환
+		//이 때, 보정을 해줘야될게 페이지는 무조건 5개 출력
+
+		/*
+		 * ★ 쉬운 버전으로 생각하기
+		 * (endPageNo-startPageNo+1) < pageCounts 이면 
+		 * reqPage 기준 -2 +2 한 것 중 어디가 보정되었는 지 확인하고, 
+		 * 보정된 값만큼 int a로 저장 보정되지 않은 쪽에 a 값만큼 연산, 
+		 * 이 때 연산값이 totalPageNo 보다 같거나 크고, 
+		 * 1보다 작거나 같으면 보정하지 않음
+		 * int shortCount = pageCounts - (endPageNo-startPageNo+1)
+		 * 최대 페이지 : 5
+		 * 
+		 * 	요청 페이지 : 2
+		 * 	출력 페이지 : 1 [2] 3 4 5 (뒤에 +1)
+		 * 
+		 *	요청 페이지 : 1
+		 * 	출력 페이지 : [1] 2 3 4 5 (뒤에 +2)
+		 * 
+		 * 	요청 페이지 : 4
+		 * 	출력 페이지 : 1 2 3 [4] 5 (앞에 -1)
+		 * 
+		 * 	요청 페이지 : 5
+		 * 	출력 페이지 : 1 2 3 4 [5] (앞에 -2)
+		 * 
+		 * 최대 페이지 : 8
+		 * 	요청 페이지 2
+		 * 	출력 페이지 1 [2] 3 4 5 (뒤에 +1)
+		 * 
+		 * 	요청 페이지 1
+		 * 	출력 페이지 [1] 2 3 4 5 (뒤에 +2)
+		 * 
+		 * 	요청 페이지 7
+		 * 	출력 페이지 4 5 6 [7] 8 (앞에 -1) 
+		 * 
+		 * 	요청 페이지 8
+		 * 	출력 페이지 4 5 6 7 [8] (앞에 -2)  
+		 */
+		if(totalPageNo<=pageCounts) {
+			//전체 페이지 개수가 지정한 페이지 개수보다 작으면 일단 전부 출력
+			startPageNo = 1;
+			endPageNo = totalPageNo;
+		}else {
+			//
+			if((reqPage - pageWindowDiv)<1) {
+				endPageNo += (1-(reqPage - pageWindowDiv));
+			}else if((reqPage + pageWindowDiv)>totalPageNo) {
+				startPageNo -= (reqPage + pageWindowDiv)-totalPageNo;
+			}
+		}
 		
+		/*
+		 * ★★ 생각하다 포기한거
+		if ((endPageNo-startPageNo+1) < pageCounts) {
+			//띄워주는 페이지 개수가 5개보다 작으면
+			if(startPageNo == 1) {
+				//시작 페이지가 1인건지 확인하고, 시작 쪽에서 빠진거면 
+				//빠진 만큼 뒤쪽에 추가
+				endPageNo+=Math.abs(reqPage-2);
+			}else if(endPageNo == totalPageNo) {
+				//끝 페이지가 1인건지 확인하고, 끝 쪽에서 빠진거면
+				//빠진만큼 앞 쪽에 추가
+				startPageNo+=Math.abs(endPageNo-(reqPage+2));
+			}
+		}
+		* ★★ 생각하다 포기한거
+		*/
 		//시작 페이지, 끝 페이지 준비 완료
 		
 		pageInfo.put("reqPage", reqPage);				//요청된 페이지 번호
