@@ -5,6 +5,46 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<th:block th:include="common/header"></th:block>
+	<main class="content">
+		<div class="main-content">
+		<div class="test">
+			<!-- 레시피 작업용 이동 경로 임시 생성 -->
+			<a href="/recipe/list">레시피 이동</a>
+		</div>
+			<div class="image-wrap">
+				<img src="/img/test.jpg" name="title-img">
+			</div>
+			<div class="recommend-wrap">
+				<div class="recommend-title">오늘의 추천 레시피</div>
+				<div class="recommend-content">
+					<img src="/img/test.jpg" name="recommend-img">
+					<p>매콤한 닭갈비</p>
+					<p>dkdlel**</p>
+				</div>
+				<div class="recommend-content">
+						<img src="/IMG/test.jpg" name="recommend-img">
+						<p>떡볶이</p>
+						<p>qlalf**</p>
+				</div>
+				<div class="recommend-content">
+					<img src="/IMG/test.jpg" name="recommend-img">
+					<p>피자</p>
+					<p>wlqrkwk**</p>
+				</div>
+			</div>
+			<div class="new-wrap">
+				<div class="new-title">인기/최신 레시피</div>
+				<div class="new-content">
+					<img src="/img/test.jpg" name="new-img">
+					<p>한식</p>
+					<p>이 계란찜 해보세요</p>
+					<p>asda**</p>
+					<p>2025.08.22 오후 8:00</p>
+				</div>
+			</div>		
+		</div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
