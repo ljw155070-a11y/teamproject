@@ -21,9 +21,8 @@ public class RecipeController {
 	@GetMapping(value="/list")
 	public String recipeList(Model model,int reqPage) {
 		//reqPage 의 값에 해당하는 페이지에 리스트를 전달
-		HashMap<String,Object> reqList = recipeService.recipeList(reqPage);
-		model.addAttribute("reqList",reqList);
-		model.addAttribute("reqPage",reqPage);
+		HashMap<String,Object> reqPageSet = recipeService.recipeList(reqPage);
+		model.addAttribute("reqPageSet",reqPageSet);
 		return "recipe/list";
 	}
 }

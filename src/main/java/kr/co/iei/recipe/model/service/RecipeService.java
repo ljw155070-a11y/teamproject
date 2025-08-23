@@ -61,6 +61,22 @@ public class RecipeService {
 		reqPageSet.put("pageInfo",pageInfo);
 		reqPageSet.put("list", list);
 		
+		//reqPageSet으로 값 뽑기 연습
+		//현재 페이지 번호
+		HashMap<String,Integer> test = (HashMap<String,Integer>)reqPageSet.get("pageInfo");
+		System.out.println("현재 요청된 페이지 번호 :"+test.get("reqPage"));
+		System.out.println("띄워야할 시작 페이지 번호 :"+test.get("startPageNo"));
+		System.out.println("띄워야할 마지막 페이지 번호 :"+test.get("endPageNo"));
+		System.out.println("전체 레시피 개수 :"+test.get("allRecipeCount"));
+		System.out.println("전체 페이지 개수 :"+test.get("totalPageNo"));
+		
+		//현재 페이지 번호에 해당하는 리스트
+		List<Recipe> test2 = (List<Recipe>)reqPageSet.get("list");
+		for(Recipe r : test2) {
+			System.out.print(r.getRecipeNo()+"\t");
+			System.out.print(r.getRecipeTitle()+"\t");
+			System.out.println();
+		}
 		return reqPageSet;
 	}
 }
