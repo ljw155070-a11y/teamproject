@@ -5,10 +5,46 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<th:block th:include="common/header"></th:block>
 	<main class="content">
 		<div>
 			<div class="content-title">회원 관리 페이지</div>
-		</div>
+			<table class="allMember-tbl">
+				<tr>
+					<th style="width:15%;">선택</th>
+					<th style="width:15%;">번호</th>
+					<th style="width:30%;">아이디</th>
+					<th style="width:20%;">회원등급</th>
+					<th style="width:20%;">등급변경</th>
+				</tr>
+				<tr>
+					<td>
+						<input type="checkbox" class="chk" id="chk">
+						<label for="chk"></label>
+					</td>
+					<td>1</td>
+					<td>user01</td>
+					<td>
+						<div class="select">
+							<select>
+								<option value="1">매운맛</option>
+								<option value="2">보통맛</option>
+								<option value="3">순한맛</option>
+							</select>
+						</div>
+					</td>
+					<td>
+						<button class="btn changeLevel">등급변경</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5">
+						<button class="btn checkedChangeLevel">선택 회원 등급 변경</button>
+					</td>
+				</tr>
+			</table>
+		</div>	
 	</main>
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
