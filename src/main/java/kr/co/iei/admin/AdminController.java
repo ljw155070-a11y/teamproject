@@ -9,16 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.iei.member.model.service.MemberService;
+import kr.co.iei.member.model.vo.MemberListData;
 
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController {
+	
 	@Autowired
 	private MemberService memberService;
+	
 	@GetMapping(value="/allMember")
-	public String allMember(Model model) {
-		List list = memberService.selectAllMember();
-		model.addAttribute("list", list);
+	public String allMember(int reqPage, Model model) {
+		MemberListData mld = memberService.selectMemberList(reqPage);
+		model.addAttribute("list", mld.getList());
+		model.addAttribute("pageNavi", mld.getPageNavi());
 		return "admin/allMember";
 	}
+	
 }
