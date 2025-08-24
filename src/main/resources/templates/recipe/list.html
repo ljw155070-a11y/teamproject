@@ -74,6 +74,13 @@
 		border-radius:20px;
 	}
 	
+	.recipe.currPage{
+		font-size:1.5em;
+	}
+	.recipe.subtitle{
+		font-size:0.5em;
+	}
+	
 
 </style>
 </head>
@@ -123,23 +130,30 @@
 							</tr>
 							
 							<tr>
-								<td>작성자 : <span th:text="${r.memberNickname}"></span></td>
+								<td class="recipe subtitle">작성자 : <span th:text="${r.memberNickname}"></span></td>
 							</tr>
 							<tr>
-								<td>조리시간 : <span th:text="${r.recipeCookingTime}"></span></td>
+								<td class="recipe subtitle">조리시간 : <span th:text="${r.recipeCookingTime}"></span></td>
 							</tr>
 							<tr>
-								<td>난이도 : <span th:text="${r.recipeLevel}"></span></td>
+								<td class="recipe subtitle">난이도 : <span th:text="${r.recipeLevel}"></span></td>
 							</tr>
 							<tr>
-								<td>평점 : <span th:text="${r.recipeRate}"></span></td>
+								<td class="recipe subtitle">평점 : <span th:text="${r.recipeRate}"></span></td>
 							</tr>
 							<tr>
-								<td>조회수 : <span th:text="${r.recipeViewCount}"></span></td>
+								<td class="recipe subtitle">조회수 : <span th:text="${r.recipeViewCount}"></span></td>
 							</tr>
 						<th:block>
 					</tbody>
 				</table>
+			</div>
+			<div class="recipe pageBtn">
+			<!-- 일단 띄워야할 시작 페이지 번호 -->
+			
+			<a th:each="i:${#numbers.sequence(reqPageSet.pageInfo.startPageNo,reqPageSet.pageInfo.endPageNo)}" 
+			th:text="${i}" th:href="@{/recipe/list(reqPage=${i})}"
+			th:classappend="${i==reqPageSet.pageInfo.reqPage}?'recipe currPage'"></a>
 			</div>
 		</section>
 	</main>
