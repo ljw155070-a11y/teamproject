@@ -155,6 +155,13 @@
 			th:text="${i}" th:href="@{/recipe/list(reqPage=${i})}"
 			th:classappend="${i==reqPageSet.pageInfo.reqPage}?'recipe currPage'"></a>
 			</div>
+			<!-- 이전/다음 버튼 생성 --> 
+			
+			<!-- 이전 버튼 규칙 : reqPage -5했을 때 1보다 작으면 1으로 작동--> 
+			<!-- reqPage 가 3보다 작으면 이전 버튼 제거 --> 
+			
+			<!-- 이후 버튼 규칙 : reqPage +5했을 때 totalPageNo 보다 크면 totalPageNo 로 작동 --> 
+			<!-- reqPage가 totalPageNo -3 보다 크면 이후 버튼 제거 -->
 		</section>
 	</main>
 	
