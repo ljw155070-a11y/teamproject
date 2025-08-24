@@ -150,7 +150,7 @@
 			</div>
 			<div class="recipe pageBtn">
 			<!-- 일단 띄워야할 시작 페이지 번호 -->
-			
+			<!-- th:each="num : ${#numbers.sequence(시작값, 끝값)}" -->
 			<a th:each="i:${#numbers.sequence(reqPageSet.pageInfo.startPageNo,reqPageSet.pageInfo.endPageNo)}" 
 			th:text="${i}" th:href="@{/recipe/list(reqPage=${i})}"
 			th:classappend="${i==reqPageSet.pageInfo.reqPage}?'recipe currPage'"></a>
