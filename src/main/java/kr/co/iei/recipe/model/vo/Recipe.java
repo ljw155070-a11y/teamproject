@@ -24,4 +24,6 @@ public class Recipe {
 	private Date recipeUpdateDate;			// 수정일, 기본값 null
 	private int memberNo;					// 작성자 번호 (FK)
 	private String recipeThumbnailPath;		// 썸네일 경로
+	private String recipeRate;
+	private String memberNickname;
 }

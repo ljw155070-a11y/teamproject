@@ -3,14 +3,29 @@
 <mapper namespace="kr.co.iei.recipe.model.dao.RecipeDao">
   	<select id="recipeList" resultType="recipe">
   		SELECT * 
-FROM (
-                SELECT ROWNUM RNUM,A.* 
-                FROM (
-                                SELECT * 
-                                FROM RECIPE_TBL 
-                                ORDER BY RECIPE_NO DESC
-                                ) A
-                ) WHERE RNUM BETWEEN #{startNum} AND #{endNum}
+    FROM (
+        SELECT ROWNUM RNUM,A.* 
+        FROM (
+                SELECT R.RECIPE_NO,
+                		R.RECIPE_TYPE,
+                        R.RECIPE_THUMBNAIL_PATH,
+                        R.RECIPE_TITLE,
+                        M.MEMBER_NICKNAME,
+                        R.RECIPE_COOKING_TIME,
+                        R.RECIPE_LEVEL,
+                        R.RECIPE_VIEW_COUNT,
+                        R.MEMBER_NO,
+                        R.RECIPE_WRITE_DATE,
+                        R.RECIPE_UPDATE_DATE,
+                        NVL(G.AVG_RATE,0) AS RECIPE_RATE
+                    FROM RECIPE_TBL R
+                    JOIN MEMBER_TBL M
+                    ON (M.MEMBER_NO = R.MEMBER_NO)
+                    LEFT JOIN 
+                        (SELECT RECIPE_NO,AVG(RECIPE_RATE) AVG_RATE FROM RECIPE_GRADE_TBL GROUP BY RECIPE_NO) G
+                    ON(G.RECIPE_NO=R.RECIPE_NO) ORDER BY RECIPE_NO DESC
+            ) A
+        ) WHERE RNUM BETWEEN ${startNum} AND ${endNum}
   	</select>
   	<select id="allRecipeCount">
   		SELECT COUNT(*) FROM RECIPE_TBL

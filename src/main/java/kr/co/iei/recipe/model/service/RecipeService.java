@@ -143,6 +143,7 @@ public class RecipeService {
 		for(Recipe r : test2) {
 			System.out.print(r.getRecipeNo()+"\t");
 			System.out.print(r.getRecipeTitle()+"\t");
+			System.out.print(r.getMemberNickname()+"\t");
 			System.out.println();
 		}
 		return reqPageSet;
