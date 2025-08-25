@@ -74,6 +74,7 @@
     font-weight: bold;
     float: left;
     text-align: left;
+    padding-top: 16px;
 }
 
 .header-nav>ul>li>a:hover{
