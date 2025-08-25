@@ -9,4 +9,6 @@ public interface MemberDao {
 
 	List selectAllMember();
 
+	int selectMemberTotalCount();
+
 }

@@ -1,11 +1,40 @@
 <!DOCTYPE html>
+<!-- 구글 아이콘 -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="/css/default.css" />
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+    <link rel="stylesheet" href="/css/default.css">
+
 </head>
 <body>
-dasgasdg
+	<header class="header">
+        <div>
+            <div class="header-logo">
+                <a href="/"><img src="/img/로고.png" ></a>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">레시피 게시판</a></li>
+                    <li><a href="#">자유 게시판</a></li>
+                    <li><a href="#">질문 게시판</a></li>
+                </ul>
+            </nav>
+            <form action="#" method="get">
+                <div class="header-search-box">
+                    <input type="text" class="header-search" >
+                    <span class="material-icons header-search-icon">search</span>
+                </div>
+            </form>
+            <div class="header-user-btns">
+                <button type="button" class="header-login-btn">로그인</button>
+                <button type="button" class="header-join-btn">회원가입</button>
+            </div>            
+        </div>
+    </header>
 </body>
 </html>
