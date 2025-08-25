@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.iei.qna.model.service.QnaService;
 import kr.co.iei.qna.model.vo.Qna;
+import kr.co.iei.qna.model.vo.QnaListData;
 
 @Controller
 @RequestMapping(value="/qna")
@@ -18,10 +19,11 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
-	@GetMapping(value="/qnaList") //qna 페이징
+	@GetMapping(value="/qnaList")
 	public String qnaList(int reqPage, Model model) {
-		HashMap<String, Object> qnaPageSet = qnaService.selectAllQnaList(reqPage);
-		model.addAttribute("qnaPageSet", qnaPageSet);
+		QnaListData qld = qnaService.selectAllQnaList(reqPage);
+		model.addAttribute("list", qld.getList());
+		model.addAttribute("pageNavi", qld.getPageNavi());
 		return "qna/list";
 	}
 }

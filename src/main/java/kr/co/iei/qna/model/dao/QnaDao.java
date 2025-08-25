@@ -9,6 +9,8 @@ import kr.co.iei.qna.model.vo.Qna;
 @Mapper
 public interface QnaDao {
 
-	List<Qna> selectAllQnaList(int endPage, int startPage);
+	int selectQnaTotalCount();
+
+	
 
 }

@@ -8,25 +8,35 @@ import org.springframework.stereotype.Service;
 
 import kr.co.iei.qna.model.dao.QnaDao;
 import kr.co.iei.qna.model.vo.Qna;
+import kr.co.iei.qna.model.vo.QnaListData;
 
 @Service
 public class QnaService {
 	@Autowired
 	private QnaDao qnaDao;
 
-	public HashMap<String, Object> selectAllQnaList(int reqPage) {
-		int qnaPageSize = 10;
+	public QnaListData selectAllQnaList(int reqPage) {
+		int numPerPage = 10;
 		
-		int endPage = reqPage*qnaPageSize;
-		int startPage = endPage-qnaPageSize+1;
+		int endPage = reqPage*numPerPage;
+		int startPage = endPage-numPerPage +1;
 		
-		List<Qna> qnaList = qnaDao.selectAllQnaList(endPage, startPage);
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("endPage", endPage);
+		param.put("startPage", startPage);
 		
-		HashMap<String, Object> qnaPageSet = new HashMap<String, Object>();
-		qnaPageSet.put("endPage", endPage);
-		qnaPageSet.put("startPage", startPage);
-		return qnaPageSet;
+		int totalCount = qnaDao.selectQnaTotalCount();
+		
+		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
+		
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
+		
+		
+		return null;
 	}
+
+	
 
 	
 
