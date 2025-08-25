@@ -25,4 +25,11 @@ public class RecipeController {
 		model.addAttribute("reqPageSet",reqPageSet);
 		return "recipe/list";
 	}
+	
+	@GetMapping(value="/detail")
+	public String recipeDetail(Model model,int reqRecipeNo) {
+		model.addAttribute("reqRecipeNo",reqRecipeNo);
+		System.out.println(reqRecipeNo);
+		return "recipe/detail";
+	}
 }
