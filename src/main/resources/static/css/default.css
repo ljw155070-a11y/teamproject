@@ -33,7 +33,8 @@
     font-size: 22px;
     color: #EBA854 ;
     font-family: ns-b;
-    
+    font-weight: bold;
+    text-align: center;
 }
 .header{
     background-color: #fff;
