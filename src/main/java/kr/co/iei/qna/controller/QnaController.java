@@ -1,5 +1,8 @@
 package kr.co.iei.qna.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +18,12 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
-	/*@GetMapping(value="/qnaList") //qna 페이징
+	@GetMapping(value="/qnaList") //qna 페이징
 	public String qnaList(int reqPage, Model model) {
-		Qna qna= qnaService.selectQnaList(reqPage);
+		List<Qna> qnaList = qnaService.selectAllQnaList(reqPage);
+		model.addAttribute("qnaList", qnaList);
 		return "qna/list";
 	}
-	*/
+	
 	
 }
