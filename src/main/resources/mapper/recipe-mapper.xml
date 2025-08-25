@@ -30,4 +30,8 @@
   	<select id="allRecipeCount">
   		SELECT COUNT(*) FROM RECIPE_TBL
   	</select>
+  	
+  	<select id="recipeDetail" resultType="recipe">
+  		
+  	</select>
 </mapper>
