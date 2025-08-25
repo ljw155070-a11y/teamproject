@@ -6,13 +6,72 @@
     rel="stylesheet">
 <title>Insert title here</title>
 <style>
+	.content{
+		margin: 0 auto;
+		width: 800px;
+	}
+	.content-head{
+		border: 1px solid black;
+		margin: 0 auto;
+	}
+	.content-wrap>.contentInputBox{
+		margin: 0 auto;
+		float: left;
+		text-align: center;
+		border-radius: 5px;
+	}
+	.content-title{
+		text-align: center;
+		color: orange;
+	}
+	.search-menu{
+		margin: 0 auto;
+		float: left;
+		overflow: hidden;
+		align-items: center;
+		margin-right: none;
+	}
 	.search-menu>li>a{
+	display: flex;
 	border : 1px solid black;
 	text-decoration: none;
+	margin: 0 auto;
+	float: left;
+	font-size: 15px;
+	align-items: center;
 	color: gray;
+	border-radius: 5px;
 	}
-	#qnaListForm>th{
-	width: 10%;
+	.qnaSearch{
+		margin: 0 auto;
+		display: flex;
+		border-radius: 5px;
+		justify-content: flex-end;
+		margin-left: none;
+		
+	}
+	.qnaSearch>input{
+		width: 300px;
+		text-align: center;
+		border-right: none;
+	}
+	.qnaSearch>.qnaSearchInput>.qnaSearchBox{
+		margin: 0 auto;
+		border-left: none;
+		padding: 0;
+	}
+
+	.content-list{
+		overflow: hidden;
+		width: 100%;
+		border: 1px solid black;
+	}
+	.content-list>#qnaListFrom{
+		display: flex;
+		margin: 0 auto;
+		float: left;
+		text-align: center;
+		width: 550px;
 	}
 </style>
 </head>
