@@ -20,7 +20,7 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	
-	@GetMapping(value="/qnaList")
+	@GetMapping(value="/list")
 	public String qnaList(int reqPage, Model model) {
 		
 		QnaListData qld = qnaService.selectAllQnaList(reqPage);
