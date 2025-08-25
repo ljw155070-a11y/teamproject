@@ -136,11 +136,11 @@
 				<tr style="width: 40%;">제목</tr>
 				<tr style="width: 20%;">작성자</tr>
 				<tr style="width: 20%;">작성일/수정일</tr>
-				<tr th:each="Qna : ${list}">
-					<td th:text="${Qna.qnaNo}"></td>
-					<td th:text="${Qna.qnaTitle}"></td>
-					<td th:text="${Qna.memberNo}"></td>
-					<td th:text="${Qna.qnaDate}"></td>
+				<tr th:each="qna : ${list}">
+					<td th:text="${qna.qnaNo}"></td>
+					<td th:text="${qna.qnaTitle}"></td>
+					<td th:text="${qna.memberNo}"></td>
+					<td th:text="${qna.qnaDate}"></td>
 				</tr>
 			</table><!-- qnaListForm전체를 감싸는 table -->
 			<div id="pageNavi" th:utext="${pageNavi}"></div>

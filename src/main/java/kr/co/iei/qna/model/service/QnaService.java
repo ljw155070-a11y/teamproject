@@ -56,8 +56,19 @@ public class QnaService {
 				break;
 			}
 		}
+		if(pageNo > totalPage) {
+			pageNavi += "<li>";
+			pageNavi += "<a class='qnaPage' href='qna/list?reqPage='"+pageNo+">";
+			pageNavi += "<span class='material-icons'>chevron-right</span>";
+			pageNavi += "</a>";
+			pageNavi +="</li>";
+		}
 		
-		return null;
+		pageNavi += "</ul>";
+		
+		List list = qnaDao.selectAllQna(param);
+		QnaListData qld = new QnaListData(list, pageNavi);
+		return qld;
 	}
 
 	
