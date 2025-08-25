@@ -5,39 +5,145 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
 <title>Insert title here</title>
+<style>
+	.content{
+		margin: 0 auto;
+		width: 1080px;
+	}
+	.content-head{
+		border: 1px solid black;
+		margin: 0 auto;
+	}
+	.content-head>.content-wrap>*{
+		margin: 0 auto;
+		float: left;
+		overflow: hidden;
+		margin-top: 50px;
+	}
+	.content-wrap>.contentInputBox{
+		display: flex;
+		margin-top: 50px;
+		margin: 0 auto;
+		float: left;
+		text-align: center;
+		border-radius: 5px;
+	}
+	.content-title{
+		text-align: center;
+		color: orange;
+	}
+	.search-menu{
+		margin: 0 auto;
+		float: left;
+		overflow: hidden;
+		align-items: center;
+		margin-right: 50px;
+		margin-left: 50px;
+		list-style: none;
+	}
+	.search-menu>li>ul>li{
+		list-style: none;
+	}
+	.search-menu>li>a{
+	display: flex;
+	border : 1px solid black;
+	text-decoration: none;
+	margin: 0 auto;
+	float: left;
+	font-size: 15px;
+	align-items: center;
+	color: gray;
+	border-radius: 5px;
+	}
+	.qnaSearch{
+		margin: 0 auto;
+		display: flex;
+		border-radius: 5px solid black;
+		float: right;
+		margin-left: none;
+		padding-left: 100px;
+	}
+	.qnaSearch>input{
+		width: 300px;
+		text-align: center;
+		border-right: none;
+		margin-bottom: 0px;
+	}
+	.qnaSearch>.qnaSearchInput>.qnaSearchBox{
+		margin: 0 auto;
+		border-left: none;
+		padding: 0;
+	}
+
+	.content-list{
+		overflow: hidden;
+		width: 100%;
+		border: 1px solid black;
+	}
+	.content-list>#qnaListForm{
+		display: flex;
+		margin: 0 auto;
+		float: left;
+		text-align: center;
+		width: 550px;
+	}
+	.pageBtn>#pageNavi>li{
+		margin: 0 auto;
+		float: left;
+		list-style: none;
+	}
+	.pageBtn>#pageNavi>li>a{
+		margin: 0 auto;
+		text-decoration: none;
+		color: black;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main class="qna content">
 		<section class="qna content-head">
 			<div class="content-title">질문 게시판</div>
-			<div class="qna content-wrap">
-			<button class="qna contentInputBox" placeholder="글쓰기"></button><!--누르면 질문 입력창으로 넘어갈 버튼-->
-
-			<ul class="search-menu">
-				<li>
-					<a href="#">제목
-					<span class="material-icons">keyboard_arrow_down</span></a>
-					<ul class="sub-menu">
-						<li></li>
-						<li></li>
-						<li></li>
-					</ul>
-				</li>
-			</ul><!-- 검색창 왼쪽 제목분류 칸-->
 			
+			<div class="qna content-wrap">
+			<button class="qna contentInputBox">글쓰기</button><!--누르면 질문 입력창으로 넘어갈 버튼-->
+
+			<div class="menu-box">
+				<ul class="search-menu">
+					<li>
+						<a href="#">제목
+						<span class="material-icons">keyboard_arrow_down</span></a>
+						<ul class="sub-menu">
+							<li>제목</li>
+							<li>음식이름</li>
+							<li>작성자</li>
+						</ul>
+					</li>
+				</ul><!-- 검색창 왼쪽 제목분류 칸-->
+			</div><!--menu-box-->
+
 			<div class="qnaSearch">
 			<input type="text" name="qnaSearchInput" placeholder="검색할 내용을 입력하세요">			
 			<button type="submit" class="qnaSearchBox"><span class="material-icons">search</span></button>
-			</div><!-- 검색할 내용 입력창 -->			
-			
-			<form action="/qnaList" method="get" id="qnaListForm">
-				<th>글 번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일/수정일</th>
-			</form><!-- qnaListForm전체를 감싸는 form -->
+			</div><!-- qnaSearch를 감싸는 div -->
 			</div><!-- qna content-wrap전체를 감싸는 div-->
+		</section>
+		
+		<section class="qna content-list">
+			<table action="/qnaList" method="get" id="qnaListForm">
+				<tr style="width: 20%;">글 번호</tr>
+				<tr style="width: 40%;">제목</tr>
+				<tr style="width: 20%;">작성자</tr>
+				<tr style="width: 20%;">작성일/수정일</tr>
+				<tr th:each="qna : ${list}">
+					<td th:text="${qna.qnaNo}"></td>
+					<td th:text="${qna.qnaTitle}"></td>
+					<td th:text="${qna.memberNo}"></td>
+					<td th:text="${qna.qnaDate}"></td>
+				</tr>
+			</table><!-- qnaListForm전체를 감싸는 table -->
+			<div id="pageNavi" th:utext="${pageNavi}"></div>
 		</section>
 	</main>
 	<th:block th:include="common/footer"></th:block>
