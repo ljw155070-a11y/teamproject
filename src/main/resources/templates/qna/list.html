@@ -5,6 +5,16 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
 <title>Insert title here</title>
+<style>
+	.search-menu>li>a{
+	border : 1px solid black;
+	text-decoration: none;
+	color: gray;
+	}
+	#qnaListForm>th{
+	width: 10%;
+	}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -12,7 +22,7 @@
 		<section class="qna content-head">
 			<div class="content-title">질문 게시판</div>
 			<div class="qna content-wrap">
-			<button class="qna contentInputBox" placeholder="글쓰기"></button><!--누르면 질문 입력창으로 넘어갈 버튼-->
+			<button class="qna contentInputBox">글쓰기</button><!--누르면 질문 입력창으로 넘어갈 버튼-->
 
 			<ul class="search-menu">
 				<li>
