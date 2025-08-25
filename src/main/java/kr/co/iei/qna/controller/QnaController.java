@@ -20,10 +20,8 @@ public class QnaController {
 	
 	@GetMapping(value="/qnaList") //qna 페이징
 	public String qnaList(int reqPage, Model model) {
-		List<Qna> qnaList = qnaService.selectAllQnaList(reqPage);
-		model.addAttribute("qnaList", qnaList);
+		HashMap<String, Object> qnaPageSet = qnaService.selectAllQnaList(reqPage);
+		model.addAttribute("qnaPageSet", qnaPageSet);
 		return "qna/list";
 	}
-	
-	
 }
