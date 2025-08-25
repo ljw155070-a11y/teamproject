@@ -34,3 +34,131 @@
     color: #EBA854 ;
     font-family: ns-b;
 }
+.header{
+    background-color: #fff;
+    width: 100%;
+    position: fixed;
+    display: block;
+    overflow: hidden;
+    display: flex;
+    align-items: center;    
+}
+.header>div{
+    display: flex;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.header-logo{
+    float: left;
+}
+.header-logo>a>img{
+    width: 200px;
+    margin-top: 5px;
+    justify-content : flex-start;
+}
+.header-nav{
+    float: left;
+}
+.header-nav>ul{
+    display: flex;
+    list-style-type: none ;
+}
+.header-nav>ul>li{
+    margin: 0 15px;
+    float: left;
+}
+.header-nav>ul>li>a{
+    text-decoration: none;
+    font-size: 14px;
+    color: #656565;
+    font-weight: bold;
+    float: left;
+    text-align: left;
+}
+
+.header-nav>ul>li>a:hover{
+    color: #b8b8b8;
+}
+
+.header-search-box{
+    background-color: #F4F4F4;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-left: 80px;
+    height: 40px;
+}
+.header-search-box>input{
+    border: none;
+    background-color: #F4F4F4;
+    border-radius: 15px;
+    outline: none;
+    font-size: 16px;
+    
+}
+.header-search-icon{
+    color: #FF9D23;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.header-login-btn{
+    background-color: #FF9D23;
+    border: none;
+    color: #fff;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.header-join-btn{
+    background-color: #EFEFEF;
+    border: none;
+    color: #B2B2B2;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.header-user-btns>button{
+    padding: 4px 16px;
+    margin-top: 14px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.header-login-btn:hover{
+    background-color: #ffca8a;
+}
+
+.header-join-btn:hover{
+    background-color: #b3b3b3;
+    color: #e2e2e2;
+}
+
+.footer{
+    background-color: #FBF8E8;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+}
+.footer-logo>img{
+    width: 200px;
+    margin: 40px;
+    overflow: hidden;
+    padding-left: 40px;
+    padding-top : 8px;
+    padding-right: 400px;
+}
+.footer>.footer-content{
+    color: #C9BDA9;
+    margin: 0 auto;
+    padding: 20px 15px;
+    float: right;
+}
+.footer>.footer-content>p{
+    text-align: left;
+    font-size: 14px;
+    margin: 10px 0;
+    justify-content: flex-end;
+    padding-left: 400px;
+}
