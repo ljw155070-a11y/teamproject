@@ -136,7 +136,7 @@
 				<tr style="width: 40%;">제목</tr>
 				<tr style="width: 20%;">작성자</tr>
 				<tr style="width: 20%;">작성일/수정일</tr>
-				<tr th:each="Qna : ${qnaPageSet}">
+				<tr th:each="Qna : ${list}">
 					<td th:text="${Qna.qnaNo}"></td>
 					<td th:text="${Qna.qnaTitle}"></td>
 					<td th:text="${Qna.memberNo}"></td>

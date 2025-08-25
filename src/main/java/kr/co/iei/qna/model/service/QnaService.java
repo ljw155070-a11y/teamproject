@@ -32,6 +32,30 @@ public class QnaService {
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
 		
+		String pageNavi = "<ul class='qna-paging'>";
+		if(pageNo != 1) {			
+			pageNavi += "<li>";
+			pageNavi += "<a class='qnaPage' href='/qna/list?reqPage='"+(pageNo-1)+">";
+			pageNavi += "<span class='material-icons'>chevron-left</span>";
+			pageNavi += "</li>";
+		}
+		
+		for(int i=0;i<pageNaviSize;i++) {
+			pageNavi += "<li>";
+			if(pageNo == reqPage) {
+				pageNavi += "<a class='qnaPage active-page' href='/qna/list?reqPage='"+pageNo+">";
+			}else {
+				pageNavi += "<a class='qnaPage' href='qna/list?reqPage='"+pageNo+">";
+			}
+			pageNavi += pageNo;
+			pageNavi += "</a>";
+			pageNavi += "</li>";
+			
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
 		
 		return null;
 	}
