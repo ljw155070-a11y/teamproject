@@ -21,8 +21,6 @@
 		margin: 0 auto;		
 		display: flex;
 		justify-content: space-between;
-
-		
 	}
 	.recommend-content>div{
 		width:30%;
@@ -54,23 +52,28 @@
 		font-weight: 900;
 	}
 	.new-content{
-		width: 600px;
+		width: 700px;
 		margin: 0 auto;	
 		overflow:hidden;
-		margin-bottom: 40px;	
+		margin-bottom: 40px;
+			
 	}
 	.new-content>div{
 		background-color: #FBF8E8;
 		width: 100%;
-		display:flex;
 		margin-bottom: 30px;
 		padding:20px;
+		overflow: hidden;
+		
 	}
 	
 	.new-content>div img{
-		width: 40%;
+		width: 300px;
+		height: 200px;
 	}
-	
+	.new-content>div>div{
+		float:left;
+	}
 	.new-content>div>div:nth-child(2){
 		background-color: #F0D0A9;
 		width: 60px;
@@ -78,8 +81,26 @@
 		border: 1px solid transparent;
 		border-radius: 10px;
 		text-align: center;
+		margin-top:10px;
 		margin-left: 20px;
+		margin-right:200px;
 		font-size: 14px;
+	}
+	.new-content>div>div:nth-child(3)>p:nth-child(1){
+		font-size: 18px;
+		font-weight: 700;
+		margin-left: 20px;
+		margin-top:10px;
+	}
+	.new-content>div>div:nth-child(3)>p:nth-child(2){
+		margin-left: 20px;	
+		margin-top: 70px;
+		color:#BFBFBF;
+	}
+	.new-content>div>div:nth-child(3)>p:nth-child(3){
+		margin-top: 10px;
+		margin-left: 200px;
+		color:#BFBFBF;	
 	}
 	
 </style>
@@ -115,7 +136,9 @@
 				<div class="new-title"><p>인기/최신 레시피</p></div>
 				<div class="new-content">
 					<div>
-						<img src="/img/test.jpg" name="new-img">
+						<div>
+							<img src="/img/test.jpg" name="new-img">
+						</div>	
 						<div><p>한식</p></div>
 						<div>
 							<p>이 계란찜 해보세요</p>
@@ -124,7 +147,9 @@
 						</div>	
 					</div>
 					<div>
-						<img src="/img/test.jpg" name="new-img">
+						<div>
+							<img src="/img/test.jpg" name="new-img">
+						</div>
 						<div><p>한식</p></div>
 						<div>
 							<p>이 계란찜 해보세요</p>
