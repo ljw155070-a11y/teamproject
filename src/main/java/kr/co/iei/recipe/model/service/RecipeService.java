@@ -148,4 +148,10 @@ public class RecipeService {
 		}
 		return reqPageSet;
 	}
+
+	public Recipe recipeDetail(int reqRecipeNo) {
+		Recipe recipe = new Recipe();
+		recipe = recipeDao.recipeDetail(reqRecipeNo);
+		return recipe;
+	}
 }
