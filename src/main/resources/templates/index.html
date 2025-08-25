@@ -3,6 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.image-wrap{
+		overflow: hidden;
+		margin:0 auto;
+	}
+	.image-wrap>img{
+		width:100%;
+		
+	}
+	.recommend-wrap{
+		margin:0 auto;
+		overflow:hidden;
+		margin:0 auto;
+	}
+	.recommend-title{
+		
+	}
+	.recommend-content>div{
+		width:100%;
+		
+	}
+	.recommend-content>div>img{
+		width:30%;
+		float: left;
+	}
+	
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -14,19 +41,21 @@
 			<div class="recommend-wrap">
 				<div class="recommend-title">오늘의 추천 레시피</div>
 				<div class="recommend-content">
-					<img src="/img/test.jpg" name="recommend-img">
-					<p>매콤한 닭갈비</p>
-					<p>dkdlel**</p>
-				</div>
-				<div class="recommend-content">
+					<div>
 						<img src="/img/test.jpg" name="recommend-img">
 						<p>떡볶이</p>
 						<p>qlalf**</p>
-				</div>
-				<div class="recommend-content">
-					<img src="/img/test.jpg" name="recommend-img">
-					<p>피자</p>
-					<p>wlqrkwk**</p>
+					</div>	
+					<div>
+						<img src="/img/test.jpg" name="recommend-img">
+						<p>떡볶이</p>
+						<p>qlalf**</p>
+					</div>
+					<div>
+						<img src="/img/test.jpg" name="recommend-img">
+						<p>떡볶이</p>
+						<p>qlalf**</p>
+					</div>
 				</div>
 			</div>
 			<div class="new-wrap">
