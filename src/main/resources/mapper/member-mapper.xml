@@ -4,4 +4,8 @@
   <select id="selectAllMember" resultType="member">
   	select * from member_tbl order by 1
   </select>
+  
+  <select id="selectMemberTotalCount" resultType="int">
+  	select count(*) from member_tbl
+  </select>
 </mapper>
