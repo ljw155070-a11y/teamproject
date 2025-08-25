@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.recipe.content{
+		padding:100px 0px;
+	}
+	body{
+		background-color:#eeeeee;
+		/*임시 적용 헤더 완성되면 제거*/
+	}
+	
+	.content-title{
+		text-align:center;
+	    font-size: 22px;
+    	color: #EBA854 ;
+    	font-family: ns-b;
+    	/*임시 적용 헤더 완성되면 제거*/
+	}
+	.recipe.content{
+		width:1080px;
+		margin:0 auto;
+	}
+	.recipe.content-box{
+		background-color:white;
+		width : 100%;
+		min-height: 500px;
+		border-radius:20px;
+	}
+	
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="recipe content">
+		<section class="recipe content-body">
+			<div class="recipe content-box">
+				<div>제목 들어감</div>
+				<div>내용 들어감</div>
+			</div>
+		</section>
+		<section class="recipe content-footer">
+			<div class="recipe comment-box">
+				<div>댓글 들어감</div>
+			</div>
+		</section>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

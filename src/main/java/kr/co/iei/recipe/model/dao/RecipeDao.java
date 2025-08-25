@@ -12,5 +12,7 @@ public interface RecipeDao {
 	List<Recipe> recipeList(int startNum, int endNum);
 
 	int allRecipeCount();
+
+	Recipe recipeDetail(int reqRecipeNo);
 	
 }
