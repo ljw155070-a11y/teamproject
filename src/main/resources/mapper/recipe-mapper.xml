@@ -32,6 +32,6 @@
   	</select>
   	
   	<select id="recipeDetail" resultType="recipe">
-  		
+  		SELECT * FROM RECIPE_TBL WHERE RECIPE_NO=${reqRecipeNo}
   	</select>
 </mapper>
