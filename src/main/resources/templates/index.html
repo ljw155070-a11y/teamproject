@@ -15,18 +15,92 @@
 	.recommend-wrap{
 		margin:0 auto;
 		overflow:hidden;
-		margin:0 auto;
 	}
-	.recommend-title{
-		
+	.recommend-content{
+		width: 1200px;
+		margin: 0 auto;		
+		display: flex;
+		justify-content: space-between;
 	}
 	.recommend-content>div{
+		width:30%;
+	}
+	.recommend-content>div img{
 		width:100%;
+	}
+	.recommend-title>p{
+		text-align: center;
+		margin:80px;
+		font-size: 22px;
+		font-weight: 900;
+	}
+	.recommend-content>div>p:nth-child(2){
+		margin:8px 0px;
+		font-size: 18px;
+		font-weight: 900;
+	}
+	
+	.new-wrap{
+		margin:0 auto;
+		overflow:hidden;
+	}
+	.new-title>p{
+		text-align: center;
+		margin-top:80px;
+		margin-bottom:30px;
+		font-size: 22px;
+		font-weight: 900;
+	}
+	.new-content{
+		width: 700px;
+		margin: 0 auto;	
+		overflow:hidden;
+		margin-bottom: 40px;
+			
+	}
+	.new-content>div{
+		background-color: #FBF8E8;
+		width: 100%;
+		margin-bottom: 30px;
+		padding:20px;
+		overflow: hidden;
 		
 	}
-	.recommend-content>div>img{
-		width:30%;
-		float: left;
+	
+	.new-content>div img{
+		width: 300px;
+		height: 200px;
+	}
+	.new-content>div>div{
+		float:left;
+	}
+	.new-content>div>div:nth-child(2){
+		background-color: #F0D0A9;
+		width: 60px;
+		height: 20px;
+		border: 1px solid transparent;
+		border-radius: 10px;
+		text-align: center;
+		margin-top:10px;
+		margin-left: 20px;
+		margin-right:200px;
+		font-size: 14px;
+	}
+	.new-content>div>div:nth-child(3)>p:nth-child(1){
+		font-size: 18px;
+		font-weight: 700;
+		margin-left: 20px;
+		margin-top:10px;
+	}
+	.new-content>div>div:nth-child(3)>p:nth-child(2){
+		margin-left: 20px;	
+		margin-top: 70px;
+		color:#BFBFBF;
+	}
+	.new-content>div>div:nth-child(3)>p:nth-child(3){
+		margin-top: 10px;
+		margin-left: 200px;
+		color:#BFBFBF;	
 	}
 	
 </style>
@@ -39,33 +113,50 @@
 				<img src="/img/test.jpg" name="title-img">
 			</div>
 			<div class="recommend-wrap">
-				<div class="recommend-title">오늘의 추천 레시피</div>
+				<div class="recommend-title"><p>오늘의 추천 레시피</p></div>
 				<div class="recommend-content">
 					<div>
 						<img src="/img/test.jpg" name="recommend-img">
 						<p>떡볶이</p>
-						<p>qlalf**</p>
+						<p>Ejrqh**</p>
 					</div>	
 					<div>
 						<img src="/img/test.jpg" name="recommend-img">
-						<p>떡볶이</p>
-						<p>qlalf**</p>
+						<p>닭갈비</p>
+						<p>ekfre**</p>
 					</div>
 					<div>
 						<img src="/img/test.jpg" name="recommend-img">
-						<p>떡볶이</p>
-						<p>qlalf**</p>
+						<p>스파게티</p>
+						<p>tmvkr**</p>
 					</div>
 				</div>
 			</div>
 			<div class="new-wrap">
-				<div class="new-title">인기/최신 레시피</div>
+				<div class="new-title"><p>인기/최신 레시피</p></div>
 				<div class="new-content">
-					<img src="/img/test.jpg" name="new-img">
-					<p>한식</p>
-					<p>이 계란찜 해보세요</p>
-					<p>asda**</p>
-					<p>2025.08.22 오후 8:00</p>
+					<div>
+						<div>
+							<img src="/img/test.jpg" name="new-img">
+						</div>	
+						<div><p>한식</p></div>
+						<div>
+							<p>이 계란찜 해보세요</p>
+							<p>asda**</p>
+							<p>2025.08.22 오후 8:00</p>
+						</div>	
+					</div>
+					<div>
+						<div>
+							<img src="/img/test.jpg" name="new-img">
+						</div>
+						<div><p>한식</p></div>
+						<div>
+							<p>이 계란찜 해보세요</p>
+							<p>asda**</p>
+							<p>2025.08.22 오후 8:00</p>
+						</div>	
+					</div>		
 				</div>
 			</div>		
 		</div>
