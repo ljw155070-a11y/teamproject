@@ -88,7 +88,7 @@
 
 .header-search-box{
     background-color: #F4F4F4;
-    border-radius: 15px;
+    border-radius: 50px;
     margin-top: 10px;
     margin-left: 80px;
     height: 40px;
@@ -96,10 +96,11 @@
 .header-search-box>input{
     border: none;
     background-color: #F4F4F4;
-    border-radius: 15px;
+    border-radius: 50px;
     outline: none;
     font-size: 16px;
-    
+    padding-left: 15px;
+    padding-bottom: 5px;
 }
 .header-search-icon{
     color: #FF9D23;
