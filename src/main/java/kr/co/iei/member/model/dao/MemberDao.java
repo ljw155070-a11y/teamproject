@@ -14,4 +14,7 @@ public interface MemberDao {
 
 	List<Member> selectMemberList(int start, int end);
 
+	Member login(Member m);
+
+
 }

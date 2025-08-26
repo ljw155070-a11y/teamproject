@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.loginFrm{
+    background-color: #F4F4F4;
+    width: 100%;
+    height: 1000px;
+    display: inline-block;
+}
+.content-title{
+    font-size: 22px;
+    color: #EBA854;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 30px;
+}
+
+.loginFrm-input-box{
+    width: 800px;
+    height: 500px;
+    border-radius: 15px;
+    background-color: white;
+    margin: 0 auto;
+    
+}
+.loginFrm-id{
+    padding-top: 15px;
+    padding-left: 13px;
+    font-size: 22px;
+    color: #D4B175;
+    font-weight: bold;
+    
+}
+.loginFrm-id>input{
+    font-size: 22px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #D4B175;
+    letter-spacing : 0.1em;
+}
+.loginFrm-pw{
+    padding-top: 20px;
+    font-size: 22px;
+    color: #D4B175;
+    font-weight: bold;
+}
+.loginFrm-pw>input{
+    font-size: 22px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #D4B175;
+    letter-spacing : 0.1em;
+}
+.loginFrm-input{
+    padding-left: 100px;
+    padding-top: 180px;
+    display: inline-block;
+}
+
+.loginFrm-link{
+    cursor: pointer;
+}
+.loginFrm-link>ul{
+    list-style-type: none ;
+    display: flex;
+    padding-left: 160px;
+}
+
+.loginFrm-link>ul>li>a{
+    text-decoration: none;
+    color: #D4B175;
+    padding-left: 20px;
+    
+}
+.loginFrm-login-btn{
+    float: right;
+    margin-right: 100px;
+    margin-top: 175px;
+}
+.loginFrm-login-button{
+    width: 180px;
+    height: 120px;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: #FF9D23;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    float: right;
+}
+.loginFrm-pw>span{
+    display: inline-block;
+    font-size: 30px;
+    cursor: pointer;
+}
+.loginFrm-login-button:hover{
+    background-color: #ffc074;
+    color: #d17b11;
+}
+#show-btn{
+    display: none;
+}
+
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="liginFrm-content">
+	    <div class="loginFrm">
+	        <div class="content-title">
+	            <p>로그인</p>
+	        </div>
+	        <div class="loginFrm-input-box">
+		        <form action="/member/login" method="post" autocomplete="off">
+		            <div class="loginFrm-input">
+		                <div class="loginFrm-id">
+		                    <label for="memberId">ID</label>
+		                    <input type="text" name="memberId" id="memberId">
+		                </div>
+		                <div class="loginFrm-pw">
+		                    <label for="memberPw">PW</label>
+		                    <input type="password" name="memberPw" id="memberPw">
+		                    <span class="material-icons" onclick="hidePw();" id="hide-btn">visibility</span>
+                    		<span class="material-icons" onclick="showPw();" id="show-btn">visibility_off</span>
+		                </div>
+		            </div>
+		            <div class="loginFrm-login-btn">
+		                <input type="submit" class="loginFrm-login-button" value="로그인">
+		            </div>
+		            <div class="loginFrm-link">
+		                <ul>
+		                    <li><a href="/">아이디 찾기</a></li>
+		                    <li><a href="/">비밀번호 찾기</a></li>
+		                    <li><a href="/">회원가입</a></li>
+		                </ul>
+		            </div>
+			        </form>
+		        </div>
+	    </div>
+	    <script>
+		function hidePw(){
+	        const pwinput = document.getElementById("memberPw");
+	        const hideBtn = document.getElementById("hide-btn");
+	        const showBtn = document.getElementById("show-btn");
+	
+	        showBtn.style.display="inline";
+	        hideBtn.style.display="none";
+	        pwinput.type="password";
+	    }
+	
+	    function showPw(){
+	        const pwinput = document.getElementById("memberPw");
+	        const hideBtn = document.getElementById("hide-btn");
+	        const showBtn = document.getElementById("show-btn");
+	
+	        showBtn.style.display="none";
+	        hideBtn.style.display="inline";
+	        pwinput.type="text";
+	    }
+	</script>
+	</main>
+	
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

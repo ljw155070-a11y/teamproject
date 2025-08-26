@@ -28,9 +28,9 @@ public class RecipeController {
 	
 	@GetMapping(value="/detail")
 	public String recipeDetail(Model model,int reqRecipeNo) {
-		Recipe recipe = recipeService.recipeDetail(reqRecipeNo);
-		model.addAttribute("recipe",recipe);
-		System.out.println(recipe);
+		HashMap<String, Object> recipeDetailSet = recipeService.recipeDetail(reqRecipeNo);
+		model.addAttribute("recipeDetailSet",recipeDetailSet);
+		System.out.println(recipeDetailSet);
 		return "recipe/detail";
 	}
 }

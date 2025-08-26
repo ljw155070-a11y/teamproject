@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import kr.co.iei.recipe.model.dao.RecipeDao;
 import kr.co.iei.recipe.model.vo.Recipe;
+import kr.co.iei.recipe.model.vo.RecipeComment;
+import kr.co.iei.recipe.model.vo.RecipeCookingOrder;
+import kr.co.iei.recipe.model.vo.RecipeIngredient;
 
 @Service
 public class RecipeService {
@@ -149,9 +152,21 @@ public class RecipeService {
 		return reqPageSet;
 	}
 
-	public Recipe recipeDetail(int reqRecipeNo) {
-		Recipe recipe = new Recipe();
-		recipe = recipeDao.recipeDetail(reqRecipeNo);
-		return recipe;
+	public HashMap<String,Object> recipeDetail(int reqRecipeNo) {
+		Recipe recipeDetail = recipeDao.recipeDetail(reqRecipeNo);
+		List<RecipeIngredient> recipeIngredientList = recipeDao.recipeIngredientList(reqRecipeNo);
+		List<RecipeCookingOrder> recipeCookingOrderList = recipeDao.recipeCookingOrderList(reqRecipeNo);
+		List<RecipeComment> recipeCommentList = recipeDao.recipeCommentList(reqRecipeNo);
+		
+		HashMap<String, Object> recipeDetailSet = new HashMap<>();
+		recipeDetailSet.put("recipeDetail", recipeDetail);
+		recipeDetailSet.put("recipeIngredientList", recipeIngredientList);
+		recipeDetailSet.put("recipeCookingOrderList", recipeCookingOrderList);
+		recipeDetailSet.put("recipeCommentList", recipeCommentList);
+		System.out.println("레시피 상세 내용 : "+recipeDetail);
+		System.out.println("레시피 재료 내용 : " + recipeIngredientList);
+		System.out.println("레시피 조리 순서 : " + recipeCookingOrderList);
+		System.out.println("레시피 조리 순서 : " + recipeCommentList);
+		return recipeDetailSet;
 	}
 }

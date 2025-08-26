@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.iei.admin.AdminController;
 import kr.co.iei.member.model.dao.MemberDao;
 import kr.co.iei.member.model.vo.Member;
+import kr.co.iei.member.model.vo.MemberListData;
 
 @Service
 public class MemberService {
@@ -74,6 +75,13 @@ public class MemberService {
 		
 		
 		return reqSet;
+	}
+
+
+
+	public Member login(Member m) {
+		Member member = memberDao.login(m);
+		return member;
 	}
 
 }

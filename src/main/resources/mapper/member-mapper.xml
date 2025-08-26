@@ -15,4 +15,12 @@
   <select id="selectMemberTotalCount" resultType="int">
   	select count(*) from member_tbl
   </select>
+  
+   <select id="login" resultType="member">
+	SELECT * FROM MEMBER_TBL
+	WHERE MEMBER_ID = #{memberId} 
+	and MEMBER_PW = #{memberPw}  	
+  </select>
+  
 </mapper>
+

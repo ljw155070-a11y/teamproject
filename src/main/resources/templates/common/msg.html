@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    const title = /*[[${title}]]*/ '기본 제목';
+	    const msg = /*[[${text}]]*/ '기본 메시지';
+	    const icon = /*[[${icon}]]*/ 'info';
+	    const loc = /*[[${loc}]]*/ '/';
+	    /*]]>*/
+	    
+	    swal({
+	        title: title,
+	        text: msg,
+	        icon: icon
+	    }).then(function(){
+	        location.href = loc;
+	    });
+	</script>
+
+</body>
+</html>
