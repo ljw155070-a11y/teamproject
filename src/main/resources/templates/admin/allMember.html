@@ -52,11 +52,11 @@
 			<section class="allMember-section">
 			<table class="allMember-tbl">
 				<tr>
-					<th style="width:15%;">선택</th>
-					<th style="width:15%;">번호</th>
-					<th style="width:30%;">아이디</th>
-					<th style="width:20%;">회원등급</th>
-					<th style="width:20%;">등급변경</th>
+					<th style="width:10%;">선택</th>
+					<th style="width:12%;">번호</th>
+					<th style="width:48%;">아이디</th>
+					<th style="width:15%;">회원등급</th>
+					<th style="width:15%;">등급변경</th>
 				</tr>
 				<tr th:each="m,status : ${reqSet.list}">
 					<td>
@@ -87,7 +87,7 @@
 						</div>
 					</td>
 					<td>
-						<button class="btn changeLevel">등급변경</button>
+						<button class="header-login-btn changeLevel">등급변경</button>
 					</td>
 				</tr>	
 				<tr>
@@ -125,7 +125,6 @@
 		$(".changeLevel").on("click",function(){
 			//클릭한 버튼을 기준으로 해당 행의 회원번호를 가져와서 변수로 지정
 			const memberNo = $(this).parent().parent().children().eq(1).text();
-			//클릭한 버튼을 기준으로 해당 행의 선택된 등급을 가져옴
 			const memberLevel = $(this).parent().prev().children().children().val();
 			
 			location.href="/admin/changeLevel?memberNo="+memberNo+"&memberLevel="+memberLevel;
