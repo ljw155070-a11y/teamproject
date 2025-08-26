@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block th:include="common/header">
+	<main class="qna content">
+		<section class="qna view-wrap">
+			<div class=" view-head">질문 게시판</div>
+			
+			<table class="view-content">
+				<tr>
+					<th th:text="${qnaTitle}"></th>
+				</tr>
+				
+				<tr>
+					<th>작성자 : </th>
+					<td></td>
+					<th>조회수 : </th>
+					<th>작성일 : </th>
+					<td></td>
+				</tr>
+			</table>
+		</section>
+	</main>
+	<th:block th:include="common/footer">
+</body>
+</html>
