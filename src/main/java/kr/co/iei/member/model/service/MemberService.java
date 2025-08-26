@@ -2,13 +2,14 @@ package kr.co.iei.member.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import kr.co.iei.admin.AdminController;
 import kr.co.iei.member.model.dao.MemberDao;
 import kr.co.iei.member.model.vo.Member;
-import kr.co.iei.member.model.vo.MemberListData;
 
 @Service
 public class MemberService {
@@ -82,6 +83,32 @@ public class MemberService {
 	public Member login(Member m) {
 		Member member = memberDao.login(m);
 		return member;
+	}
+
+
+	@Transactional
+	public int changeLevel(Member m) {
+		int result = memberDao.changeLevel(m);
+		return result;
+	}
+
+
+	@Transactional
+	public boolean checkedChangeLevel(String no, String level) {
+		StringTokenizer s1 = new StringTokenizer(no, "/");
+		StringTokenizer s2 = new StringTokenizer(level, "/");
+		int result = 0;
+		int count = s1.countTokens();
+		while(s1.hasMoreTokens()) {
+			String stringNo = s1.nextToken();
+			int memberNo = Integer.parseInt(stringNo);
+			String stringLevel = s2.nextToken();
+			Member m = new Member();
+			m.setMemberNo(memberNo);
+			m.setMemberLevel(stringLevel);
+			result+=memberDao.changeLevel(m);
+		}
+		return result==count;
 	}
 
 }
