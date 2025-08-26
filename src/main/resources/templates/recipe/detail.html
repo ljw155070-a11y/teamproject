@@ -7,6 +7,7 @@
 	.space{
 		height:50px;
 	}
+	
 	body{
 		background-color:#eeeeee;
 		/*임시 적용 헤더 완성되면 제거*/
@@ -21,7 +22,7 @@
 	}
 	.recipe.content{
 		width:1080px;
-		margin:0 auto;
+		margin:100px auto;
 	}
 	.recipe.content-box{
 		background-color:white;
@@ -74,6 +75,23 @@
 		width : 80%;
 		height : 100%;
 	}
+
+	.recipe.btn{
+		width:130px;
+		height:32px;
+		border-radius:20px;
+		background-color:#FF9D23;
+		color:white;
+		border:none;
+		
+	}
+	.recipe.btn.delete{
+		background-color:#888888;
+	}
+	.recipe.gradeinput{
+		text-align:center;
+	}
+	
 </style>
 </head>
 <body>
@@ -125,11 +143,11 @@
 					<div class="recipe caution" style="text-align:center;" th:text="${recipeDetailSet.recipeDetail.recipeCaution}"></div>
 					<div class="space"></div>
 					<hr>
-					<div>평점 주기</div>
+					<div class="recipe gradeinput">평점 주기</div>
 					<hr>
-					<div>
-						<button type="button" class="header-login-btn" id="headerLoginBtn">게시글 수정</button>
-						<button type="button" class="header-login-btn" id="headerLoginBtn">게시글 삭제</button>
+					<div class="recipe button">
+						<button type="button" class="recipe btn edit">게시글 수정</button>
+						<button type="button" class="recipe btn delete">게시글 삭제</button>
 					</div>
 				</div>
 			</div>
