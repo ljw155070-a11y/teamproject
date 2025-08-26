@@ -30,7 +30,7 @@ public class RecipeController {
 	public String recipeDetail(Model model,int reqRecipeNo) {
 		HashMap<String, Object> recipeDetailSet = recipeService.recipeDetail(reqRecipeNo);
 		
-		model.addAttribute("recipe",recipeDetailSet);
+		model.addAttribute("recipeDetailSet",recipeDetailSet);
 		System.out.println(recipeDetailSet);
 		return "recipe/detail";
 	}
