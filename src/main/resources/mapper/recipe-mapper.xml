@@ -32,6 +32,16 @@
   	</select>
   	
   	<select id="recipeDetail" resultType="recipe">
-  		SELECT * FROM RECIPE_TBL WHERE RECIPE_NO=${reqRecipeNo}
+  		SELECT R.RECIPE_TYPE,R.RECIPE_LEVEL,R.RECIPE_COOKING_TIME,R.RECIPE_VIEW_COUNT,R.RECIPE_WRITE_DATE 
+FROM RECIPE_TBL R
+WHERE RECIPE_NO=${reqRecipeNo}
+  	</select>
+  	
+  	<select id="recipeIngredientList" resultType="RecipeIngredient">
+  		SELECT * FROM RECIPE_INGREDIENT_TBL WHERE RECIPE_NO=${reqRecipeNo}
+  	</select>
+  	
+  	<select id="recipeCookingOrderList" resultType="RecipeCookingOrder">
+  		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=${reqRecipeNo}
   	</select>
 </mapper>
