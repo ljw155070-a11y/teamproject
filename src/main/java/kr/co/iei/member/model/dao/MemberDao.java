@@ -9,10 +9,12 @@ import kr.co.iei.member.model.vo.Member;
 @Mapper
 public interface MemberDao {
 
-	List selectAllMember();
 
 	int selectMemberTotalCount();
 
+	List<Member> selectMemberList(int start, int end);
+
 	Member login(Member m);
+
 
 }
