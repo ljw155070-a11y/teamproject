@@ -43,7 +43,8 @@
     display: block;
     overflow: hidden;
     display: flex;
-    align-items: center;    
+    align-items: center;
+    padding: 5px;    
 }
 .header>div{
     display: flex;
@@ -52,6 +53,8 @@
 }
 .header-logo{
     float: left;
+    margin-right: 30px;
+    
 }
 .header-logo>a>img{
     width: 200px;
