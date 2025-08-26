@@ -7,6 +7,7 @@
 	.space{
 		height:50px;
 	}
+
 	
 	body{
 		background-color:#eeeeee;
@@ -67,9 +68,13 @@
 		background-color:white;
 		border-radius:20px;
 		margin:50px 0px;
+		padding : 20px;
 	}
 	.recipe.comment-box-input>form{
 		height:100%;
+	}
+	.recipe.comment-box-input input{
+		background-color:transparent;
 	}
 	.recipe.textarea{
 		width : 80%;
@@ -90,6 +95,12 @@
 	}
 	.recipe.gradeinput{
 		text-align:center;
+	}
+	.recipe.line{
+		border:1px solid #dddddd;
+		margin:10px 10px;
+		display:flex;
+		justify-content:space-between;
 	}
 	
 </style>
@@ -155,15 +166,25 @@
 		<section class="recipe content-footer">
 			<div class="recipe comment-box-input">
 				<form>
+					<span class="material-icons" style="font-size:100px">portrait</span>
 					<textarea class="recipe textarea"></textarea>
+					<input type="submit" value="댓글 작성">
 				</form>
 			</div>
 			<div class="recipe comment-box-output">
-				<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
-					<div>작성자 : <span th:text="${rcomment.memberNickname}"></span></div>
-					<div th:text="${rcomment.recipeCommentContent}"></div>
-					<div class="space"></div>
-				</th:block>
+				
+					<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
+						<div class="recipe line">
+							<div><span class="material-icons" style="font-size:50px">portrait</span></div>
+							<div th:text="${rcomment.recipeCommentContent}"></div>
+							<div>
+								<div>작성자 : <span th:text="${rcomment.memberNickname}"></span></div>
+								<div>작성일 : <span th:text="${rcomment.recipeCommentDate}"></span></div>
+							</div>
+						</div>
+					</th:block>
+				
+				
 			</div>
 		</section>
 	</main>
