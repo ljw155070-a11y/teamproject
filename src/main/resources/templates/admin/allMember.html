@@ -58,11 +58,11 @@
 					<th style="width:20%;">회원등급</th>
 					<th style="width:20%;">등급변경</th>
 				</tr>
-				<tr th:each="m : ${list}">
+				<tr th:each="m : ${reqSet.list}">
 					<td>
 						<div class="input-wrap">
-							<input type="checkbox" class="chk" id="chk">
-							<label for="chk"></label>
+							<input type="checkbox" class="chk" th:id="${chk}">
+							<label th:for="${chk}"></label>
 						</div>
 					</td>
 					<td th:text="${m.memberNo}"></td>
@@ -70,19 +70,19 @@
 					<td>
 						<div class="select" th:switch="${m.memberLevel}">
 							<select th:case="매운맛">
-								<option value="매운맛" selected></option>
-								<option value="보통맛"></option>
-								<option value="순한맛"></option>
+								<option value="매운맛" selected>매운맛</option>
+								<option value="보통맛">보통맛</option>
+								<option value="순한맛">순한맛</option>
 							</select>
 							<select th:case="보통맛">
-								<option value="매운맛"></option>
-								<option value="보통맛" selected></option>
-								<option value="순한맛"></option>
+								<option value="매운맛">매운맛</option>
+								<option value="보통맛" selected>보통맛</option>
+								<option value="순한맛">순한맛</option>
 							</select>
 							<select th:case="순한맛">
-								<option value="매운맛"></option>
-								<option value="보통맛"></option>
-								<option value="순한맛" selected></option>
+								<option value="매운맛">매운맛</option>
+								<option value="보통맛">보통맛</option>
+								<option value="순한맛" selected>순한맛</option>
 							</select>
 						</div>
 					</td>
