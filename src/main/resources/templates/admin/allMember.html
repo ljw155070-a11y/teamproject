@@ -9,7 +9,7 @@
 <style>
 	.content{
 		padding: 100px 0px;
-		background-color: #D0D0D0;
+		background-color: #f4f4f4;
 	}
 	.content-title{
 		margin-top: 10px;
@@ -52,17 +52,17 @@
 			<section class="allMember-section">
 			<table class="allMember-tbl">
 				<tr>
-					<th style="width:15%;">선택</th>
-					<th style="width:15%;">번호</th>
-					<th style="width:30%;">아이디</th>
-					<th style="width:20%;">회원등급</th>
-					<th style="width:20%;">등급변경</th>
+					<th style="width:10%;">선택</th>
+					<th style="width:12%;">번호</th>
+					<th style="width:48%;">아이디</th>
+					<th style="width:15%;">회원등급</th>
+					<th style="width:15%;">등급변경</th>
 				</tr>
-				<tr th:each="m : ${reqSet.list}">
+				<tr th:each="m,status : ${reqSet.list}">
 					<td>
-						<div class="input-wrap">
-							<input type="checkbox" class="chk" th:id="${chk}">
-							<label th:for="${chk}"></label>
+						<div class="checkbox-wrap">
+							<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
+							<label th:for="${'chk'+status.count}"></label>
 						</div>
 					</td>
 					<td th:text="${m.memberNo}"></td>
@@ -87,7 +87,7 @@
 						</div>
 					</td>
 					<td>
-						<button class="btn changeLevel">등급변경</button>
+						<button class="header-login-btn changeLevel">등급변경</button>
 					</td>
 				</tr>	
 				<tr>
@@ -121,6 +121,34 @@
 			</div>	
 		</section>	
 	</main>
+	<script>
+		$(".changeLevel").on("click",function(){
+			//클릭한 버튼을 기준으로 해당 행의 회원번호를 가져와서 변수로 지정
+			const memberNo = $(this).parent().parent().children().eq(1).text();
+			const memberLevel = $(this).parent().prev().children().children().val();
+			
+			location.href="/admin/changeLevel?memberNo="+memberNo+"&memberLevel="+memberLevel;
+			
+		});
+		
+		$(".checkedChangeLevel").on("click",function(){
+			const checked = $(".chk:checked");
+			if(checked.length === 0){
+				return;
+			}
+			const no = new Array();
+			const level = new Array();
+			checked.each(function(index,item){
+				const memberNo = $(item).parent().parent().next().text();
+				no.push(memberNo);
+				const memberLevel = $(item).parent().parent().parent().find("select").val();
+				level.push(memberLevel);
+			});
+				console.log(no.join("/"));
+				console.log(level.join("/"));
+				location.href = "/admin/checkedChangeLevel?no="+no.join("/")+"&level="+level.join("/");
+		});
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
