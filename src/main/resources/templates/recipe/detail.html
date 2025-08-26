@@ -29,6 +29,13 @@
 		min-height: 500px;
 		border-radius:20px;
 	}
+	.recipe.title{
+		width : 100%;
+		height : 50px;
+		text-align:center;
+		line-height:50px;
+		font-weight:900;
+	}
 	
 </style>
 </head>
@@ -37,8 +44,17 @@
 	<main class="recipe content">
 		<section class="recipe content-body">
 			<div class="recipe content-box">
-				<div>제목 들어감</div>
-				<div>내용 들어감</div>
+			<!-- 
+				<div class="recipe title" th:text="${recipe.recipeTitle}"></div>
+				<div class="recipe info">
+					<div class="recipe type" th:text="${recipe.recipeType}"></div>
+					<div class="recipe level">난이도 : <span th:text="${recipe.recipeLevel}"></span></div>
+					<div class="recipe cookingTime">조리시간 : <span th:text="${recipe.recipeCookingTime}"></span> 분</div>
+					<div class="recipe viewCount">조회수 : <span th:text="${recipe.recipeViewCount}"></span></div>
+					<div class="recipe writeDate">작성일 : <span th:text="${recipe.recipeWriteDate}"></span></div>
+				</div>
+				<div class="recipe detailInfo"></div>
+			 -->
 			</div>
 		</section>
 		<section class="recipe content-footer">

@@ -31,10 +31,16 @@
                 </div>
             </form>
             <div class="header-user-btns">
-                <button type="button" class="header-login-btn">로그인</button>
+                <button type="button" class="header-login-btn" id="headerLoginBtn">로그인</button>
                 <button type="button" class="header-join-btn">회원가입</button>
             </div>            
         </div>
     </header>
+    <script>
+		const headerLoginBtn = document.querySelector("#headerLoginBtn");
+		headerLoginBtn.onclick = function(){
+			location.href = "/member/loginFrm";
+		}
+	</script>
 </body>
 </html>
