@@ -9,12 +9,10 @@
   	select count(*) from member_tbl
   </select>
   
-  <select id="login" resultType="member">
-  	select * from member_tbl
-  	where member_id = #{memberId}
-  	<if test = "memberPw != null">
-  		and member_pw = #{memberPw}
-  	</if>
+   <select id="login" resultType="member">
+	SELECT * FROM MEMBER_TBL
+	WHERE MEMBER_ID = #{memberId} 
+	and MEMBER_PW = #{memberPw}  	
   </select>
   
 </mapper>

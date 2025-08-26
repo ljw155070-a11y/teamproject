@@ -112,15 +112,15 @@
 	            <p>로그인</p>
 	        </div>
 	        <div class="loginFrm-input-box">
-		        <form action="/member/login" method="post">
+		        <form action="/member/login" method="post" autocomplete="off">
 		            <div class="loginFrm-input">
 		                <div class="loginFrm-id">
-		                    <label for="loginFrm-input-id">ID</label>
-		                    <input type="text" name="loginFrm-input-id" id="loginFrm-input-id">
+		                    <label for="memberId">ID</label>
+		                    <input type="text" name="memberId" id="memberId">
 		                </div>
 		                <div class="loginFrm-pw">
-		                    <label for="loginFrm-input-pw">PW</label>
-		                    <input type="password" name="loginFrm-input-pw" id="loginFrm-input-pw">
+		                    <label for="memberPw">PW</label>
+		                    <input type="password" name="memberPw" id="memberPw">
 		                    <span class="material-icons">visibility</span>
 		                    <!--<span class="material-icons">visibility_off</span>-->
 		                </div>
@@ -135,8 +135,8 @@
 		                    <li><a href="/">회원가입</a></li>
 		                </ul>
 		            </div>
+			        </form>
 		        </div>
-	        </form>
 	    </div>
 	</main>
 	<th:block th:include="common/footer"></th:block>

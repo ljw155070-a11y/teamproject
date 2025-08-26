@@ -44,4 +44,10 @@ WHERE RECIPE_NO=${reqRecipeNo}
   	<select id="recipeCookingOrderList" resultType="recipeCookingOrder">
   		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=${reqRecipeNo}
   	</select>
+  	
+  	<select id="recipeCommentList" resultType="recipeComment">
+		SELECT RECIPE_COMMENT_NO,MEMBER_NO,RECIPE_COMMENT_CONTENT,RECIPE_COMMENT_DATE,RECIPE_NO,RECIPE_COMMENT_UPDATE_DATE,MEMBER_NICKNAME FROM RECIPE_COMMENT_TBL 
+		JOIN MEMBER_TBL USING(MEMBER_NO)
+		WHERE RECIPE_NO=${reqRecipeNo}
+  	</select>
 </mapper>
