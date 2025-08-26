@@ -16,5 +16,7 @@ public interface MemberDao {
 
 	Member login(Member m);
 
+	int changeLevel(Member m);
+
 
 }

@@ -6,90 +6,125 @@
     rel="stylesheet">
 <title>Insert title here</title>
 <style>
+	*{
+	margin: 0px;
+	padding: 0px;
+	}
+	
 	.content{
+		margin-top: 30px;
 		margin: 0 auto;
-		width: 1080px;
+		width: 1000px;
+	}
+	.content>.content-head>.content-title{
+		margin: 0 auto;
+		text-align: center;
+		padding-top:100px;
+	}
+	
+	.content-wrap{
+		width: 1000px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	
+	.writeBtn{
+		width: 15%;
+		height: 30px;
+		float: left;
+	}
+	
+	.menuSearchBox{
+		width: 83%;
+		height: 30px;
+		float: left;
+		margin-left : 20px;
+	}
+	
+	.menuSearchBox>form{
+		display: flex;
+	}
+	
+	.contentInputBox{
+		margin: 0 auto;
+		float: left;
+		background-color: orange;
+		color: white;
+		border: 1px solid orange;
+		border-radius: 15px;
+		padding: 3px;
+		margin-bottom: 10px;
+		width: 80%;
+	}
+	
+	.menu-checkBox{
 		
+		border: 1px solid gray;
+		border-radius: 15px;
+		width: 10%;
 	}
-	.content-head{
-		border: 1px solid black;
-		margin: 0 auto;
-	}
-	.content-head>.content-wrap>*{
-		margin: 0 auto;
-		float: left;
-		overflow: hidden;
-		margin-top: 50px;
-	}
-	.content-wrap>.contentInputBox{
-		display: flex;
-		margin-top: 50px;
-		margin: 0 auto;
-		float: left;
+	.menu-checkBox>option{	
+		text-decoration: none;
+		color: black;
 		text-align: center;
-		border-radius: 5px;
 	}
-	.content-title{
-		text-align: center;
-		color: orange;
-	}
-	.search-menu{
-		margin: 0 auto;
-		float: left;
-		overflow: hidden;
-		align-items: center;
-		margin-right: 50px;
-		margin-left: 50px;
-		list-style: none;
-	}
-	.search-menu>li>ul>li{
-		list-style: none;
-	}
-	.search-menu>li>a{
-	display: flex;
-	border : 1px solid black;
-	text-decoration: none;
-	margin: 0 auto;
-	float: left;
-	font-size: 15px;
-	align-items: center;
-	color: gray;
-	border-radius: 5px;
-	}
+	
 	.qnaSearch{
-		margin: 0 auto;
+		flex-grow:1;
 		display: flex;
-		border-radius: 5px solid black;
-		float: right;
-		margin-left: none;
-		padding-left: 100px;
+		gap:10px;	
+    	border: 1px solid gray;
+    	border-radius: 15px;
+   		margin-left:10px;
+   		overflow: hidden;
+   		
 	}
-	.qnaSearch>input{
-		width: 300px;
-		text-align: center;
-		border-right: none;
-		margin-bottom: 0px;
-	}
+	
 	.qnaSearch>.qnaSearchInput{
-		float: right;
+		flex-grow  : 1;
+		width: 80%;
+    	background-color: #FFFFFF;
+    	outline: none;
+    	font-size: 16px;
+    	border: none;
+    	text-align: center;
+	}	
+	
+	#qnaSearchBox{
+    color: #FF9D23;
+    font-weight: bold;
+    cursor: pointer;
+    
 	}
-	.qnaSearch>.qnaSearchInput>.qnaSearchBox{
-		margin: 0 auto;
-		border-left: none;
-		padding: 0;
-	}
-
+	
 	.content-list{
-		overflow: hidden;
-		width: 100%;
-		border: 1px solid black;
+		border: 1px solid orange;
+		border-radius: 10px;
 	}
-	.content-list>#qnaListForm{
-		display: flex;
+	
+	.content-list>*{
+		width: 1000px;
 		margin: 0 auto;
-		float: left;
+	}
+	.content-list>#qnaListForm>tr>th{
+		margin: 0 auto;
 		text-align: center;
-		width: 550px;
+		float: left;
+		border-bottom: 1px solid black;
+	}
+	
+	#pageNavi{
+		text-decoration: none;
+		color: black;
+		display: flex;
+		text-align: center;
+		float: left;
+		margin-top: 30px;
+	}
+	.content-list>#qnaListForm>tr>td{
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 5px;
 	}
 	
 </style>
@@ -100,46 +135,53 @@
 		<section class="qna content-head">
 			<div class="content-title">질문 게시판</div>
 			
-			<div class="qna content-wrap">
-			<button class="qna contentInputBox">글쓰기</button><!--누르면 질문 입력창으로 넘어갈 버튼-->
-
-			<div class="menu-box">
-				<ul class="search-menu">
-					<li>
-						<a href="#">제목
-						<span class="material-icons">keyboard_arrow_down</span></a>
-						<ul class="sub-menu">
-							<li>제목</li>
-							<li>음식이름</li>
-							<li>작성자</li>
-						</ul>
-					</li>
-				</ul><!-- 검색창 왼쪽 제목분류 칸-->
-			</div><!--menu-box-->
-
-			<div class="qnaSearch">
-			<input type="text" name="qnaSearchInput" placeholder="검색할 내용을 입력하세요">			
-			<button type="submit" class="qnaSearchBox"><span class="material-icons">search</span></button>
-			</div><!-- qnaSearch를 감싸는 div -->
+			  <div class="qna content-wrap">
+				<div class="writeBtn">
+					<button class="contentInputBox">글쓰기</button>
+				</div>
+				
+				<div class="menuSearchBox">
+					<form action="/" method="get">
+						<select class="menu-checkBox">
+							<option>제목</option>
+							<option>음식이름</option>
+							<option>작성자</option>
+						</select>
+						<div class="qnaSearch">
+							<input type="text" class="qnaSearchInput" placeholder="검색할 내용을 입력해주세요">
+							<span class="material-icons" id="qnaSearchBox">search</span>
+						</div>
+					</form>
+				</div>
 			</div><!-- qna content-wrap전체를 감싸는 div-->
 		</section>
+			</form>
 		
 		<section class="qna content-list">
 			<table action="/qnaList" method="get" id="qnaListForm">
-				<tr style="width: 20%;">글 번호</tr>
-				<tr style="width: 40%;">제목</tr>
-				<tr style="width: 20%;">작성자</tr>
-				<tr style="width: 20%;">작성일/수정일</tr>
+				<tr>
+					<th>글 번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일/수정일</th>
+				</tr>
 				<tr th:each="qna : ${list}">
-					<td th:text="${qna.qnaNo}"></td>
-					<td th:text="${qna.qnaTitle}"></td>
-					<td th:text="${qna.memberNo}"></td>
-					<td th:text="${qna.qnaDate}"></td>
+					<td th:text="${qna.qnaNo}" style="text-align:center;"></td>
+					<td th:text="${qna.qnaTitle}" style="text-align:center;"></td>
+					<td th:text="${qna.memberName}" style="text-align:center;"></td>
+					<td th:text="${qna.qnaDate}" style="text-align:center;"></td>
 				</tr>
 			</table><!-- qnaListForm전체를 감싸는 table -->
 			<div id="pageNavi" th:utext="${pageNavi}"></div>
+			
 		</section>
 	</main>
 	<th:block th:include="common/footer"></th:block>
+	
+	<script>
+		$(".search-menu>li>div>a").on("click",function(){
+			$(".menu-box>ul>li>ul>li").slideToggle();
+		})
+	</script>
 </body>
 </html>

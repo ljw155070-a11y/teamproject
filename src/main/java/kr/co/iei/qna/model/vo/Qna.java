@@ -20,4 +20,5 @@ public class Qna {
 	private Date qnaDate;
 	private int qnaCount;
 	private Date qnaUpdateDate;
+	private String memberName;
 }
