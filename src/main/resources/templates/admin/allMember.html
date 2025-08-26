@@ -1,14 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.content{
+		padding: 100px 0px;
+		background-color: #D0D0D0;
+	}
+	.content-title{
+		margin-top: 10px;
+		margin-bottom: 30px;
+	}
+	.allMember-section{
+		width : 960px;
+		margin: 0 auto;
+		background-color: #ffffff;
+		padding : 30px 40px;
+	}
+	.allMember-tbl{
+		width:100%;
+		margin-top: 20px;
+		border-spacing: 0;
+	}
+	.allMember-tbl td{
+		text-align: center;
+		padding: 20px 0px;
+		border-bottom: 1px solid black;
+	}
+	
+	.allMember-currPage{
+		font-weight:900;
+		background-color: #FBA854;
+    	color: white;
+	}
+	.allMember-currPage>span{
+		margin: 0px 10px;
+	}
+	.allMember-pageNavi{
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main class="content">
-		<div>
-			<div class="content-title">회원 관리 페이지</div>
+		<div class="content-title">회원 관리 페이지</div>
+			<section class="allMember-section">
 			<table class="allMember-tbl">
 				<tr>
 					<th style="width:15%;">선택</th>
@@ -17,36 +58,68 @@
 					<th style="width:20%;">회원등급</th>
 					<th style="width:20%;">등급변경</th>
 				</tr>
-				<tr>
+				<tr th:each="m : ${reqSet.list}">
 					<td>
-						<input type="checkbox" class="chk" id="chk">
-						<label for="chk"></label>
+						<div class="input-wrap">
+							<input type="checkbox" class="chk" th:id="${chk}">
+							<label th:for="${chk}"></label>
+						</div>
 					</td>
-					<td>1</td>
-					<td>user01</td>
+					<td th:text="${m.memberNo}"></td>
+					<td th:text="${m.memberId}"></td>
 					<td>
-						<div class="select">
-							<select>
-								<option value="1">매운맛</option>
-								<option value="2">보통맛</option>
-								<option value="3">순한맛</option>
+						<div class="select" th:switch="${m.memberLevel}">
+							<select th:case="매운맛">
+								<option value="매운맛" selected>매운맛</option>
+								<option value="보통맛">보통맛</option>
+								<option value="순한맛">순한맛</option>
+							</select>
+							<select th:case="보통맛">
+								<option value="매운맛">매운맛</option>
+								<option value="보통맛" selected>보통맛</option>
+								<option value="순한맛">순한맛</option>
+							</select>
+							<select th:case="순한맛">
+								<option value="매운맛">매운맛</option>
+								<option value="보통맛">보통맛</option>
+								<option value="순한맛" selected>순한맛</option>
 							</select>
 						</div>
 					</td>
 					<td>
 						<button class="btn changeLevel">등급변경</button>
 					</td>
-				</tr>
+				</tr>	
 				<tr>
 					<td colspan="5">
 						<button class="btn checkedChangeLevel">선택 회원 등급 변경</button>
 					</td>
 				</tr>
-			</table>
-		</div>
-		<div>
-			<div id="pageNavi"></div>
-		</div>	
+			</table>	
+		</section>
+		<section class="allMember-footer">	
+			<div class="allMember-pageNavi">
+				<a href="/admin/allMember?reqPage=1"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
+				
+				<th:block th:if="${(reqSet.pageInfo.reqPage)-5 <= 1}">
+					<a href="/admin/allMember?reqPage=1"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+				</th:block>
+				<th:block th:if="${(reqSet.pageInfo.reqPage)-5 > 1}">
+					<a th:href="@{/admin/allMember(reqPage=${(reqSet.pageInfo.reqPage)-5})}"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+				</th:block>
+				
+				<a th:each="i:${#numbers.sequence(reqSet.pageInfo.startNo,reqSet.pageInfo.endNo)}" 
+					th:href="@{/admin/allMember(reqPage=${i})}"
+					th:classappend="${i==reqSet.pageInfo.reqPage}?'allMember-currPage'"><span th:text="${i}"></span></a>
+					
+				<!-- 다음 버튼 -->		
+				<th:block th:if="${(reqSet.pageInfo.reqPage)+5 >= (reqSet.pageInfo.totalPage)}">
+					<a th:href="@{/admin/allMember(reqPage=${(reqSet.pageInfo.totalPage)})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
+				</th:block>
+				
+				<a th:href="@{/admin/allMember(reqPage=${reqSet.pageInfo.totalPage})}"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a>
+			</div>	
+		</section>	
 	</main>
 	<th:block th:include="common/footer"></th:block>
 </body>

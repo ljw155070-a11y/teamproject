@@ -31,8 +31,14 @@
                 </div>
             </form>
             <div class="header-user-btns">
-                <button type="button" class="header-login-btn" id="headerLoginBtn">로그인</button>
-                <button type="button" class="header-join-btn">회원가입</button>
+            	<th:block th:if="${session.member == null}">
+	                <button type="button" class="header-login-btn" id="headerLoginBtn">로그인</button>
+	                <button type="button" class="header-join-btn">회원가입</button>
+	            </th:block>
+                <th:block th:if="${session.member != null}">
+	                <button type="button" class="header-login-btn" th:text="${session.member.memberNickname}"></button>
+	                <button type="button" class="header-join-btn">로그아웃</button>
+                </th:block>
             </div>            
         </div>
     </header>

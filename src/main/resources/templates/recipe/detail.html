@@ -7,6 +7,7 @@
 	.space{
 		height:50px;
 	}
+	
 	body{
 		background-color:#eeeeee;
 		/*임시 적용 헤더 완성되면 제거*/
@@ -21,7 +22,7 @@
 	}
 	.recipe.content{
 		width:1080px;
-		margin:0 auto;
+		margin:100px auto;
 	}
 	.recipe.content-box{
 		background-color:white;
@@ -53,13 +54,44 @@
 		text-align:center;
 		padding:20px 0px;
 	}
-	.recipe.comment-box{
+	.recipe.comment-box-input{
+		width:100%;
+		height:150px;
+		background-color:white;
+		border-radius:20px;
+		margin:50px 0px;
+	}
+	.recipe.comment-box-output{
 		width:100%;
 		min-height:150px;
 		background-color:white;
 		border-radius:20px;
 		margin:50px 0px;
 	}
+	.recipe.comment-box-input>form{
+		height:100%;
+	}
+	.recipe.textarea{
+		width : 80%;
+		height : 100%;
+	}
+
+	.recipe.btn{
+		width:130px;
+		height:32px;
+		border-radius:20px;
+		background-color:#FF9D23;
+		color:white;
+		border:none;
+		
+	}
+	.recipe.btn.delete{
+		background-color:#888888;
+	}
+	.recipe.gradeinput{
+		text-align:center;
+	}
+	
 </style>
 </head>
 <body>
@@ -75,9 +107,9 @@
 				<div class="recipe info">
 					<div class="recipe type" th:text="${recipeDetailSet.recipeDetail.recipeType}"></div>
 					<div class="recipe level">난이도 : <span th:text="${recipeDetailSet.recipeDetail.recipeLevel}"></span></div>
-					<div class="recipe cookingTime">조리시간 : <span th:text="${recipeDetailSet.recipeDetail.recipeCookingTime}"></span> 분</div>
-					<div class="recipe viewCount">조회수 : <span th:text="${recipeDetailSet.recipeDetail.recipeViewCount}"></span></div>
-					<div class="recipe writeDate">작성일 : <span th:text="${recipeDetailSet.recipeDetail.recipeWriteDate}"></span></div>
+					<div class="recipe cookingTime"><span class="material-icons">access_time</span> <span th:text="${recipeDetailSet.recipeDetail.recipeCookingTime}"></span> Mins</div>
+					<div class="recipe viewCount"><span class="material-icons">remove_red_eye</span> <span th:text="${recipeDetailSet.recipeDetail.recipeViewCount}"></span></div>
+					<div class="recipe writeDate"><span class="material-icons">calendar_month</span> <span th:text="${recipeDetailSet.recipeDetail.recipeWriteDate}"></span></div>
 				</div>
 				<hr>
 	
@@ -111,22 +143,22 @@
 					<div class="recipe caution" style="text-align:center;" th:text="${recipeDetailSet.recipeDetail.recipeCaution}"></div>
 					<div class="space"></div>
 					<hr>
-					<div>평점 주기</div>
+					<div class="recipe gradeinput">평점 주기</div>
 					<hr>
-					<div>
-						<button type="button" class="header-login-btn" id="headerLoginBtn">게시글 수정</button>
-						<button type="button" class="header-login-btn" id="headerLoginBtn">게시글 삭제</button>
+					<div class="recipe button">
+						<button type="button" class="recipe btn edit">게시글 수정</button>
+						<button type="button" class="recipe btn delete">게시글 삭제</button>
 					</div>
 				</div>
 			</div>
 		</section>
 		<section class="recipe content-footer">
-			<div class="recipe comment-box">
+			<div class="recipe comment-box-input">
 				<form>
-					<textarea></textarea>
+					<textarea class="recipe textarea"></textarea>
 				</form>
 			</div>
-			<div class="recipe comment-box">
+			<div class="recipe comment-box-output">
 				<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
 					<div>작성자 : <span th:text="${rcomment.memberNickname}"></span></div>
 					<div th:text="${rcomment.recipeCommentContent}"></div>

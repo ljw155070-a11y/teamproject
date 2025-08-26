@@ -7,14 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.recipe.content{
-		padding:100px 0px;
-	}
 	body{
 		background-color:#eeeeee;
 		/*임시 적용 헤더 완성되면 제거*/
 	}
-	
+	.space{
+		height:50px;
+	}
 	.content-title{
 		text-align:center;
 	    font-size: 22px;
@@ -25,8 +24,9 @@
 
 	.recipe.content{
 		width:1080px;
-		margin:0 auto;
+		margin:100px auto;
 	}
+	
 	.content-head form{
 		display:flex;
 		justify-content:space-between;
@@ -126,9 +126,10 @@
 	.recipe.listbox th{
 		height:100px;
 	}
-	.recipe.listbox tr:hover{
-		background-color:#eeeeee;
+	tbody tr:hover{
+		background-color:#e9e9e9;
 		cursor:pointer;
+		
 	}
 	
 
@@ -137,12 +138,12 @@
 <body>
 
 	<th:block th:include="common/header"></th:block>
-	
+	<div class="space"></div>
 	<main class="recipe content">
 		<section class="recipe content-head">
 			<div class="content-title">레시피 게시판</div>
 			
-			<form action="/search" method="get" id="searchForm">
+			<form action="/recipe/search" method="get" id="searchForm">
 				<select class="recipe searchInput select" name="field">
 					<option value="title">제목</option>
 					<option value="content">내용</option>
@@ -157,7 +158,7 @@
 		</section>
 		<section class="recipe content-body">
 			<div class="recipe listbox">
-				<table style="width:100%">
+				<table style="width:100%; border-spacing:0;">
 					<thead>
 						<tr>
 							<th style="width:15%;">글 번호</th>
