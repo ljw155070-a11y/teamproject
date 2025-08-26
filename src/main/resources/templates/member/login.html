@@ -98,6 +98,10 @@
     font-size: 30px;
     cursor: pointer;
 }
+.loginFrm-login-button:hover{
+    background-color: #ffc074;
+    color: #d17b11;
+}
 </style>
 </head>
 <body>
@@ -108,29 +112,31 @@
 	            <p>로그인</p>
 	        </div>
 	        <div class="loginFrm-input-box">
-	            <div class="loginFrm-input">
-	                <div class="loginFrm-id">
-	                    <label for="loginFrm-input-id">ID</label>
-	                    <input type="text" name="loginFrm-input-id" id="loginFrm-input-id">
-	                </div>
-	                <div class="loginFrm-pw">
-	                    <label for="loginFrm-input-pw">PW</label>
-	                    <input type="password" name="loginFrm-input-pw" id="loginFrm-input-pw">
-	                    <span class="material-icons">visibility</span>
-	                    <!--<span class="material-icons">visibility_off</span>-->
-	                </div>
-	            </div>
-	            <div class="loginFrm-login-btn">
-	                <input type="submit" class="loginFrm-login-button" value="로그인">
-	            </div>
-	            <div class="loginFrm-link">
-	                <ul>
-	                    <li><a href="/">아이디 찾기</a></li>
-	                    <li><a href="/">비밀번호 찾기</a></li>
-	                    <li><a href="/">회원가입</a></li>
-	                </ul>
-	            </div>
-	        </div>
+		        <form action="/member/login" method="post">
+		            <div class="loginFrm-input">
+		                <div class="loginFrm-id">
+		                    <label for="loginFrm-input-id">ID</label>
+		                    <input type="text" name="loginFrm-input-id" id="loginFrm-input-id">
+		                </div>
+		                <div class="loginFrm-pw">
+		                    <label for="loginFrm-input-pw">PW</label>
+		                    <input type="password" name="loginFrm-input-pw" id="loginFrm-input-pw">
+		                    <span class="material-icons">visibility</span>
+		                    <!--<span class="material-icons">visibility_off</span>-->
+		                </div>
+		            </div>
+		            <div class="loginFrm-login-btn">
+		                <input type="submit" class="loginFrm-login-button" value="로그인">
+		            </div>
+		            <div class="loginFrm-link">
+		                <ul>
+		                    <li><a href="/">아이디 찾기</a></li>
+		                    <li><a href="/">비밀번호 찾기</a></li>
+		                    <li><a href="/">회원가입</a></li>
+		                </ul>
+		            </div>
+		        </div>
+	        </form>
 	    </div>
 	</main>
 	<th:block th:include="common/footer"></th:block>
