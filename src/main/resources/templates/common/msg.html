@@ -7,7 +7,18 @@
 <body>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
-		const 
+		const title = 'title';
+		const msg = 'msg';
+		const icon = 'info';
+		const loc = '/';
+		
+		swal({
+			title : title,
+			text : msg,
+			icon : icon
+		}).then(function(){
+			location.href = loc;
+		});		
 	</script>
 
 </body>
