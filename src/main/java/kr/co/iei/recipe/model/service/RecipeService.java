@@ -47,7 +47,7 @@ public class RecipeService {
 		int startPageNo;
 		int endPageNo;
 		int totalPageNo = (int)Math.ceil(allRecipeCount/(double)listSize);
-		int pageCounts = 5;	//한 페이지에 선택 가능한 페이지를 몇개 출력할지
+		int pageCounts = 7;	//한 페이지에 선택 가능한 페이지를 몇개 출력할지
 		int pageWindowDiv=(pageCounts-1)/2;	//현재 기준 양옆에 몇개가 와야할지
 		startPageNo = Math.max(1,reqPage - pageWindowDiv);
 		//요청된 페이지를 2로 뺐을 때, 1이 더 크면 1으로 반환
