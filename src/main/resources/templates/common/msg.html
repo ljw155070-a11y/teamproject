@@ -6,19 +6,21 @@
 </head>
 <body>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script>
-		const title = 'title';
-		const msg = 'msg';
-		const icon = 'info';
-		const loc = '/';
-		
-		swal({
-			title : title,
-			text : msg,
-			icon : icon
-		}).then(function(){
-			location.href = loc;
-		});		
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    const title = /*[[${title}]]*/ '기본 제목';
+	    const msg = /*[[${text}]]*/ '기본 메시지';
+	    const icon = /*[[${icon}]]*/ 'info';
+	    const loc = /*[[${loc}]]*/ '/';
+	    /*]]>*/
+	    
+	    swal({
+	        title: title,
+	        text: msg,
+	        icon: icon
+	    }).then(function(){
+	        location.href = loc;
+	    });
 	</script>
 
 </body>
