@@ -9,7 +9,7 @@
 <style>
 	.content{
 		padding: 100px 0px;
-		background-color: #D0D0D0;
+		background-color: #f4f4f4;
 	}
 	.content-title{
 		margin-top: 10px;
@@ -61,8 +61,8 @@
 				<tr th:each="m,status : ${reqSet.list}">
 					<td>
 						<div class="checkbox-wrap">
-							<input type="checkbox" class="chk" th:id="${'chk'+status.count}">>
-							<label th:for="${'chk'+status.count}">></label>
+							<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
+							<label th:for="${'chk'+status.count}"></label>
 						</div>
 					</td>
 					<td th:text="${m.memberNo}"></td>
