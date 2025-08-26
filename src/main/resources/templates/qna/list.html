@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
 <title>Insert title here</title>
 <style>
 	*{
@@ -113,11 +115,17 @@
 		border-bottom: 1px solid black;
 	}
 	
+	.qna-paging{
+		display: flex;
+		align-items: center;
+	}
+	.active-page{
+		text-decoration: none;		
+	}
 	#pageNavi{
-		text-decoration: none;
 		color: black;
 		display: flex;
-		text-align: center;
+		margin: 0 auto;
 		float: left;
 		margin-top: 30px;
 	}	
@@ -172,10 +180,6 @@
 	</main>
 	<th:block th:include="common/footer"></th:block>
 	
-	<script>
-		$(".search-menu>li>div>a").on("click",function(){
-			$(".menu-box>ul>li>ul>li").slideToggle();
-		})
-	</script>
+	
 </body>
 </html>
