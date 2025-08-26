@@ -8,4 +8,14 @@
   <select id="selectMemberTotalCount" resultType="int">
   	select count(*) from member_tbl
   </select>
+  
+  <select id="login" resultType="member">
+  	select * from member_tbl
+  	where member_id = #{memberId}
+  	<if test = "memberPw != null">
+  		and member_pw = #{memberPw}
+  	</if>
+  </select>
+  
 </mapper>
+
