@@ -23,7 +23,7 @@
   </select>
   
   <update id="changeLevel">
-  	update member_tbl set member_level = #{member_level} where member_no = #{member_no}
+  	update member_tbl set member_level = #{memberLevel} where member_no = #{memberNo}
   </update>
 </mapper>
 
