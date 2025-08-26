@@ -35,6 +35,13 @@
 		text-align:center;
 		line-height:50px;
 		font-weight:900;
+		font-size:24px;
+		padding : 40px 0px;
+	}
+	.recipe.info{
+		display:flex;
+		justify-content:space-between;
+		padding : 20px 100px;
 	}
 	
 </style>
@@ -44,17 +51,21 @@
 	<main class="recipe content">
 		<section class="recipe content-body">
 			<div class="recipe content-box">
-			<!-- 
-				<div class="recipe title" th:text="${recipe.recipeTitle}"></div>
+			
+
+				<div class="recipe title" th:text="${recipeDetailSet.recipeDetail.recipeTitle}"></div>
+				<hr>
 				<div class="recipe info">
-					<div class="recipe type" th:text="${recipe.recipeType}"></div>
-					<div class="recipe level">난이도 : <span th:text="${recipe.recipeLevel}"></span></div>
-					<div class="recipe cookingTime">조리시간 : <span th:text="${recipe.recipeCookingTime}"></span> 분</div>
-					<div class="recipe viewCount">조회수 : <span th:text="${recipe.recipeViewCount}"></span></div>
-					<div class="recipe writeDate">작성일 : <span th:text="${recipe.recipeWriteDate}"></span></div>
+					<div class="recipe type" th:text="${recipeDetailSet.recipeDetail.recipeType}"></div>
+					<div class="recipe level">난이도 : <span th:text="${recipeDetailSet.recipeDetail.recipeLevel}"></span></div>
+					<div class="recipe cookingTime">조리시간 : <span th:text="${recipeDetailSet.recipeDetail.recipeCookingTime}"></span> 분</div>
+					<div class="recipe viewCount">조회수 : <span th:text="${recipeDetailSet.recipeDetail.recipeViewCount}"></span></div>
+					<div class="recipe writeDate">작성일 : <span th:text="${recipeDetailSet.recipeDetail.recipeWriteDate}"></span></div>
 				</div>
+				<hr>
+	
 				<div class="recipe detailInfo"></div>
-			 -->
+			 
 			</div>
 		</section>
 		<section class="recipe content-footer">
