@@ -88,19 +88,19 @@
 
 .header-search-box{
     background-color: #F4F4F4;
-    border-radius: 50px;
+    border-radius: 190px;
     margin-top: 10px;
     margin-left: 80px;
     height: 40px;
+    
 }
-.header-search-box>input{
-    border: none;
-    background-color: #F4F4F4;
-    border-radius: 50px;
-    outline: none;
+.header-search{
     font-size: 16px;
-    padding-left: 15px;
-    padding-bottom: 5px;
+    border: none;
+    overflow-x: hidden;
+    background: transparent;
+    margin-left: 20px;
+    margin-bottom: 10px;
 }
 .header-search-icon{
     color: #FF9D23;
