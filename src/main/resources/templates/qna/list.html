@@ -6,92 +6,88 @@
     rel="stylesheet">
 <title>Insert title here</title>
 <style>
-	.content{
-		margin: 0 auto;
-		width: 1080px;
-		
-	}
-	.content-head{
-		border: 1px solid black;
-		margin: 0 auto;
-	}
-	.content-head>.content-wrap>*{
-		margin: 0 auto;
-		float: left;
-		overflow: hidden;
-		margin-top: 50px;
-	}
-	.content-wrap>.contentInputBox{
-		display: flex;
-		margin-top: 50px;
-		margin: 0 auto;
-		float: left;
-		text-align: center;
-		border-radius: 5px;
-	}
-	.content-title{
-		text-align: center;
-		color: orange;
-	}
-	.search-menu{
-		margin: 0 auto;
-		float: left;
-		overflow: hidden;
-		align-items: center;
-		margin-right: 50px;
-		margin-left: 50px;
-		list-style: none;
-	}
-	.search-menu>li>ul>li{
-		list-style: none;
-	}
-	.search-menu>li>a{
-	display: flex;
-	border : 1px solid black;
-	text-decoration: none;
-	margin: 0 auto;
-	float: left;
-	font-size: 15px;
-	align-items: center;
-	color: gray;
-	border-radius: 5px;
-	}
-	.qnaSearch{
-		margin: 0 auto;
-		display: flex;
-		border-radius: 5px solid black;
-		float: right;
-		margin-left: none;
-		padding-left: 100px;
-	}
-	.qnaSearch>input{
-		width: 300px;
-		text-align: center;
-		border-right: none;
-		margin-bottom: 0px;
-	}
-	.qnaSearch>.qnaSearchInput{
-		float: right;
-	}
-	.qnaSearch>.qnaSearchInput>.qnaSearchBox{
-		margin: 0 auto;
-		border-left: none;
-		padding: 0;
-	}
-
-	.content-list{
-		overflow: hidden;
-		width: 100%;
-		border: 1px solid black;
-	}
-	.content-list>#qnaListForm{
-		display: flex;
-		margin: 0 auto;
-		float: left;
-		text-align: center;
-		width: 550px;
+	*{
+	margin: 0px;
+	padding: 0px;
 	}
 	
+	.content{
+		margin-top: 30px;
+		margin: 0 auto;
+		width: 1000px;
+		border: 1px solid black;
+	}
+	.content>.content-head>.content-title{
+		margin: 0 auto;
+		text-align: center;
+		padding-top:100px;
+	}
+	
+	.content-wrap{
+		width: 1000px;
+		padding-top: 50px;
+		margin: 0 auto;
+		border-bottom: 1px solid black;
+		
+	}
+	
+	.contentInputBox{
+		margin: 0 auto;
+		float: left;
+		background-color: orange;
+		color: white;
+		border: 1px solid orange;
+		border-radius: 5px;
+		padding: 5px;
+	}
+	
+	.menu-box>.search-menu>li>*{
+		margin: 0 auto;
+		float: left;
+		text-decoration: none;
+		color: black;
+		list-style: none;
+		padding-left: 50px;
+		display: flex;
+	}
+	
+	.menu-box>.search-menu>li>a{
+		border: 1px solid gray;
+		border-radius: 5px;
+		margin: 0 auto;
+		text-align: center;
+		margin-left: 200px;
+		padding-left: 5px;
+	}
+	
+	.qnaSearch>#qnaSearchInput{
+		margin-left: 50px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.qnaSearch>.qnaSearchBox>span{
+		color: white;
+		display: flex;
+		background-color: orange;
+		box-sizing: border-box;
+	}
+	
+	.content-list>*{
+		width: 1000px;
+		margin: 0 auto;
+		margin-top: 30px;
+	}
+	.content-list>#qnaListForm>tr>th{
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+	}
+	
+	#pageNavi{
+		text-decoration: none;
+		color: black;
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -118,7 +114,7 @@
 			</div><!--menu-box-->
 
 			<div class="qnaSearch">
-			<input type="text" name="qnaSearchInput" placeholder="검색할 내용을 입력하세요">			
+			<input type="text" name="qnaSearchInput" placeholder="검색할 내용을 입력하세요">	
 			<button type="submit" class="qnaSearchBox"><span class="material-icons">search</span></button>
 			</div><!-- qnaSearch를 감싸는 div -->
 			</div><!-- qna content-wrap전체를 감싸는 div-->
@@ -126,14 +122,14 @@
 		
 		<section class="qna content-list">
 			<table action="/qnaList" method="get" id="qnaListForm">
-				<tr style="width: 20%;">글 번호</tr>
-				<tr style="width: 40%;">제목</tr>
-				<tr style="width: 20%;">작성자</tr>
-				<tr style="width: 20%;">작성일/수정일</tr>
+				<tr style="width: 20%;"><th>글 번호</th></tr>
+				<tr style="width: 40%;"><th>제목</th></tr>
+				<tr style="width: 20%;"><th>작성자</th></tr>
+				<tr style="width: 20%;"><th>작성일/수정일</th></tr>
 				<tr th:each="qna : ${list}">
 					<td th:text="${qna.qnaNo}"></td>
 					<td th:text="${qna.qnaTitle}"></td>
-					<td th:text="${qna.memberNo}"></td>
+					<td th:text="${qna.memberName}"></td>
 					<td th:text="${qna.qnaDate}"></td>
 				</tr>
 			</table><!-- qnaListForm전체를 감싸는 table -->
