@@ -53,12 +53,26 @@
 		text-align:center;
 		padding:20px 0px;
 	}
-	.recipe.comment-box{
+	.recipe.comment-box-input{
+		width:100%;
+		height:150px;
+		background-color:white;
+		border-radius:20px;
+		margin:50px 0px;
+	}
+	.recipe.comment-box-output{
 		width:100%;
 		min-height:150px;
 		background-color:white;
 		border-radius:20px;
 		margin:50px 0px;
+	}
+	.recipe.comment-box-input>form{
+		height:100%;
+	}
+	.recipe.textarea{
+		width : 80%;
+		height : 100%;
 	}
 </style>
 </head>
@@ -121,12 +135,12 @@
 			</div>
 		</section>
 		<section class="recipe content-footer">
-			<div class="recipe comment-box">
+			<div class="recipe comment-box-input">
 				<form>
-					<textarea></textarea>
+					<textarea class="recipe textarea"></textarea>
 				</form>
 			</div>
-			<div class="recipe comment-box">
+			<div class="recipe comment-box-output">
 				<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
 					<div>작성자 : <span th:text="${rcomment.memberNickname}"></span></div>
 					<div th:text="${rcomment.recipeCommentContent}"></div>
