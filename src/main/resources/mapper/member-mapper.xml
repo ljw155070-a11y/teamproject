@@ -5,7 +5,7 @@
   	select * from
   		(select rownum as rnum, m.* from
   			(select 
-  			member_no, member_id, member_level 
+  			member_no, member_id, member_nickname, member_level 
   		   from member_tbl order by 1
   		   )m
   		  )

@@ -222,7 +222,8 @@ public class RecipeService {
 		reqSet.put("list", list);
 		
 		return reqSet;
-	}
+	}	
+
 	public int recipeCommentInsert(RecipeComment rc) {
 		System.out.println("호출됨");
 		System.out.println(rc);

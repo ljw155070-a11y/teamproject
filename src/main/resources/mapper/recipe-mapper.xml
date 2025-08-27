@@ -67,10 +67,10 @@ WHERE RECIPE_NO=#{reqRecipeNo}
     from recipe_tbl r
     join member_tbl using(member_no)
     order by report_count desc, recipe_report_date) a ) 
-    where #{start} <![CDATA[<=]]> rnum and rnum<![CDATA[<=]]> #{end}
+    where report_count <![CDATA[>=]]> 1 and #{start} <![CDATA[<=]]> rnum and rnum<![CDATA[<=]]> #{end}
   	</select>
   	
-  	<select id="recipeReportedTotalCount" resultType="recipe">
+  	<select id="recipeReportedTotalCount" resultType="int">
   		select count(*) from
 		(select 
 		 recipe_no, 
@@ -82,7 +82,7 @@ WHERE RECIPE_NO=#{reqRecipeNo}
     		from recipe_tbl r
     		join member_tbl using(member_no)
    		) 
-   		 where report_count<![CDATA[>=]]>1 
+   		 where report_count <![CDATA[>=]]> 1 
   	</select>
 
   	<insert id="recipeCommentInsert">
