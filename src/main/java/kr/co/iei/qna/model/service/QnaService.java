@@ -16,7 +16,7 @@ public class QnaService {
 	private QnaDao qnaDao;
 
 	public QnaListData selectAllQnaList(int reqPage) {
-		int numPerPage = 10; //한 페이지에 보여줄 게시물
+		int numPerPage = 15; //한 페이지에 보여줄 게시물
 		
 		int endPage = reqPage * numPerPage;
 		int startPage = endPage - numPerPage + 1;
