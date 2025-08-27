@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -27,7 +27,7 @@
 				
 				<tr>
 					<th>작성자 : </th>
-					<td th:text="{q.MemberName}"></td>
+					<td th:text="{q.memberName}"></td>
 					<th>조회수 : </th>
 					<td th:text="{q.qnaCount}"></td>
 					<th>작성일 : </th>
