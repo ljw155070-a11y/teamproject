@@ -175,12 +175,12 @@ label{
 		
 		
 		$("#agreeNext").on("click",function(e){
-			alert("1");
-	            e.preventDefault();
 			const checkBox = $("[name=check]:checked");
-			if(checkBox.length === 2){
+			if(checkBox.length !== 2){
 	            alert("약관에 모두 동의해 주십시오.");
+			    e.preventDefault();
 	        }else{
+	        	
 	        }
 		});
 		

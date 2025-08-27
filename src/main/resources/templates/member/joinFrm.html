@@ -3,6 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <title>joinFrm</title>
+<style>
+.joinFrm{
+    background-color: #F4F4F4;
+    width: 100%;
+    display: inline-block;
+}
+.content-title{
+    margin-top: 170px;
+    font-size: 22px;
+    color: #EBA854;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.join-content{
+    background-color: #fff;
+    width: 800px;
+    height: 1000px;
+    margin: 0 auto;
+    margin-bottom: 150px;
+    border-radius: 9px;
+    padding-top: 80px;
+}
+
+
+/* joinBox1 */
+.joinBox1{
+    margin: 0 auto;
+    border: 1px solid #BFBFBF;
+    border-radius: 15px;
+    width: 500px;
+    height: 219px;
+}
+.joinBox1>.pwInput{
+    border-top: 1px solid #BFBFBF;
+    border-bottom: 1px solid #BFBFBF;
+}
+.joinBox1>div{
+    padding: 15px;
+}
+.joinBox1>div>span{
+    margin-left: 15px;
+    margin-top: 7px;
+    color: #BFBFBF;
+    font-size: 30px;
+    margin-right: 5px;
+}
+.joinBox1>div>input{
+    width: 340px;
+    margin-left: 5px;
+    font-size: 22px;
+    border: transparent;
+}
+.pwInput>#hide-btn{
+    display: none;
+    cursor: pointer;
+}
+.pwReInput>#hide-btn-2{
+    display: none;
+    cursor: pointer;
+}
+
+/* joinBox2 */
+.joinBox2{
+    margin: 0 auto;
+    border: 1px solid #BFBFBF;
+    border-radius: 15px;
+    width: 500px;
+    height: 140px;
+}
+
+.joinBox2>div>span{
+    margin-left: 15px;
+    margin-top: 6px;
+    color: #BFBFBF;
+    font-size: 30px;
+    margin-right: 5px;
+}
+.joinBox2>div{
+    padding: 14px;
+}
+.joinBox2>.nameInput{
+    border-bottom: 1px solid #BFBFBF;
+}
+.joinBox2>div>input{
+    width: 340px;
+    margin-left: 5px;
+    font-size: 22px;
+    border: transparent;
+}
+
+/* joinBox3 */
+.joinBox3{
+    margin: 0 auto;
+    border: 1px solid #BFBFBF;
+    border-radius: 15px;
+    width: 400px;
+    height: 55px;
+    float: left;
+    margin-left: 150px;
+    padding-bottom: 10px;
+}
+.emailInput>span{
+    margin-left: 15px;
+    margin-top: 10px;
+    color: #BFBFBF;
+    font-size: 30px;
+}
+.emailInput>input{
+    width: 300px;
+    margin-left: 10px;
+    font-size: 22px;
+    border: transparent;
+    margin-top: 15px;
+}
+.emailInput{
+    padding-top: 7px;
+    display: flex;
+}
+.email-btn{
+    background-color: #FF9D23;
+    border: none;
+    color: #fff;
+    border-radius: 9px;
+    margin-left: 7px;
+    margin-top: 16px;
+    height: 37px;
+    font-size: 16px;
+    width: 85px;
+    cursor: pointer;
+}
+.emailInputWrap{
+    display: inline-block;
+    margin-bottom: 15px;
+}
+.email-btn:hover{
+    background-color: #ffc074;
+    color: #d17b11;
+    font-weight: bold;
+}
+
+/* joinBox4 */
+
+
+.emailConfirm{
+    margin: 0 auto;
+    border: 1px solid #BFBFBF;
+    border-radius: 15px;
+    width: 290px;
+    height: 55px;
+    float: left;
+    margin-left: 150px;
+    padding-bottom: 10px;
+}
+.emailConfirm>input{
+    width: 250px;
+    margin-left: 20px;
+    font-size: 22px;
+    border: transparent;
+    margin-top: 20px;
+}
+.emailConfirmBtn{
+    background-color: #FF9D23;
+    border: none;
+    color: #fff;
+    border-radius: 9px;
+    margin-left: 7px;
+    margin-top: 15px;
+    height: 37px;
+    font-size: 16px;
+    width: 85px;
+    cursor: pointer;
+}
+.emailConfirmBtn:hover{
+    background-color: #ffc074;
+    color: #d17b11;
+    font-weight: bold;
+}
+.joinBox4-hidden{
+    display: none;
+}
+
+
+/* * */
+.joinDiv{
+    margin-bottom: 80px;
+}
+
+/*  */
+.join-content-btn{
+    background-color: #FF9D23;
+    color: #fff;
+    font-size: 22px;
+    width: 190px;
+    height: 70px;
+    margin-left: 305px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+
+.join-content-btn:hover{
+    background-color: #ffc074;
+    color: #d17b11;
+}
+
+/* p/span */
+.input-msg{
+    margin-left: 100px;
+    font-size: 16px;
+}
+.id-check-msg{
+    margin-left: 250px;
+    font-size: 16px
+}
+
+.emailConfirm-span{
+    margin-left: 8px;
+}
+
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -15,17 +239,17 @@
 	                		<div class="joinBox1 joinDiv">
 		                    	<div class="idInput">
 		                        	<span class="material-icons">perm_identity</span>
-		                        	<input type="text" placeholder="아이디">
+		                        	<input type="text" placeholder="아이디" name="memberNo">
 		                    	</div>
 		                    	<div class="pwInput">
 			                        <span class="material-icons">lock_outline</span>
-			                        <input type="password" placeholder="비밀번호" id="pwInput">
+			                        <input type="password" placeholder="비밀번호" id="pwInput" name="memberPw">
 			                        <span class="material-icons" onclick="hidePw1();" id="hide-btn">visibility</span>
 			                        <span class="material-icons" onclick="showPw1();" id="show-btn">visibility_off</span>
 			                    </div>
 			                    <div class="pwReInput">
 			                        <span class="material-icons">lock_outline</span>
-			                        <input type="password" placeholder="비밀번호 확인" id="pwReInput">
+			                        <input type="password" placeholder="비밀번호 확인" id="pwReInput" name="memberPwRe">
 			                        <span class="material-icons" onclick="hidePw2();" id="hide-btn-2">visibility</span>
 			                        <span class="material-icons" onclick="showPw2();" id="show-btn-2">visibility_off</span>
 			                    </div>
@@ -34,24 +258,24 @@
 			                <div class="joinBox2 joinDiv">
 			                    <div class="nameInput">
 			                        <span class="material-icons">perm_identity</span>
-			                        <input type="text" placeholder="이름">
+			                        <input type="text" placeholder="이름" name="memberName">
 			                    </div>
 			                    <div class="nicknameInput">
 			                        <span class="material-icons">perm_identity</span>
-			                        <input type="text" placeholder="닉네임">
+			                        <input type="text" placeholder="닉네임" name="memberNickname">
 			                    </div>
 			                </div>
 			                <div class="emailInputWrap">
 			                    <div class="joinBox3">
 			                        <div class="emailInput">
 			                            <span class="material-icons">mail_outline</span>
-			                            <input type="text" placeholder="이메일 주소 전체 입력">
+			                            <input type="text" placeholder="이메일 주소 전체 입력" name="memberEmail">
 			                        </div>
 			                    </div>
 			                    <button type="button" class="email-btn">인증요청</button>     
 			                </div>
 			                <div class="emailConfirm-hide-btn">
-			                    <div class="joinBox4 joinDiv">
+			                    <div class="joinBox4-hidden joinBox4 joinDiv">
 			                        <div class="emailConfirm">
 			                            <input type="text" placeholder="인증번호 6자리 입력">
 			                        </div>
@@ -66,5 +290,46 @@
 		    </div>
 		</main>
 	<th:block th:include="common/footer"></th:block>
+	<script>
+		function hidePw1(){
+	        const pwinput = document.getElementById("pwInput");
+	        const hideBtn = document.getElementById("hide-btn");
+	        const showBtn = document.getElementById("show-btn");
+	
+	        showBtn.style.display="inline";
+	        hideBtn.style.display="none";
+	        pwinput.type="password";
+	    }
+	
+	    function showPw1(){
+	        const pwinput = document.getElementById("pwInput");
+	        const hideBtn = document.getElementById("hide-btn");
+	        const showBtn = document.getElementById("show-btn");
+	
+	        showBtn.style.display="none";
+	        hideBtn.style.display="inline";
+	        pwinput.type="text";
+	    }
+	    
+	            function hidePw2(){
+	        const pwinput = document.getElementById("pwReInput");
+	        const hideBtn = document.getElementById("hide-btn-2");
+	        const showBtn = document.getElementById("show-btn-2");
+	
+	        showBtn.style.display="inline";
+	        hideBtn.style.display="none";
+	        pwinput.type="password";
+	    }
+	
+	    function showPw2(){
+	        const pwinput = document.getElementById("pwReInput");
+	        const hideBtn = document.getElementById("hide-btn-2");
+	        const showBtn = document.getElementById("show-btn-2");
+	
+	        showBtn.style.display="none";
+	        hideBtn.style.display="inline";
+	        pwinput.type="text";
+	    }
+	</script>
 </body>
 </html>
