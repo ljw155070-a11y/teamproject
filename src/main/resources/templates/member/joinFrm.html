@@ -337,6 +337,8 @@
 	        pwinput.type="text";
 	    }
 	    	
+	    function checkId(memberId){
+	    	const memberId = $("#memberId").val();
 	    	$.ajax({
 	    		url : "member/checkId",
 	    		type : "get",
@@ -351,6 +353,7 @@
 	    	    	}	    			
 	    		}
 	    	});
+	    }
 
 	    
 	</script>
