@@ -229,4 +229,20 @@ public class RecipeService {
 		int result = recipeDao.recipeCommentInsert(rc);
 		return 0;
 	}
+
+	public int recipeGradeInsert(int recipeNo, int memberNo, int recipeRate) {
+		System.out.println("★★★★★★★");
+		System.out.println(recipeNo);
+		System.out.println(memberNo);
+		System.out.println(recipeRate);
+		int count = recipeDao.recipeGradeSelect(recipeNo,memberNo);
+		int result=0;
+		if(count==0) {
+			result = recipeDao.recipeGradeInsert(recipeNo,memberNo,recipeRate);
+		}else {
+			result = recipeDao.recipeGradeUpdate(recipeNo,memberNo,recipeRate);
+		}
+		System.out.println(count);
+		return result;
+	}
 }

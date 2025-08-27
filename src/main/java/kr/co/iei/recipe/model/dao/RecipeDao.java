@@ -32,5 +32,11 @@ public interface RecipeDao {
 
 	int recipeCommentInsert(RecipeComment rc);
 
+	int recipeGradeInsert(int recipeNo, int memberNo, int recipeRate);
+
+	int recipeGradeSelect(int recipeNo, int memberNo);
+
+	int recipeGradeUpdate(int recipeNo, int memberNo, int recipeRate);
+
 	
 }
