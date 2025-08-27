@@ -22,8 +22,7 @@ public class QnaController {
 	
 	
 	@GetMapping(value="/list")
-	public String qnaList(int reqPage, Model model) {
-		
+	public String qnaList(int reqPage, Model model) {	
 		QnaListData qld = qnaService.selectAllQnaList(reqPage);
 		model.addAttribute("list", qld.getList());
 		model.addAttribute("pageNavi", qld.getPageNavi());

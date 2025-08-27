@@ -25,7 +25,7 @@
                         (SELECT RECIPE_NO,AVG(RECIPE_RATE) AVG_RATE FROM RECIPE_GRADE_TBL GROUP BY RECIPE_NO) G
                     ON(G.RECIPE_NO=R.RECIPE_NO) ORDER BY RECIPE_NO DESC
             ) A
-        ) WHERE RNUM BETWEEN ${startNum} AND ${endNum}
+        ) WHERE RNUM BETWEEN #{startNum} AND #{endNum}
   	</select>
   	<select id="allRecipeCount">
   		SELECT COUNT(*) FROM RECIPE_TBL
@@ -34,20 +34,66 @@
   	<select id="recipeDetail" resultType="recipe">
   		SELECT * 
 FROM RECIPE_TBL
-WHERE RECIPE_NO=${reqRecipeNo}
+WHERE RECIPE_NO=#{reqRecipeNo}
   	</select>
   	
   	<select id="recipeIngredientList" resultType="recipeIngredient">
-  		SELECT * FROM RECIPE_INGREDIENT_TBL WHERE RECIPE_NO=${reqRecipeNo}
+  		SELECT * FROM RECIPE_INGREDIENT_TBL WHERE RECIPE_NO=#{reqRecipeNo}
   	</select>
   	
   	<select id="recipeCookingOrderList" resultType="recipeCookingOrder">
-  		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=${reqRecipeNo}
+  		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=#{reqRecipeNo}
   	</select>
   	
   	<select id="recipeCommentList" resultType="recipeComment">
 		SELECT RECIPE_COMMENT_NO,MEMBER_NO,RECIPE_COMMENT_CONTENT,RECIPE_COMMENT_DATE,RECIPE_NO,RECIPE_COMMENT_UPDATE_DATE,MEMBER_NICKNAME FROM RECIPE_COMMENT_TBL 
 		JOIN MEMBER_TBL USING(MEMBER_NO)
-		WHERE RECIPE_NO=${reqRecipeNo}
+		WHERE RECIPE_NO=#{reqRecipeNo} ORDER BY RECIPE_COMMENT_NO DESC
   	</select>
+  	
+
+  	<select id="recipeReportedList" resultType="recipe">
+  		select * from(
+    select rownum rnum,a.*
+    from(
+    select  
+        recipe_no,
+        recipe_title,
+        (select count(*) from recipe_report_tbl where recipe_no = r.recipe_no) report_count,
+        member_id,
+        (select max(recipe_report_date)
+    from recipe_report_tbl
+    join recipe_tbl using(recipe_no) where recipe_no=r.recipe_no) recipe_report_date
+    from recipe_tbl r
+    join member_tbl using(member_no)
+    order by report_count desc, recipe_report_date) a ) 
+    where #{start} <![CDATA[<=]]> rnum and rnum<![CDATA[<=]]> #{end}
+  	</select>
+  	
+  	<select id="recipeReportedTotalCount" resultType="recipe">
+  		select count(*) from
+		(select 
+		 recipe_no, 
+         recipe_title,
+           (select count(*) 
+            from recipe_report_tbl 
+            where recipe_no = r.recipe_no) report_count,
+        	member_id
+    		from recipe_tbl r
+    		join member_tbl using(member_no)
+   		) 
+   		 where report_count<![CDATA[>=]]>1 
+  	</select>
+
+  	<insert id="recipeCommentInsert">
+  		INSERT INTO RECIPE_COMMENT_TBL VALUES(
+  												RECIPE_COMMENT_SEQ.NEXTVAL,
+  												#{memberNo},
+  												#{recipeCommentContent},
+  												SYSDATE,
+  												#{recipeNo},
+  												NULL
+  												)
+  	</insert>
+
 </mapper>
