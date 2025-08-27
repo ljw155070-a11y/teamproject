@@ -16,36 +16,36 @@ public class QnaService {
 	private QnaDao qnaDao;
 
 	public QnaListData selectAllQnaList(int reqPage) {
-		int numPerPage = 10;
+		int numPerPage = 10; //한 페이지에 보여줄 게시물
 		
-		int endPage = reqPage*numPerPage;
-		int startPage = endPage-numPerPage +1;
+		int endPage = reqPage * numPerPage;
+		int startPage = endPage - numPerPage + 1;
 		
 		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("endPage", endPage);
 		param.put("startPage", startPage);
+		param.put("endPage", endPage);
 		
 		int totalCount = qnaDao.selectQnaTotalCount();
 		
 		int totalPage = (int)Math.ceil(totalCount/(double)numPerPage);
 		
-		int pageNaviSize = 5;
+		int pageNaviSize = 5; //페이지 길이
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
-		
 		String pageNavi = "<ul class='qna-paging'>";
 		if(pageNo != 1) {			
 			pageNavi += "<li>";
-			pageNavi += "<a class='qnaPage' href='/qna/list?reqPage='"+(pageNo-1)+">";
-			pageNavi += "<span class='material-icons'>chevron-left</span>";
+			pageNavi += "<a class='qnaPage' href='/qna/list?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<span class=\"material-symbols-outlined\">keyboard_double_arrow_left</span>";
+			pageNavi += "</a>";
 			pageNavi += "</li>";
 		}
 		
 		for(int i=0;i<pageNaviSize;i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
-				pageNavi += "<a class='qnaPage active-page' href='/qna/list?reqPage='"+pageNo+">";
+				pageNavi += "<a class='qnaPage active-page' href='/qna/list?reqPage="+pageNo+"'>";
 			}else {
-				pageNavi += "<a class='qnaPage' href='qna/list?reqPage='"+pageNo+">";
+				pageNavi += "<a class='qnaPage' href='/qna/list?reqPage="+pageNo+"'>";
 			}
 			pageNavi += pageNo;
 			pageNavi += "</a>";
@@ -56,10 +56,10 @@ public class QnaService {
 				break;
 			}
 		}
-		if(pageNo > totalPage) {
+		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='qnaPage' href='qna/list?reqPage='"+pageNo+">";
-			pageNavi += "<span class='material-icons'>chevron-right</span>";
+			pageNavi += "<a class='qnaPage' href='/qna/list?reqPage="+pageNo+"'>";
+			pageNavi += "<span class=\"material-symbols-outlined\">keyboard_double_arrow_right</span>";
 			pageNavi += "</a>";
 			pageNavi +="</li>";
 		}
@@ -75,12 +75,5 @@ public class QnaService {
 		Qna q = qnaDao.selectOneQnaList(qnaNo);
 		return q;
 	}
-
-	
-
-	
-
-	
-
 	
 }

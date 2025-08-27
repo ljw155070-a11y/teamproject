@@ -1,5 +1,6 @@
 package kr.co.iei.recipe.model.service;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -171,6 +172,7 @@ public class RecipeService {
 		return recipeDetailSet;
 	}
 
+
 	public HashMap<String, Object> recipeReportedList(int reqPage) {
 		int numPerPage = 10;
 		
@@ -220,5 +222,10 @@ public class RecipeService {
 		reqSet.put("list", list);
 		
 		return reqSet;
+	public int recipeCommentInsert(RecipeComment rc) {
+		System.out.println("호출됨");
+		System.out.println(rc);
+		int result = recipeDao.recipeCommentInsert(rc);
+		return 0;
 	}
 }

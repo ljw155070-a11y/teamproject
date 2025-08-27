@@ -4,27 +4,38 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	.content{
+		width: 1000px;
+		overflow: hidden;
+		margin: 0 auto;
+		padding: 0;
+		background-color: gray;
+	}
+	
+</style>
 <body>
-	<th:block th:include="common/header">
+	<th:block th:include="common/header"></th:block>
 	<main class="qna content">
 		<section class="qna view-wrap">
 			<div class=" view-head">질문 게시판</div>
 			
 			<table class="view-content">
 				<tr>
-					<th th:text="${qnaTitle}"></th>
+					<th th:text="${q.qnaTitle}"></th>
 				</tr>
 				
 				<tr>
 					<th>작성자 : </th>
-					<td></td>
+					<td th:text="{q.MemberName}"></td>
 					<th>조회수 : </th>
+					<td th:text="{q.qnaCount}"></td>
 					<th>작성일 : </th>
-					<td></td>
+					<td th:text="{q.qnaDate}"></td>
 				</tr>
 			</table>
 		</section>
 	</main>
-	<th:block th:include="common/footer">
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

@@ -25,8 +25,12 @@ public interface RecipeDao {
 
 	List<RecipeComment> recipeCommentList(int reqRecipeNo);
 
+
 	List<Member> recipeReportedList(int start, int end);
 
 	int recipeReportedTotalCount();
+
+	int recipeCommentInsert(RecipeComment rc);
+
 	
 }
