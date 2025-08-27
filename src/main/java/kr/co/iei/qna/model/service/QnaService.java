@@ -71,8 +71,8 @@ public class QnaService {
 		return qld;
 	}
 
-	public Qna selectOneQnaList(String qnaTitle) {
-		Qna q = qnaDao.selectOneQnaList(qnaTitle);
+	public Qna selectOneQnaList(int qnaNo) {
+		Qna q = qnaDao.selectOneQnaList(qnaNo);
 		return q;
 	}
 	

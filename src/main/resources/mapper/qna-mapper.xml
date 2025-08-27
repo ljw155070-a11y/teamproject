@@ -15,6 +15,6 @@
 	</select>
 	
 	<select id="selectOneQnaList" resultType="qna">
-		select * from qna_tbl where qna_title = #{qnaTitle}
+		select * from qna_tbl where qna_no = #{qnaNo}
 	</select>
 </mapper>

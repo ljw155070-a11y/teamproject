@@ -30,8 +30,8 @@ public class QnaController {
 	}
 	
 	@GetMapping(value="/view")
-	public String qnaView(Model model, String qnaTitle) {
-			Qna q = qnaService.selectOneQnaList(qnaTitle);
+	public String qnaView(Model model, int qnaNo) {
+			Qna q = qnaService.selectOneQnaList(qnaNo);
 			model.addAttribute("q", q);
 		return "qna/view";
 	}
