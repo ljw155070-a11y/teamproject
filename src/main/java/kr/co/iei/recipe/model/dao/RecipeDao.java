@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.recipe.model.vo.Recipe;
 import kr.co.iei.recipe.model.vo.RecipeComment;
 import kr.co.iei.recipe.model.vo.RecipeCookingOrder;
@@ -24,6 +25,12 @@ public interface RecipeDao {
 
 	List<RecipeComment> recipeCommentList(int reqRecipeNo);
 
+
+	List<Member> recipeReportedList(int start, int end);
+
+	int recipeReportedTotalCount();
+
 	int recipeCommentInsert(RecipeComment rc);
+
 	
 }

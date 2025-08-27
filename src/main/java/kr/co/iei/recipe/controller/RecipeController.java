@@ -33,7 +33,6 @@ public class RecipeController {
 	
 	@GetMapping(value="/detail")
 	public String recipeDetail(Model model,int reqRecipeNo,@SessionAttribute(required = false) Member member) {
-		System.out.println("현재 접속된 유저 정보 : " + member.getMemberNo());
 		HashMap<String, Object> recipeDetailSet = recipeService.recipeDetail(reqRecipeNo);
 		model.addAttribute("recipeDetailSet",recipeDetailSet);
 		System.out.println(recipeDetailSet);
