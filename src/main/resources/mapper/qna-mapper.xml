@@ -2,10 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.iei.qna.model.dao.QnaDao">
 	<select id="selectAllQna" resultType="qna">
-	select b.qna_no, b.qna_title, c.member_name, b.qna_date
-	from qna_tbl b 
-	join member_tbl c 
-	on (b.member_no = c.member_no)
+	select * from
+		(select rownum rnum, a.* from
+    		(select b.qna_no, b.qna_title, c.member_name, b.qna_date
+    		from qna_tbl b 
+    		join member_tbl c 
+    	on (b.member_no = c.member_no) order by qna_no desc)
+    	a) where rnum between ${startPage} and ${endPage}
 	</select>
 	<select id="selectQnaTotalCount" resultType="int">
 	select count(*) from qna_tbl
