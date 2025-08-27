@@ -26,7 +26,7 @@ public class MemberService {
 		
 		
 		int end = reqPage * numPerPage;
-		int start = end - numPerPage;
+		int start = end - numPerPage+1;
 		
 		List<Member> list = memberDao.selectMemberList(start, end);
 		
