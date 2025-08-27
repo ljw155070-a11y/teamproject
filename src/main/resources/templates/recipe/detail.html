@@ -130,7 +130,7 @@
 					<div class="recipe detailInfo-title">재료</div>
 						<div class="recipe ingredientList">
 							<div th:each="ri : ${recipeDetailSet.recipeIngredientList}">
-								<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="display:inline-block; line-height:20px; color: white; width:40px;height:20px; background-color:#0000aa; border-radius:10px; text-align:center;">구매</a></div>
+								<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a class="recipe btn" th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="padding:0px 15px;">구매</a></div>
 								<div th:text="${ri.recipeIngredientVolume}"></div>
 							</div>
 						</div>
@@ -168,33 +168,42 @@
 				</div>
 			</section>
 			<section class="recipe content-footer">
-				<div class="recipe comment-box-input">
-					
-					<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 전송 정보 ★★★★★★★★★★★★★★★★★★★★★★★ -->
-					
-								<table class="recipe line" style="width:100%">
-									<tr>
-										<td style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></td>
-										<td>
+				<th:block th:if="${session.member!=null}">
+					<div class="recipe comment-box-input">
+						
+						<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 전송 정보 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+						
+									<table class="recipe line" style="width:100%">
+										<tr>
+											<td style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></td>
+											<td>
+												
+												<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 댓글 내용 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+												<textarea name= "recipeCommentContent" class="recipe textarea" style="height:75px; width:98%;"></textarea>
 											
-											<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 댓글 내용 ★★★★★★★★★★★★★★★★★★★★★★★ -->
-											<textarea name= "recipeCommentContent" class="recipe textarea" style="height:75px; width:98%;"></textarea>
+											</td>
+										</tr>
+									</table>
+									<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 레시피 번호 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+									<input type="hidden" name="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
+									<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 작성자 번호(PK) ★★★★★★★★★★★★★★★★★★★★★★★ -->
+									<input type="hidden" name="memberNo" th:value="${session.member.memberNo}">
+									<div style="text-align:right">
+										<span class="material-icons">create</span>
 										
-										</td>
-									</tr>
-								</table>
-								<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 레시피 번호 ★★★★★★★★★★★★★★★★★★★★★★★ -->
-								<input type="hidden" name="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
-								<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 작성자 번호(PK) ★★★★★★★★★★★★★★★★★★★★★★★ -->
-								<input type="hidden" name="memberNo" th:value="${session.member.memberNo}">
-								<div style="text-align:right">
-									<span class="material-icons">create</span>
-									
-									<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 보내기 ★★★★★★★★★★★★★★★★★★★★★★★ -->
-									<input type="submit" value="댓글 작성" style="border:none" id="ajax">
-								</div>
-					
+										<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 보내기 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+										<input type="submit" value="댓글 작성" style="border:none" id="ajax">
+									</div>
+						
+					</div>
+				</th:block>
+				<th:block th:if="${session.member ==null}">
+				<div class="recipe comment-box-input"> 
+					<span>댓글 작성은 로그인 후 이용 가능합니다.</span>
+					<a class="recipe btn" th:href="@{/member/loginFrm}" style="padding:10px;">로그인</a> 
 				</div>
+				
+				</th:block>
 				
 				<div class="recipe comment-box-output">
 					<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
