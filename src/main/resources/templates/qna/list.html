@@ -189,7 +189,7 @@
 				</tr>
 				<tr class="listInfo" th:each="qna : ${list}">
 					<td th:text="${qna.qnaNo}" style="text-align:center;"></td>
-					<td style="text-align:center;"><a href="/qna/view" th:text="${qna.qnaTitle}"></a></td>
+					<td style="text-align:center;"><a th:href="@{/qna/view(qnaNo=${qna.qnaNo})}" th:text="${qna.qnaTitle}"></a></td>
 					<td th:text="${qna.memberName}" style="text-align:center;"></td>
 					<td th:text="${qna.qnaDate}" style="text-align:center;"></td>
 				</tr>
