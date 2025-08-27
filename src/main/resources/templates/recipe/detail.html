@@ -128,7 +128,7 @@
 					<div class="recipe detailInfo-title">재료</div>
 						<div class="recipe ingredientList">
 							<div th:each="ri : ${recipeDetailSet.recipeIngredientList}">
-								<div><span th:text="${ri.recipeIngredientName}"></span><a th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"></a></div>
+								<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="display:inline-block; line-height:20px; color: white; width:40px;height:20px; background-color:#0000aa; border-radius:10px; text-align:center;">구매</a></div>
 								<div th:text="${ri.recipeIngredientVolume}"></div>
 							</div>
 						</div>
