@@ -174,7 +174,7 @@
 							<td colspan="4"><hr></td>
 						</tr>
 						<th:block th:each="r:${reqPageSet.list}">
-							<tr>
+							<tr th:onclick="connectRecipeDetail([[${r.recipeNo}]])">
 								<td th:text="${r.recipeNo}" style="text-align:center;"></td>
 								<td style="text-align:center;">
 									<img th:src="${r.recipeThumbnailPath}" alt="썸네일" style = "width:70%;" >
@@ -235,7 +235,11 @@
 			<!-- reqPage가 totalPageNo -3 보다 크면 이후 버튼 제거 -->
 		</section>
 	</main>
-	
+	<script>
+		function connectRecipeDetail(recipeNo){
+			location.href="/recipe/detail?reqRecipeNo="+recipeNo;
+		}
+	</script>
 	<th:block th:include="common/footer"></th:block>
 	
 </body>

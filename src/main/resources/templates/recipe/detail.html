@@ -101,7 +101,9 @@
 	hr{
 	  border:1px solid #e6e6e6;
 	 }
-	
+	button:hover{
+	cursor:pointer;
+	}
 </style>
 </head>
 <body>
@@ -160,7 +162,7 @@
 						<hr>
 						<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
 							<button type="button" class="recipe btn edit">게시글 수정</button>
-							<button type="button" class="recipe btn delete">게시글 삭제</button>
+							<button type="button" class="recipe btn delete" th:onclick="deleteRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]])">게시글 삭제</button>
 						</div>
 					</div>
 				</div>
@@ -198,9 +200,9 @@
 					<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
 						<table class="recipe line" style="width:100%">
 							<tr>
-								<td rowspan="2" style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></th>
-								<td style="width:20%; text-align:left; height:30px; padding-top:10px;"><div><span th:text="${rcomment.memberNickname}"></span></div></th>
-								<td style="width:70%; text-align:right; height:30px; padding-top:10px; padding-right:10px;"><div><span th:text="${rcomment.recipeCommentDate}"></span></div></th>
+								<td rowspan="2" style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></td>
+								<td style="width:20%; text-align:left; height:30px; padding-top:10px;"><div><span th:text="${rcomment.memberNickname}"></span></div></td>
+								<td style="width:70%; text-align:right; height:30px; padding-top:10px; padding-right:10px;"><div><span th:text="${rcomment.recipeCommentDate}"></span></div></td>
 							</tr>
 							<tr>
 								<td colspan="2" style="color:#444444;"><div th:text="${rcomment.recipeCommentContent}"></div></td>
@@ -217,6 +219,42 @@
 		</form>
 	</main>
 
+	<script src="/js/sweetalert.min.js"></script>
+	<script>
+		function deleteRecipe(recipeNo){
+			swal({
+				title : "레시피 삭제",
+				text : "게시글을 삭제하시겠습니까?",
+				icon : "warning",
+				buttons : {
+					confirm : {
+						text:"삭제",
+						value:true,
+						visible : true,
+						className : "btn-primary",
+						closeModal : true
+					},
+					cancel:{
+						text:"취소",
+						value:false,
+						visible : true,
+						className : "btn-secondary",
+						closeModal : true
+					}
+				}
+			}).then(function(isConfirm){
+				if(isConfirm){
+					location.href="/recipe/detail?reqRecipeNo="+recipeNo;
+				}
+			})
+		};
+		
+		$(".ingredientList a").hover(function(){
+			$(this).css("color","yellow");
+		},function(){
+			$(this).css("color","white");
+		});
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
