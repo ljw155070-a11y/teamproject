@@ -27,4 +27,5 @@ public class Recipe {
 	private String recipeRate;
 	private String memberNickname;
 	private String memberId;
+	private int rNum;
 }

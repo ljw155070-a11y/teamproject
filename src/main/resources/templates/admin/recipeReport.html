@@ -8,13 +8,16 @@
 	<th:block th:include="common/header"></th:block>
 	<main class="content">
 		<div class="content-title">신고 관리 페이지</div>
-			<section class="allMember-section">
-			<table class="allMember-tbl">
+		<!-- 
+			<section class="recipeReport-section">
+			<table class="recipeReport-tbl">
 				<tr>
-					<th style="width:16%;">선택</th>
-					<th style="width:44%;">제목</th>
-					<th style="width:18%;">신고수</th>
-					<th style="width:22%;">작성자</th>
+					<th style="width:10%;">번호</th>
+					<th style="width:12%;">선택</th>
+					<th style="width:36%;">제목</th>
+					<th style="width:15%;">신고수</th>
+					<th style="width:15%;">작성자</th>
+					<th style="width:12%;">삭제</th>
 				</tr>
 				<tr th:each="r,status : ${reqSet.list}">
 					<td>
@@ -23,10 +26,21 @@
 							<label th:for="${'chk'+status.count}"></label>
 						</div>
 					</td>
+					<td th:text="${r.rNum}"></td>
 					<td th:text="${r.recipeTitle}"></td>
 					<td th:text="${r.totalCount}"></td>
 					<td th:text="${r.memberId}"></td>
-		</section>			
+					<td>
+						<button class="btn deleteRecipe">등급변경</button>
+					</td>
+				</tr>	
+				<tr>
+					<td colspan="6">
+						<button class="btn checkedDeleteRecipe">선택 회원 등급 변경</button>
+					</td>
+				</tr>
+			</table>		
+		</section> -->			
 	</main>				
 </body>
 </html>
