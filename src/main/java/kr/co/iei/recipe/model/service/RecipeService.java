@@ -223,6 +223,7 @@ public class RecipeService {
 		
 		return reqSet;
 	}	
+
 	public int recipeCommentInsert(RecipeComment rc) {
 		System.out.println("호출됨");
 		System.out.println(rc);
