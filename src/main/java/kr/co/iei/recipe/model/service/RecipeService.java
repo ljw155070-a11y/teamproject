@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.recipe.model.dao.RecipeDao;
 import kr.co.iei.recipe.model.vo.Recipe;
 import kr.co.iei.recipe.model.vo.RecipeComment;
@@ -168,5 +169,56 @@ public class RecipeService {
 		System.out.println("레시피 조리 순서 : " + recipeCookingOrderList);
 		System.out.println("레시피 조리 순서 : " + recipeCommentList);
 		return recipeDetailSet;
+	}
+
+	public HashMap<String, Object> recipeReportedList(int reqPage) {
+		int numPerPage = 10;
+		
+		
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage;
+		
+		List<Member> list = recipeDao.recipeReportedList(start, end);
+		
+		HashMap<String, Object> reqSet = new HashMap<>();
+		
+		
+		//전체 게시물 수
+		int totalCount = recipeDao.recipeReportedTotalCount();
+		
+		HashMap<String, Integer> pageInfo = new HashMap<>();
+		//전체 페이지 수
+		int totalPage = (int)(Math.ceil(totalCount/(double)numPerPage));
+		
+		//페이지네비 길이
+		int pageNaviSize = 5;
+		
+		//양쪽에 올 네비 갯수
+		int bothSidePage = (pageNaviSize-1)/2;
+		
+		int startNo = Math.max(1, bothSidePage);
+		
+		int endNo = Math.min(totalPage, reqPage+bothSidePage);
+		
+		if(totalPage <= pageNaviSize) {
+			startNo = 1;
+			endNo = totalPage;
+		}else {
+			if((reqPage-bothSidePage)<1) {
+				endNo += (1-(reqPage-bothSidePage));
+			}else if((reqPage+bothSidePage)>totalPage) {
+				startNo -= (reqPage+bothSidePage)-totalPage; 
+			}
+		}
+		pageInfo.put("reqPage", reqPage);
+		pageInfo.put("startNo", startNo);
+		pageInfo.put("endNo", endNo);
+		pageInfo.put("totalCount", totalCount);
+		pageInfo.put("totalPage", totalPage);
+		
+		reqSet.put("pageInfo", pageInfo);
+		reqSet.put("list", list);
+		
+		return reqSet;
 	}
 }
