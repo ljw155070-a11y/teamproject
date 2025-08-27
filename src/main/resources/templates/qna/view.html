@@ -2,37 +2,100 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 <title>Insert title here</title>
 </head>
 <style>
 	.content{
 		width: 1000px;
-		overflow: hidden;
+		height: 1000px;
+		background-color: #F4F4F4;
 		margin: 0 auto;
-		padding: 0;
-		background-color: gray;
+	}
+	.space{
+		height : 80px;
+	}
+	.view-title{
+		margin: 0 auto;
+		text-align: center;
+		color: orange;
+		font-weight: bold;
+		margin-bottom: 20px;
 	}
 	
+	.view-content{
+		border: 1px solid orange;
+		border-radius: 15px;
+		box-sizing: border-box;
+		width: 100%;
+		height: 600px;
+		margin: 0 auto;
+	}
+	
+	.writtenTitle{
+		border-bottom: 1px solid black;
+		display: flex;
+		width: 1000px;
+		height: 50px;
+		text-align: center;
+	}
+	.writtenTitle>th{
+		margin: 0 auto;
+	}
+	
+	.contentInfo{
+		border-bottom: 1px solid black;
+		display: flex;
+		width: 100%;
+		height: 50px;
+		padding-top: 5px;
+		box-sizing: border-box;
+	}
+	.contentInfo>th{
+		margin: 0 auto;
+	}
+	
+	.writtenContent{
+		display: flex;
+		border-bottom: 1px solid black;
+		box-sizing: border-box;
+		width: 100%;
+		height: 400px;
+	}
+	.writtenContent>th{
+		padding-left: 5px;
+	}
+	.reportInput{
+		display: flex;
+	}
 </style>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main class="qna content">
 		<section class="qna view-wrap">
-			<div class=" view-head">질문 게시판</div>
+			
+			<div class="space"></div><!-- header와 view-title 거리조절 -->
+			
+			<div class="view-title">질문 게시판 상세</div>
 			
 			<table class="view-content">
-				<tr>
+				<tr class="writtenTitle"><!-- 제목 -->
 					<th th:text="${q.qnaTitle}"></th>
 				</tr>
-				
-				<tr>
-					<th>작성자 : </th>
-					<td th:text="{q.memberName}"></td>
-					<th>조회수 : </th>
-					<td th:text="{q.qnaCount}"></td>
-					<th>작성일 : </th>
-					<td th:text="{q.qnaDate}"></td>
+					
+				<tr class="contentInfo"><!-- 작성자, 조회수, 작성일 -->
+					<th>작성자 : <span th:text="${q.memberNo}"></span></th>
+					<th>조회수 : <span th:text="${q.qnaCount}"></span></th>
+					<th>작성일 : <span th:text="${q.qnaDate}"></span></th>
 				</tr>
+				
+				<tr class="writtenContent"><!-- 질문 내용 -->
+					<th><span th:text="${q.qnaContent}"></span></th>
+				</tr>
+				
+				<a href="/" class="reportInput"></a>
 			</table>
 		</section>
 	</main>
