@@ -1,5 +1,6 @@
 package kr.co.iei.recipe.model.service;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -168,5 +169,12 @@ public class RecipeService {
 		System.out.println("레시피 조리 순서 : " + recipeCookingOrderList);
 		System.out.println("레시피 조리 순서 : " + recipeCommentList);
 		return recipeDetailSet;
+	}
+
+	public int recipeCommentInsert(RecipeComment rc) {
+		System.out.println("호출됨");
+		System.out.println(rc);
+		int result = recipeDao.recipeCommentInsert(rc);
+		return 0;
 	}
 }
