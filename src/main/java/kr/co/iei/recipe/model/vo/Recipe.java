@@ -26,4 +26,5 @@ public class Recipe {
 	private String recipeThumbnailPath;		// 썸네일 경로
 	private String recipeRate;
 	private String memberNickname;
+	private String memberId;
 }
