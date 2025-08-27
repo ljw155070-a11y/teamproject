@@ -40,5 +40,16 @@ public class MemberController {
 		}
 	}
 	
+	@GetMapping(value = "/agreeFrm")
+	public String agreeFrm() {
+		return "member/agree";
+	}
+	
+	
+	@GetMapping(value = "/joinFrm")
+	public String joinFrm() {
+		return "member/joinFrm";
+	}
+	
 	
 }

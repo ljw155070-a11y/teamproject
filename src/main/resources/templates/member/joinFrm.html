@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>joinFrm</title>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+		<main>
+			<div class="joinFrm">
+		        <div class="content-title">회원가입</div>
+		        	<div class="join-content">
+		            	<form action="/member/join" method="post" autocomplete="off">
+		                		<p class="input-msg id-check-msg"></p>
+	                		<div class="joinBox1 joinDiv">
+		                    	<div class="idInput">
+		                        	<span class="material-icons">perm_identity</span>
+		                        	<input type="text" placeholder="아이디">
+		                    	</div>
+		                    	<div class="pwInput">
+			                        <span class="material-icons">lock_outline</span>
+			                        <input type="password" placeholder="비밀번호" id="pwInput">
+			                        <span class="material-icons" onclick="hidePw1();" id="hide-btn">visibility</span>
+			                        <span class="material-icons" onclick="showPw1();" id="show-btn">visibility_off</span>
+			                    </div>
+			                    <div class="pwReInput">
+			                        <span class="material-icons">lock_outline</span>
+			                        <input type="password" placeholder="비밀번호 확인" id="pwReInput">
+			                        <span class="material-icons" onclick="hidePw2();" id="hide-btn-2">visibility</span>
+			                        <span class="material-icons" onclick="showPw2();" id="show-btn-2">visibility_off</span>
+			                    </div>
+			                    <p class="input-msg pw-check-msg"></p>
+		                	</div>
+			                <div class="joinBox2 joinDiv">
+			                    <div class="nameInput">
+			                        <span class="material-icons">perm_identity</span>
+			                        <input type="text" placeholder="이름">
+			                    </div>
+			                    <div class="nicknameInput">
+			                        <span class="material-icons">perm_identity</span>
+			                        <input type="text" placeholder="닉네임">
+			                    </div>
+			                </div>
+			                <div class="emailInputWrap">
+			                    <div class="joinBox3">
+			                        <div class="emailInput">
+			                            <span class="material-icons">mail_outline</span>
+			                            <input type="text" placeholder="이메일 주소 전체 입력">
+			                        </div>
+			                    </div>
+			                    <button type="button" class="email-btn">인증요청</button>     
+			                </div>
+			                <div class="emailConfirm-hide-btn">
+			                    <div class="joinBox4 joinDiv">
+			                        <div class="emailConfirm">
+			                            <input type="text" placeholder="인증번호 6자리 입력">
+			                        </div>
+			                        <button type="button" class="emailConfirmBtn" ld="auth-btn">인증확인</button>
+			                        <span id="time-zone" class="emailConfirm-span"></span>
+			                        <span id="authMsg" class="emailConfirm-span"></span>
+			                    </div>
+			                    <button type="submit" class="join-content-btn">회원가입</button>
+			                </div>
+		            </form>
+		        </div>
+		    </div>
+		</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>
