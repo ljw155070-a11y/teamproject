@@ -30,5 +30,7 @@
   	INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{memberId},#{memberPw},#{memberName},#{memberNickname},#{memberEmail},SYSDATE,'순한맛');
   </insert>
   
+  <select id="selectOneMember"></select>
+  
 </mapper>
 

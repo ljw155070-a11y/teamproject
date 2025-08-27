@@ -118,4 +118,13 @@ public class MemberService {
 		return result;
 	}
 
+
+
+	public Member selectOneMember(String checkId) {
+		Member m = new Member();
+		m.setMemberId(checkId);
+		Member member = memberDao.selectOneMember(m);
+		return null;
+	}
+
 }

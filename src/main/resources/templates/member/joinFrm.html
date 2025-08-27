@@ -226,7 +226,12 @@
 .emailConfirm-span{
     margin-left: 8px;
 }
-
+.valid{
+	color: blue;
+}
+.invalid{
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -240,7 +245,7 @@
 	                		<div class="joinBox1 joinDiv">
 		                    	<div class="idInput">
 		                        	<span class="material-icons">perm_identity</span>
-		                        	<input type="text" placeholder="아이디" name="memberNo">
+		                        	<input type="text" placeholder="아이디" name="memberId">
 		                    	</div>
 		                    	<div class="pwInput">
 			                        <span class="material-icons">lock_outline</span>
@@ -331,6 +336,23 @@
 	        hideBtn.style.display="inline";
 	        pwinput.type="text";
 	    }
+	    	
+	    	$.ajax({
+	    		url : "member/checkId",
+	    		type : "get",
+	    		data : {memberId : memberId},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		$(".id-check-msg").text("사용 가능한 아이디 입니다")
+	    		    	$(".id-check-msg").addClass("valid");	
+	    	    	}else if(result === 1){
+	    	    		$(".id-check-msg").text("사용 불가능한 아이디 입니다")
+	    		    	$(".id-check-msg").addClass("invalid");
+	    	    	}	    			
+	    		}
+	    	});
+
+	    
 	</script>
 </body>
 </html>

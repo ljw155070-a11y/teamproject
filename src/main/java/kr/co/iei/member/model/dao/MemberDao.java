@@ -20,5 +20,7 @@ public interface MemberDao {
 
 	int insertMember(Member m);
 
+	Member selectOneMember(Member m);
+
 
 }
