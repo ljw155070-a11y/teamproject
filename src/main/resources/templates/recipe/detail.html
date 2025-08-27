@@ -57,10 +57,11 @@
 	}
 	.recipe.comment-box-input{
 		width:100%;
-		height:150px;
+		min-height:150px;
 		background-color:white;
 		border-radius:20px;
 		margin:50px 0px;
+		padding : 20px;
 	}
 	.recipe.comment-box-output{
 		width:100%;
@@ -75,10 +76,6 @@
 	}
 	.recipe.comment-box-input input{
 		background-color:transparent;
-	}
-	.recipe.textarea{
-		width : 80%;
-		height : 100%;
 	}
 
 	.recipe.btn{
@@ -99,8 +96,6 @@
 	.recipe.line{
 		border:1px solid #dddddd;
 		margin:10px 10px;
-		display:flex;
-		justify-content:space-between;
 	}
 	
 </style>
@@ -109,85 +104,113 @@
 	<th:block th:include="common/header"></th:block>
 	<div class="space"></div>
 	<main class="recipe content">
-		<section class="recipe content-body">
-			<div class="recipe content-box">
-			
-
-				<div class="recipe title" th:text="${recipeDetailSet.recipeDetail.recipeTitle}"></div>
-				<hr>
-				<div class="recipe info">
-					<div class="recipe type" th:text="${recipeDetailSet.recipeDetail.recipeType}"></div>
-					<div class="recipe level">난이도 : <span th:text="${recipeDetailSet.recipeDetail.recipeLevel}"></span></div>
-					<div class="recipe cookingTime"><span class="material-icons">access_time</span> <span th:text="${recipeDetailSet.recipeDetail.recipeCookingTime}"></span> Mins</div>
-					<div class="recipe viewCount"><span class="material-icons">remove_red_eye</span> <span th:text="${recipeDetailSet.recipeDetail.recipeViewCount}"></span></div>
-					<div class="recipe writeDate"><span class="material-icons">calendar_month</span> <span th:text="${recipeDetailSet.recipeDetail.recipeWriteDate}"></span></div>
-				</div>
-				<hr>
-	
-				<div class="recipe detailInfo">
-				<div class="recipe detailInfo-title">재료</div>
-					<div class="recipe ingredientList">
-						<div th:each="ri : ${recipeDetailSet.recipeIngredientList}">
-							<div th:text="${ri.recipeIngredientName}"></div>
-							<div th:text="${ri.recipeIngredientVolume}"></div>
-						</div>
-					</div>
-					<hr>
-					<div class="recipe detailInfo-title">조리 순서</div>
-					<div class="recipe cookingOrderList">
-						<table>
-							<tr>
-								<th>순서</th>
-								<th>조리 내용</th>
-								<th>참고 이미지</th>
-							</tr>
-						<th:block th:each="rc : ${recipeDetailSet.recipeCookingOrderList}">
-							<tr>
-								<td th:text="${rc.recipeCookingOrder}" style="width:10%"></td>
-								<td th:text="${rc.recipeCookingContent}" style="width:40%"></td>
-								<td style="width:40%"><img th:src="${rc.recipeCookingOrderImgPath}" alt="조리순서" style = "width:100%;" ></td>
-							</tr>
-						</th:block>
-						</table>
-					</div>
-					<div class="recipe detailInfo-title">주의사항</div>
-					<div class="recipe caution" style="text-align:center;" th:text="${recipeDetailSet.recipeDetail.recipeCaution}"></div>
-					<div class="space"></div>
-					<hr>
-					<div class="recipe gradeinput">평점 주기</div>
-					<hr>
-					<div class="recipe button">
-						<button type="button" class="recipe btn edit">게시글 수정</button>
-						<button type="button" class="recipe btn delete">게시글 삭제</button>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section class="recipe content-footer">
-			<div class="recipe comment-box-input">
-				<form>
-					<span class="material-icons" style="font-size:100px">portrait</span>
-					<textarea class="recipe textarea"></textarea>
-					<input type="submit" value="댓글 작성">
-				</form>
-			</div>
-			<div class="recipe comment-box-output">
+		<form action="/recipe/commentInsert" method="post">
+			<section class="recipe content-body">
+				<div class="recipe content-box">
 				
-					<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
-						<div class="recipe line">
-							<div><span class="material-icons" style="font-size:50px">portrait</span></div>
-							<div th:text="${rcomment.recipeCommentContent}"></div>
-							<div>
-								<div>작성자 : <span th:text="${rcomment.memberNickname}"></span></div>
-								<div>작성일 : <span th:text="${rcomment.recipeCommentDate}"></span></div>
+	
+					<div class="recipe title" th:text="${recipeDetailSet.recipeDetail.recipeTitle}"></div>
+					<hr>
+					<div class="recipe info">
+						<div class="recipe type" th:text="${recipeDetailSet.recipeDetail.recipeType}"></div>
+						<div class="recipe level">난이도 : <span th:text="${recipeDetailSet.recipeDetail.recipeLevel}"></span></div>
+						<div class="recipe cookingTime"><span class="material-icons">access_time</span> <span th:text="${recipeDetailSet.recipeDetail.recipeCookingTime}"></span> Mins</div>
+						<div class="recipe viewCount"><span class="material-icons">remove_red_eye</span> <span th:text="${recipeDetailSet.recipeDetail.recipeViewCount}"></span></div>
+						<div class="recipe writeDate"><span class="material-icons">calendar_month</span> <span th:text="${recipeDetailSet.recipeDetail.recipeWriteDate}"></span></div>
+					</div>
+					<hr>
+		
+					<div class="recipe detailInfo">
+					<div class="recipe detailInfo-title">재료</div>
+						<div class="recipe ingredientList">
+							<div th:each="ri : ${recipeDetailSet.recipeIngredientList}">
+								<div th:text="${ri.recipeIngredientName}"></div>
+								<div th:text="${ri.recipeIngredientVolume}"></div>
 							</div>
 						</div>
+						<hr>
+						<div class="recipe detailInfo-title">조리 순서</div>
+						<div class="recipe cookingOrderList">
+							<table>
+								<tr>
+									<th>순서</th>
+									<th>조리 내용</th>
+									<th>참고 이미지</th>
+								</tr>
+							<th:block th:each="rc : ${recipeDetailSet.recipeCookingOrderList}">
+								<tr>
+									<td th:text="${rc.recipeCookingOrder}" style="width:10%"></td>
+									<td th:text="${rc.recipeCookingContent}" style="width:40%"></td>
+									<td style="width:40%"><img th:src="${rc.recipeCookingOrderImgPath}" alt="조리순서" style = "width:100%;" ></td>
+								</tr>
+							</th:block>
+							</table>
+						</div>
+						<div class="recipe detailInfo-title">주의사항</div>
+						<div class="recipe caution" style="text-align:center;" th:text="${recipeDetailSet.recipeDetail.recipeCaution}"></div>
+						<div class="space"></div>
+						<hr>
+						<div class="recipe gradeinput">평점 주기</div>
+						<hr>
+						<div class="recipe button">
+							<button type="button" class="recipe btn edit">게시글 수정</button>
+							<button type="button" class="recipe btn delete">게시글 삭제</button>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="recipe content-footer">
+				<div class="recipe comment-box-input">
+					
+					<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 전송 정보 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+					
+								<table class="recipe line" style="width:100%">
+									<tr>
+										<td style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></td>
+										<td>
+											
+											<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 댓글 내용 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+											<textarea name= "recipeCommentContent" class="recipe textarea" style="height:75px; width:98%;"></textarea>
+										
+										</td>
+									</tr>
+								</table>
+								<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 레시피 번호 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+								<input type="hidden" name="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
+								<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 작성자 번호(PK) ★★★★★★★★★★★★★★★★★★★★★★★ -->
+								<input type="hidden" name="memberNo" th:value="${session.member.memberNo}">
+								<div style="text-align:right">
+									<span class="material-icons">create</span>
+									
+									<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 보내기 ★★★★★★★★★★★★★★★★★★★★★★★ -->
+									<input type="submit" value="댓글 작성" style="border:none" id="ajax">
+								</div>
+					
+				</div>
+				
+				<div class="recipe comment-box-output">
+					<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
+						<table class="recipe line" style="width:100%">
+							<tr>
+								<td rowspan="2" style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></th>
+								<td style="width:20%; text-align:left; height:30px; padding-top:10px;"><div><span th:text="${rcomment.memberNickname}"></span></div></th>
+								<td style="width:70%; text-align:right; height:30px; padding-top:10px; padding-right:10px;"><div><span th:text="${rcomment.recipeCommentDate}"></span></div></th>
+							</tr>
+							<tr>
+								<td colspan="2" style="color:#444444;"><div th:text="${rcomment.recipeCommentContent}"></div></td>
+							</tr>
+						</table>
+						<div class="recipe comment link" style="justify-content:flex-end; margin-bottom:30px; display:flex; gap:20px;">
+							<a href="#">신고하기</a>
+							<a href="#">수정하기</a>
+							<a href="#">삭제하기</a>
+						</div>
 					</th:block>
-				
-				
-			</div>
-		</section>
+				</div>
+			</section>
+		</form>
 	</main>
+
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

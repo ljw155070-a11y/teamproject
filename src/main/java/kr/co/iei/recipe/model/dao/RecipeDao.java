@@ -23,5 +23,7 @@ public interface RecipeDao {
 	List<RecipeCookingOrder> recipeCookingOrderList(int reqRecipeNo);
 
 	List<RecipeComment> recipeCommentList(int reqRecipeNo);
+
+	int recipeCommentInsert(RecipeComment rc);
 	
 }
