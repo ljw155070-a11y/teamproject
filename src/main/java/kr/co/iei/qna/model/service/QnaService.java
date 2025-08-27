@@ -31,9 +31,6 @@ public class QnaService {
 		
 		int pageNaviSize = 5; //페이지 길이
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
-		System.out.println(numPerPage);
-		System.out.println(startPage);
-		System.out.println(endPage);
 		String pageNavi = "<ul class='qna-paging'>";
 		if(pageNo != 1) {			
 			pageNavi += "<li>";
@@ -74,8 +71,8 @@ public class QnaService {
 		return qld;
 	}
 
-	public Qna selectOneQnaList(int qnaNo) {
-		Qna q = qnaDao.selectOneQnaList(qnaNo);
+	public Qna selectOneQnaList(String qnaTitle) {
+		Qna q = qnaDao.selectOneQnaList(qnaTitle);
 		return q;
 	}
 	

@@ -8,9 +8,13 @@
     		from qna_tbl b 
     		join member_tbl c 
     	on (b.member_no = c.member_no) order by qna_no desc)
-    	a) where rnum between ${startPage} and ${endPage}
+    	a) where rnum between #{startPage} and #{endPage}
 	</select>
 	<select id="selectQnaTotalCount" resultType="int">
 	select count(*) from qna_tbl
+	</select>
+	
+	<select id="selectOneQnaList" resultType="qna">
+		select * from qna_tbl where qna_title = #{qnaTitle}
 	</select>
 </mapper>

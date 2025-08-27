@@ -12,16 +12,16 @@
 			
 			<table class="view-content">
 				<tr>
-					<th th:text="${qnaTitle}"></th>
+					<th th:text="${q.qnaTitle}"></th>
 				</tr>
 				
 				<tr>
 					<th>작성자 : </th>
-					<td></td>
+					<td th:text="{q.MemberName}"></td>
 					<th>조회수 : </th>
-					<td></td>
+					<td th:text="{q.qnaCount}"></td>
 					<th>작성일 : </th>
-					<td></td>
+					<td th:text="{q.qnaDate}"></td>
 				</tr>
 			</table>
 		</section>

@@ -14,7 +14,7 @@ public interface QnaDao {
 
 	List selectAllQna(HashMap<String, Object> param);
 
-	Qna selectOneQnaList(int qnaNo);
+	Qna selectOneQnaList(String qnaTitle);
 
 	
 
