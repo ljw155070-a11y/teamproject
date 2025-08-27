@@ -18,5 +18,9 @@ public interface MemberDao {
 
 	int changeLevel(Member m);
 
+	int insertMember(Member m);
+
+	Member selectOneMember(Member m);
+
 
 }

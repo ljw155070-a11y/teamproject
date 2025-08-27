@@ -111,4 +111,20 @@ public class MemberService {
 		return result==count;
 	}
 
+
+
+	public int insertMember(Member m) {
+		int result = memberDao.insertMember(m);
+		return result;
+	}
+
+
+
+	public Member selectOneMember(String checkId) {
+		Member m = new Member();
+		m.setMemberId(checkId);
+		Member member = memberDao.selectOneMember(m);
+		return member;
+	}
+
 }
