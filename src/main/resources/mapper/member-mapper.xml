@@ -30,7 +30,10 @@
   	INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{memberId},#{memberPw},#{memberName},#{memberNickname},#{memberEmail},SYSDATE,'순한맛');
   </insert>
   
-  <select id="selectOneMember"></select>
+  <select id="selectOneMember" resultType="member">
+  	SELECT * FROM MEMBER_TBL
+	WHERE MEMBER_ID = #{memberId} 
+  </select>
   
 </mapper>
 

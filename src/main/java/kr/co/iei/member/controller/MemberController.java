@@ -64,8 +64,12 @@ public class MemberController {
 	
 	@GetMapping(value = "/checkId")
 	@ResponseBody
-	public String checkId(String memberId) {
+	public int checkId(String memberId) {
 		Member m = memberService.selectOneMember(memberId);
+		if(m != null) {
+			return 1;
+		}
+		return 0;
 	}
 	
 }

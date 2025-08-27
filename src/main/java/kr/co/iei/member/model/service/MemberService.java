@@ -124,7 +124,7 @@ public class MemberService {
 		Member m = new Member();
 		m.setMemberId(checkId);
 		Member member = memberDao.selectOneMember(m);
-		return null;
+		return member;
 	}
 
 }
