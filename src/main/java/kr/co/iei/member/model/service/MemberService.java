@@ -111,4 +111,11 @@ public class MemberService {
 		return result==count;
 	}
 
+
+
+	public int insertMember(Member m) {
+		int result = memberDao.insertMember(m);
+		return result;
+	}
+
 }

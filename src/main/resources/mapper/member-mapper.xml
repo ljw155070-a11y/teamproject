@@ -25,5 +25,10 @@
   <update id="changeLevel">
   	update member_tbl set member_level = #{memberLevel} where member_no = #{memberNo}
   </update>
+  
+  <insert id="insertMember">
+  	INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{memberId},#{memberPw},#{memberName},#{memberNickname},#{memberEmail},SYSDATE,'순한맛');
+  </insert>
+  
 </mapper>
 

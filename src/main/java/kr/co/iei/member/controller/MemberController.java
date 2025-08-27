@@ -51,5 +51,14 @@ public class MemberController {
 		return "member/joinFrm";
 	}
 	
+	@PostMapping(value = "/join")
+	public String join(Member m, Model model) {
+		int result = memberService.insertMember(m);
+		model.addAttribute("title","회원가입 완료");
+		model.addAttribute("text","회원가입이 완료.되었습니다.");
+		model.addAttribute("icon","success");
+		model.addAttribute("loc","/member/login");
+		return "common/msg";
+	}
 	
 }
