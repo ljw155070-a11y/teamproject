@@ -423,7 +423,7 @@
 	    
 	    //이메일 인증
 	    let mailCode = null;
-	    let intervakId = null;
+	    let intervalId = null;
 	    
 	    $("#send-btn").on("click",function(e){
 	    	e.preventDefault();//새로고침 방지
@@ -445,6 +445,7 @@
 	    		url : "/emailApi/sendCode",
 	    		data : {receiver:receiver},
 	    		success : function(data){
+	    			console.log("메일코드:", data);
 	    			mailCode = data;
 	    			$("#joinBox4").removeClass("joinBox4-hidden");
 	    			startAuthTime();
@@ -473,23 +474,24 @@
 	    	clearInterval(intervalId);
 	    	let min = 5;
 	    	let sec = 0;
-	    	$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec: sec}`);
+	    	$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec : sec}`);
 	    	
-	    	intervalId = setIntervalId(function(){
-	    		if(min === 0){
-	    			if(sec === 0){
-		    			clearInterval(intervalId);
-		    			mailCode = null;
-		    			$("#authMsg").text("인증시간이 만료되었습니다.").addClass("invalid");
-		    			return;
-		    		}else{
-		    			min--;
-		    			sec = 59;
-		    		}	
-	    		}else{
-	    			sec--;
-	    		}
-	    		$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec: sec}`);
+	    	intervalId = setInterval(function(){
+				if(sec === 0){
+					if(min === 0){
+						clearInterval(intervalId);
+						mailCode = null;
+						$("#authMsg").text("인증시간이 만료되었습니다.").css("color","red");
+						//$("#time-zone").css("display", "none");-->? 인증번호 재발급 하려면 span이 사라지지 않음.
+						return;
+					}else{
+						min--;
+						sec = 59;
+					}
+				}else{
+					sec--;
+				}
+	    		$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec : sec}`);
 	    	}, 1000);
 	    }
 	    
