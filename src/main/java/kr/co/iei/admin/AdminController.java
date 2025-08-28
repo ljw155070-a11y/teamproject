@@ -38,11 +38,6 @@ public class AdminController {
 		int result = memberService.changeLevel(m);
 		return "redirect:/admin/allMember";
 	}
-	@GetMapping(value="/checkedChangeLevel")
-	public String checkedChangeLevel(String no, String level) {
-		boolean result = memberService.checkedChangeLevel(no,level);
-		return "redirect:/admin/allMember";
-	}
 	@GetMapping(value="/recipeReport")
 	public String recipeReportedList(@RequestParam(defaultValue="1") int reqPage, Model model) {
 		HashMap<String, Object> reqSet = recipeService.recipeReportedList(reqPage);

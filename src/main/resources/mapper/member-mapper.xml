@@ -28,7 +28,9 @@
             (select count(*) from qna_comment_report_tbl where qna_comment_no in 
             (select qna_comment_no from qna_comment_tbl where member_no=m.member_no))
             ) all_report_count,
-  			member_level 
+  			member_level,
+            (select count(*) from member_suspend  
+            where member_no = m.member_no and sysdate between suspend_date and suspend_date + suspend_days) suspend_yn
   		   from member_tbl m
            order by 1
   		   )v

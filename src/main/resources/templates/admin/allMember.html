@@ -1,103 +1,176 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet" />
 <script src="/js/jquery-3.6.0.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.content{
-		padding: 100px 0px;
-		background-color: #f4f4f4;
-	}
-	.content-title{
-		margin-top: 10px;
-		margin-bottom: 30px;
-	}
-	
-	.allMember-section{
-		width : 1200px;
-		margin: 0 auto;
-		background-color: #ffffff;
-		padding : 30px 40px;
-		border-radius:9px;
-	}
-	.allMember-tbl{
-		width:100%;
-		margin-top: 20px;
-		border-spacing: 0;
-	}
-	.allMember-tbl>tbody>tr>th{
-		height:50px;
-	}
-	.allMember-tbl td{
-		text-align: center;
-		padding: 20px 0px;
-		border-bottom: 1px solid #E6E6E6;
-	}
-	.allMember-tbl>tr:last-child>td{
-		border-bottom: 1px solid transparent;
-	}
-	#btnTd{
-		border: none;
-	}
-	.allMember-currPage {
-		text-decoration:none;
-		display:inline-block;
-		height: 24px;
-		width: 24px;
-		line-height: 24px;
-		background-color: #FBA854;
-		border-radius: 50%;
-		margin:6px;
-		color: #000;
-		text-align: center;
-	}
-	.allMember-outPage {
-		text-decoration:none;
-		display:inline-block;
-		width: 24px;
-		height: 24px;
-		line-height: 24px;
-		background-color: #ffffff;  
-		border-radius: 50%;          
-		margin:6px;
-		color: #000;
-		text-align: center;
-	}
-	.allMember-pageNavi{
-		text-align: center;
-		text-decoration: none;
-	}
-	.checkbox-wrap>input[type="checkbox"]{
-		display: none;
-	}
-	.checkbox-wrap > input[type="checkbox"]+label {
-  		position: relative;
-		display: block;
-		flex-grow: 1;
-		padding: 0 36px;
-		cursor: pointer;
-		
-	}
-	.checkbox-wrap > input[type="checkbox"]+label::before {
-  		content: "";
-	    display: block;
-  	    width: 24px;
-	    height: 24px;
-	    border-radius: 50%;
-	    background: url(/img/check.png) no-repeat center / 24px;
-	    color: #FBA854;
-	}
-	.checkbox-wrap > input[type="checkbox"]:checked + label::before {
-	    background: url(/img/check_active.png) no-repeat center / 24px;
-	    
-	}
-	.search-input>span{
-		position: absolute;
-	}
+.content {
+	padding: 100px 0px;
+	background-color: #f4f4f4;
+}
+
+.content-title {
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+.allMember-section {
+	width: 1440px;
+	margin: 0 auto;
+	background-color: #ffffff;
+	padding: 30px 40px;
+	border-radius: 9px;
+}
+
+.allMember-tbl {
+	width: 100%;
+	margin-top: 20px;
+	border-spacing: 0;
+}
+
+.allMember-tbl>tbody>tr>th {
+	height: 50px;
+}
+
+.allMember-tbl td {
+	text-align: center;
+	padding: 20px 0px;
+	border-bottom: 1px solid #E6E6E6;
+}
+
+.allMember-tbl>tbody>tr:last-child>td {
+	border-bottom: 1px solid transparent;
+}
+
+#btnTd {
+	border: none;
+}
+
+.allMember-currPage {
+	text-decoration: none;
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	line-height: 24px;
+	background-color: #FBA854;
+	border-radius: 50%;
+	margin: 6px;
+	color: #000;
+	text-align: center;
+}
+
+.allMember-outPage {
+	text-decoration: none;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	background-color: #ffffff;
+	border-radius: 50%;
+	margin: 6px;
+	color: #000;
+	text-align: center;
+}
+
+.allMember-pageNavi {
+	text-align: center;
+	text-decoration: none;
+}
+
+.checkbox-wrap>input[type="checkbox"] {
+	display: none;
+}
+
+.checkbox-wrap>input[type="checkbox"]+label {
+	position: relative;
+	display: block;
+	flex-grow: 1;
+	padding: 0 36px;
+	cursor: pointer;
+}
+
+.checkbox-wrap>input[type="checkbox"]+label::before {
+	content: "";
+	display: block;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: url(/img/check.png) no-repeat center/24px;
+	color: #FBA854;
+}
+
+.checkbox-wrap>input[type="checkbox"]:checked+label::before {
+	background: url(/img/check_active.png) no-repeat center/24px;
+}
+
+.search-input>span {
+	position: absolute;
+}
+
+.suspend-modal {
+  display:none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.suspend-modal>.tb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.suspend-modal>.tb .inner {
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.suspend-modal .top {
+  display: flex;
+  align-item: center;
+  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.suspend-modal .title {
+ 	 font-weight: bold;
+ 	 font-size: 20px;
+}
+
+.suspend-modal .ct {
+ 	 display:flex;
+ 	 max-height: 60vh;
+ 	 height: 30vh;
+ 	 overflow-y: auto;
+ 	 border-bottom-left-radius: 10px;
+ 	 border-bottom-right-radius: 10px;
+  	 background-color: #fff;
+  	 flex-direction: column;
+  	 justify-content: left;
+     align-items: baseline;
+     gap:20px;
+}
+[name=suspendReason]{
+	width:398px;
+	height:120px;
+    resize: none;
+}
 </style>
 </head>
 <body>
@@ -106,26 +179,26 @@
 		<div class="content-title">회원 관리 페이지</div>
 		<section class="allMember-section">
 			<div class="input-wrap">
-				<form action="#" method="post">
+				<form action="/admin/allMember" method="post">
 					<div class="search-input">
 						<input type="text" name="memberNickname" placeholder="닉네임을 입력해주세요">
 						<span class="material-icons" id="qnaSearchBox">search</span>
 					</div>
-				</form>	
+				</form>
 			</div>
 			<table class="allMember-tbl">
 				<tr>
-					<th style="width:4%;">번호</th>
-					<th style="width:12%;">아이디</th>
-					<th style="width:12%;">닉네임</th>
-					<th style="width:10%;">레시피신고</th>
-					<th style="width:10%;">레시피댓글신고</th>
-					<th style="width:10%;">Q&A신고</th>
-					<th style="width:10%;">Q&A댓글신고</th>
-					<th style="width:10%;">전체신고수</th>
-					<th style="width:8%;">회원등급</th>
-					<th style="width:8%;">등급변경</th>
-					<th style="width:8%;">정지</th>
+					<th style="width: 4%;">번호</th>
+					<th style="width: 13%;">아이디</th>
+					<th style="width: 13%;">닉네임</th>
+					<th style="width: 8%;">레시피신고</th>
+					<th style="width: 8%;">레시피댓글신고</th>
+					<th style="width: 8%;">Q&A신고</th>
+					<th style="width: 8%;">Q&A댓글신고</th>
+					<th style="width: 10%;">전체신고수</th>
+					<th style="width: 8%;">회원등급</th>
+					<th style="width: 8%;">등급변경</th>
+					<th style="width: 8%;">정지</th>
 				</tr>
 				<tr th:each="m,status : ${reqSet.list}">
 					<td th:text="${m.memberNo}"></td>
@@ -141,8 +214,7 @@
 							<select th:case="매운맛">
 								<option value="매운맛" selected>매운맛</option>
 								<option value="보통맛">보통맛</option>
-							</select>
-							<select th:case="보통맛">
+							</select> <select th:case="보통맛">
 								<option value="매운맛">매운맛</option>
 								<option value="보통맛" selected>보통맛</option>
 							</select>
@@ -152,59 +224,106 @@
 						<button class="changeLevel">등급변경</button>
 					</td>
 					<td>
-						<button class="suspend-btn">정지</button>
+						<button onClick="modal('suspend-modal')" class="suspend-btn">정지</button>
+						<div id="suspend-modal" class="suspend-modal">
+							<div class="tb">
+								<div class="inner" style="max-width: 400px; max-height:400px;">
+									<div class="top">
+										<div class="title">회원 정지</div>
+										<a href="/allMember" class="modal-close" style="text-decoration:none;">취소</a>
+									</div>
+									<div class="ct">
+										<form action="/admin/allMember" method="post">
+											<div class="select-wrap">
+												<div>
+													<label for="suspend-select">정지 일수를 선택하세요 : </label>
+													<select class="suspend-select" id="suspend-select">
+														<option value="1">1일</option>
+														<option value="3">3일</option>
+														<option value="7">7일</option>
+														<option value="30">30일</option>
+													</select>
+												</div>	
+											</div>	
+											<div>
+												<label for="suspendReason">정지 사유를 입력해주세요 : </label>
+											</div>
+											<div>	
+												<textarea name="suspendReason" id="suspendReason"></textarea>
+											</div>
+										</form>	
+									</div>
+								</div>
+							</div>
+						</div>
 					</td>
-				</tr>	
-			</table>	
+				</tr>
+			</table>
 		</section>
-		<section class="allMember-footer">	
+		<section class="allMember-footer">
 			<div class="allMember-pageNavi">
-				<a href="/admin/allMember?reqPage=1"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
-				
+				<a href="/admin/allMember?reqPage=1"><span
+					class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
+
 				<th:block th:if="${(reqSet.pageInfo.reqPage)-5 <= 1}">
-					<a href="/admin/allMember?reqPage=1"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+					<a href="/admin/allMember?reqPage=1"><span
+						class="material-symbols-outlined">keyboard_arrow_left</span></a>
 				</th:block>
 				<th:block th:if="${(reqSet.pageInfo.reqPage)-5 > 1}">
-					<a th:href="@{/admin/allMember(reqPage=${(reqSet.pageInfo.reqPage)-5})}"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+					<a
+						th:href="@{/admin/allMember(reqPage=${(reqSet.pageInfo.reqPage)-5})}"><span
+						class="material-symbols-outlined">keyboard_arrow_left</span></a>
 				</th:block>
-				
-				<a th:each="i:${#numbers.sequence(reqSet.pageInfo.startNo,reqSet.pageInfo.endNo)}" 
+
+				<a
+					th:each="i:${#numbers.sequence(reqSet.pageInfo.startNo,reqSet.pageInfo.endNo)}"
 					th:href="@{/admin/allMember(reqPage=${i})}"
-					th:classappend="${i==reqSet.pageInfo.reqPage}?'allMember-currPage':'allMember-outPage'"><span th:text="${i}"></span></a>
-							
-				<th:block th:if="${(reqSet.pageInfo.reqPage)+5 >= (reqSet.pageInfo.totalPage)}">
-					<a th:href="@{/admin/allMember(reqPage=${(reqSet.pageInfo.totalPage)})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
+					th:classappend="${i==reqSet.pageInfo.reqPage}?'allMember-currPage':'allMember-outPage'"><span
+					th:text="${i}"></span></a>
+
+				<th:block
+					th:if="${(reqSet.pageInfo.reqPage)+5 >= (reqSet.pageInfo.totalPage)}">
+					<a
+						th:href="@{/admin/allMember(reqPage=${(reqSet.pageInfo.totalPage)})}"><span
+						class="material-symbols-outlined">keyboard_arrow_right</span></a>
 				</th:block>
-				
-				<a th:href="@{/admin/allMember(reqPage=${reqSet.pageInfo.totalPage})}"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a>
-			</div>	
-		</section>	
+
+				<th:block
+					th:if="${(reqSet.pageInfo.reqPage)+5 < (reqSet.pageInfo.totalPage)}">
+					<a
+						th:href="@{/admin/allMember(reqPage=${(reqSet.pageInfo.reqPage)+5})}"><span
+						class="material-symbols-outlined">keyboard_arrow_right</span></a>
+				</th:block>
+
+				<a
+					th:href="@{/admin/allMember(reqPage=${reqSet.pageInfo.totalPage})}"><span
+					class="material-symbols-outlined">keyboard_double_arrow_right</span></a>
+			</div>
+		</section>
 	</main>
 	<script>
-		$(".changeLevel").on("click",function(){
-			const memberNo = $(this).parent().parent().children().eq(1).text();
-			const memberLevel = $(this).parent().prev().children().children().val();
-			
-			location.href="/admin/changeLevel?memberNo="+memberNo+"&memberLevel="+memberLevel;
-			
+		$(".changeLevel").on(
+				"click",
+				function() {
+					const memberNo = $(this).parent().parent().children().eq(1)
+							.text();
+					const memberLevel = $(this).parent().prev().children()
+							.children().val();
+
+					location.href = "/admin/changeLevel?memberNo=" + memberNo
+							+ "&memberLevel=" + memberLevel;
 		});
 		
-		$(".checkedChangeLevel").on("click",function(){
-			const checked = $(".chk:checked");
-			if(checked.length === 0){
-				return;
-			}
-			const no = new Array();
-			const level = new Array();
-			checked.each(function(index,item){
-				const memberNo = $(item).parent().parent().next().text();
-				no.push(memberNo);
-				const memberLevel = $(item).parent().parent().parent().find("select").val();
-				level.push(memberLevel);
-			});
-				console.log(no.join("/"));
-				console.log(level.join("/"));
-				location.href = "/admin/checkedChangeLevel?no="+no.join("/")+"&level="+level.join("/");
+		//모달 열기
+		function modal(id){
+		  $("#" + id).fadeIn()
+		}
+
+		//모달 닫기
+		$('.modal-close').on('click', function(e){
+		  e.preventDefault();
+		  const modal = $(this).parents('.suspend-modal');
+		  modal.fadeOut();
 		});
 	</script>
 	<th:block th:include="common/footer"></th:block>
