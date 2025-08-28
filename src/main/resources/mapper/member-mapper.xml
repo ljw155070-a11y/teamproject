@@ -3,11 +3,35 @@
 <mapper namespace="kr.co.iei.member.model.dao.MemberDao">
   <select id="selectMemberList" resultType="member">
   	select * from
-  		(select rownum as rnum, m.* from
+  		(select rownum as rnum, v.* from
   			(select 
-  			member_no, member_id, member_level 
-  		   from member_tbl order by 1
-  		   )m
+  			member_no, 
+  			member_id, 
+  			member_nickname, 
+  			(select count(*) from recipe_report_tbl where recipe_no in 
+            (select recipe_no from recipe_tbl where member_no=m.member_no)) recipe_report_count,
+            (select count(*) from recipe_comment_report_tbl where recipe_comment_no in 
+            (select recipe_comment_no from recipe_comment_tbl where member_no=m.member_no)) recipe_comment_report_count,
+            (select count(*) from qna_report_tbl where qna_no in 
+            (select qna_no from qna_tbl where member_no=m.member_no)) qna_report_count,
+            (select count(*) from qna_comment_report_tbl where qna_comment_no in 
+            (select qna_comment_no from qna_comment_tbl where member_no=m.member_no)) qna_comment_report_count,
+            ((select count(*) from recipe_report_tbl where recipe_no in 
+            (select recipe_no from recipe_tbl where member_no=m.member_no))
+            +
+            (select count(*) from recipe_comment_report_tbl where recipe_comment_no in 
+            (select recipe_comment_no from recipe_comment_tbl where member_no=m.member_no))
+            +
+            (select count(*) from qna_report_tbl where qna_no in 
+            (select qna_no from qna_tbl where member_no=m.member_no))
+            +
+            (select count(*) from qna_comment_report_tbl where qna_comment_no in 
+            (select qna_comment_no from qna_comment_tbl where member_no=m.member_no))
+            ) all_report_count,
+  			member_level 
+  		   from member_tbl m
+           order by 1
+  		   )v
   		  )
   		 where #{start} <![CDATA[<=]]> rnum and rnum<![CDATA[<=]]> #{end} 
   </select>
@@ -25,5 +49,23 @@
   <update id="changeLevel">
   	update member_tbl set member_level = #{memberLevel} where member_no = #{memberNo}
   </update>
+  
+  <insert id="insertMember">
+  	INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{memberId},#{memberPw},#{memberName},#{memberNickname},#{memberEmail},SYSDATE,'순한맛');
+  </insert>
+  
+  <select id="selectOneMember" resultType="member">
+  	SELECT * FROM MEMBER_TBL
+	WHERE MEMBER_ID = #{memberId} 
+  </select>
+  <select id="selectOneNickname" resultType="member">
+  		SELECT * FROM MEMBER_TBL
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+  </select>
+  
+  <select id="selectOneEmail" resultType="member">
+  	SELECT * FROM MEMBER_TBL
+	WHERE MEMBER_EMAIL = #{memberEmail}
+  </select>
 </mapper>
 

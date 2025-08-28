@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.iei.member.model.service.MemberService;
@@ -39,6 +40,59 @@ public class MemberController {
 			return "redirect:/";
 		}
 	}
+	
+	@GetMapping(value = "/agreeFrm")
+	public String agreeFrm() {
+		return "member/agree";
+	}
+	
+	
+	@GetMapping(value = "/joinFrm")
+	public String joinFrm() {
+		return "member/joinFrm";
+	}
+	
+	@PostMapping(value = "/join")
+	public String join(Member m, Model model) {
+		int result = memberService.insertMember(m);
+		model.addAttribute("title","회원가입 완료");
+		model.addAttribute("text","회원가입이 완료.되었습니다.");
+		model.addAttribute("icon","success");
+		model.addAttribute("loc","/member/login");
+		return "common/msg";
+	}
+	
+	@GetMapping(value = "/checkId")
+	@ResponseBody
+	public int checkId(String memberId) {
+		Member m = memberService.selectOneMember(memberId);
+		if(m != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/checkNickname")
+	public int checkNickname(String memberNickname) {
+		Member m = memberService.selectOneNickname(memberNickname);
+		if(m != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	
+	@ResponseBody
+	@GetMapping(value = "/checkEmail")
+	public int checkEmail(String memberEmail) {
+		Member m = memberService.selectOneEmail(memberEmail);
+		if(m != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
 	
 	
 }

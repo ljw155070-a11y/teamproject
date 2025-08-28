@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.iei.member.model.vo.Member;
@@ -46,4 +47,14 @@ public class RecipeController {
 		return "redirect:/recipe/detail?reqRecipeNo="+rc.getRecipeNo();
 	}
 	
+	@ResponseBody
+	@PostMapping(value="/gradeInsert")
+	public String recipeGradeInsert(int recipeNo,int memberNo, int recipeRate) {
+		int result = recipeService.recipeGradeInsert(recipeNo,memberNo,recipeRate);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 }

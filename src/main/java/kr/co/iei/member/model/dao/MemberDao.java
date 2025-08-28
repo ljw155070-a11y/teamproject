@@ -18,5 +18,13 @@ public interface MemberDao {
 
 	int changeLevel(Member m);
 
+	int insertMember(Member m);
+
+	Member selectOneMember(Member m);
+
+	Member selectOneNickname(Member m);
+
+	Member selectOneEmail(Member m);
+
 
 }
