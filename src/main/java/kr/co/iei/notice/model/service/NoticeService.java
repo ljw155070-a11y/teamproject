@@ -28,10 +28,6 @@ public class NoticeService {
 	}
 	public Notice selectOneNotice(int noticeNo, int memberNo) {
 		Notice n = noticeDao.selectOneNotice(noticeNo);
-		if(n != null) {
-			List fileList = noticeDao.selectNoticeFile(noticeNo);		
-			//n.setFileList(filelist);
-		}
 		return n;
 		
 		

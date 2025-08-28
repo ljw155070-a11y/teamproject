@@ -6,30 +6,40 @@
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-	<main class="content notice-detail-container">
-		<section class="section-notice-detail-wrap">
-			<form action="/notice/update" method="post" enctype="multiport/form-data">
-				<div class="content-box">
-					<input type="text" name="noticeTitle" th:value="${n.noticeTitle}">		
-				</div>
-				<div class="noticeSelect">
-					<span>고정여부 : </span>
-					<select name="fixType">
-	                       <option value="yes">예</option>
-	                       <option value="no">아니오</option>
+	<main class="content notice-write-container">
+		<section class="section-notice-write-wrap">
+			<div class="content-box">
+			<form action="/notice/write" method="post" enctype="multipart/form-data">			
+					<div class="input-item">
+						<input type="text" placeholder="제목을 입력하세요.">
+					</div>
+						<hr style="border: 1px solid #E6E6E6">
+					<div class="noticeSelect">
+						<span>고정여부 : </span>
+						<select name="fixType">
+	                        <option value="yes">예</option>
+	                        <option value="no">아니오</option>
 	                    <span class="fileAdd">첨부파일
 	                    	<input type="file" name="upfile" multiple>
 	                    </span>
 	                    </select>
-	                 <div class="noticeType">
-	                    <span>공지유형 : </span>
-						<select name="searchType">
-	                        <option value="general">일반</option>
-	                        <option value="check">점검</option>
-	                    </select>
-	                 </div>
-				</div>
+	                    <div class="noticeType">
+	                    	<span>공지유형 : </span>
+							<select name="searchType">
+	                        	<option value="general">일반</option>
+	                        	<option value="check">점검</option>
+	                    	</select>
+	                    </div>
+					</div>
+                    <hr style="border: 1px solid #E6E6E6">
+	                <div class="detail-content-box">
+                        <textarea name="content-text" placeholder="이 플레이스홀더엔 무엇을 적어야 할고"></textarea>
+                        <hr>
+                    </div>						
 			</form>
+            <div class="add-btn">
+                <button type="submit"><a href="/notice/list">추가하기</a></button>
+            </div>
 		</section>
 	</main>
 	<th:block th:include="common/footer"></th:block>
