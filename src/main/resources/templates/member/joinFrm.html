@@ -425,15 +425,15 @@
 	    let mailCode = null;
 	    let intervakId = null;
 	    
-	    $("#send-btn").on("click",function(){
+	    $("#send-btn").on("click",function(e){
 	    	e.preventDefault();//새로고침 방지
-	    	const receiver = $("#memberEmail").val;
+	    	const receiver = $("#memberEmail").val();
 	    	if(receiver === ""){
 	    		alert("이메일을 입력하세요.");
 	    		return;
 	    	}
 	    	$.ajax({
-	    		url : "/email/sendCode",
+	    		url : "/emailApi/sendCode",
 	    		data : {receiver:receiver},
 	    		success : function(data){
 	    			mailCode = data;

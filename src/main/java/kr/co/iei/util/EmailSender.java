@@ -25,7 +25,10 @@ public class EmailSender {
 			helper.setSentDate(new Date());
 			
 			helper.setFrom(new InternetAddress("hanight1202@gmail.com","레시피허브"));
+			helper.setTo(receiver);
+			
 			helper.setSubject(emailTitle);
+			
 			helper.setText(emilContent,true);
 			sender.send(message);
 		} catch (MessagingException | UnsupportedEncodingException e) {
