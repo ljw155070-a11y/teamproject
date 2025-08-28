@@ -449,6 +449,7 @@
 	    			mailCode = data;
 	    			$("#joinBox4").removeClass("joinBox4-hidden");
 	    			startAuthTime();
+	    			
 	    		},
 	    		error : function(){
 	    			alert("메일 전송 실패. 이메일을 확인해 주세요");
@@ -458,14 +459,15 @@
 	    
 	    //인증버튼 클릭
 	    $("#auth-btn").on("click",function(e){
-	    	e.preventDefault();
 	    	const inputCode = $("#auth-code").val();
+	    	
 	    	if(mailCode === inputCode){
 	    		$("#authMsg").text("인증 완료").addClass("valid");
 	    		clearInterval(intervalId);
 	    		$("#time-zone").text("");
 	    	}else{
 	    		$("#authMsg").text("인증 실패. 다시 인증해 주세요.").addClass("invalid");
+	    		e.preventDefault();
 	    	}
 	    });
 	    
