@@ -10,7 +10,7 @@
 <style>
 	.content{
 		width: 1100px;
-		height: 1000px;
+		overflow: hidden;
 		background-color: #F4F4F4;
 		margin: 0 auto;
 	}
@@ -80,6 +80,9 @@
 		font-size: 15px;
 		background-color: white;
 		padding-right: 10px;
+		color: red;
+		margin-bottom: 5px;
+
 	}
 	
 	.update-delete>td>button{
@@ -139,16 +142,25 @@
 		margin-left: 10px;
 	}
 	
-	.commentList{
-		margin: 0 auto;
-		width: 100%;
-		box-sizing: border-box;
-		padding: 0px 20px;
-		float: left;
+	.contentList{
+		width: 1000px;
+		
 	}
-	.input-items{
+	.contentList>li{
 		margin: 0 auto;
-		float: left;
+		width: 10px;
+	}
+	#commentInfo{
+		margin: 0 auto;
+		border:1px solid orange;
+		background-color: white;
+		width: 800px;
+		padding-left: 10px;
+		border-radius: 15px;
+		height: 80px;
+	}
+	.commentDate{
+		border-right: 1px solid gray;
 	}
 </style>
 <body>
@@ -177,7 +189,7 @@
 				
 				<tr class="reportInput">
 					<td colspan ="5">
-						<button colspan="3">신고하기</button>
+						<button colspan="3"><span class="material-icons">report</span>신고하기</button>
 					</td>	
 				</tr>
 				
@@ -215,7 +227,7 @@
 			</div>
 			
 			<!-- 댓글 출력-->
-			<th:block th:each="qc : ${q.qnaCommentList}" th:if="${qc.qnaCommentNo}">
+			<th:block th:each="qc : ${q.qnaCommentList}">
 				<ul class="commentList">
 					<li>
 						<td style="width:10%;">
@@ -223,11 +235,10 @@
 						</td>
 					</li>
 					
-					<li>
-						<p class="commentContent" th:text="${qc.qnaCommentContent}"></p>
-						<div class="input-item" style="display:none;" th:if="${session.member != null && session.member.memberId == qc.memberNo}">
-							<textarea name="qnaCommentContent"></textarea>
-						</div>
+					<li id="commentInfo">
+						<p th:text="${qc.memberNo}"></p>
+						<p class="commentDate" th:text="${qc.qnaCommentDate}"></p>
+						<p th:text="${qc.qnaCommentContent}"></p>					
 					</li>
 				</ul>
 			</th:block>

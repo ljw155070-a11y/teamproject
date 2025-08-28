@@ -72,12 +72,12 @@ public class QnaService {
 		return qld;
 	}
 
-	public Qna selectOneQnaList(int qnaNo, int memberNo) {
+	public Qna selectOneQnaList(int qnaNo) {
 		Qna q = qnaDao.selectOneQnaList(qnaNo);
+		System.out.println(q);
 		if(q != null) {
 			HashMap<String, Object> param = new HashMap<String, Object>();
-			param.put("qnaNo", qnaNo);
-			param.put("memberNo", memberNo);
+			param.put("qnaNo", qnaNo);		
 			List<QnaComment> qnaCommentList = qnaDao.selectAllQnaCommentList(param);
 			q.setQnaCommentList(qnaCommentList);
 		}

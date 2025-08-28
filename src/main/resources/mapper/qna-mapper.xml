@@ -11,7 +11,7 @@
     	a) where rnum between #{startPage} and #{endPage}
 	</select>
 	<select id="selectQnaTotalCount" resultType="int">
-	select count(*) from qna_tbl
+		select count(*) from qna_tbl
 	</select>
 	
 	<select id="selectOneQnaList" resultType="qna">
@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="selectAllQnaCommentList" resultType="qnaComment">
-		select * from qna_comment_tbl where qna_no = #{qnaNo}
+	SELECT * FROM QNA_COMMENT_TBL where qna_no=#{qnaNo}
 	</select>
 	
 	<insert id="insertQnaComment">
