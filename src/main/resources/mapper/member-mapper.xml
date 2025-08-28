@@ -69,5 +69,10 @@
   	SELECT * FROM MEMBER_TBL
 	WHERE MEMBER_EMAIL = #{memberEmail}
   </select>
+  
+  <insert id="suspendMember">
+    insert into member_suspend (suspend_no, member_no, suspend_date, suspend_days, suspend_reason) 
+    values(suspend_seq.nextval, #{memberNo}, sysdate, #{suspendDays}, #{suspendReason})
+</insert>
 </mapper>
 

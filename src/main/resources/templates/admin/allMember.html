@@ -234,24 +234,26 @@
 										<a href="/allMember" class="modal-close"
 											style="text-decoration: none;">취소</a>
 									</div>
-									<form action="/admin/allMember" method="post">
+									<form action="/admin/suspendMember" method="post">
+										<input type="hidden" name="memberNo" th:value="${m.memberNo}">
 										<div class="ct">
 											<div class="select-wrap">
-												<div>
-													<label for="suspend-select">정지 일수를 선택하세요 : </label> <select
-														class="suspend-select" id="suspend-select">
-														<option value="1">1일</option>
-														<option value="3">3일</option>
-														<option value="7">7일</option>
-														<option value="30">30일</option>
-													</select>
-												</div>
+												<label for="suspend-select">정지 일수를 선택하세요 : </label> 
+												<select class="suspend-select" id="suspend-select" name="suspendDays">
+													<option value="1">1일</option>
+													<option value="3">3일</option>
+													<option value="7">7일</option>
+													<option value="30">30일</option>
+												</select>
 											</div>
 											<div>
 												<label for="suspendReason">정지 사유를 입력해주세요 : </label>
 											</div>
 											<div>
 												<textarea name="suspendReason" id="suspendReason"></textarea>
+											</div>
+											<div class="submit-btn">
+												<button type="submit" name="submitBtn">확인</button>
 											</div>
 										</div>
 									</form>
