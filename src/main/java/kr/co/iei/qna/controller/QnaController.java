@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.service.QnaService;
 import kr.co.iei.qna.model.vo.Qna;
+import kr.co.iei.qna.model.vo.QnaComment;
 import kr.co.iei.qna.model.vo.QnaListData;
 
 @Controller
@@ -30,9 +33,16 @@ public class QnaController {
 	}
 	
 	@GetMapping(value="/view")
-	public String qnaView(Model model, int qnaNo) {
-			Qna q = qnaService.selectOneQnaList(qnaNo);
-			model.addAttribute("q", q);
+	public String qnaView(Model model, int qnaNo, @SessionAttribute(required=false) Member member) {
+		int memberNo = member == null ? 0 : member.getMemberNo();
+		Qna q = qnaService.selectOneQnaList(qnaNo, memberNo);
+		model.addAttribute("q", q);
 		return "qna/view";
+	}
+	
+	@PostMapping(value="/comment")
+	public String insertQnaComment(QnaComment qc) {
+		int result = qnaService.insertQnaComment(qc);
+		return "redirect:/qna/view?qnaNo="+qc.getQnaNo();
 	}
 }

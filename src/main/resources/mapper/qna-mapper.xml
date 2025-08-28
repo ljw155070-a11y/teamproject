@@ -17,4 +17,13 @@
 	<select id="selectOneQnaList" resultType="qna">
 		select * from qna_tbl where qna_no = #{qnaNo}
 	</select>
+	
+	<select id="selectAllQnaCommentList" resultType="qnaComment">
+		select * from qna_comment_tbl where qna_no = #{qnaNo}
+	</select>
+	
+	<insert id="insertQnaComment">
+		insert into qna_comment_tbl
+			values(qna_comment_tbl_seq.nextval, #{memberNo}, #{qnaNo}, #{qnaCommentContent}, sysdate, null)
+	</insert>
 </mapper>

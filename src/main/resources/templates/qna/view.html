@@ -9,7 +9,7 @@
 </head>
 <style>
 	.content{
-		width: 1000px;
+		width: 1100px;
 		height: 1000px;
 		background-color: #F4F4F4;
 		margin: 0 auto;
@@ -29,9 +29,10 @@
 		border: 1px solid orange;
 		border-radius: 15px;
 		box-sizing: border-box;
-		width: 100%;
+		width: 1000px;
 		height: 600px;
 		margin: 0 auto;
+		background-color: white;
 	}
 	
 	.writtenTitle{
@@ -77,6 +78,8 @@
 		border: none;
 		cursor: pointer;
 		font-size: 15px;
+		background-color: white;
+		padding-right: 10px;
 	}
 	
 	.update-delete>td>button{
@@ -86,15 +89,66 @@
 		border: 1px solid orange;
 		border-radius: 15px;
 		padding: 10px;
+		margin: 0px 10px;
 		background-color: orange;
 		color: white;
 		font-size: 15px;
+		
 	}
+	.update-delete>td{
+		text-align: center;
+	}
+	/*
 	.update-delete>td>button:first-child{	
 		margin-left: 400px;
 	}
 	.update-delete>td>button:last-child{
 		margin-left: 10px;
+	}
+	*/
+	.commentInputBox{
+		margin: 0 auto;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0px 20px;
+	}
+	.commentInputBox>form>ul{
+		display: flex;
+		justify-content: center;
+	}
+	[name=qnaCommentContent]{
+		margin: 0 auto;
+		float: left;
+		margin-top: 15px;
+		width: 800px;
+		height: 75px;
+		border: none;
+		border: 1px solid orange;
+		border-radius: 15px;
+		margin-left: 5px;
+	}
+	.commentInputBox>form>ul>li>button{
+		margin-top: 15px;
+		padding: 15px;
+		height: 75px;
+		border: none;
+		border: 1px solid orange;
+		border-radius: 15px;
+		background-color: orange;
+		color: white;
+		margin-left: 10px;
+	}
+	
+	.commentList{
+		margin: 0 auto;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0px 20px;
+		float: left;
+	}
+	.input-items{
+		margin: 0 auto;
+		float: left;
 	}
 </style>
 <body>
@@ -134,6 +188,49 @@
 					</td>
 				</tr>
 			</table>
+			
+			<!-- 댓글 입력 -->
+			<div class="commentInputBox" th:if="${session.member != null}">
+				<form action="comment" method="post">
+					<ul>
+						<li>
+							<td style="width:10%;">
+								<span class="material-icons" style="font-size:100px; color:#444444;">portrait</span>
+							</td>
+						</li>
+						
+						<li>
+							<input type="hidden" name="qnaCommentWriter" th:value="${session.member.memberNo}">
+							<input type="hidden" name="qnaNo" th:value="${q.qnaNo}">
+							<div class="input-item">
+								<textarea name="qnaCommentContent"></textarea>
+							</div>
+						</li>
+						
+						<li>
+							<button type="submit" class="qnaCommentBtn">등록하기</button>
+						</li>
+					</ul>
+				</form>
+			</div>
+			
+			<!-- 댓글 출력-->
+			<th:block th:each="qc : ${q.qnaCommentList}" th:if="${qc.qnaCommentNo}">
+				<ul class="commentList">
+					<li>
+						<td style="width:10%;">
+							<span class="material-icons" style="font-size:100px; color:#444444;">portrait</span>
+						</td>
+					</li>
+					
+					<li>
+						<p class="commentContent" th:text="${qc.qnaCommentContent}"></p>
+						<div class="input-item" style="display:none;" th:if="${session.member != null && session.member.memberId == qc.memberNo}">
+							<textarea name="qnaCommentContent"></textarea>
+						</div>
+					</li>
+				</ul>
+			</th:block>
 		</section>
 	</main>
 	<th:block th:include="common/footer"></th:block>

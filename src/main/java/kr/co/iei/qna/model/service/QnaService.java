@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.iei.qna.model.dao.QnaDao;
 import kr.co.iei.qna.model.vo.Qna;
+import kr.co.iei.qna.model.vo.QnaComment;
 import kr.co.iei.qna.model.vo.QnaListData;
 
 @Service
@@ -71,9 +72,21 @@ public class QnaService {
 		return qld;
 	}
 
-	public Qna selectOneQnaList(int qnaNo) {
+	public Qna selectOneQnaList(int qnaNo, int memberNo) {
 		Qna q = qnaDao.selectOneQnaList(qnaNo);
+		if(q != null) {
+			HashMap<String, Object> param = new HashMap<String, Object>();
+			param.put("qnaNo", qnaNo);
+			param.put("memberNo", memberNo);
+			List<QnaComment> qnaCommentList = qnaDao.selectAllQnaCommentList(param);
+			q.setQnaCommentList(qnaCommentList);
+		}
 		return q;
+	}
+
+	public int insertQnaComment(QnaComment qc) {
+		int result = qnaDao.insertQnaComment(qc);
+		return result;
 	}
 	
 }
