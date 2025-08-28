@@ -46,7 +46,7 @@ public class MemberService {
 		//양쪽에 올 네비 갯수
 		int bothSidePage = (pageNaviSize-1)/2;
 		
-		int startNo = Math.max(1, bothSidePage);
+		int startNo = Math.max(1, reqPage-bothSidePage);
 		
 		int endNo = Math.min(totalPage, reqPage+bothSidePage);
 		
@@ -125,6 +125,24 @@ public class MemberService {
 		m.setMemberId(checkId);
 		Member member = memberDao.selectOneMember(m);
 		return member;
+	}
+
+
+
+	public Member selectOneNickname(String checkNickname) {
+		 Member m = new Member();
+		 m.setMemberNickname(checkNickname);
+		 Member member = memberDao.selectOneNickname(m);
+		return member;
+	}
+
+
+
+	public Member selectOneEmail(String checkEmail) {
+		Member m = new Member();
+		m.setMemberEmail(checkEmail);
+		Member member = memberDao.selectOneEmail(m);
+		return null;
 	}
 
 }

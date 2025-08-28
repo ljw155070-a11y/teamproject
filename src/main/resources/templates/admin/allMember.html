@@ -18,7 +18,7 @@
 	}
 	
 	.allMember-section{
-		width : 810px;
+		width : 1200px;
 		margin: 0 auto;
 		background-color: #ffffff;
 		padding : 30px 40px;
@@ -29,7 +29,7 @@
 		margin-top: 20px;
 		border-spacing: 0;
 	}
-	.allMember-tbl>tr>th{
+	.allMember-tbl>tbody>tr>th{
 		height:50px;
 	}
 	.allMember-tbl td{
@@ -95,40 +95,47 @@
 	    background: url(/img/check_active.png) no-repeat center / 24px;
 	    
 	}
+	.search-input>span{
+		position: absolute;
+	}
 </style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main class="content">
 		<div class="content-title">회원 관리 페이지</div>
-			<section class="allMember-section">
+		<section class="allMember-section">
 			<div class="input-wrap">
-				<div class="search-input">
-					<form action="/admin/allMember?memberNickname=${memberNickname}" method="post">
-						<input type="search-nickname" name="memberNickname" placeholder="닉네임을 입력해주세요">
-					</form>	
-				</div>
+				<form action="#" method="post">
+					<div class="search-input">
+						<input type="text" name="memberNickname" placeholder="닉네임을 입력해주세요">
+						<span class="material-icons" id="qnaSearchBox">search</span>
+					</div>
+				</form>	
 			</div>
 			<table class="allMember-tbl">
 				<tr>
-					<th style="width:8%;">선택</th>
-					<th style="width:8%;">번호</th>
-					<th style="width:24%;">아이디</th>
-					<th style="width:24%;">닉네임</th>
-					<th style="width:12%;">회원등급</th>
-					<th style="width:12%;">등급변경</th>
-					<th style="width:12%;">정지</th>
+					<th style="width:4%;">번호</th>
+					<th style="width:12%;">아이디</th>
+					<th style="width:12%;">닉네임</th>
+					<th style="width:10%;">레시피신고</th>
+					<th style="width:10%;">레시피댓글신고</th>
+					<th style="width:10%;">Q&A신고</th>
+					<th style="width:10%;">Q&A댓글신고</th>
+					<th style="width:10%;">전체신고수</th>
+					<th style="width:8%;">회원등급</th>
+					<th style="width:8%;">등급변경</th>
+					<th style="width:8%;">정지</th>
 				</tr>
 				<tr th:each="m,status : ${reqSet.list}">
-					<td>
-						<div class="checkbox-wrap">
-							<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
-							<label th:for="${'chk'+status.count}"></label>
-						</div>
-					</td>
 					<td th:text="${m.memberNo}"></td>
 					<td th:text="${m.memberId}"></td>
 					<td th:text="${m.memberNickname}"></td>
+					<td th:text="${m.recipeReportCount}"></td>
+					<td th:text="${m.recipeCommentReportCount}"></td>
+					<td th:text="${m.qnaReportCount}"></td>
+					<td th:text="${m.qnaCommentReportCount}"></td>
+					<td th:text="${m.allReportCount}"></td>
 					<td>
 						<div class="select" th:switch="${m.memberLevel}">
 							<select th:case="매운맛">
@@ -148,11 +155,6 @@
 						<button class="suspend-btn">정지</button>
 					</td>
 				</tr>	
-				<tr>
-					<td id="btnTd" colspan="7">
-						<button class="checkedChangeLevel">선택 회원 등급 변경</button>
-					</td>
-				</tr>
 			</table>	
 		</section>
 		<section class="allMember-footer">	

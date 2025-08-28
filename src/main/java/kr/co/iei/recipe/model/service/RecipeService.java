@@ -198,7 +198,7 @@ public class RecipeService {
 		//양쪽에 올 네비 갯수
 		int bothSidePage = (pageNaviSize-1)/2;
 		
-		int startNo = Math.max(1, bothSidePage);
+		int startNo = Math.max(1, reqPage-bothSidePage);
 		
 		int endNo = Math.min(totalPage, reqPage+bothSidePage);
 		
