@@ -215,12 +215,22 @@
 
 /* p/span */
 .input-msg{
-    margin-left: 100px;
+    margin-left: 50px;
     font-size: 16px;
 }
 .id-check-msg{
-    margin-left: 250px;
-    font-size: 16px
+    margin-left: 200px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+#nickName-check-msg{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+#email-check-msg{
+	font-size: 16px;
+    margin-bottom: 10px;
+    margin-left: 200px;
 }
 
 .emailConfirm-span{
@@ -241,11 +251,11 @@
 		        <div class="content-title">회원가입</div>
 		        	<div class="join-content">
 		            	<form action="/member/join" method="post" autocomplete="off">
-		                		<p class="input-msg id-check-msg"></p>
+		                		<p class="input-msg id-check-msg" id="id-check-msg"></p>
 	                		<div class="joinBox1 joinDiv">
 		                    	<div class="idInput">
 		                        	<span class="material-icons">perm_identity</span>
-		                        	<input type="text" placeholder="아이디" name="memberId">
+		                        	<input type="text" placeholder="아이디" name="memberId" id="memberId">
 		                    	</div>
 		                    	<div class="pwInput">
 			                        <span class="material-icons">lock_outline</span>
@@ -259,7 +269,7 @@
 			                        <span class="material-icons" onclick="hidePw2();" id="hide-btn-2">visibility</span>
 			                        <span class="material-icons" onclick="showPw2();" id="show-btn-2">visibility_off</span>
 			                    </div>
-			                    <p class="input-msg pw-check-msg"></p>
+			                    <p class="input-msg pw-check-msg" id="pw-check-msg"></p>
 		                	</div>
 			                <div class="joinBox2 joinDiv">
 			                    <div class="nameInput">
@@ -268,17 +278,19 @@
 			                    </div>
 			                    <div class="nicknameInput">
 			                        <span class="material-icons">perm_identity</span>
-			                        <input type="text" placeholder="닉네임" name="memberNickname">
+			                        <input type="text" placeholder="닉네임" name="memberNickname" id="memberNickname">
 			                    </div>
+			                	<p class="input-msg nickName-check-msg" id="nickName-check-msg"></p>
 			                </div>
 			                <div class="emailInputWrap">
+			                    <p class="input-msg email-check-msg" id="email-check-msg"></p>
 			                    <div class="joinBox3">
 			                        <div class="emailInput">
 			                            <span class="material-icons">mail_outline</span>
-			                            <input type="text" placeholder="이메일 주소 전체 입력" name="memberEmail">
+			                            <input type="text" placeholder="이메일 주소 전체 입력" name="memberEmail" id="memberEmail">
 			                        </div>
 			                    </div>
-			                    <button type="button" class="email-btn">인증요청</button>     
+			                    <button type="button" class="email-btn" id="send-btn">인증요청</button>     
 			                </div>
 			                <div class="emailConfirm-hide-btn">
 			                    <div class="joinBox4-hidden joinBox4 joinDiv">
@@ -336,26 +348,101 @@
 	        hideBtn.style.display="inline";
 	        pwinput.type="text";
 	    }
-	    	
-	    function checkId(memberId){
+	    	//아이디 중복
+	    $("#memberId").on("keyup",function(){
 	    	const memberId = $("#memberId").val();
+	    	$("#id-check-msg").removeClass("valid").removeClass("invalid");
 	    	$.ajax({
-	    		url : "member/checkId",
+	    		url : "/member/checkId",
 	    		type : "get",
 	    		data : {memberId : memberId},
 	    		success : function(result){
 	    	    	if(result===0){
-	    	    		$(".id-check-msg").text("사용 가능한 아이디 입니다")
-	    		    	$(".id-check-msg").addClass("valid");	
+	    	    		$("#id-check-msg").text("사용 가능한 아이디 입니다.")
+	    		    	$("#id-check-msg").addClass("valid");	
 	    	    	}else if(result === 1){
-	    	    		$(".id-check-msg").text("사용 불가능한 아이디 입니다")
-	    		    	$(".id-check-msg").addClass("invalid");
+	    	    		$("#id-check-msg").text("이미 사용중인 아이디 입니다.")
+	    		    	$("#id-check-msg").addClass("invalid");
 	    	    	}	    			
 	    		}
-	    	});
-	    }
-
+	    	})
+	    });
+	    	//비밀번호 중복
+	    $("#pwReInput").on("keyup",function(){
+	    	$("#pw-check-msg").removeClass("valid").removeClass("invalid");
+	    	const inputPw = $("#pwInput").val();
+	    	const inputPwRe = $("#pwReInput").val();
+	    	if(inputPw === inputPwRe){
+	    		$("#pw-check-msg").text("비밀번호가 일치 합니다.");
+	    		$("#pw-check-msg").addClass("valid");
+	    	}else{
+	    		$("#pw-check-msg").text("비밀번호가 일치하지 않습니다.");
+	    		$("#pw-check-msg").addClass("invalid");
+	    	}
+	    });
+	    	
+	    //닉네임 중복
+		$("#memberNickname").on("keyup",function(){
+	    	const memberNickname = $("#memberNickname").val();
+	    	$("#nickName-check-msg").removeClass("valid").removeClass("invalid");
+	    	$.ajax({
+	    		url : "/member/checkNickname",
+	    		type : "get",
+	    		data : {memberNickname : memberNickname},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		$("#nickName-check-msg").text("사용 가능한 닉네임 입니다.")
+	    		    	$("#nickName-check-msg").addClass("valid");	
+	    	    	}else if(result === 1){
+	    	    		$("#nickName-check-msg").text("이미 사용중인 닉네임 입니다.")
+	    		    	$("#nickName-check-msg").addClass("invalid");
+	    	    	}	    			
+	    		}
+	    	})
+	    });
+	    
+	    //이메일중복
+	    $("#memberEmail").on("keyup",function(){
+	    	const memberEmail = $("#memberEmail").val();
+	    	$("#email-check-msg").removeClass("valid").removeClass("invalid");
+	    	$.ajax({
+	    		url : "/member/checkEmail",
+	    		type : "get",
+	    		data : {memberEmail : memberEmail},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		$("#email-check-msg").text("사용 가능한 이메일 입니다.")
+	    		    	$("#email-check-msg").addClass("valid");	
+	    	    	}else if(result === 1){
+	    	    		$("#email-check-msg").text("이미 사용중인 이메일 입니다.")
+	    		    	$("#email-check-msg").addClass("invalid");
+	    	    	}	    			
+	    		}
+	    	})
+	    });
+	    
+	    //이메일 인증
+	    $("#send-btn").on("click",function(){
+	    	e.preventDefault();//새로고침 방지
+	    	const receiver = $("#memberEmail").val;
+	    	if(receiver === ""){
+	    		alert("이메일을 입력하세요.");
+	    		return;
+	    	}
+	    	$.ajax({
+	    		
+	    	})
+	    });
 	    
 	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

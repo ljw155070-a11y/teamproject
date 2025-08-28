@@ -127,4 +127,22 @@ public class MemberService {
 		return member;
 	}
 
+
+
+	public Member selectOneNickname(String checkNickname) {
+		 Member m = new Member();
+		 m.setMemberNickname(checkNickname);
+		 Member member = memberDao.selectOneNickname(m);
+		return member;
+	}
+
+
+
+	public Member selectOneEmail(String checkEmail) {
+		Member m = new Member();
+		m.setMemberEmail(checkEmail);
+		Member member = memberDao.selectOneEmail(m);
+		return null;
+	}
+
 }

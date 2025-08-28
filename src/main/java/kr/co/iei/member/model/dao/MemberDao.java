@@ -22,5 +22,9 @@ public interface MemberDao {
 
 	Member selectOneMember(Member m);
 
+	Member selectOneNickname(Member m);
+
+	Member selectOneEmail(Member m);
+
 
 }

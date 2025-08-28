@@ -34,6 +34,14 @@
   	SELECT * FROM MEMBER_TBL
 	WHERE MEMBER_ID = #{memberId} 
   </select>
+  <select id="selectOneNickname" resultType="member">
+  		SELECT * FROM MEMBER_TBL
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+  </select>
   
+  <select id="selectOneEmail" resultType="member">
+  	SELECT * FROM MEMBER_TBL
+	WHERE MEMBER_EMAIL = #{memberEmail}
+  </select>
 </mapper>
 
