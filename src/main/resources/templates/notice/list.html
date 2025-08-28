@@ -9,12 +9,14 @@
 body {
     background-color: #f4f4f4;
 }
-.notice-title > h1 {
-    padding-top: 50px;
-    padding-bottom: 15px;
+.notice-title div {
+    padding-top: 30px;
+    font-size: 22px;
+    font-weight: bold;
     text-align: center;
     color: #EBA854;
 }
+/*
 .notice-search-top .write-btn {
     padding: 10px 30px;
     border: none;
@@ -25,6 +27,7 @@ body {
     font-size: 17px;
     text-decoration: none;
 }
+*/
 .notice-search-title {
     width: 950px;
     margin: 0 auto;
@@ -32,6 +35,7 @@ body {
 }
 .notice-search-top {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 20px;
 }
@@ -72,7 +76,7 @@ body {
     background: transparent;
     cursor: pointer;
 }
-.search-box .search-btn img {
+.search-box .search-btn {
     width: 30px;
     background-color: transparent;
 }
@@ -80,6 +84,7 @@ body {
     background-color: transparent;
 }
 .notice-list-box {
+	padding-top: 20px;
     width: 950px;
     min-height: 950px;
     margin: 0 auto;
@@ -156,17 +161,19 @@ body {
 </style>
 </head>
 <body>
-	<th:block th:include="common/header"></th:block>
+	<!-- <th:block th:include="common/header"></th:block> -->
     <main class="notice content">
     	<section class="notice content-head">
         	<div class="notice-title">
            	 	<div class="notice-title">공지사항</div>
            	 	<div class="notice-list-header">
-           	 		<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" class="btn-primary" style="display: inline-block;">글쓰기</a>
+           	 		<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" style="display: inline-block;">
+           	 		<button type="submit" class="write-btn">글쓰기</button>
+           	 		</a>
            	 	</div>
         	</div>
             <form action="notice/search" method="get" id="noticeSearch">
-                <div class="notice-search-top">
+                <div class="notice-search-top" style="width:100%;">
                     <select name="searchType">
                         <option value="title">제목</option>
                         <option value="content">내용</option>
@@ -174,7 +181,7 @@ body {
                     </select>
                     <div class="search-box">
                         <input type="text" name="search" placeholder="검색할 내용을 입력하세요.">
-                        <button type="submit" class="search-btn"><img src="img/majesticons_search-line.png" alt="검색"></button>
+                        <button type="submit" class="search-btn"><span class="material-icons">search</span></button>
                     </div>
                 </div>
            </form>
@@ -201,6 +208,6 @@ body {
         <div id="pageNav" th:utext="${pageNav}"></div>
         </section>
     </main>
-    <th:block th:include="common/footer"></th:block>
+    <!--<th:block th:include="common/footer"></th:block>-->
 </body>
 </html>
