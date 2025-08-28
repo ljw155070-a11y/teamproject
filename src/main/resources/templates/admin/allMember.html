@@ -114,62 +114,63 @@
 }
 
 .suspend-modal {
-  display:none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
 }
 
 .suspend-modal>.tb {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
 }
 
 .suspend-modal>.tb .inner {
-  width: 100%;
-  padding: 20px;
-  background: #fff;
-  border-radius: 16px;
+	width: 100%;
+	padding: 20px;
+	background: #fff;
+	border-radius: 16px;
 }
 
 .suspend-modal .top {
-  display: flex;
-  align-item: center;
-  border-bottom: 1px solid #ddd;
-  justify-content: space-between;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
+	display: flex;
+	align-item: center;
+	border-bottom: 1px solid #ddd;
+	justify-content: space-between;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .suspend-modal .title {
- 	 font-weight: bold;
- 	 font-size: 20px;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 .suspend-modal .ct {
- 	 display:flex;
- 	 max-height: 60vh;
- 	 height: 30vh;
- 	 overflow-y: auto;
- 	 border-bottom-left-radius: 10px;
- 	 border-bottom-right-radius: 10px;
-  	 background-color: #fff;
-  	 flex-direction: column;
-  	 justify-content: left;
-     align-items: baseline;
-     gap:20px;
+	display: flex;
+	max-height: 60vh;
+	height: 30vh;
+	overflow-y: auto;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-color: #fff;
+	flex-direction: column;
+	justify-content: left;
+	align-items: baseline;
+	gap: 20px;
 }
-[name=suspendReason]{
-	width:398px;
-	height:120px;
-    resize: none;
+
+[name=suspendReason] {
+	width: 398px;
+	height: 120px;
+	resize: none;
 }
 </style>
 </head>
@@ -227,32 +228,33 @@
 						<button onClick="modal('suspend-modal')" class="suspend-btn">정지</button>
 						<div id="suspend-modal" class="suspend-modal">
 							<div class="tb">
-								<div class="inner" style="max-width: 400px; max-height:400px;">
+								<div class="inner" style="max-width: 400px; max-height: 400px;">
 									<div class="top">
 										<div class="title">회원 정지</div>
-										<a href="/allMember" class="modal-close" style="text-decoration:none;">취소</a>
+										<a href="/allMember" class="modal-close"
+											style="text-decoration: none;">취소</a>
 									</div>
-									<div class="ct">
-										<form action="/admin/allMember" method="post">
+									<form action="/admin/allMember" method="post">
+										<div class="ct">
 											<div class="select-wrap">
 												<div>
-													<label for="suspend-select">정지 일수를 선택하세요 : </label>
-													<select class="suspend-select" id="suspend-select">
+													<label for="suspend-select">정지 일수를 선택하세요 : </label> <select
+														class="suspend-select" id="suspend-select">
 														<option value="1">1일</option>
 														<option value="3">3일</option>
 														<option value="7">7일</option>
 														<option value="30">30일</option>
 													</select>
-												</div>	
-											</div>	
+												</div>
+											</div>
 											<div>
 												<label for="suspendReason">정지 사유를 입력해주세요 : </label>
 											</div>
-											<div>	
+											<div>
 												<textarea name="suspendReason" id="suspendReason"></textarea>
 											</div>
-										</form>	
-									</div>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -312,18 +314,18 @@
 
 					location.href = "/admin/changeLevel?memberNo=" + memberNo
 							+ "&memberLevel=" + memberLevel;
-		});
-		
+				});
+
 		//모달 열기
-		function modal(id){
-		  $("#" + id).fadeIn()
+		function modal(id) {
+			$("#" + id).fadeIn()
 		}
 
 		//모달 닫기
-		$('.modal-close').on('click', function(e){
-		  e.preventDefault();
-		  const modal = $(this).parents('.suspend-modal');
-		  modal.fadeOut();
+		$('.modal-close').on('click', function(e) {
+			e.preventDefault();
+			const modal = $(this).parents('.suspend-modal');
+			modal.fadeOut();
 		});
 	</script>
 	<th:block th:include="common/footer"></th:block>
