@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+body {
+	background-color: #f4f4f4;
+	}
+.page-title {
+	padding-top: 110px;
+    padding-bottom: 35px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: #EBA854;
+	}
+	
+.section-notice-write-wrap {
+	padding-bottom: 60px;
+}
+.content-box form {
+	margin: 0 auto;
+	padding-top: 20px;	
+	}
+.content-box {
+	margin: 0 auto;
+	width: 950px;
+	height: 800px;
+	border-radius: 9px;
+	background-color: #fff;
+	}
+.content-box .content-header {
+	margin: 0 auto;
+	width:850px;
+	background-color: #FBFBFB;
+	border-radius: 9px 9px 0px 0px;
+	}
+.input-item {
+	padding-left: 200px;	
+}
+.input-item input {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: none;
+	background-color: transparent;
+	font-size: 22px;
+	width:70%;
+	text-align: center;
+}
+
+.noticeSelect {
+	padding: 15px;
+}
+
+.noticeSelect .noticeType{
+	float: right;
+}
+
+.noticeSelect select {
+	cursor: pointer;
+    padding: 5px 10px;
+    font-size: 17px;
+    color: #999999;
+    background-color: #fff;
+    border: 0.5px solid #E5E5E5;
+    border-radius: 50px;
+}
+
+.noticeType select{
+	cursor: pointer;
+    padding: 5px 25px;
+    font-size: 17px;
+    color: #999999;
+    background-color: #fff;
+    border: 0.5px solid #E5E5E5;
+    border-radius: 50px;
+}
+.noticeSelect span {
+	font-size: 17px;
+}
+
+.noticeSelect input {
+	padding-left: 20px;
+}
+
+.note-editor.note-frame {
+    margin: 0 auto;
+}
+
+.add-btn {
+	background-color: #FF9D23;
+	width: 215px;
+	height: 50px;
+	color: #fff;
+	border: none;
+	font-size: 18px;
+	font-weight: 700;
+	border-radius: 9px;
+	margin: 20px;
+	margin-left: 365px;
+}
+
+
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content notice-write-container">
+		<section class="section-notice-write-wrap">
+			<div class="page-title">공지사항 입력</div>
+			<div class="content-box">
+			<form action="/notice/write" method="post" enctype="multipart/form-data">
+				<div class="content-header">			
+					<div class="input-item">
+						<input type="text" placeholder="제목을 입력하세요.">
+					</div>
+						<hr style="border: 1px solid #E6E6E6">
+					<div class="noticeSelect">
+						<span>고정여부 : </span>
+						<select name="fixType">
+	                        <option value="yes">예</option>
+	                        <option value="no">아니오</option>
+	                    <span class="fileAdd">첨부파일
+	                    	<input type="file" name="upfile" multiple>
+	                    </span>
+	                    </select>
+	                    <div class="noticeType">
+	                    	<span>공지유형 : </span>
+							<select name="searchType">
+	                        	<option value="general">일반</option>
+	                        	<option value="check">점검</option>
+	                    	</select>
+	                    </div>
+					</div>
+				</div>
+	            <textarea name=noticeWriteContent></textarea>							
+			</form>
+			<button class="add-btn" type="submit">추가하기</button>
+			</div>
+		</section>
+	</main>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<script>
+	$("[name=noticeWriteContent]").summernote({
+		width : 850,
+		height : 500,
+		lang : "ko-KR",
+		callbacks : {
+			onImageUpload : function(file) {
+				uploadImage(file[0], this);
+			}
+		}
+	});
+
+	</script>
+    <th:block th:include="common/footer"></th:block>
+</body>
+</html>
