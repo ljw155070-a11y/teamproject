@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 작성</title>
 <style>
 body {
 	background-color: #f4f4f4;
@@ -89,10 +89,10 @@ body {
 }
 
 .add-btn {
+	cursor: pointer;
 	background-color: #FF9D23;
 	width: 215px;
 	height: 50px;
-	color: #fff;
 	border: none;
 	font-size: 18px;
 	font-weight: 700;
@@ -101,6 +101,10 @@ body {
 	margin-left: 365px;
 }
 
+.add-btn a {
+	text-decoration: none;
+	color: #fff;
+}
 
 </style>
 </head>
@@ -136,7 +140,7 @@ body {
 				</div>
 	            <textarea name=noticeWriteContent></textarea>							
 			</form>
-			<button class="add-btn" type="submit">추가하기</button>
+			<button class="add-btn" type="submit"><a href="/notice/list">추가하기</a></button>
 			</div>
 		</section>
 	</main>

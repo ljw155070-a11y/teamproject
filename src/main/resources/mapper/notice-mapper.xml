@@ -4,4 +4,9 @@
   <select id="selectNoticeList" resultType="int">
   	select * from notice_tbl
   </select>
+  
+  <select id="selectOneNotice" resultType="notice">
+  	select * from notice
+  	where notice_no = #{noticeNo}
+  </select>
 </mapper>

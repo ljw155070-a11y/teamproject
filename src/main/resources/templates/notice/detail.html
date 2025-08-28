@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공지사항 상세</title>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content notice-detail-container">
+		<section class="section-notice-detail-wrap">
+			<form action="/notice/update" method="post" enctype="multiport/form-data">
+				<div class="content-box">
+					<input type="text" name="noticeTitle" th:value="${n.noticeTitle}">		
+				</div>
+				<div class="noticeSelect">
+					<span>고정여부 : </span>
+					<select name="fixType">
+	                       <option value="yes">예</option>
+	                       <option value="no">아니오</option>
+	                    <span class="fileAdd">첨부파일
+	                    	<input type="file" name="upfile" multiple>
+	                    </span>
+	                    </select>
+	                 <div class="noticeType">
+	                    <span>공지유형 : </span>
+						<select name="searchType">
+	                        <option value="general">일반</option>
+	                        <option value="check">점검</option>
+	                    </select>
+	                 </div>
+				</div>
+			</form>
+		</section>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

@@ -4,7 +4,7 @@
       rel="stylesheet">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 목록</title>
 <style>
 body {
     background-color: #f4f4f4;
@@ -87,7 +87,6 @@ body {
     background-color: transparent;
 }
 .notice-list-box {
-	padding-top: 20px;
     width: 950px;
     min-height: 950px;
     margin: 0 auto;
@@ -173,6 +172,6 @@ body {
         <div id="pageNav" th:utext="${pageNav}"></div>
         </section>
     </main>
-    <<th:block th:include="common/footer"></th:block>
+    <th:block th:include="common/footer"></th:block>
 </body>
 </html>

@@ -15,5 +15,9 @@ public interface NoticeDao {
 
 	List selectNoticeList();
 
+	Notice selectOneNotice(int noticeNo);
+
+	List selectNoticeFile(int noticeNo);
+
 
 }
