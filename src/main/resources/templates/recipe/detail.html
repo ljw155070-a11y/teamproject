@@ -284,27 +284,45 @@
 				if(isConfirm){
 					$.ajax({
 						url:"/recipe/delete",
-						type:"get",
+						type:"post",
 						data:{recipeNo:recipeNo},
 						success:function(result){
-							swal({
-								title : "알림",
-								text : "게시글이 삭제되었습니다.",
-								icon : "warning",
-								buttons : {
-									confirm : {
-										text:"확인",
-										value:true,
-										visible : true,
-										className : "btn-primary",
-										closeModal : true
-									}
+							if(result==="success")
+								{
+									swal({
+										title : "알림",
+										text : "게시글이 삭제되었습니다.",
+										icon : "warning",
+										buttons : {
+											confirm : {
+												text:"확인",
+												value:true,
+												visible : true,
+												className : "btn-primary",
+												closeModal : true
+											}
+										}
+									}).then(function(isConfirm){
+										if(isConfirm){
+											location.href="/recipe/list?reqPage=1";
+										}
+									});
+								}else{
+									swal({
+										title : "실패",
+										text : "삭제 권한이 없어요",
+											icon : "warning",
+											buttons : {
+												confirm : {
+													text:"확인",
+													value:true,
+													visible : true,
+													className : "btn-primary",
+													closeModal : true
+												}
+											}
+									})
 								}
-							}).then(function(isConfirm){
-								if(isConfirm){
-									location.href="/recipe/list?reqPage=1";
-								}
-							});
 						}
 					})
 				}
@@ -340,20 +358,37 @@
 						type:"post",
 						data:{recipeNo:recipeNo,memberNo:memberNo},
 						success:function(result){
-							swal({
-								title : "알림",
-								text : "게시글 신고가 완료되었습니다.",
-								icon : "warning",
-								buttons : {
-									confirm : {
-										text:"확인",
-										value:true,
-										visible : true,
-										className : "btn-primary",
-										closeModal : true
+							if(result==="success"){
+								swal({
+									title : "알림",
+									text : "게시글 신고가 완료되었습니다.",
+									icon : "warning",
+									buttons : {
+										confirm : {
+											text:"확인",
+											value:true,
+											visible : true,
+											className : "btn-primary",
+											closeModal : true
+										}
 									}
-								}
-							})
+								});
+							}else{
+								swal({
+									title : "알림",
+									text : "이미 신고했습니다.",
+									icon : "warning",
+									buttons : {
+										confirm : {
+											text:"확인",
+											value:true,
+											visible : true,
+											className : "btn-primary",
+											closeModal : true
+										}
+									}
+								});
+							}
 						}
 					})
 //					location.href="/recipe/detail?reqRecipeNo="+recipeNo;
@@ -386,20 +421,38 @@
 				type:"post",
 				data: {recipeNo:recipeNo,memberNo:memberNo,recipeRate:index+1},
 				success:function(result){
-					swal({
-						title : "알림",
-						text : "평점 등록이 완료되었습니다.",
-						icon : "warning",
-						buttons : {
-							confirm : {
-								text:"확인",
-								value:true,
-								visible : true,
-								className : "btn-primary",
-								closeModal : true
+					if(result === "success"){
+						swal({
+							title : "알림",
+							text : "평점 등록이 완료되었습니다.",
+							icon : "warning",
+							buttons : {
+								confirm : {
+									text:"확인",
+									value:true,
+									visible : true,
+									className : "btn-primary",
+									closeModal : true
+								}
 							}
-						}
-					});
+						});
+					}else{
+						swal({
+							title : "알림",
+							text : "평점 등록 권한이 없습니다.",
+							icon : "warning",
+							buttons : {
+								confirm : {
+									text:"확인",
+									value:true,
+									visible : true,
+									className : "btn-primary",
+									closeModal : true
+								}
+							}
+						});
+						
+					}
 				}
 		});
 		});

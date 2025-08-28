@@ -75,7 +75,7 @@ public class RecipeController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/delete")
+	@PostMapping(value="/delete")
 	public String recipeDelete(int recipeNo) {
 		System.out.println("게시글 삭제 컨트롤러 호출됨");
 		System.out.println(recipeNo);
