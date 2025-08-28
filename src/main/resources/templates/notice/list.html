@@ -10,13 +10,14 @@ body {
     background-color: #f4f4f4;
 }
 .notice-title div {
-    padding-top: 30px;
+    padding-top: 110px;
+    padding-bottom: 20px;
     font-size: 22px;
     font-weight: bold;
     text-align: center;
     color: #EBA854;
 }
-/*
+
 .notice-search-top .write-btn {
     padding: 10px 30px;
     border: none;
@@ -27,21 +28,22 @@ body {
     font-size: 17px;
     text-decoration: none;
 }
-*/
+
 .notice-search-title {
     width: 950px;
     margin: 0 auto;
     padding-bottom: 25px;
 }
 .notice-search-top {
+	padding-bottom: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 .notice-search-top select {
     cursor: pointer;
-    padding: 12.5px 30px;
+    padding: 10px 30px;
     font-size: 17px;
     color: #999999;
     background-color: #fff;
@@ -57,7 +59,7 @@ body {
 }
 .search-box input {
     width: 100%;
-    padding: 13px 0px 13px 20px; 
+    padding: 10px 0px 10px 10px; 
     font-size: 17px;
     background-color: #fff;
     border: 0.5px solid #E5E5E5;
@@ -68,8 +70,9 @@ body {
     text-align: center;
 }
 .search-box .search-btn {
+	color: #FBA854;
     position: absolute;
-    right: 15px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     border: none;
@@ -122,58 +125,20 @@ body {
     width: 82%;
     margin-top: 25px;
 }
-.pagination {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-.pagination-wrap {
-    display: flex;          
-    justify-content: center; 
-    padding-top: 30px;
-    padding-bottom: 30px;
-    margin: 0 auto;
-}
-.pagination button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    background-color: white;
-    color: #868686;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-}
-.pagination :not(.active):hover {
-    background-color: #e9e9e9;
-} 
-.pagination .active {
-    background-color: #FBA854;
-    color: #ffffff;
-}
-.pagination span {
-    color: #8F8F8F;
-}
-.rotate-180 {
-    transform: rotate(180deg);
-}
+
 </style>
 </head>
 <body>
-	<!-- <th:block th:include="common/header"></th:block> -->
+	<th:block th:include="common/header"></th:block>
     <main class="notice content">
     	<section class="notice content-head">
         	<div class="notice-title">
            	 	<div class="notice-title">공지사항</div>
-           	 	<div class="notice-list-header">
-           	 		<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" style="display: inline-block;">
-           	 		<button type="submit" class="write-btn">글쓰기</button>
-           	 		</a>
-           	 	</div>
         	</div>
             <form action="notice/search" method="get" id="noticeSearch">
                 <div class="notice-search-top" style="width:100%;">
+                <a href="/notice/writeFrm" class="write-btn">글쓰기</a>
+                <!--<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" style="display: inline-block;">글쓰기</a>-->
                     <select name="searchType">
                         <option value="title">제목</option>
                         <option value="content">내용</option>
@@ -208,6 +173,6 @@ body {
         <div id="pageNav" th:utext="${pageNav}"></div>
         </section>
     </main>
-    <!--<th:block th:include="common/footer"></th:block>-->
+    <<th:block th:include="common/footer"></th:block>
 </body>
 </html>

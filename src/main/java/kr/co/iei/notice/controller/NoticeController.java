@@ -20,9 +20,12 @@ public class NoticeController {
 	@GetMapping(value="/list")
 	public String noticeList(Model model) {
 		List list = noticesService.selectNoticeList();
-		model.addAttribute("list",list);
+		
 //		model.addAttribute("pageNav", ListData.getPageNav());
 		return "notice/list";
+	}	
+	@GetMapping(value="/writeFrm")
+	public String noticeWriteFrm() {
+		return "notice/writeFrm";
 	}
-	
-	}
+}
