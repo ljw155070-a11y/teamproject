@@ -1,10 +1,213 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+body {
+    background-color: #f4f4f4;
+}
+.notice-title div {
+    padding-top: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: #EBA854;
+}
+/*
+.notice-search-top .write-btn {
+    padding: 10px 30px;
+    border: none;
+    background-color: #FBA854;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 17px;
+    text-decoration: none;
+}
+*/
+.notice-search-title {
+    width: 950px;
+    margin: 0 auto;
+    padding-bottom: 25px;
+}
+.notice-search-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.notice-search-top select {
+    cursor: pointer;
+    padding: 12.5px 30px;
+    font-size: 17px;
+    color: #999999;
+    background-color: #fff;
+    border: 0.5px solid #E5E5E5;
+    border-radius: 50px;
+}
+.search-box {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    flex-grow: 1;
+    max-width: 650px;
+}
+.search-box input {
+    width: 100%;
+    padding: 13px 0px 13px 20px; 
+    font-size: 17px;
+    background-color: #fff;
+    border: 0.5px solid #E5E5E5;
+    border-radius: 50px;
+}
+.search-box ::placeholder {
+    color: #999999;
+    text-align: center;
+}
+.search-box .search-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.search-box .search-btn {
+    width: 30px;
+    background-color: transparent;
+}
+.search-box button {
+    background-color: transparent;
+}
+.notice-list-box {
+	padding-top: 20px;
+    width: 950px;
+    min-height: 950px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 9px;
+}
+.content-tbl tr th{
+    font-size: 20px;
+    font-weight: 700;
+}
+.list {
+    color: #505050;
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 20px;
+    padding-left: 85px;
+    width: 900px;
+    margin: 0 auto;
+}
+.list tr a {
+    color: #505050;
+}
+.to {
+    width: 150px;         
+    white-space: nowrap;      /* 줄바꿈 금지 */
+    overflow: hidden;         /* 넘치면 숨김 */
+    text-overflow: ellipsis;  /* ... 표시 */
+}
+.content-tbl {
+    padding-top: 30px;
+    width: 900px;
+}
+.notice-list-box hr {
+    border: 1.5px solid #E6E6E6;
+    width: 82%;
+    margin-top: 25px;
+}
+.pagination {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.pagination-wrap {
+    display: flex;          
+    justify-content: center; 
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin: 0 auto;
+}
+.pagination button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+    color: #868686;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.pagination :not(.active):hover {
+    background-color: #e9e9e9;
+} 
+.pagination .active {
+    background-color: #FBA854;
+    color: #ffffff;
+}
+.pagination span {
+    color: #8F8F8F;
+}
+.rotate-180 {
+    transform: rotate(180deg);
+}
+</style>
 </head>
 <body>
-
+	<!-- <th:block th:include="common/header"></th:block> -->
+    <main class="notice content">
+    	<section class="notice content-head">
+        	<div class="notice-title">
+           	 	<div class="notice-title">공지사항</div>
+           	 	<div class="notice-list-header">
+           	 		<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" style="display: inline-block;">
+           	 		<button type="submit" class="write-btn">글쓰기</button>
+           	 		</a>
+           	 	</div>
+        	</div>
+            <form action="notice/search" method="get" id="noticeSearch">
+                <div class="notice-search-top" style="width:100%;">
+                    <select name="searchType">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="date">작성일</option>
+                    </select>
+                    <div class="search-box">
+                        <input type="text" name="search" placeholder="검색할 내용을 입력하세요.">
+                        <button type="submit" class="search-btn"><span class="material-icons">search</span></button>
+                    </div>
+                </div>
+           </form>
+        </section>
+        <section class="notice content-body">
+        <div class="notice-list-box">
+            <table style="width:100%" class="content-tbl">
+                 <tr>
+                     <th style="width: 25%;">글 번호</th>
+                     <th style="width: 25%;">제목</th>
+                     <th style="width: 25%;">내용</th>
+                     <th style="width: 20%;">작성일</th>
+                 </tr>
+            	 <tr th:each="notice : ${list}">
+            	 	<td th:text="${notice.noticeNo}"></td>
+            	 	<td>
+            	 		<a th:href="@{/notice/view(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a>
+            	 	</td>  
+            	 	<td th:text="${notice.noticeContent}"></td>
+            	 	<td th:text="${notice.noticeWriteDate}"></td>
+            	 </tr>
+            </table>
+        </div>   
+        <div id="pageNav" th:utext="${pageNav}"></div>
+        </section>
+    </main>
+    <!--<th:block th:include="common/footer"></th:block>-->
 </body>
 </html>
