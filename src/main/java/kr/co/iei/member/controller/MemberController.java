@@ -72,4 +72,27 @@ public class MemberController {
 		return 0;
 	}
 	
+	@ResponseBody
+	@GetMapping(value = "/checkNickname")
+	public int checkNickname(String memberNickname) {
+		Member m = memberService.selectOneNickname(memberNickname);
+		if(m != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	
+	@ResponseBody
+	@GetMapping(value = "/checkEmail")
+	public int checkEmail(String memberEmail) {
+		Member m = memberService.selectOneEmail(memberEmail);
+		if(m != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	
+	
 }
