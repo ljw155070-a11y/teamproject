@@ -97,5 +97,23 @@ WHERE RECIPE_NO=#{reqRecipeNo}
   												NULL
   												)
   	</insert>
-
+	<select id="recipeGradeSelect">
+		SELECT COUNT(*) FROM RECIPE_GRADE_TBL WHERE RECIPE_NO=#{recipeNo} AND MEMBER_NO=#{memberNo}
+	</select>
+	<insert id="recipeGradeInsert">
+		INSERT INTO RECIPE_GRADE_TBL (
+			MEMBER_NO,
+ 			RECIPE_NO,
+  			RECIPE_RATE
+		) VALUES(
+			#{memberNo},
+			#{recipeNo},
+			#{recipeRate}
+		)
+		
+	</insert>
+	
+	<update id="recipeGradeUpdate">
+		UPDATE RECIPE_GRADE_TBL SET RECIPE_RATE=#{recipeRate} WHERE RECIPE_NO=#{recipeNo} AND MEMBER_NO=#{memberNo}
+	</update>
 </mapper>

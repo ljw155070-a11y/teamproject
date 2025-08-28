@@ -62,6 +62,7 @@
 		border-radius:20px;
 		margin:50px 0px;
 		padding : 20px;
+		box-sizing:border-box;
 	}
 	.recipe.comment-box-output{
 		width:100%;
@@ -70,6 +71,7 @@
 		border-radius:20px;
 		margin:50px 0px;
 		padding : 20px;
+		box-sizing:border-box;
 	}
 	.recipe.comment-box-input>form{
 		height:100%;
@@ -103,6 +105,15 @@
 	 }
 	button:hover{
 	cursor:pointer;
+	}
+	.comment-box-input.not-login{
+		width:100%;
+		display:flex;
+		flex-direction:column;
+		gap : 50px;
+		justify-content : center;
+		text-align:center;
+		box-sizing:border-box;
 	}
 </style>
 </head>
@@ -158,8 +169,20 @@
 						<div class="recipe caution" style="text-align:center;" th:text="${recipeDetailSet.recipeDetail.recipeCaution}"></div>
 						<div class="space"></div>
 						<hr>
-						<div class="recipe gradeinput">평점 주기</div>
-						<hr>
+						<th:block th:if="${session.member != null}">
+							<div class="recipe gradeinput">
+								<div>평점 주기</div>
+								<span class="material-icons">star</span>
+								<span class="material-icons">star</span>
+								<span class="material-icons">star</span>
+								<span class="material-icons">star</span>
+								<span class="material-icons">star</span>
+								<input type="hidden" name="recipeNo" id="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
+								<input type="hidden" name="memberNo" id="memberNo" th:value="${session.member.memberNo}">
+							</div>
+							<hr>
+						</th:block>
+						
 						<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
 							<button type="button" class="recipe btn edit">게시글 수정</button>
 							<button type="button" class="recipe btn delete" th:onclick="deleteRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]])">게시글 삭제</button>
@@ -198,9 +221,10 @@
 					</div>
 				</th:block>
 				<th:block th:if="${session.member ==null}">
-				<div class="recipe comment-box-input"> 
-					<span>댓글 작성은 로그인 후 이용 가능합니다.</span>
-					<a class="recipe btn" th:href="@{/member/loginFrm}" style="padding:10px;">로그인</a> 
+				<div class="recipe comment-box-input not-login"> 
+					<div><span>댓글 작성은 로그인 후 이용 가능합니다.</span></div>
+					<div><a class="recipe btn" th:href="@{/member/loginFrm}" style="padding:10px;">로그인</a></div>
+					 
 				</div>
 				
 				</th:block>
@@ -262,6 +286,43 @@
 			$(this).css("color","yellow");
 		},function(){
 			$(this).css("color","white");
+		});
+		
+		const stars = $(".recipe.gradeinput span");
+		stars.on("click",function(){
+			stars.css("color","gray");
+			$(this).prevAll("span").css("color","gold");
+			$(this).css("color","gold");
+			
+			const index=stars.index(this);
+			
+			const recipeNo = $("#recipeNo").val();
+			const memberNo = $("#memberNo").val();
+			
+			console.log(index);
+			console.log(recipeNo);
+			console.log(memberNo);
+			$.ajax({
+				url:"/recipe/gradeInsert",
+				type:"post",
+				data: {recipeNo:recipeNo,memberNo:memberNo,recipeRate:index+1},
+				success:function(result){
+					swal({
+						title : "알림",
+						text : "평점 등록이 완료되었습니다.",
+						icon : "warning",
+						buttons : {
+							confirm : {
+								text:"확인",
+								value:true,
+								visible : true,
+								className : "btn-primary",
+								closeModal : true
+							}
+						}
+					});
+				}
+		});
 		});
 	</script>
 	<th:block th:include="common/footer"></th:block>
