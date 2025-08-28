@@ -19,4 +19,9 @@ public class Member {
 	private String memberEmail;
 	private String memberJoinDate;
 	private String memberLevel;
+	private int recipeReportCount;
+	private int recipeCommentReportCount;
+	private int qnaReportCount;
+	private int qnaCommentReportCount;
+	private int allReportCount;
 }

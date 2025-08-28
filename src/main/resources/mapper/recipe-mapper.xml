@@ -62,8 +62,10 @@ WHERE RECIPE_NO=#{reqRecipeNo}
         (select count(*) from recipe_report_tbl where recipe_no = r.recipe_no) report_count,
         member_id,
         (select max(recipe_report_date)
-    from recipe_report_tbl
-    join recipe_tbl using(recipe_no) where recipe_no=r.recipe_no) recipe_report_date
+    	 from recipe_report_tbl
+    	 join recipe_tbl using(recipe_no) 
+    	 where recipe_no=r.recipe_no
+    	) recipe_report_date
     from recipe_tbl r
     join member_tbl using(member_no)
     order by report_count desc, recipe_report_date) a ) 
