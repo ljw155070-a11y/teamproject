@@ -246,4 +246,26 @@ public class RecipeService {
 		System.out.println(count);
 		return result;
 	}
+
+	public int recipeReport(int recipeNo, int memberNo) {
+		System.out.println("★★★★★★★");
+		System.out.println(recipeNo);
+		System.out.println(memberNo);
+		int count = recipeDao.recipeReportSelect(recipeNo,memberNo);
+		int result = 0;
+		if(count==0) {
+			result = recipeDao.recipeReport(recipeNo, memberNo);
+			return result;
+		}else {
+			return 0;
+		}
+		
+	}
+
+	public int recipeDelete(int recipeNo) {
+		System.out.println("서비스 호출됨");
+		System.out.println(recipeNo);
+		int result = recipeDao.recipeDelete(recipeNo);
+		return result;
+	}
 }
