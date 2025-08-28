@@ -142,7 +142,7 @@ public class MemberService {
 		Member m = new Member();
 		m.setMemberEmail(checkEmail);
 		Member member = memberDao.selectOneEmail(m);
-		return null;
+		return member;
 	}
 
 }

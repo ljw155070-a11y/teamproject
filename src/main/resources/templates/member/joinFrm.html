@@ -293,7 +293,7 @@
 			                    <button type="button" class="email-btn" id="send-btn">인증요청</button>     
 			                </div>
 			                <div class="emailConfirm-hide-btn">
-			                    <div class="joinBox4-hidden joinBox4 joinDiv">
+			                    <div class="joinBox4-hidden joinBox4 joinDiv" id="joinBox4">
 			                        <div class="emailConfirm">
 			                            <input type="text" placeholder="인증번호 6자리 입력">
 			                        </div>
@@ -422,6 +422,9 @@
 	    });
 	    
 	    //이메일 인증
+	    let mailCode = null;
+	    let intervakId = null;
+	    
 	    $("#send-btn").on("click",function(){
 	    	e.preventDefault();//새로고침 방지
 	    	const receiver = $("#memberEmail").val;
@@ -430,8 +433,16 @@
 	    		return;
 	    	}
 	    	$.ajax({
-	    		
-	    	})
+	    		url : "/email/sendCode",
+	    		data : {receiver:receiver},
+	    		success : function(data){
+	    			mailCode = data;
+	    			$("#joinBox4").removeClass("joinBox4-hidden");
+	    		},
+	    		error : function(){
+	    			alert("메일 전송 실패");
+	    		}
+	    	});
 	    });
 	    
 	</script>
