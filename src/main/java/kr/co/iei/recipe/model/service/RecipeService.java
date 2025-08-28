@@ -198,7 +198,7 @@ public class RecipeService {
 		//양쪽에 올 네비 갯수
 		int bothSidePage = (pageNaviSize-1)/2;
 		
-		int startNo = Math.max(1, bothSidePage);
+		int startNo = Math.max(1, reqPage-bothSidePage);
 		
 		int endNo = Math.min(totalPage, reqPage+bothSidePage);
 		
@@ -222,11 +222,28 @@ public class RecipeService {
 		reqSet.put("list", list);
 		
 		return reqSet;
-	}
+	}	
+
 	public int recipeCommentInsert(RecipeComment rc) {
 		System.out.println("호출됨");
 		System.out.println(rc);
 		int result = recipeDao.recipeCommentInsert(rc);
 		return 0;
+	}
+
+	public int recipeGradeInsert(int recipeNo, int memberNo, int recipeRate) {
+		System.out.println("★★★★★★★");
+		System.out.println(recipeNo);
+		System.out.println(memberNo);
+		System.out.println(recipeRate);
+		int count = recipeDao.recipeGradeSelect(recipeNo,memberNo);
+		int result=0;
+		if(count==0) {
+			result = recipeDao.recipeGradeInsert(recipeNo,memberNo,recipeRate);
+		}else {
+			result = recipeDao.recipeGradeUpdate(recipeNo,memberNo,recipeRate);
+		}
+		System.out.println(count);
+		return result;
 	}
 }

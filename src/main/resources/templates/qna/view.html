@@ -1,37 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 </head>
 <style>
 	.content{
 		width: 1000px;
-		overflow: hidden;
+		height: 1000px;
+		background-color: #F4F4F4;
 		margin: 0 auto;
-		padding: 0;
-		background-color: gray;
+	}
+	.space{
+		height : 80px;
+	}
+	.view-title{
+		margin: 0 auto;
+		text-align: center;
+		color: orange;
+		font-weight: bold;
+		margin-bottom: 20px;
 	}
 	
+	.view-content{
+		border: 1px solid orange;
+		border-radius: 15px;
+		box-sizing: border-box;
+		width: 100%;
+		height: 600px;
+		margin: 0 auto;
+	}
+	
+	.writtenTitle{
+		width: 100%;
+		height: 50px;
+		text-align: center;
+	}
+	.writtenTitle>td{
+		margin: 0 auto;
+		border-bottom: 1px solid black;
+		font-weight: bold;
+	}
+	
+	.contentInfo{
+		width: 100%;
+		height: 50px;
+		padding-top: 5px;
+	}
+	.contentInfo>td{
+		margin: 0 auto;
+		text-align: center;
+		border-bottom: 1px solid black;
+	}
+	
+	.writtenContent{
+		width: 100%;
+		height: 400px;
+	}
+	.writtenContent>td{
+		border-bottom: 1px solid black;
+		padding-left: 5px;
+	}
+	
+	.reportInput>td{		
+		margin-right: 10px;
+		border-bottom: 1px solid black;
+	}
+	.reportInput>td>button{
+		margin:0 auto;
+		float: left;
+		text-align: right;
+		width: 100%;
+		border: none;
+		cursor: pointer;
+		font-size: 15px;
+	}
+	
+	.update-delete>td>button{
+		margin: 0 auto;
+		cursor: pointer;
+		border: none;
+		border: 1px solid orange;
+		border-radius: 15px;
+		padding: 10px;
+		background-color: orange;
+		color: white;
+		font-size: 15px;
+	}
+	.update-delete>td>button:first-child{	
+		margin-left: 400px;
+	}
+	.update-delete>td>button:last-child{
+		margin-left: 10px;
+	}
 </style>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main class="qna content">
 		<section class="qna view-wrap">
-			<div class=" view-head">질문 게시판</div>
+			
+			<div class="space"></div><!-- header와 view-title 거리조절 -->
+			
+			<div class="view-title">질문 게시판 상세</div>
 			
 			<table class="view-content">
-				<tr>
-					<th th:text="${q.qnaTitle}"></th>
+				<tr class="writtenTitle"><!-- 제목 -->
+					<td th:text="${q.qnaTitle}" colspan="3"></td>
+				</tr>
+					
+				<tr class="contentInfo"><!-- 작성자, 조회수, 작성일 -->
+					<td>작성자 : <span th:text="${q.memberNo}"></span></td>
+					<td>조회수 : <span th:text="${q.qnaCount}"></span></td>
+					<td>작성일 : <span th:text="${q.qnaDate}"></span></td>
 				</tr>
 				
-				<tr>
-					<th>작성자 : </th>
-					<td th:text="{q.MemberName}"></td>
-					<th>조회수 : </th>
-					<td th:text="{q.qnaCount}"></td>
-					<th>작성일 : </th>
-					<td th:text="{q.qnaDate}"></td>
+				<tr class="writtenContent"><!-- 질문 내용 -->
+					<td colspan="3"><span th:text="${q.qnaContent}"></span></td>
+				</tr>
+				
+				<tr class="reportInput">
+					<td colspan ="5">
+						<button colspan="3">신고하기</button>
+					</td>	
+				</tr>
+				
+				<tr class="update-delete">
+					<td colspan="3">
+						<button class="update-content">수정하기</button>
+						<button class="delete-content">삭제하기</button>
+					</td>
 				</tr>
 			</table>
 		</section>

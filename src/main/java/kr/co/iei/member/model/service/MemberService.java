@@ -26,7 +26,7 @@ public class MemberService {
 		
 		
 		int end = reqPage * numPerPage;
-		int start = end - numPerPage;
+		int start = end - numPerPage+1;
 		
 		List<Member> list = memberDao.selectMemberList(start, end);
 		
@@ -46,7 +46,7 @@ public class MemberService {
 		//양쪽에 올 네비 갯수
 		int bothSidePage = (pageNaviSize-1)/2;
 		
-		int startNo = Math.max(1, bothSidePage);
+		int startNo = Math.max(1, reqPage-bothSidePage);
 		
 		int endNo = Math.min(totalPage, reqPage+bothSidePage);
 		
