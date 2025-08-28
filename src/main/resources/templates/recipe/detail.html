@@ -81,8 +81,8 @@
 	}
 
 	.recipe.btn{
-		width:130px;
 		height:32px;
+		width:150px;
 		border-radius:20px;
 		background-color:#FF9D23;
 		color:white;
@@ -168,10 +168,11 @@
 						<div class="recipe detailInfo-title">주의사항</div>
 						<div class="recipe caution" style="text-align:center;" th:text="${recipeDetailSet.recipeDetail.recipeCaution}"></div>
 						<div class="space"></div>
-						<hr>
+						
 						<th:block th:if="${session.member != null}">
+						<hr>
 							<div class="recipe gradeinput">
-								<div>평점 주기</div>
+								<div>평점주기</div>
 								<span class="material-icons">star</span>
 								<span class="material-icons">star</span>
 								<span class="material-icons">star</span>
@@ -180,13 +181,16 @@
 								<input type="hidden" name="recipeNo" id="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
 								<input type="hidden" name="memberNo" id="memberNo" th:value="${session.member.memberNo}">
 							</div>
+							<div style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
+						<th:block th:if="${session.member.memberNo} == ${recipeDetailSet.recipeDetail.memberNo}">
 							<hr>
+							<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
+								<button type="button" class="recipe btn edit">게시글 수정</button>
+								<button type="button" class="recipe btn delete" th:onclick="deleteRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]])">게시글 삭제</button>
+							</div>
+						</th:block>
 						</th:block>
 						
-						<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
-							<button type="button" class="recipe btn edit">게시글 수정</button>
-							<button type="button" class="recipe btn delete" th:onclick="deleteRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]])">게시글 삭제</button>
-						</div>
 					</div>
 				</div>
 			</section>
@@ -276,8 +280,83 @@
 					}
 				}
 			}).then(function(isConfirm){
+					console.log(recipeNo);
 				if(isConfirm){
-					location.href="/recipe/detail?reqRecipeNo="+recipeNo;
+					$.ajax({
+						url:"/recipe/delete",
+						type:"get",
+						data:{recipeNo:recipeNo},
+						success:function(result){
+							swal({
+								title : "알림",
+								text : "게시글이 삭제되었습니다.",
+								icon : "warning",
+								buttons : {
+									confirm : {
+										text:"확인",
+										value:true,
+										visible : true,
+										className : "btn-primary",
+										closeModal : true
+									}
+								}
+							}).then(function(isConfirm){
+								if(isConfirm){
+									location.href="/recipe/list?reqPage=1";
+								}
+							});
+						}
+					})
+				}
+			});
+		}
+		
+		function reportRecipe(recipeNo,memberNo){
+			swal({
+				title : "레시피 신고",
+				text : "게시글을 신고하시겠습니까?",
+				icon : "warning",
+				buttons : {
+					confirm : {
+						text:"신고",
+						value:true,
+						visible : true,
+						className : "btn-primary",
+						closeModal : true
+					},
+					cancel:{
+						text:"취소",
+						value:false,
+						visible : true,
+						className : "btn-secondary",
+						closeModal : true
+					}
+				}
+			}).then(function(isConfirm){
+				
+				if(isConfirm){
+					$.ajax({
+						url:"/recipe/report",
+						type:"post",
+						data:{recipeNo:recipeNo,memberNo:memberNo},
+						success:function(result){
+							swal({
+								title : "알림",
+								text : "게시글 신고가 완료되었습니다.",
+								icon : "warning",
+								buttons : {
+									confirm : {
+										text:"확인",
+										value:true,
+										visible : true,
+										className : "btn-primary",
+										closeModal : true
+									}
+								}
+							})
+						}
+					})
+//					location.href="/recipe/detail?reqRecipeNo="+recipeNo;
 				}
 			})
 		};

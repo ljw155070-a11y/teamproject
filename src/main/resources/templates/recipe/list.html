@@ -42,6 +42,8 @@
 		font-size:16px;
 		border : 1px solid #BFBFBF;
 		background-color:white;
+		height:40px;
+		box-sizing:border-box;
 		
 	}
 	.recipe.searchInput.div{
@@ -132,19 +134,30 @@
 		cursor:pointer;
 		
 	}
-	
+	.recipe.btn{
+		width:130px;
+		height:40px;
+		border-radius:20px;
+		background-color:#FF9D23;
+		color:white;
+		border:none;
+		text-align:center;
+		line-height:40px;
+	}
 
 </style>
 </head>
 <body>
-
+	
 	<th:block th:include="common/header"></th:block>
 	<div class="space"></div>
 	<main class="recipe content">
 		<section class="recipe content-head">
 			<div class="content-title">레시피 게시판</div>
-			
 			<form action="/recipe/search" method="get" id="searchForm">
+				<th:block th:if="${session.member}!=null">
+					<a href="/recipe/insertFrm" class="recipe btn">글쓰기</a>
+				</th:block>
 				<select class="recipe searchInput select" name="field">
 					<option value="title">제목</option>
 					<option value="content">내용</option>
@@ -156,6 +169,10 @@
 					<button type="submit" class="recipe select"><span class="material-icons">search</span></button>
 				</div>
 			</form>
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<div style="background-color:white; padding:20px 100px; margin-bottom:30px; border-radius:20px;">
+  				<div id="chart_div"></div>
+			</div>
 		</section>
 		<section class="recipe content-body">
 			<div class="recipe listbox">
@@ -235,10 +252,41 @@
 			<!-- reqPage가 totalPageNo -3 보다 크면 이후 버튼 제거 -->
 		</section>
 	</main>
+	
 	<script>
 		function connectRecipeDetail(recipeNo){
 			location.href="/recipe/detail?reqRecipeNo="+recipeNo;
 		}
+		
+		google.charts.load('current', {packages: ['corechart', 'bar']});
+		google.charts.setOnLoadCallback(drawMaterial);
+
+		function drawMaterial() {
+		      var data = google.visualization.arrayToDataTable([
+		        ['City', '2010 Population', '2000 Population'],
+		        ['New York City, NY', 8175000, 8008000],
+		        ['Los Angeles, CA', 3792000, 3694000],
+		        ['Chicago, IL', 2695000, 2896000],
+		        ['Houston, TX', 2099000, 1953000],
+		        ['Philadelphia, PA', 1526000, 1517000]
+		      ]);
+
+		      var materialOptions = {
+		        chart: {
+		          title: '인기 레시피'
+		        },
+		        hAxis: {
+		          title: 'Total Population',
+		          minValue: 0,
+		        },
+		        vAxis: {
+		          title: 'City'
+		        },
+		        bars: 'horizontal'
+		      };
+		      var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
+		      materialChart.draw(data, materialOptions);
+		    }
 	</script>
 	<th:block th:include="common/footer"></th:block>
 	
