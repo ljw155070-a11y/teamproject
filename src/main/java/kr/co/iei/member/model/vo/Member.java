@@ -24,4 +24,5 @@ public class Member {
 	private int qnaReportCount;
 	private int qnaCommentReportCount;
 	private int allReportCount;
+	private int suspendDays;
 }

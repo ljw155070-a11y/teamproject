@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,15 +39,15 @@ public class AdminController {
 		int result = memberService.changeLevel(m);
 		return "redirect:/admin/allMember";
 	}
-	@GetMapping(value="/checkedChangeLevel")
-	public String checkedChangeLevel(String no, String level) {
-		boolean result = memberService.checkedChangeLevel(no,level);
-		return "redirect:/admin/allMember";
-	}
 	@GetMapping(value="/recipeReport")
 	public String recipeReportedList(@RequestParam(defaultValue="1") int reqPage, Model model) {
 		HashMap<String, Object> reqSet = recipeService.recipeReportedList(reqPage);
 		model.addAttribute("reqSet", reqSet);
 		return "admin/recipeReport";
+	}
+	@PostMapping(value="/suspendMember")
+	public String suspendMember(int memberNo, int suspendDays, String suspendReason) {
+		int result = memberService.suspendMember(memberNo, suspendDays, suspendReason);
+		return "redirect:/admin/allMember";
 	}
 }
