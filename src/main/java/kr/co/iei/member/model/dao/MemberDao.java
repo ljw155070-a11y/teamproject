@@ -26,5 +26,7 @@ public interface MemberDao {
 
 	Member selectOneEmail(Member m);
 
+	int suspendMember(int memberNo, int suspendDays, String suspendReason);
+
 
 }
