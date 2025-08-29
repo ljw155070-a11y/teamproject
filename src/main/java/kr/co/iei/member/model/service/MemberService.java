@@ -94,7 +94,7 @@ public class MemberService {
 
 
 
-
+	@Transactional
 	public int insertMember(Member m) {
 		int result = memberDao.insertMember(m);
 		return result;
@@ -124,14 +124,14 @@ public class MemberService {
 		Member m = new Member();
 		m.setMemberEmail(checkEmail);
 		Member member = memberDao.selectOneEmail(m);
-		return null;
+		return member;
 	}
 
 
 
 	public int suspendMember(int memberNo, int suspendDays, String suspendReason) {
 		int result = memberDao.suspendMember(memberNo, suspendDays, suspendReason);
-		return 0;
+		return result;
 	}
 
 }

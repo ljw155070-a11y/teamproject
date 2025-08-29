@@ -38,22 +38,28 @@
 	                <button type="button" class="header-join-btn" id="headerJoinBtn">회원가입</button>
 	            </th:block>
                 <th:block th:if="${session.member != null}">
-	                <button type="button" class="header-login-btn" th:text="${session.member.memberNickname}"></button>
-	                <button type="button" class="header-join-btn">로그아웃</button>
+	                <button type="button" class="header-login-btn" id="header-mypage" th:text="${session.member.memberNickname}"></button>
+	                <button type="button" class="header-join-btn" id="header-logout">로그아웃</button>
                 </th:block>
             </div>            
         </div>
     </header>
     <script>
-		const headerLoginBtn = document.querySelector("#headerLoginBtn");
-		headerLoginBtn.onclick = function(){
+	    $("#headerLoginBtn").on("click",function(){
 			location.href = "/member/loginFrm";
-		}
+		});
 		
-		const headerJoinBtn = document.querySelector("#headerJoinBtn");
-		headerJoinBtn.onclick = function(){
+		$("#headerJoinBtn").on("click",function(){
 			location.href = "/member/agreeFrm";
-		}
+		});
+		
+		$("#header-logout").on("click",function(){
+			location.href = "/member/logout";
+		});
+		
+		$("#header-mypage").on("click",function(){
+			location.href = "/member/mypage";
+		});
 	</script>
 </body>
 </html>

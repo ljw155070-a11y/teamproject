@@ -24,21 +24,28 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@PostMapping(value = "/login")
+	@GetMapping(value = "/login")
 	public String login(Member m, Model model, HttpSession session) {
 		System.out.println(m);
 		Member member = memberService.login(m);
 		System.out.println(member);
+		
+		
 		if(member == null) {
 			model.addAttribute("title","로그인 실패");
 			model.addAttribute("text","아이디 또는 패스워드를 확인하세요.");
 			model.addAttribute("icon","error");
 			model.addAttribute("loc","/member/loginFrm");
 			return "common/msg";
-		}else {
-			session.setAttribute("member", member);
-			return "redirect:/";
+		} else if(member.getSuspendDays() != 0) {
+			model.addAttribute("title","로그인 실패");
+			model.addAttribute("text","이용이 정지 된 회원 입니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/");
+			return "common/msg";
 		}
+		session.setAttribute("member", member);
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/agreeFrm")
@@ -58,7 +65,8 @@ public class MemberController {
 		model.addAttribute("title","회원가입 완료");
 		model.addAttribute("text","회원가입이 완료.되었습니다.");
 		model.addAttribute("icon","success");
-		model.addAttribute("loc","/member/login");
+		model.addAttribute("loc","/member/loginFrm");
+		
 		return "common/msg";
 	}
 	
@@ -93,6 +101,11 @@ public class MemberController {
 		return 0;
 	}
 	
-	
+	@GetMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+		
+	}
 	
 }
