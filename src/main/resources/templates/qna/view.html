@@ -272,7 +272,7 @@
 					</li>
 					
 				</ul>
-					<div class="commentBtn" th:if="">
+					<div class="commentBtn">
 						<button id="commentUpdate">수정하기</button>
 						<button id="commentDelete">삭제하기</button>
 						<button id="commentReport">신고하기</button>
@@ -350,7 +350,7 @@
 			});		
 		}); //게시글 신고 끝
 		
-		
+		$(".commentBtn").show()
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
