@@ -46,8 +46,9 @@
   
    <select id="login" resultType="member">
 	SELECT * FROM MEMBER_TBL
-	WHERE MEMBER_ID = #{memberId} 
-	and MEMBER_PW = #{memberPw}  	
+    JOIN MEMBER_SUSPEND USING (MEMBER_NO)
+	WHERE MEMBER_ID = #{memberId}
+	AND MEMBER_PW = #{memberPw}	
   </select>
   
   <update id="changeLevel">
