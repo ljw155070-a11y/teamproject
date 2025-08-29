@@ -35,7 +35,7 @@ public class NoticeController {
 	public String noticeList(int reqPage, Model model) {
 		NoticeListData nl = noticeService.selectNoticeList(reqPage);
 		model.addAttribute("list", nl.getList());
-		model.addAttribute("list", nl.getPageNav());
+		model.addAttribute("pageNav", nl.getPageNav());
 		return "notice/list";
 	}
 	

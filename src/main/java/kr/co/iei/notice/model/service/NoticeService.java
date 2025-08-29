@@ -27,7 +27,7 @@ public class NoticeService {
 		int start = end - pageList + 1;
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("start", start);
-		param.put("start", end);
+		param.put("end", end);
 		
 		int total = noticeDao.selectNoticeTotal();
 		System.out.println("총 게시물 수 : "+total);
@@ -38,11 +38,11 @@ public class NoticeService {
 		int pageNavSize = 5;
 		int pageNo = ((reqPage - 1) / pageNavSize) * pageNavSize + 1;
 		
-		String pageNav = "<ul class = 'pagination circle-style>";
+		String pageNav = "<ul class = 'pagination circle-style'>";
 		if (pageNo != 1) {
 			pageNav += "<li>";
 			pageNav += "<a class='page-item' href='/notice/list?reqPage=" + (pageNo - 1) + "'>";
-			pageNav += "<span class='material-icons'>chevron_left</span>";
+			pageNav += "<span class='material-icons arrow' id='arrow'>chevron_left</span>";
 			pageNav += "</a>";
 			pageNav += "</li>";
 		}
