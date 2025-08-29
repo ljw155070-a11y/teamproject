@@ -25,6 +25,8 @@ public interface QnaDao {
 
 	int selectAllQnaReport(int qnaNo, int memberNo);
 
+	int deleteQnaComment(int qnaCommentNo);
+
 	
 
 }
