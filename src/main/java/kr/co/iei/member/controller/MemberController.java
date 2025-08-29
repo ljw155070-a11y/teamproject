@@ -29,16 +29,23 @@ public class MemberController {
 		System.out.println(m);
 		Member member = memberService.login(m);
 		System.out.println(member);
+		
+		
 		if(member == null) {
 			model.addAttribute("title","로그인 실패");
 			model.addAttribute("text","아이디 또는 패스워드를 확인하세요.");
 			model.addAttribute("icon","error");
 			model.addAttribute("loc","/member/loginFrm");
 			return "common/msg";
-		}else {
-			session.setAttribute("member", member);
-			return "redirect:/";
+		} else if(member.getSuspendDays() != 0) {
+			model.addAttribute("title","로그인 실패");
+			model.addAttribute("text","이용이 정지 된 회원 입니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/");
+			return "common/msg";
 		}
+		session.setAttribute("member", member);
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/agreeFrm")

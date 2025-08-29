@@ -1,6 +1,7 @@
 package kr.co.iei.qna.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -21,4 +22,5 @@ public class Qna {
 	private int qnaCount;
 	private Date qnaUpdateDate;
 	private String memberName;
+	private List<QnaComment> qnaCommentList;
 }

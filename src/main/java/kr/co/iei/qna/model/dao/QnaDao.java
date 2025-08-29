@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.qna.model.vo.Qna;
+import kr.co.iei.qna.model.vo.QnaComment;
 
 @Mapper
 public interface QnaDao {
@@ -15,6 +16,14 @@ public interface QnaDao {
 	List selectAllQna(HashMap<String, Object> param);
 
 	Qna selectOneQnaList(int qnaNo);
+
+	List<QnaComment> selectAllQnaCommentList(HashMap<String, Object> param);
+
+	int insertQnaComment(QnaComment qc);
+
+	int insertQnaReport(int qnaNo, int memberNo);
+
+	int selectAllQnaReport(int qnaNo, int memberNo);
 
 	
 
