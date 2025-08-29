@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Alias(value="/notice")
+@Alias(value="notice")
 public class Notice {
 	private int noticeNo;
 	private int noticeFixTop;
@@ -19,7 +19,7 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeWriter;
-	private Date noticeWriterDate;
+	private Date noticeWriteDate;
 	private Date noticeUpdateDate;
 	private int noticeViewCount;
 	private int memberNo;

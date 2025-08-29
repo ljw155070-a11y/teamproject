@@ -13,9 +13,15 @@ public interface NoticeDao {
 
 	List selectNoticeList(int reqPage);
 
-	List selectNoticeList();
+	/*List selectNoticeList();*/
 
 	int modifyeNotice(Notice n);
+
+	int selectNoticeTotal();
+
+	List selectNoticeList(HashMap<String, Object> param);
+
+	List selectAll();
 
 	
 

@@ -21,13 +21,24 @@ public class NoticeController {
 	
 	@GetMapping(value="/list")
 	public String noticeList(Model model) {
-		List list = noticeService.selectNoticeList();
-		
-//		model.addAttribute("pageNav", ListData.getPageNav());
+		List list = noticeService.selectAll();
+		model.addAttribute("list", list);
 		return "notice/list";
 	}
+}
 	
-	@GetMapping(value="/modify")	//수정하기
+	/*
+	@GetMapping(value="/list")
+	public String noticeList(int reqPage, Model model) {
+		NoticeListData nl = noticeService.selectNoticeList(reqPage);
+		model.addAttribute("list", nl.getList());
+		model.addAttribute("pageNav", nl.getPageNav());
+		return "notice/list";
+		
+	}
+}
+	/*
+	@GetMapping(value="/modify")	
 	public String noticeModify(Model model) {
 		List list = noticeService.selectNoticeList();
 		
@@ -35,7 +46,7 @@ public class NoticeController {
 		return "notice/modify";
 	}	
 	
-	@GetMapping(value="/writeFrm")	//입력하기
+	@GetMapping(value="/writeFrm")	
 	public String noticeWriteFrm(Model model) {
 		List list = noticeService.selectNoticeList();
 		
@@ -43,7 +54,7 @@ public class NoticeController {
 		return "notice/writeFrm";
 	}	
 	
-	@GetMapping(value="/detail")	//입력하기
+	@GetMapping(value="/detail")	
 	public String noticeDetail(Model model) {
 		List list = noticeService.selectNoticeList();
 		
@@ -52,3 +63,4 @@ public class NoticeController {
 	}	
 	
 }
+*/
