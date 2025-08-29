@@ -1,5 +1,7 @@
 package kr.co.iei.member.model.vo;
 
+import java.util.Date;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +19,7 @@ public class Member {
 	private String memberName;
 	private String memberNickname;
 	private String memberEmail;
-	private String memberJoinDate;
+	private Date memberJoinDate;
 	private String memberLevel;
 	private int recipeReportCount;
 	private int recipeCommentReportCount;

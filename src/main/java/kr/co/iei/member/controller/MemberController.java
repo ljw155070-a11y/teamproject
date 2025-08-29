@@ -24,7 +24,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@PostMapping(value = "/login")
+	@GetMapping(value = "/login")
 	public String login(Member m, Model model, HttpSession session) {
 		System.out.println(m);
 		Member member = memberService.login(m);
@@ -58,7 +58,8 @@ public class MemberController {
 		model.addAttribute("title","회원가입 완료");
 		model.addAttribute("text","회원가입이 완료.되었습니다.");
 		model.addAttribute("icon","success");
-		model.addAttribute("loc","/member/login");
+		model.addAttribute("loc","/member/loginFrm");
+		
 		return "common/msg";
 	}
 	
