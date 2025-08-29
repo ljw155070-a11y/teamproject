@@ -21,6 +21,10 @@ public interface QnaDao {
 
 	int insertQnaComment(QnaComment qc);
 
+	int insertQnaReport(int qnaNo, int memberNo);
+
+	int selectAllQnaReport(int qnaNo, int memberNo);
+
 	
 
 }

@@ -85,8 +85,19 @@ public class QnaService {
 	}
 
 	public int insertQnaComment(QnaComment qc) {
+		System.out.println(qc);
 		int result = qnaDao.insertQnaComment(qc);
 		return result;
+	}
+
+	public int qnaReport(int qnaNo, int memberNo) {
+		int count = qnaDao.selectAllQnaReport(qnaNo, memberNo);
+		if(count == 0) {
+			int result = qnaDao.insertQnaReport(qnaNo, memberNo);			
+			return result;
+		}else {
+			return 0;
+		}
 	}
 	
 }

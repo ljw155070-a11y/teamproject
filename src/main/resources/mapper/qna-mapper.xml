@@ -24,6 +24,19 @@
 	
 	<insert id="insertQnaComment">
 		insert into qna_comment_tbl
-			values(qna_comment_tbl_seq.nextval, #{memberNo}, #{qnaNo}, #{qnaCommentContent}, sysdate, null)
+			values(qna_comment_tbl_seq.nextval,
+			 #{memberNo},
+			  #{qnaNo},
+			   #{qnaCommentContent},
+			    sysdate,
+			     null)
+	</insert>
+	
+	<select id="selectAllQnaReport" resultType="int">
+		select count(*) from qna_report_tbl where qna_no = #{qnaNo} and member_no = #{memberNo}
+	</select>
+	<insert id="insertQnaReport">
+		insert into qna_report_tbl
+   			values(#{qnaNo}, #{memberNo}, sysdate)
 	</insert>
 </mapper>
