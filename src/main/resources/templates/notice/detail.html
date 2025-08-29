@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <head>
 <meta charset="UTF-8">
 <title>공지사항 상세</title>
 <style>
-	body {
-    background-color: #f4f4f4;
+body {
+    background-color: #f4f4f4; 
+}
+
+.main {
+	padding-top: 120px;  
+}
+
+.notice-detail-wrap {
+	padding-top: 120px;
 }
 .detail-box {
     width: 950px;
@@ -13,7 +23,6 @@
     background-color: #fff;
     border-radius: 9px;
     margin: 0 auto;
-    margin-top: 70px;
     margin-bottom: 50px;
 }
 
@@ -26,10 +35,36 @@
 
 .detail-box .detail-box-title h3{
     font-weight: 600;
-    color: #363636;
+    color: #515151;
 }
 
 .detail-box hr {
+    border: 0.5px solid #e6e6e6;
+    width: 100%;
+}
+
+.detail-box2 {
+    width: 950px;
+    height: 570px;
+    background-color: #fff;
+    border-radius: 9px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.detail-box2 .detail-box-title{
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    padding: 20px;
+}
+
+.detail-box2 .detail-box-title h3{
+    font-weight: 600;
+    color: #515151;
+}
+
+.detail-box2 hr {
     border: 0.5px solid #e6e6e6;
     width: 100%;
 }
@@ -136,8 +171,7 @@
                 </form>
             </div>
         </section>
-        <section class="notice-detail-wrap">
-            <div class="detail-box">
+            <div class="detail-box2">
                 <div class="detail-box-title">
                     <h3>이용 제한 조치된 회원 안내</h3>
                 </div>
@@ -162,8 +196,7 @@
                     </div>
                 </form>
             </div>
-        </section>
-    </main>
+    	</main>
     <th:block th:include="common/footer"></th:block>
 </body>
 </html>
