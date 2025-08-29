@@ -172,6 +172,41 @@
 	height: 120px;
 	resize: none;
 }
+.search-input{
+	margin : 30px 0px;
+	padding : 8px 12px;
+	width : 10%;
+	border-radius:48px;
+	text-align:center;
+	font-size:16px;
+	border : 1px solid #BFBFBF;
+	background-color:white;
+	height:40px;
+	box-sizing:border-box;
+		
+}
+.search-input.div{
+	display:flex;
+	align-items:center;
+	justify-content:flex-end;
+	width:100%;
+		
+}
+.search-input input{
+	border : none;
+	width : 95%;
+	font-size : 16px;
+	text-align:center;
+}
+.search-input.div button{
+	border : none;
+	background-color: transparent;
+	color : #EBA854;
+}
+
+.search-input.div span{
+	font-size : 28px;
+}
 </style>
 </head>
 <body>
@@ -181,8 +216,8 @@
 		<section class="allMember-section">
 			<div class="input-wrap">
 				<form action="/admin/allMember" method="post">
-					<div class="search-input">
-						<input type="text" name="memberNickname" placeholder="닉네임을 입력해주세요">
+					<div class="search-input div">
+						<input type="text" name="memberNickname" placeholder="조회 할 회원의 닉네임을 입력해주세요">
 						<span class="material-icons" id="qnaSearchBox">search</span>
 					</div>
 				</form>
@@ -261,7 +296,10 @@
 								</div>
 							</div>
 						</div>
-					</th:block>	
+					</th:block>
+					<th:block th:unless="${m.suspendDays==0}">
+						<span style="color:red;">정지된 회원</span>
+					</th:block>
 					</td>
 				</tr>
 			</table>

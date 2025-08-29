@@ -131,7 +131,7 @@ public class MemberService {
 
 	public int suspendMember(int memberNo, int suspendDays, String suspendReason) {
 		int result = memberDao.suspendMember(memberNo, suspendDays, suspendReason);
-		return 0;
+		return result;
 	}
 
 }
