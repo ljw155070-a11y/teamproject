@@ -29,8 +29,9 @@ public class MemberController {
 		System.out.println(m);
 		Member member = memberService.login(m);
 		System.out.println(member);
-		
-		
+		if(member != null) {
+			session.setAttribute("member", member);
+		}
 		if(member == null) {
 			model.addAttribute("title","로그인 실패");
 			model.addAttribute("text","아이디 또는 패스워드를 확인하세요.");
@@ -44,8 +45,8 @@ public class MemberController {
 			model.addAttribute("loc","/");
 			return "common/msg";
 		}
-		session.setAttribute("member", member);
-		return "redirect:/";
+		
+		return "redirect:/";			
 	}
 	
 	@GetMapping(value = "/agreeFrm")
