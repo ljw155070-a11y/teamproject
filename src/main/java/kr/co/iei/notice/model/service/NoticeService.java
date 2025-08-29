@@ -76,8 +76,15 @@ public class NoticeService {
 		
 		NoticeListData nl = new NoticeListData(list, pageNav);
 		return nl;
-	}	
-}
+	}
+	public int insertNotice(Notice n, List<NoticeFile> fileList) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}	
+
+	
+
 	/*
 	public List selectAll() {
 		List list = noticeDao.selectAll();
