@@ -67,25 +67,25 @@
 		padding-left: 5px;
 	}
 	
-	.reportInput>td{		
-		margin-right: 10px;
-		border-bottom: 1px solid black;
+	.reportInput>td{
+		margin-right: 20px;
 	}
 	.reportInput>td>button{
 		margin:0 auto;
-		float: left;
-		text-align: right;
+		float: right;
 		width: 100%;
 		border: none;
 		cursor: pointer;
 		font-size: 15px;
 		background-color: white;
 		padding-right: 10px;
-		color: red;
+		color: red;	
 		margin-bottom: 5px;
-
+		width: 10%;
 	}
-	
+	.update-delete>td{
+		border-top: 1px solid black;
+	}
 	.update-delete>td>button{
 		margin: 0 auto;
 		cursor: pointer;
@@ -223,7 +223,7 @@
 					</td>	
 				</tr>
 				
-				<tr class="update-delete">
+				<tr class="update-delete" onShow="showBtn()" th:if="${session.member != null}">
 					<td colspan="3">
 						<button class="update-content">수정하기</button>
 						<button class="delete-content">삭제하기</button>
@@ -272,9 +272,9 @@
 					</li>
 					
 				</ul>
-					<div class="commentBtn">
-						<button id="commentUpdate">수정하기</button>
-						<button id="commentDelete">삭제하기</button>
+					<div class="commentBtn" onShow="showBtn()" th:if="${session.member != null}">
+						<button id="commentUpdate" th:onclick="updateComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">수정하기</button>
+						<button id="commentDelete" th:onclick="deleteComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">삭제하기</button>
 						<button id="commentReport">신고하기</button>
 					</div>
 			</th:block>
@@ -307,46 +307,48 @@
 						closeModal: true
 					}
 				}
-			}).then(function(isConform){
-				$.ajax({
-					url: "/qna/report",
-					type: "post",
-					data: {qnaNo: qnaNo, memberNo: memberNo},
-					success: function(result){
-						console.log("신고 결과 : "+result);
-						if(result === 1){
-							swal({
-								title: "결과",
-								text: "신고가 접수되었습니다",
-								icon: "warning",
-								buttons:{
-									confirm: {
-										text: "신고가 완료되었습니다",
-										value: true,
-										visible: true,
-										className: "btn-primary",
-										closeModal: true
+			}).then(function(isConfirm){
+				if(isConfirm){					
+					$.ajax({
+						url: "/qna/report",
+						type: "post",
+						data: {qnaNo: qnaNo, memberNo: memberNo},
+						success: function(result){
+							console.log("신고 결과 : "+result);
+							if(result === 1){
+								swal({
+									title: "결과",
+									text: "신고가 접수되었습니다",
+									icon: "warning",
+									buttons:{
+										confirm: {
+											text: "신고가 완료되었습니다",
+											value: true,
+											visible: true,
+											className: "btn-primary",
+											closeModal: true
+										}
 									}
+								})
+							}else{
+								swal({
+									title: "결과",
+									text: "신고 할 수 없습니다",
+									icon: "warning",
+									buttons:{
+										confirm: {
+											text: "이미 신고한 게시글입니다.",
+											value: false,
+											visible: true,
+											className: "btn-secondary",
+											closeModal: true
+										}
+										}
+									})
 								}
-							})
-						}else{
-							swal({
-								title: "결과",
-								text: "신고 할 수 없습니다",
-								icon: "warning",
-								buttons:{
-									confirm: {
-										text: "이미 신고한 게시글입니다.",
-										value: false,
-										visible: true,
-										className: "btn-secondary",
-										closeModal: true
-									}
-								}
-							})
-						}
+							}
+						});
 					}
-				});
 			});		
 		}); //게시글 신고 끝
 	</script>

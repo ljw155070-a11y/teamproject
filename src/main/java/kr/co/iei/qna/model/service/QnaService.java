@@ -99,5 +99,10 @@ public class QnaService {
 			return 0;
 		}
 	}
+
+	public int deleteQnaComment(int qnaCommentNo) {
+		int result = qnaDao.deleteQnaComment(qnaCommentNo);
+		return result;
+	}
 	
 }
