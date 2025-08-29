@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.notice.model.service.NoticeService;
 import kr.co.iei.notice.model.vo.Notice;
 import kr.co.iei.notice.model.vo.NoticeFile;
@@ -68,7 +66,6 @@ public class NoticeController {
 		return "common/msg";
 	}
 }
-
 	
 	/*
 	@GetMapping(value="/list")

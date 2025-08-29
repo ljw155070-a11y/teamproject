@@ -78,8 +78,9 @@ public class NoticeService {
 		return nl;
 	}
 	public int insertNotice(Notice n, List<NoticeFile> fileList) {
-		// TODO Auto-generated method stub
-		return 0;
+		int newNoticeNo = noticeDao.findNoticeNo();
+		
+		
 	}
 }	
 
