@@ -44,5 +44,11 @@ public interface RecipeDao {
 
 	int recipeDelete(int recipeNo);
 
+	int recipeCommentReport(int recipeCommentNo, int memberNo);
+
+	int recipeCommentReportSelect(int recipeCommentNo, int memberNo);
+
+	int recipeCommentDelete(int recipeCommentNo);
+
 	
 }

@@ -268,4 +268,29 @@ public class RecipeService {
 		int result = recipeDao.recipeDelete(recipeNo);
 		return result;
 	}
+
+	public int recipeCommentReport(int recipeCommentNo, int memberNo) {
+		System.out.println("★★★★★★★");
+		System.out.println(recipeCommentNo);
+		System.out.println(memberNo);
+		int count = recipeDao.recipeCommentReportSelect(recipeCommentNo,memberNo);
+		int result = 0;
+		if(count==0) {
+			result = recipeDao.recipeCommentReport(recipeCommentNo, memberNo);
+			return result;
+		}else {
+			return 0;
+		}
+	}
+
+	public HashMap<String, Object> recipeCommentDelete(int recipeCommentNo,int recipeNo) {
+		System.out.println("서비스 호출됨");
+		System.out.println(recipeCommentNo);
+		int result = recipeDao.recipeCommentDelete(recipeCommentNo);
+		List<RecipeComment> recipeCommentList = recipeDao.recipeCommentList(recipeNo);
+		HashMap<String, Object> recipeCommentDeleteResult = new HashMap<>();
+		recipeCommentDeleteResult.put("result", result);
+		recipeCommentDeleteResult.put("recipeCommentList", recipeCommentList);
+		return recipeCommentDeleteResult;
+	}
 }
