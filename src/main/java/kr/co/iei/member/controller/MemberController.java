@@ -29,6 +29,7 @@ public class MemberController {
 		System.out.println(m);
 		Member member = memberService.login(m);
 		System.out.println(member);
+
 		if(member != null) {
 			session.setAttribute("member", member);
 		}
