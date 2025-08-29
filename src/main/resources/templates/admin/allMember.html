@@ -225,8 +225,9 @@
 						<button class="changeLevel">등급변경</button>
 					</td>
 					<td>
-						<button onClick="modal('suspend-modal')" class="suspend-btn">정지</button>
-						<div id="suspend-modal" class="suspend-modal">
+					<th:block th:if="${m.suspendDays==0}">
+						<button th:onclick="modal('suspend-modal-[[${m.memberNo}]]')" class="suspend-btn">정지</button>
+						<div th:id="'suspend-modal-'+${m.memberNo}" class="suspend-modal">
 							<div class="tb">
 								<div class="inner" style="max-width: 400px; max-height: 400px;">
 									<div class="top">
@@ -260,6 +261,7 @@
 								</div>
 							</div>
 						</div>
+					</th:block>	
 					</td>
 				</tr>
 			</table>
@@ -320,13 +322,13 @@
 
 		//모달 열기
 		function modal(id) {
-			$("#" + id).fadeIn()
+			$("#" +id).fadeIn()
 		}
 
 		//모달 닫기
-		$('.modal-close').on('click', function(e) {
+		$(".modal-close").on('click', function(e) {
 			e.preventDefault();
-			const modal = $(this).parents('.suspend-modal');
+			const modal = $(this).parents(".suspend-modal");
 			modal.fadeOut();
 		});
 	</script>
