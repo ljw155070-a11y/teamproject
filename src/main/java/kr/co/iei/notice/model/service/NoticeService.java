@@ -17,12 +17,10 @@ public class NoticeService {
 	@Autowired
 	private NoticeDao noticeDao;
 	
-	/*
 	public List selectNoticeList() {
 		List list = noticeDao.selectNoticeList();
 		return list;
 	}
-	*/
 	public NoticeListData selectNoticeList(int reqPage) {
 		int pageList = 10;
 		int end = reqPage * pageList;
@@ -78,11 +76,12 @@ public class NoticeService {
 		
 		NoticeListData nl = new NoticeListData(list, pageNav);
 		return nl;
-	}
-
+	}	
+}
+	/*
 	public List selectAll() {
 		List list = noticeDao.selectAll();
 		return list;
 	}
 }
-	
+	*/

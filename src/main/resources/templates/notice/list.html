@@ -161,12 +161,12 @@ body {
                      <th style="width: 20%;">작성일</th>
                  </tr>
             	 <tr th:each="notice : ${list}">
-            	 	<td style="width:25%;" th:text="${notice.noticeNo}"></td>
+            	 	<td style="text-align:center;" th:text="${notice.noticeNo}"></td>
             	 	<td>
-            	 		<a style="width: 25%;" th:href="@{/notice/view(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a>
+            	 		<a style="text-align:center;" th:href="@{/notice/detail(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a>
             	 	</td>  
-            	 	<td style="width: 25%;" th:text="${notice.noticeContent}"></td>
-            	 	<td style="width: 20%;" th:text="${notice.noticeWriteDate}"></td>
+            	 	<td style="text-align:center;" th:text="${notice.noticeContent}"></td>
+            	 	<td style="text-align:center;" th:text="${notice.noticeWriteDate}"></td>
             	 </tr>
             </table>
         </div>   
