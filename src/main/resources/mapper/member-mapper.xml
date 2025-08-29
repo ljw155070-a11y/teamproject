@@ -46,7 +46,7 @@
   
    <select id="login" resultType="member">
 	SELECT * FROM MEMBER_TBL
-    JOIN MEMBER_SUSPEND USING (MEMBER_NO)
+    LEFT JOIN MEMBER_SUSPEND USING (MEMBER_NO)
 	WHERE MEMBER_ID = #{memberId}
 	AND MEMBER_PW = #{memberPw}	
   </select>
