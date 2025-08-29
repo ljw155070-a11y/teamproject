@@ -32,12 +32,13 @@ public class AdminController {
 	public String allMember(@RequestParam(defaultValue="1") int reqPage, Model model) {
 		HashMap<String, Object> reqSet = memberService.selectMemberList(reqPage);
 		model.addAttribute("reqSet", reqSet);
+		model.addAttribute("reqPage", reqPage);
 		return "admin/allMember";
 	}
 	@GetMapping(value="/changeLevel")
-	public String changeLevel(Member m) {
+	public String changeLevel(Member m, int reqPage) {
 		int result = memberService.changeLevel(m);
-		return "redirect:/admin/allMember";
+		return "redirect:/admin/allMember?reqPage="+reqPage;
 	}
 	@GetMapping(value="/recipeReport")
 	public String recipeReportedList(@RequestParam(defaultValue="1") int reqPage, Model model) {
