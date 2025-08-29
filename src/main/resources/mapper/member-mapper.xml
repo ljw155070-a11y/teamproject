@@ -29,8 +29,10 @@
             (select qna_comment_no from qna_comment_tbl where member_no=m.member_no))
             ) all_report_count,
   			member_level,
+            nvl((select suspend_days from member_suspend  
+            where member_no= m.member_no and sysdate between suspend_date and suspend_date + suspend_days),0) suspend_days,
             (select count(*) from member_suspend  
-            where member_no = m.member_no and sysdate between suspend_date and suspend_date + suspend_days) suspend_yn
+            where member_no=m.member_no and sysdate between suspend_date and suspend_date + suspend_days) suspend_yn
   		   from member_tbl m
            order by 1
   		   )v
@@ -44,8 +46,9 @@
   
    <select id="login" resultType="member">
 	SELECT * FROM MEMBER_TBL
-	WHERE MEMBER_ID = #{memberId} 
-	and MEMBER_PW = #{memberPw}  	
+    JOIN MEMBER_SUSPEND USING (MEMBER_NO)
+	WHERE MEMBER_ID = #{memberId}
+	AND MEMBER_PW = #{memberPw}	
   </select>
   
   <update id="changeLevel">
@@ -53,7 +56,15 @@
   </update>
   
   <insert id="insertMember">
-  	INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{memberId},#{memberPw},#{memberName},#{memberNickname},#{memberEmail},SYSDATE,'순한맛');
+  	insert into member_tbl values(
+  	member_seq.nextval,
+  	#{memberId},
+  	#{memberPw},
+  	#{memberName},
+  	#{memberNickname},
+  	#{memberEmail},
+  	sysdate,
+  	'보통맛')
   </insert>
   
   <select id="selectOneMember" resultType="member">

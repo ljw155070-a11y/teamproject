@@ -293,11 +293,11 @@
 			                    <button type="button" class="email-btn" id="send-btn">인증요청</button>     
 			                </div>
 			                <div class="emailConfirm-hide-btn">
-			                    <div class="joinBox4-hidden joinBox4 joinDiv">
+			                    <div class="joinBox4-hidden joinBox4 joinDiv" id="joinBox4">
 			                        <div class="emailConfirm">
-			                            <input type="text" placeholder="인증번호 6자리 입력">
+			                            <input type="text" placeholder="인증번호 6자리 입력" id="auth-code">
 			                        </div>
-			                        <button type="button" class="emailConfirmBtn" ld="auth-btn">인증확인</button>
+			                        <button type="button" class="emailConfirmBtn" id="authBtn">인증확인</button>
 			                        <span id="time-zone" class="emailConfirm-span"></span>
 			                        <span id="authMsg" class="emailConfirm-span"></span>
 			                    </div>
@@ -422,16 +422,91 @@
 	    });
 	    
 	    //이메일 인증
+	    let mailCode = null;
+	    let intervalId = null;
+	    
 	    $("#send-btn").on("click",function(){
-	    	e.preventDefault();//새로고침 방지
-	    	const receiver = $("#memberEmail").val;
+	    	$("#authMsg").text("").removeClass("valid").removeClass("invalid");
+	    	const receiver = $("#memberEmail").val();
 	    	if(receiver === ""){
 	    		alert("이메일을 입력하세요.");
 	    		return;
+	    	}/*else if(receiver !== "@" ){
+	    		alert("이메일을 입력하세요.");
+	    		return;
+	    	}else if(receiver !== "."){
+	    		alert("이메일을 입력하세요.");
+	    		return;
+	    	}*/
+	    	else{
+	    		alert("인증 메일이 발송 되었습니다. 이메일을 확인해 주세요.");
 	    	}
 	    	$.ajax({
-	    		
-	    	})
+	    		url : "/emailApi/sendCode",
+	    		data : {receiver:receiver},
+	    		success : function(data){
+	    			console.log("메일코드:", data);
+	    			mailCode = data;
+	    			$("#joinBox4").removeClass("joinBox4-hidden");
+	    			startAuthTime();
+	    			
+	    		},
+	    		error : function(){
+	    			alert("메일 전송 실패. 이메일을 확인해 주세요");
+	    		}
+	    	});
+	    });
+	    
+	    //인증버튼 클릭
+	    $("#authBtn").on("click",function(){
+	    	//e.preventDefault();
+	    	$("#authMsg").removeClass("valid").removeClass("invalid");
+	    	const inputCode = $("#auth-code").val();
+	    	if(mailCode === inputCode){
+	    		//e.preventDefault();
+	    		$("#authMsg").text("인증 완료").addClass("valid");
+	    		clearInterval(intervalId);
+	    		$("#time-zone").text("");
+	    	}else{
+	    		//e.preventDefault();
+	    		$("#time-zone").text("");
+	    		$("#authMsg").text("인증 실패. 다시 인증해 주세요.").addClass("invalid");
+	    	}
+	    });
+	    
+	    //타이머 시작 함수
+	    function startAuthTime(){
+	    	clearInterval(intervalId);
+	    	let min = 5;
+	    	let sec = 0;
+	    	$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec : sec}`);
+	    	
+	    	intervalId = setInterval(function(){
+				if(sec === 0){
+					if(min === 0){
+						clearInterval(intervalId);
+						mailCode = null;
+						$("#authMsg").text("인증시간이 만료되었습니다.").addClass("invalid");
+						//$("#time-zone").css("display", "none");-->? 인증번호 재발급 하려면 span이 사라지지 않음.
+						return;
+					}else{
+						min--;
+						sec = 59;
+					}
+				}else{
+					sec--;
+				}
+	    		$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec : sec}`);
+	    	}, 1000);
+	    }
+	    
+	    //회원가입
+	    $(".join-content-btn").on("click",function(e){
+	    	const valid = $(".valid");
+	    	if(valid.length !== 5){
+	    		alert("입력 내용을 다시 확인해 주세요.");
+	    		e.preventDefault();
+	    	}
 	    });
 	    
 	</script>

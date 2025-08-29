@@ -48,7 +48,7 @@ WHERE RECIPE_NO=#{reqRecipeNo}
   	<select id="recipeCommentList" resultType="recipeComment">
 		SELECT RECIPE_COMMENT_NO,MEMBER_NO,RECIPE_COMMENT_CONTENT,RECIPE_COMMENT_DATE,RECIPE_NO,RECIPE_COMMENT_UPDATE_DATE,MEMBER_NICKNAME FROM RECIPE_COMMENT_TBL 
 		JOIN MEMBER_TBL USING(MEMBER_NO)
-		WHERE RECIPE_NO=#{reqRecipeNo} ORDER BY RECIPE_COMMENT_NO DESC
+		WHERE RECIPE_NO=#{recipeNo} ORDER BY RECIPE_COMMENT_NO DESC
   	</select>
   	
 
@@ -133,7 +133,27 @@ WHERE RECIPE_NO=#{reqRecipeNo}
 		)
 	</insert>
 	
+	<select id="recipeCommentReportSelect">
+		SELECT COUNT(*) FROM RECIPE_COMMENT_REPORT_TBL WHERE RECIPE_COMMENT_NO=#{recipeCommentNo} AND MEMBER_NO=#{memberNo}
+	</select>
+	
+	<insert id="recipeCommentReport">
+		INSERT INTO RECIPE_COMMENT_REPORT_TBL (
+			MEMBER_NO,
+ 			RECIPE_COMMENT_NO,
+  			RECIPE_COMMENT_REPORT_DATE
+		) VALUES(
+			#{memberNo},
+			#{recipeCommentNo},
+			SYSDATE
+		)
+	</insert>
+	
 	<delete id="recipeDelete">
 		DELETE RECIPE_TBL WHERE RECIPE_NO=#{recipeNo}
+	</delete>
+	
+	<delete id="recipeCommentDelete">
+		DELETE RECIPE_COMMENT_TBL WHERE RECIPE_COMMENT_NO=#{recipeCommentNo}
 	</delete>
 </mapper>

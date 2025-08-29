@@ -87,4 +87,25 @@ public class RecipeController {
 			return "fail";
 		}
 	}
+	
+	@ResponseBody
+	@PostMapping(value="/deleteComment")
+	public HashMap<String, Object> recipeDeleteComment(int recipeCommentNo,int recipeNo) {
+		System.out.println("게시글 댓글 삭제 컨트롤러 호출됨");
+		System.out.println(recipeCommentNo);
+		HashMap<String, Object> recipeCommentDeleteResult = recipeService.recipeCommentDelete(recipeCommentNo,recipeNo);
+		System.out.println(recipeCommentDeleteResult);
+		return recipeCommentDeleteResult;
+	}
+	
+	@ResponseBody
+	@PostMapping(value="commentReport")
+	public String recipeCommentReport(int recipeCommentNo,int memberNo) {
+		int result = recipeService.recipeCommentReport(recipeCommentNo,memberNo);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 }

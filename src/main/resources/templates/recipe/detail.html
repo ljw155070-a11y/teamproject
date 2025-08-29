@@ -64,6 +64,7 @@
 	}
 	a:hover{
 		color:#72450d;
+		cursor:pointer;
 	}
 	.recipe.ingredientList,.recipe.cookingOrderList{
 		display:flex;
@@ -116,7 +117,6 @@
 		background-color:#FF9D23;
 		color:white;
 		border:none;
-		
 	}
 	.recipe.btn.delete{
 		background-color:#EAEAEA;
@@ -140,7 +140,7 @@
 		width:100%;
 		display:flex;
 		flex-direction:column;
-		gap : 50px;
+		gap : 20px;
 		justify-content : center;
 		text-align:center;
 		box-sizing:border-box;
@@ -171,7 +171,7 @@
 					<div class="recipe detailInfo-title">재료</div>
 						<div class="recipe ingredientList">
 							<div th:each="ri : ${recipeDetailSet.recipeIngredientList}">
-								<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a class="recipe btn" th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="padding:0px 15px;">구매</a></div>
+								<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a class="recipe btn" th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="padding:0px 15px; background-color: #FF9D23; border: none; color: #fff; border-radius: 15px; font-weight: bold">구매</a></div>
 								<div th:text="${ri.recipeIngredientVolume}"></div>
 							</div>
 						</div>
@@ -257,31 +257,32 @@
 				<th:block th:if="${session.member ==null}">
 				<div class="recipe comment-box-input not-login"> 
 					<div><span>댓글 작성은 로그인 후 이용 가능합니다.</span></div>
-					<div><a class="recipe btn" th:href="@{/member/loginFrm}" style="padding:10px;">로그인</a></div>
-					 
+					<div><a class="recipe btn" th:href="@{/member/loginFrm}" style="display:inline-block; width:78px; height:26px;">로그인</a></div>
 				</div>
-				
 				</th:block>
-				
+				<th:block th:if="${session.member !=null}">
 				<div class="recipe comment-box-output">
 					<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
-						<table class="recipe line" style="width:100%">
-							<tr>
-								<td rowspan="2" style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></td>
-								<td style="width:20%; text-align:left; height:30px; padding-top:10px;"><div><span th:text="${rcomment.memberNickname}"></span></div></td>
-								<td style="width:70%; text-align:right; height:30px; padding-top:10px; padding-right:10px;"><div><span th:text="${rcomment.recipeCommentDate}"></span></div></td>
-							</tr>
-							<tr>
-								<td colspan="2" style="color:#444444;"><div th:text="${rcomment.recipeCommentContent}"></div></td>
-							</tr>
-						</table>
-						<div class="recipe comment link" style="justify-content:flex-end; margin-bottom:30px; display:flex; gap:20px;">
-							<a href="#">신고하기</a>
-							<a href="#">수정하기</a>
-							<a href="#">삭제하기</a>
+						<div th:id="recipecommentbox+'-'+${rcomment.recipeCommentNo}">
+							<table class="recipe line" style="width:100%;">
+								<tr>
+									<td rowspan="2" style="width:10%;"><span class="material-icons" style="font-size:100px; color:#444444;">portrait</span></td>
+									<td style="width:20%; text-align:left; height:30px; padding-top:10px;"><div><span th:text="${rcomment.memberNickname}"></span></div></td>
+									<td style="width:70%; text-align:right; height:30px; padding-top:10px; padding-right:10px;"><div><span th:text="${rcomment.recipeCommentDate}"></span></div></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="color:#444444;"><div th:text="${rcomment.recipeCommentContent}"></div></td>
+								</tr>
+							</table>
+							<div class="recipe comment link" style="justify-content:flex-end; margin-bottom:30px; display:flex; gap:20px;">
+								<a th:onclick="reportRecipeComment([[${rcomment.recipeCommentNo}]],[[${session.member.memberNo}]])">신고하기</a>
+								<a href="#">수정하기</a>
+								<a th:onclick="deleteRecipeComment([[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]])">삭제하기</a>
+							</div>
 						</div>
 					</th:block>
 				</div>
+				</th:block>
 			</section>
 		</form>
 	</main>
@@ -337,6 +338,79 @@
 											location.href="/recipe/list?reqPage=1";
 										}
 									});
+								}else{
+									swal({
+										title : "실패",
+										text : "삭제 권한이 없어요",
+											icon : "warning",
+											buttons : {
+												confirm : {
+													text:"확인",
+													value:true,
+													visible : true,
+													className : "btn-primary",
+													closeModal : true
+												}
+											}
+									})
+								}
+						}
+					})
+				}
+			});
+		}
+		
+		function deleteRecipeComment(recipeCommentNo,recipeNo){
+			swal({
+				title : "댓글 삭제",
+				text : "댓글을 삭제하시겠습니까?",
+				icon : "warning",
+				buttons : {
+					confirm : {
+						text:"삭제",
+						value:true,
+						visible : true,
+						className : "btn-primary",
+						closeModal : true
+					},
+					cancel:{
+						text:"취소",
+						value:false,
+						visible : true,
+						className : "btn-secondary",
+						closeModal : true
+					}
+				}
+			}).then(function(isConfirm){
+					console.log("삭제된 댓글의 게시글 번호 : "+recipeNo);
+					console.log("삭제된 댓글 번호 : "+recipeCommentNo);
+				if(isConfirm){
+					$.ajax({
+						url:"/recipe/deleteComment",
+						type:"post",
+						data:{recipeCommentNo:recipeCommentNo,recipeNo:recipeNo},
+						success:function(result){
+							console.log(result);
+							if(result.result===1)
+								{
+									swal({
+										title : "알림",
+										text : "댓글이 삭제되었습니다.",
+										icon : "warning",
+										buttons : {
+											confirm : {
+												text:"확인",
+												value:true,
+												visible : true,
+												className : "btn-primary",
+												closeModal : true
+											}
+										}
+										}).then(function(isConfirm){
+											console.log(result.recipeCommentList);
+											$("#recipecommentbox-"+recipeCommentNo).remove();
+										})
+										//$("#recipecommentbox-${rcomment.recipeCommentNo}").remove();
 								}else{
 									swal({
 										title : "실패",
@@ -426,10 +500,86 @@
 			})
 		};
 		
+		function reportRecipeComment(recipeCommentNo,memberNo){
+			console.log(recipeCommentNo);
+			console.log(memberNo);
+			swal({
+				title : "댓글 신고",
+				text : "댓글을 신고하시겠습니까?",
+				icon : "warning",
+				buttons : {
+					confirm : {
+						text:"신고",
+						value:true,
+						visible : true,
+						className : "btn-primary",
+						closeModal : true
+					},
+					cancel:{
+						text:"취소",
+						value:false,
+						visible : true,
+						className : "btn-secondary",
+						closeModal : true
+					}
+				}
+			}).then(function(isConfirm){
+				
+				if(isConfirm){
+					$.ajax({
+						url:"/recipe/commentReport",
+						type:"post",
+						data:{recipeCommentNo:recipeCommentNo,memberNo:memberNo},
+						success:function(result){
+							if(result==="success"){
+								swal({
+									title : "알림",
+									text : "댓글 신고가 완료되었습니다.",
+									icon : "warning",
+									buttons : {
+										confirm : {
+											text:"확인",
+											value:true,
+											visible : true,
+											className : "btn-primary",
+											closeModal : true
+										}
+									}
+								});
+							}else{
+								swal({
+									title : "알림",
+									text : "이미 신고했습니다.",
+									icon : "warning",
+									buttons : {
+										confirm : {
+											text:"확인",
+											value:true,
+											visible : true,
+											className : "btn-primary",
+											closeModal : true
+										}
+									}
+								});
+							}
+						}
+					})
+//					location.href="/recipe/detail?reqRecipeNo="+recipeNo;
+				}
+			})
+		};
+		
+		
 		$(".ingredientList a").hover(function(){
-			$(this).css("color","yellow");
+			$(this).css("background-color","#ffca8a");
 		},function(){
-			$(this).css("color","white");
+			$(this).css("background-color","#FF9D23");
+		});
+		
+		$(".recipe.comment-box-input.not-login a").hover(function(){
+			$(this).css("background-color","#ffca8a");
+		},function(){
+			$(this).css("background-color","#FF9D23");
 		});
 		
 		const stars = $(".recipe.gradeinput span");
