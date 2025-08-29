@@ -19,6 +19,8 @@
 		width : 100%;
 		min-height: 500px;
 		border-radius:20px;
+		padding:40px;
+		text-align:center;
 	}
 	.recipe.title{
 		width : 100%;
@@ -29,23 +31,23 @@
 		font-size:24px;
 		color: #EBA854 ;
 	}
-	.recipe.content-box{
-		text-align:center;
-		padding:40px;
-		box-sizing:border-box;
-	}
 	.recipe.insert-title{
 		display:flex;
 		justify-content:center;
 		align-items:center;
 	}
-	.recipe.insert-title input{
-		width:80%;
+	.recipe input[type="text"],.recipe select{
+		width:100%;
+		padding:0px 10px;
 		margin:0px 10px;
 		height: 40px;
-		font-size:30px;
+		font-size:16px;
 		border:1px solid #dddddd;
 	}
+	*{
+		box-sizing:border-box;
+	}
+	
 	
 	
 </style>
@@ -56,13 +58,14 @@
 	<main class="recipe content">
 		<div class="recipe title"><span>게시글 작성</span></div>
 		<section>
-			<form action="/recipe/insert" method="post">
+			<form action="/recipe/insert" method="post" enctype="multipart/form-data">
 				<div class="recipe content-box">
 					<div class="recipe insert-title">
 						<span>게시글 제목:</span><input type="text" name="recipeTitle">
 					</div>
 					<div class="recipe insert-thumbnail">
-						<span>썸네일(업로드 받고 input type hidden 으로 path 경로 줘야할듯):</span><input type="text" name="recipeThumbnailPath">
+						<span>썸네일:</span>
+						<input type="file" name="recipeThumbnailPath" accept="image/*">
 					</div>
 					<div class="recipe insert-info">
 						<div class="recipe insert-info-1">
@@ -76,7 +79,7 @@
 						</div>
 						<div class="recipe insert-info-2">
 							<span>난이도 :</span>
-							<select>
+							<select name="recipeLevel">
 								<option value="1">쉬움</option>
 								<option value="2">보통</option>
 								<option value="3">어려움</option>
@@ -84,7 +87,7 @@
 						</div>
 						<div class="recipe insert-info-3">
 							<span>소요 시간 :</span>
-							<select>
+							<select name="recipeCookingTime">
 								<option value="10">10분 미만</option>
 								<option value="30">30분 미만</option>
 								<option value="60">1시간 미만</option>
@@ -99,14 +102,18 @@
 							<input type="text" name="recipeIngredientVolume">
 						</div>
 						<div class="recipe cooking order">
-							<span>조리 순서 : </span>
-							<span>Step1</span><button type="button">+</button><button type="button">-</button>
-							<input type="text" placeholder = "이곳에 설명을 입력하세요">
-							<button>파일 첨부</button>
+							<span>조리 순서 : </span><button type="button" id="stepPlusBtn">+</button><button type="button" id="stepMinusBtn">-</button>
+							<div id="stepBox">
+								<div class="order dynamic">
+									<span>Step1</span>
+									<input type="text" name="recipeCookingContent" placeholder = "이곳에 설명을 입력하세요">
+									<input type="file" name="recipeCookingOrderImgPath" accept="image/*">
+								</div>
+							</div>
 						</div>						
 						<div class="recipe caution">
 							<span>주의 사항 : </span>
-							<input type="text" placeholder = "이곳에 설명을 입력하세요">
+							<input type="text" name="recipeCaution" placeholder = "이곳에 설명을 입력하세요">
 						</div>
 						<div class="recipe insertBtn">
 							<input type="submit" value="게시글 작성하기">
@@ -116,7 +123,20 @@
 			</form>
 		</section>
 	</main>
+	<script>
 	
+		  // [+] 새 스텝 추가
+		  $('#stepPlusBtn').on('click', function(){
+
+		  });
+
+		  // [-] 마지막 스텝 삭제 (최소 1개 유지) + 번호 감소
+		  $('#stepMinusBtn').on('click', function(){
+		
+		  });
+
+		</script>
+	</script>
 	<th:block th:include="common/footer"></th:block>
 
 </body>
