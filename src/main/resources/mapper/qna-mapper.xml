@@ -11,10 +11,32 @@
     	a) where rnum between #{startPage} and #{endPage}
 	</select>
 	<select id="selectQnaTotalCount" resultType="int">
-	select count(*) from qna_tbl
+		select count(*) from qna_tbl
 	</select>
 	
 	<select id="selectOneQnaList" resultType="qna">
 		select * from qna_tbl where qna_no = #{qnaNo}
 	</select>
+	
+	<select id="selectAllQnaCommentList" resultType="qnaComment">
+	SELECT * FROM QNA_COMMENT_TBL where qna_no=#{qnaNo}
+	</select>
+	
+	<insert id="insertQnaComment">
+		insert into qna_comment_tbl
+			values(qna_comment_tbl_seq.nextval,
+			 #{memberNo},
+			  #{qnaNo},
+			   #{qnaCommentContent},
+			    sysdate,
+			     null)
+	</insert>
+	
+	<select id="selectAllQnaReport" resultType="int">
+		select count(*) from qna_report_tbl where qna_no = #{qnaNo} and member_no = #{memberNo}
+	</select>
+	<insert id="insertQnaReport">
+		insert into qna_report_tbl
+   			values(#{qnaNo}, #{memberNo}, sysdate)
+	</insert>
 </mapper>
