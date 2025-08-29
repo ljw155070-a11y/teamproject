@@ -24,7 +24,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@GetMapping(value = "/login")
+	@PostMapping(value = "/login")
 	public String login(Member m, Model model, HttpSession session) {
 		System.out.println(m);
 		Member member = memberService.login(m);
