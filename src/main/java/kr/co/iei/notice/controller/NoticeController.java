@@ -25,29 +25,30 @@ public class NoticeController {
 		
 //		model.addAttribute("pageNav", ListData.getPageNav());
 		return "notice/list";
-	}	
-	@GetMapping(value="/writeFrm")
-	public String noticeWriteFrm() {
-		return "notice/writeFrm";
 	}
-	@GetMapping(value="/detail")
-	public String noticeDetail() {
-		return "notice/detail";
-	}
-	@GetMapping(value="/view")
-	public String noticeView(int noticeNo, Member member, Model model) {
-		int memberNo = member == null ? 0 : member.getMemberNo();
+	
+	@GetMapping(value="/modify")	//수정하기
+	public String noticeModify(Model model) {
+		List list = noticeService.selectNoticeList();
 		
-		Notice n = noticeService.selectOneNotice(noticeNo, memberNo);
-		if(n == null) {
-			model.addAttribute("title", "게시글 조회 실패");
-			model.addAttribute("text", "이미 삭제된 게시글 입니다.");
-			model.addAttribute("icon", "게시글 조회 실패");
-			model.addAttribute("loc", "게시글 조회 실패");
-			return "common/msg";
-		} else {
-			model.addAttribute("n", n);
-			return "notice/view";
-		}
-	}
+//		model.addAttribute("pageNav", ListData.getPageNav());
+		return "notice/modify";
+	}	
+	
+	@GetMapping(value="/writeFrm")	//입력하기
+	public String noticeWriteFrm(Model model) {
+		List list = noticeService.selectNoticeList();
+		
+//		model.addAttribute("pageNav", ListData.getPageNav());
+		return "notice/writeFrm";
+	}	
+	
+	@GetMapping(value="/detail")	//입력하기
+	public String noticeDetail(Model model) {
+		List list = noticeService.selectNoticeList();
+		
+//		model.addAttribute("pageNav", ListData.getPageNav());
+		return "notice/detail";
+	}	
+	
 }

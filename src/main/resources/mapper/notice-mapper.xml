@@ -5,8 +5,8 @@
   	select * from notice_tbl
   </select>
   
-  <select id="selectOneNotice" resultType="notice">
-  	select * from notice
-  	where notice_no = #{noticeNo}
-  </select>
+  <update id="modifyNotice">
+  	update notice_tbl set notie_title = #{noticeTitle},
+  	notice_content = #{noticeContent} where notice_no = #{noticeNo}
+  </update>
 </mapper>

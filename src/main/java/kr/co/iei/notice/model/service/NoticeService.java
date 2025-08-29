@@ -26,10 +26,14 @@ public class NoticeService {
 		List list = noticeDao.selectNoticeList();
 		return list;
 	}
-	public Notice selectOneNotice(int noticeNo, int memberNo) {
-		Notice n = noticeDao.selectOneNotice(noticeNo);
-		return n;
-		
-		
+}
+	/*
+	@Transactional
+	public List<NoticeFile> modifyNotice(Notice n, List<NoticeFile> fileList, int[] delFileNo) {
+		int result = noticeDao.modifyeNotice(n);
+		for(NoticeFile noticeFile : fileList) {
+			
+		}
 	}
 }
+*/

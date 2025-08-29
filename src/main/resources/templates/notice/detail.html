@@ -3,45 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 상세</title>
+<style>
+	body {
+    background-color: #f4f4f4;
+}
+.detail-box {
+    width: 950px;
+    height: 570px;
+    background-color: #fff;
+    border-radius: 9px;
+    margin: 0 auto;
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+
+.detail-box .detail-box-title{
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    padding: 20px;
+}
+
+.detail-box .detail-box-title h3{
+    font-weight: 600;
+    color: #363636;
+}
+
+.detail-box hr {
+    border: 0.5px solid #e6e6e6;
+    width: 100%;
+}
+
+.detail-textbar{
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    font-size: 16px;
+    font-weight: 500;
+    color: #656565;
+    padding-top: 20px; 
+    padding-left: 10px;
+    padding-bottom: 20px;
+}
+
+.detail-textbar .writer {
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.notice-view {
+    padding-left: 500px;
+    float: right;
+}
+
+.notice-view .date {
+    padding-left: 20px;
+}
+
+.detail-content-box textarea {
+    width: 830px;  
+    min-height: 350px;       
+    font-size: 16px;        
+    box-sizing: border-box;
+    border: none;
+    margin-left: 60px;
+    padding-top: 20px;
+    align-items: center;
+}
+
+.detail-content-box ::placeholder{
+    color: #B2B2B2;
+}
+
+.detail-content-btn {
+    display: flex;
+    justify-content: center;  
+    align-items: center; 
+    gap: 15px;
+    padding-top: 20px;
+}
+
+.detail-content-btn .modify-btn {
+    border: none;
+    cursor: pointer;
+    background-color: #FF9D23;
+    width: 130px;
+    height: 32px;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.detail-content-btn .delete-btn {
+    border: none;
+    cursor: pointer;
+    background-color: #EAEAEA;
+    width: 130px;
+    height: 32px;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #848484;
+}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-	<main class="content notice-write-container">
-		<section class="section-notice-write-wrap">
-			<div class="content-box">
-			<form action="/notice/write" method="post" enctype="multipart/form-data">			
-					<div class="input-item">
-						<input type="text" placeholder="제목을 입력하세요.">
-					</div>
-						<hr style="border: 1px solid #E6E6E6">
-					<div class="noticeSelect">
-						<span>고정여부 : </span>
-						<select name="fixType">
-	                        <option value="yes">예</option>
-	                        <option value="no">아니오</option>
-	                    <span class="fileAdd">첨부파일
-	                    	<input type="file" name="upfile" multiple>
-	                    </span>
-	                    </select>
-	                    <div class="noticeType">
-	                    	<span>공지유형 : </span>
-							<select name="searchType">
-	                        	<option value="general">일반</option>
-	                        	<option value="check">점검</option>
-	                    	</select>
-	                    </div>
-					</div>
-                    <hr style="border: 1px solid #E6E6E6">
-	                <div class="detail-content-box">
+    <main class="notice-detail">
+        <section class="notice-detail-wrap">
+            <div class="detail-box">
+                <div class="detail-box-title">
+                    <h3><b>[필독]</b> 전체 공지입니다.</h3>
+                </div>
+                <hr>
+                    <div class="detail-textbar">
+                        <span class="material-icons">campaign</span>
+                            <span class="writer">작성자 : 관리자</span>
+                        <div class="notice-view">
+                            <span class="view">조회 : 928</span>
+                            <span class="date">2025-08-20</span>
+                        </div>
+                    </div>
+                <hr>
+                <form action="#" method="post" id="modify-content">
+                    <div class="detail-content-box">
+                        <textarea name="content-text" placeholder="운영 정책에 위반되는 글을 작성할 시 게시글이 삭제 조치될 수 있으며, 신고 누적 10회 시 회원 탈퇴가 될 수 있음을 알립니다."></textarea>
+                        <hr>
+                    </div>
+                    <div class="detail-content-btn">
+                        <button type="submit" class="modify-btn">게시글 수정</button>
+                        <button type="submit" class="delete-btn">게시글 삭제</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section class="notice-detail-wrap">
+            <div class="detail-box">
+                <div class="detail-box-title">
+                    <h3>이용 제한 조치된 회원 안내</h3>
+                </div>
+                <hr>
+                    <div class="detail-textbar">
+                        <span class="material-icons">warning_amber</span>
+                            <span class="writer">작성자 : 관리자</span>
+                        <div class="notice-view">
+                            <span class="view">조회 : 928</span>
+                            <span class="date">2025-08-20</span>
+                        </div>
+                    </div>
+                <hr>
+                <form action="#" method="post" id="modify-content">
+                    <div class="detail-content-box">
                         <textarea name="content-text" placeholder="이 플레이스홀더엔 무엇을 적어야 할고"></textarea>
                         <hr>
-                    </div>						
-			</form>
-            <div class="add-btn">
-                <button type="submit"><a href="/notice/list">추가하기</a></button>
+                    </div>
+                    <div class="detail-content-btn">
+                        <button type="submit" class="modify-btn">게시글 수정</button>
+                        <button type="submit" class="delete-btn">게시글 삭제</button>
+                    </div>
+                </form>
             </div>
-		</section>
-	</main>
-	<th:block th:include="common/footer"></th:block>
+        </section>
+    </main>
+    <th:block th:include="common/footer"></th:block>
 </body>
 </html>

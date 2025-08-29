@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공지사항 수정</title>
+<style>
+body {
+	background-color: #f4f4f4;
+	}
+
+.section-notice-write-wrap {
+	padding-top: 150px;
+	padding-bottom: 100px;
+}
+.content-box form {
+	margin: 0 auto;
+	}
+.content-box {
+	margin: 0 auto;
+	width: 820px;
+	border-radius: 9px;
+    padding-bottom: 8px;
+	background-color: #fff;
+	}
+.content-box .content-header {
+	margin: 0 auto;
+	width:850px;
+	background-color: #FBFBFB;
+	border-radius: 9px 9px 0px 0px;
+	}
+.input-item {
+	padding-left: 200px;	
+}
+.input-item input {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: none;
+	background-color: transparent;
+	font-size: 22px;
+	width:70%;
+	text-align: center;
+}
+
+.noticeSelect {
+	padding: 15px;
+}
+
+.noticeSelect .noticeType{
+	float: right;
+}
+
+.noticeSelect select {
+	cursor: pointer;
+    padding: 5px 10px;
+    font-size: 17px;
+    color: #999999;
+    background-color: #fff;
+    border: 0.5px solid #E5E5E5;
+    border-radius: 50px;
+}
+
+.noticeType select{
+	cursor: pointer;
+    padding: 5px 25px;
+    font-size: 17px;
+    color: #999999;
+    background-color: #fff;
+    border: 0.5px solid #E5E5E5;
+    border-radius: 50px;
+}
+
+.detail-content-box textarea {
+    width: 700px;  
+    min-height: 350px;       
+    font-size: 16px;        
+    box-sizing: border-box;
+    border: none;
+    margin-left: 60px;
+    padding-top: 20px;
+    align-items: center;
+}
+
+.noticeSelect span {
+    color: #656565;
+    font-weight: 500;
+	font-size: 17px;
+}
+
+.noticeSelect input {
+	padding-left: 20px;
+}
+
+.note-editor.note-frame {
+    margin: 0 auto;
+}
+
+.detail-content-box ::placeholder{
+    color: #B2B2B2;
+}
+
+.add-btn button {
+    border: none;
+    cursor: pointer;
+    background-color: #FF9D23;
+    width: 215px;
+    height: 50px;
+    font-weight: 600;
+    border-radius: 9px;
+    font-size: 18px;
+}
+
+.section-notice-write-wrap .add-btn {
+    padding: 10px;
+    padding-left: 310px;
+}
+
+.add-btn a {
+    text-decoration: none;
+    color: #fff;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content notice-write-container">
+		<section class="section-notice-write-wrap">
+			<div class="content-box">
+			<form action="/notice/write" method="post" enctype="multipart/form-data">			
+					<div class="input-item">
+						<input type="text" placeholder="제목을 입력하세요.">
+					</div>
+						<hr style="border: 1px solid #E6E6E6">
+					<div class="noticeSelect">
+						<span>고정여부 : </span>
+						<select name="fixType">
+	                        <option value="yes">예</option>
+	                        <option value="no">아니오</option>
+	                    <span class="fileAdd">첨부파일
+	                    	<input type="file" name="upfile" multiple>
+	                    </span>
+	                    </select>
+	                    <div class="noticeType">
+	                    	<span>공지유형 : </span>
+							<select name="searchType">
+	                        	<option value="general">일반</option>
+	                        	<option value="check">점검</option>
+	                    	</select>
+	                    </div>
+					</div>
+                    <hr style="border: 1px solid #E6E6E6">
+	                <div class="detail-content-box">
+                        <textarea name="content-text" placeholder="운영 정책에 위반되는 글을 작성할 시 게시글이 삭제 조치될 수 있으며, 신고 누적 5회 시 회원 탈퇴가 될 수 있음을 알립니다."></textarea>
+                        <hr>
+                    </div>						
+			</form>
+            <div class="add-btn">
+                <button type="submit"><a href="/notice/list">추가하기</a></button>
+            </div>
+			</div>
+		</section>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>
