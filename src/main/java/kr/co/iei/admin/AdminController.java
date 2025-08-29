@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.iei.member.model.service.MemberService;
 import kr.co.iei.member.model.vo.Member;
@@ -51,4 +52,12 @@ public class AdminController {
 		int result = memberService.suspendMember(memberNo, suspendDays, suspendReason);
 		return "redirect:/admin/allMember";
 	}
+	@GetMapping(value="/searchMember")
+	public String searchMember(@RequestParam(defaultValue="1") int reqPage, String memberNickname, Model model) {
+		HashMap<String, Object> reqSet = memberService.searchMemberList(reqPage, memberNickname);
+		model.addAttribute("reqSet", reqSet);
+		model.addAttribute("reqPage", reqPage);
+		model.addAttribute("memberNickname", memberNickname);
+		return "/admin/allMember";
+	}	
 }

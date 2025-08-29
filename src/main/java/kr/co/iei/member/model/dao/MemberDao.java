@@ -28,5 +28,9 @@ public interface MemberDao {
 
 	int suspendMember(int memberNo, int suspendDays, String suspendReason);
 
+	int searchMemberTotalCount(String memberNickname);
+
+	List<Member> searchMemberList(int start, int end, String memberNickname);
+
 
 }

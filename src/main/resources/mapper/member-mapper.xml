@@ -84,5 +84,48 @@
   <insert id="suspendMember">
     insert into member_suspend values(suspend_seq.nextval, #{memberNo}, sysdate, #{suspendDays}, #{suspendReason})
   </insert>
+  
+  <select id="searchMemberTotalCount" resultType="int">
+  	select count(*) from member_tbl where member_nickname like '%'||#{member_nickname}||'%'
+  </select>
+  
+  <select id="searchMemberList" resultType="member">
+  	select * from
+  		(select rownum as rnum, v.* from
+  			(select 
+  			member_no, 
+  			member_id, 
+  			member_nickname, 
+  			(select count(*) from recipe_report_tbl where recipe_no in 
+            (select recipe_no from recipe_tbl where member_no=m.member_no)) recipe_report_count,
+            (select count(*) from recipe_comment_report_tbl where recipe_comment_no in 
+            (select recipe_comment_no from recipe_comment_tbl where member_no=m.member_no)) recipe_comment_report_count,
+            (select count(*) from qna_report_tbl where qna_no in 
+            (select qna_no from qna_tbl where member_no=m.member_no)) qna_report_count,
+            (select count(*) from qna_comment_report_tbl where qna_comment_no in 
+            (select qna_comment_no from qna_comment_tbl where member_no=m.member_no)) qna_comment_report_count,
+            ((select count(*) from recipe_report_tbl where recipe_no in 
+            (select recipe_no from recipe_tbl where member_no=m.member_no))
+            +
+            (select count(*) from recipe_comment_report_tbl where recipe_comment_no in 
+            (select recipe_comment_no from recipe_comment_tbl where member_no=m.member_no))
+            +
+            (select count(*) from qna_report_tbl where qna_no in 
+            (select qna_no from qna_tbl where member_no=m.member_no))
+            +
+            (select count(*) from qna_comment_report_tbl where qna_comment_no in 
+            (select qna_comment_no from qna_comment_tbl where member_no=m.member_no))
+            ) all_report_count,
+  			member_level,
+            nvl((select suspend_days from member_suspend  
+            where member_no= m.member_no and sysdate between suspend_date and suspend_date + suspend_days),0) suspend_days,
+            (select count(*) from member_suspend  
+            where member_no=m.member_no and sysdate between suspend_date and suspend_date + suspend_days) suspend_yn
+  		   from member_tbl m where member_nickname like '%'||#{memberNickname}||'%'
+           order by 1
+  		   )v
+  		  )
+  		  where #{start} <![CDATA[<=]]> rnum and rnum<![CDATA[<=]]> #{end} 
+  </select>
 </mapper>
 
