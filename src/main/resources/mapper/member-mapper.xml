@@ -55,7 +55,15 @@
   </update>
   
   <insert id="insertMember">
-  	INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{memberId},#{memberPw},#{memberName},#{memberNickname},#{memberEmail},SYSDATE,'순한맛');
+  	insert into member_tbl values(
+  	member_seq.nextval,
+  	#{memberId},
+  	#{memberPw},
+  	#{memberName},
+  	#{memberNickname},
+  	#{memberEmail},
+  	sysdate,
+  	'보통맛')
   </insert>
   
   <select id="selectOneMember" resultType="member">

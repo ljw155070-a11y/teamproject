@@ -44,6 +44,27 @@
 		justify-content:space-between;
 		padding : 20px 100px;
 	}
+	.recipe.info > div{
+	  display:flex; 
+	  align-items:center; 
+	  gap:10px;
+	  background:#fafafa;
+	  border-radius:12px;
+	  padding:10px 12px;
+	  box-shadow: 0 0 0 2px #eee;
+	}
+	.recipe.info .material-icons{
+		font-size:20px; 
+		color:#EBA854 ;
+	}
+	
+	a{
+		color:#EBA854;
+		text-decoration: none;
+	}
+	a:hover{
+		color:#72450d;
+	}
 	.recipe.ingredientList,.recipe.cookingOrderList{
 		display:flex;
 		justify-content:space-between;
@@ -79,6 +100,14 @@
 	.recipe.comment-box-input input{
 		background-color:transparent;
 	}
+	.recipe.pointer span,.recipe.pointer input{
+		color:#EBA854;
+		font-size:1em;
+	}
+	.recipe.pointer span:hover,.recipe.pointer input:hover{
+		cursor:pointer;
+		color:#72450d;
+	}
 
 	.recipe.btn{
 		height:32px;
@@ -100,11 +129,12 @@
 		border:1px solid #dddddd;
 		margin:10px 10px;
 	}
+	
 	hr{
 	  border:1px solid #e6e6e6;
 	 }
 	button:hover{
-	cursor:pointer;
+		cursor:pointer;
 	}
 	.comment-box-input.not-login{
 		width:100%;
@@ -181,7 +211,7 @@
 								<input type="hidden" name="recipeNo" id="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
 								<input type="hidden" name="memberNo" id="memberNo" th:value="${session.member.memberNo}">
 							</div>
-							<div style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
+							<div class="recipe pointer" style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
 						<th:block th:if="${session.member.memberNo} == ${recipeDetailSet.recipeDetail.memberNo}">
 							<hr>
 							<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
@@ -215,7 +245,7 @@
 									<input type="hidden" name="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
 									<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 작성자 번호(PK) ★★★★★★★★★★★★★★★★★★★★★★★ -->
 									<input type="hidden" name="memberNo" th:value="${session.member.memberNo}">
-									<div style="text-align:right">
+									<div style="text-align:right" class="recipe pointer">
 										<span class="material-icons">create</span>
 										
 										<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 보내기 ★★★★★★★★★★★★★★★★★★★★★★★ -->
@@ -284,27 +314,45 @@
 				if(isConfirm){
 					$.ajax({
 						url:"/recipe/delete",
-						type:"get",
+						type:"post",
 						data:{recipeNo:recipeNo},
 						success:function(result){
-							swal({
-								title : "알림",
-								text : "게시글이 삭제되었습니다.",
-								icon : "warning",
-								buttons : {
-									confirm : {
-										text:"확인",
-										value:true,
-										visible : true,
-										className : "btn-primary",
-										closeModal : true
-									}
+							if(result==="success")
+								{
+									swal({
+										title : "알림",
+										text : "게시글이 삭제되었습니다.",
+										icon : "warning",
+										buttons : {
+											confirm : {
+												text:"확인",
+												value:true,
+												visible : true,
+												className : "btn-primary",
+												closeModal : true
+											}
+										}
+									}).then(function(isConfirm){
+										if(isConfirm){
+											location.href="/recipe/list?reqPage=1";
+										}
+									});
+								}else{
+									swal({
+										title : "실패",
+										text : "삭제 권한이 없어요",
+											icon : "warning",
+											buttons : {
+												confirm : {
+													text:"확인",
+													value:true,
+													visible : true,
+													className : "btn-primary",
+													closeModal : true
+												}
+											}
+									})
 								}
-							}).then(function(isConfirm){
-								if(isConfirm){
-									location.href="/recipe/list?reqPage=1";
-								}
-							});
 						}
 					})
 				}
@@ -340,20 +388,37 @@
 						type:"post",
 						data:{recipeNo:recipeNo,memberNo:memberNo},
 						success:function(result){
-							swal({
-								title : "알림",
-								text : "게시글 신고가 완료되었습니다.",
-								icon : "warning",
-								buttons : {
-									confirm : {
-										text:"확인",
-										value:true,
-										visible : true,
-										className : "btn-primary",
-										closeModal : true
+							if(result==="success"){
+								swal({
+									title : "알림",
+									text : "게시글 신고가 완료되었습니다.",
+									icon : "warning",
+									buttons : {
+										confirm : {
+											text:"확인",
+											value:true,
+											visible : true,
+											className : "btn-primary",
+											closeModal : true
+										}
 									}
-								}
-							})
+								});
+							}else{
+								swal({
+									title : "알림",
+									text : "이미 신고했습니다.",
+									icon : "warning",
+									buttons : {
+										confirm : {
+											text:"확인",
+											value:true,
+											visible : true,
+											className : "btn-primary",
+											closeModal : true
+										}
+									}
+								});
+							}
 						}
 					})
 //					location.href="/recipe/detail?reqRecipeNo="+recipeNo;
@@ -386,20 +451,38 @@
 				type:"post",
 				data: {recipeNo:recipeNo,memberNo:memberNo,recipeRate:index+1},
 				success:function(result){
-					swal({
-						title : "알림",
-						text : "평점 등록이 완료되었습니다.",
-						icon : "warning",
-						buttons : {
-							confirm : {
-								text:"확인",
-								value:true,
-								visible : true,
-								className : "btn-primary",
-								closeModal : true
+					if(result === "success"){
+						swal({
+							title : "알림",
+							text : "평점 등록이 완료되었습니다.",
+							icon : "warning",
+							buttons : {
+								confirm : {
+									text:"확인",
+									value:true,
+									visible : true,
+									className : "btn-primary",
+									closeModal : true
+								}
 							}
-						}
-					});
+						});
+					}else{
+						swal({
+							title : "알림",
+							text : "평점 등록 권한이 없습니다",
+							icon : "warning",
+							buttons : {
+								confirm : {
+									text:"확인",
+									value:true,
+									visible : true,
+									className : "btn-primary",
+									closeModal : true
+								}
+							}
+						});
+						
+					}
 				}
 		});
 		});
