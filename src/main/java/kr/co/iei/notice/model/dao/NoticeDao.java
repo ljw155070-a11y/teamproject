@@ -23,6 +23,16 @@ public interface NoticeDao {
 
 	List selectNoticeList();
 
+	int getNoticeNo();
+
+	int insertNotice(Notice n);
+
+	int insertNoticeFile(NoticeFile noticeFile);
+
+	Notice selectOneNotice(int noticeNo);
+
+	List selectNoticeFile(int noticeNo);
+
 	
 
 

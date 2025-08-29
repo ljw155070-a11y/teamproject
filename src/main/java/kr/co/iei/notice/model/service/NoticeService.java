@@ -78,13 +78,21 @@ public class NoticeService {
 		return nl;
 	}
 	public int insertNotice(Notice n, List<NoticeFile> fileList) {
-		int newNoticeNo = noticeDao.findNoticeNo();
-		
-		
+		int newNoticeNo = noticeDao.getNoticeNo();
+		n.setNoticeNo(newNoticeNo);
+		int result = noticeDao.insertNotice(n);
+		for(NoticeFile noticeFile : fileList) {
+			noticeFile.setNoticeNo(newNoticeNo);
+			result += noticeDao.insertNoticeFile(noticeFile);
+		}
+		return result;
+	
+	}
+	public Notice selectOneNotice(int noticeNo, int memberNo) {
+		Notice n = noticeDao.selectOneNotice(noticeNo);
+		return n;
 	}
 }	
-
-	
 
 	/*
 	public List selectAll() {

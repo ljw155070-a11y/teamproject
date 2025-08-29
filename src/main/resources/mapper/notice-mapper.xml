@@ -21,4 +21,20 @@
   	select count(*) from notice_tbl
 	]]>
   </select>
+  
+  <insert id="insertNotice">
+  	insert into notice_tbl values (#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{notice}, sysdate)
+  </insert>
+  
+  <insert id="insertNoticeFile">
+  	insert into notice_file_tbl values(notice_file_seq.nextval, #{noticeNo}, #{filename}, #{filepath})
+  </insert>
+  
+  <select id="getNoticeNo" resultType="int">
+  	select notice_seq.nextval from dual
+  </select>
+  
+  <select id="selectOneNotice" resultType="notice">
+  	select * from notice_tbl where notice_no = #{noticeNo}
+  </select>
 </mapper>
