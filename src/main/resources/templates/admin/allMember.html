@@ -206,6 +206,37 @@
 
 .search-input.div span{
 	font-size : 28px;
+	color : #FBA854;
+}
+.select select{
+	width : 80px;
+	height:25px;
+	border : 1px solid #BFBFBF;
+	border-radius:15px;
+	text-align:center;
+	cursor:pointer;
+}
+.changeLevel{
+	width : 80px;
+	height:25px;
+	border : none;
+	border-radius:15px;
+	text-align:center;
+	background-color: #FBA854;
+	color : #fff;
+	font-weight: 600;
+	cursor:pointer;
+}
+.suspend-btn{
+	width:80px;
+	height:25px;
+	border : none;
+	border-radius:15px;
+	text-align:center;
+	background-color: #B2B2B2;
+	color : #fff;
+	font-weight: 600;
+	cursor:pointer;
 }
 </style>
 </head>
@@ -345,17 +376,14 @@
 			</div>
 		</section>
 	</main>
-	<script>
-		$(".changeLevel").on(
-				"click",
-				function() {
-					const memberNo = $(this).parent().parent().children().eq(1)
-							.text();
-					const memberLevel = $(this).parent().prev().children()
-							.children().val();
-
+	<script th:inline="javascript">
+		$(".changeLevel").on("click",function() {
+					const memberNo = $(this).parent().parent().children().eq(0).text();
+					const memberLevel = $(this).parent().prev().children().children().val();
+					const reqPage = [[${reqPage}]];
+					
 					location.href = "/admin/changeLevel?memberNo=" + memberNo
-							+ "&memberLevel=" + memberLevel;
+							+ "&memberLevel=" + memberLevel + "&reqPage=" +reqPage;
 				});
 
 		//모달 열기

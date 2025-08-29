@@ -69,10 +69,7 @@ public class MemberService {
 		reqSet.put("pageInfo", pageInfo);
 		reqSet.put("list", list);
 		
-		HashMap<String,Integer> test = (HashMap<String,Integer>)reqSet.get("pageInfo");
 		
-		
-		List<Member> test2 = (List<Member>)reqSet.get("list");
 		
 		
 		return reqSet;
@@ -128,7 +125,7 @@ public class MemberService {
 	}
 
 
-
+	@Transactional
 	public int suspendMember(int memberNo, int suspendDays, String suspendReason) {
 		int result = memberDao.suspendMember(memberNo, suspendDays, suspendReason);
 		return result;

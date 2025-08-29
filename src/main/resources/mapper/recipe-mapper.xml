@@ -134,7 +134,7 @@ WHERE RECIPE_NO=#{reqRecipeNo}
 	</insert>
 	
 	<select id="recipeCommentReportSelect">
-		SELECT COUNT(*) FROM RECIPE_COMMENT_REPORT_TBL WHERE RECIPE_COMMENT_NO=#{recipeCommentNo} AND MEMBER_NO=#{memberNo}
+		SELECT * FROM RECIPE_COMMENT_REPORT_TBL WHERE RECIPE_COMMENT_NO=#{recipeCommentNo} AND MEMBER_NO=#{memberNo}
 	</select>
 	
 	<insert id="recipeCommentReport">
