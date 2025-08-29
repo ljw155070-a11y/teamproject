@@ -93,24 +93,6 @@ public class MemberService {
 	}
 
 
-	@Transactional
-	public boolean checkedChangeLevel(String no, String level) {
-		StringTokenizer s1 = new StringTokenizer(no, "/");
-		StringTokenizer s2 = new StringTokenizer(level, "/");
-		int result = 0;
-		int count = s1.countTokens();
-		while(s1.hasMoreTokens()) {
-			String stringNo = s1.nextToken();
-			int memberNo = Integer.parseInt(stringNo);
-			String stringLevel = s2.nextToken();
-			Member m = new Member();
-			m.setMemberNo(memberNo);
-			m.setMemberLevel(stringLevel);
-			result+=memberDao.changeLevel(m);
-		}
-		return result==count;
-	}
-
 
 
 	public int insertMember(Member m) {
@@ -143,6 +125,13 @@ public class MemberService {
 		m.setMemberEmail(checkEmail);
 		Member member = memberDao.selectOneEmail(m);
 		return null;
+	}
+
+
+
+	public int suspendMember(int memberNo, int suspendDays, String suspendReason) {
+		int result = memberDao.suspendMember(memberNo, suspendDays, suspendReason);
+		return 0;
 	}
 
 }

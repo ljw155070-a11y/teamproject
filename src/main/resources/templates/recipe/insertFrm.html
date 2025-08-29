@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.space{
+		height:50px;
+	}
+	body{
+		background-color:#eeeeee;
+	}
+	.recipe.content{
+		width:1080px;
+		margin:100px auto;
+	}
+	.recipe.content-box{
+		background-color:white;
+		width : 100%;
+		min-height: 500px;
+		border-radius:20px;
+	}
+	.recipe.title{
+		width : 100%;
+		height : 100px;
+		text-align:center;
+		line-height:100px;
+		font-weight:900;
+		font-size:24px;
+		color: #EBA854 ;
+	}
+	
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<div class="space"></div>
+	<main class="recipe content">
+		<div class="recipe title"><span>게시글 작성</span></div>
+		<section>
+			<form action="/recipe/insert" method="post">
+				<div class="recipe content-box">
+					<div class="recipe insert-title">
+						<span>게시글 제목:</span><input type="text" name="recipeTitle">
+					</div>
+					<div class="recipe insert-thumbnail">
+						<span>썸네일(업로드 받고 input type hidden 으로 path 경로 줘야할듯):</span><input type="text" name="recipeThumbnailPath">
+					</div>
+					<div class="recipe insert-info">
+						<div class="recipe insert-info-1">
+							<span>태그 :</span>
+							<select>
+								<option value="1">한식</option>
+								<option value="2">중식</option>
+								<option value="3">일식</option>
+								<option value="4">양식</option>
+							</select>
+						</div>
+						<div class="recipe insert-info-2">
+							<span>난이도 :</span>
+							<select>
+								<option value="1">쉬움</option>
+								<option value="2">보통</option>
+								<option value="3">어려움</option>
+							</select>
+						</div>
+						<div class="recipe insert-info-3">
+							<span>소요 시간 :</span>
+							<select>
+								<option value="10">10분 미만</option>
+								<option value="30">30분 미만</option>
+								<option value="60">1시간 미만</option>
+								<option value="120">2시간 미만</option>
+								<option value="180">3시간 미만</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</form>
+		</section>
+	</main>
+	
+	<th:block th:include="common/footer"></th:block>
+
+</body>
+</html>

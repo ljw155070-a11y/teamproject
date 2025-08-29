@@ -25,7 +25,7 @@ public class RecipeController {
 	private RecipeService recipeService;
 	
 	@GetMapping(value="/list")
-	public String recipeList(Model model,int reqPage) {
+	public String recipeList(Model model,int reqPage, @SessionAttribute(required = false) Member member) {
 		//reqPage 의 값에 해당하는 페이지에 리스트를 전달
 		HashMap<String,Object> reqPageSet = recipeService.recipeList(reqPage);
 		model.addAttribute("reqPageSet",reqPageSet);
@@ -51,6 +51,36 @@ public class RecipeController {
 	@PostMapping(value="/gradeInsert")
 	public String recipeGradeInsert(int recipeNo,int memberNo, int recipeRate) {
 		int result = recipeService.recipeGradeInsert(recipeNo,memberNo,recipeRate);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@PostMapping(value="report")
+	public String recipeReport(int recipeNo,int memberNo) {
+		int result = recipeService.recipeReport(recipeNo,memberNo);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@GetMapping(value="/insertFrm")
+	public String recipeInsertFrm(Model model, @SessionAttribute Member member) {
+		return "recipe/insertFrm";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/delete")
+	public String recipeDelete(int recipeNo) {
+		System.out.println("게시글 삭제 컨트롤러 호출됨");
+		System.out.println(recipeNo);
+		int result = recipeService.recipeDelete(recipeNo);
+		System.out.println(result);
 		if(result>0) {
 			return "success";
 		}else {
