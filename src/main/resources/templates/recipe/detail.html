@@ -364,6 +364,7 @@
 		}
 		
 		function deleteRecipeComment(recipeCommentNo,recipeNo){
+			
 			swal({
 				title : "댓글 삭제",
 				text : "댓글을 삭제하시겠습니까?",
@@ -527,7 +528,7 @@
 					}
 				}
 			}).then(function(isConfirm){
-				
+				console.log("신고"+isConfirm);
 				if(isConfirm){
 					$.ajax({
 						url:"/recipe/commentReport",
