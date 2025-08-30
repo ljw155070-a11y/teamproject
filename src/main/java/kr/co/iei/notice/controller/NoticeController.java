@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.annotation.PostConstruct;
 import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.notice.model.service.NoticeService;
 import kr.co.iei.notice.model.vo.Notice;
@@ -67,7 +70,7 @@ public class NoticeController {
 		model.addAttribute("loc", "/notice/list?reqPage=1");
 		return "common/msg";
 	}
-	@GetMapping(value = "/detail")
+	@GetMapping(value = "/detail") // =view
 	public String noticeDetail(int noticeNo, @SessionAttribute(required = false) Member member, Model model) {
 		int memberNo = member == null ? 0 : member.getMemberNo();
 		Notice n = noticeService.selectOneNotice(noticeNo, memberNo);
@@ -79,8 +82,15 @@ public class NoticeController {
 			return "common/msg";
 		} else {
 			model.addAttribute("n", n);
-			return "notice/view";
+			return "notice/detail";
 		}
+	}
+	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
+	@ResponseBody
+	public String editorImgUpload(MultipartFile upfile) {
+		String savepath = root + "/notice/editor/";
+		String filepath = fileUtil.upload(savepath, upfile);
+		return filepath;
 	}
 }
 	

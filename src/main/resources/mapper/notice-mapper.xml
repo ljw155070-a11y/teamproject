@@ -37,4 +37,8 @@
   <select id="selectOneNotice" resultType="notice">
   	select * from notice_tbl where notice_no = #{noticeNo}
   </select>
+  
+  <select id="selectNoticeFile" resultType="noticeFile">
+  	select * from notice_file_tbl where notice_no = #{noticeNo}
+  </select>
 </mapper>

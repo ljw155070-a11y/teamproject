@@ -90,6 +90,7 @@ public class NoticeService {
 	}
 	public Notice selectOneNotice(int noticeNo, int memberNo) {
 		Notice n = noticeDao.selectOneNotice(noticeNo);
+		List filelist = noticeDao.selectNoticeFile(noticeNo);
 		return n;
 	}
 }	
