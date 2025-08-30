@@ -138,6 +138,10 @@
 .caution{
 	margin:50px 10px;
 }
+hr{
+	margin:20px 0px;
+	border:1px solid #eee;
+}
 </style>
 </head>
 <body>
@@ -152,11 +156,13 @@
 					<!-- ★★★★★★★★★★★★★★제목 텍스트 값 전송★★★★★★★★★★★★★★★ -->
 						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피">
 					</div>
+					<hr>
 					<div class="recipe insert-thumbnail">
 						<span>썸네일:</span>
 						<!-- ★★★★★★★★★★★★★★썸네일 파일 이름 전송★★★★★★★★★★★★★★★ -->
 						<input type="file" name="recipeThumbnailFile" accept="image/*">
 					</div>
+					<hr>
 					<div class="recipe insert-info">
 						<div class="insert-info-1">
 							<div class="recipe insert-info-1">
@@ -190,6 +196,7 @@
 								</select>
 							</div>
 						</div>
+						<hr>
 						<div class="recipe ingredient">
 							<div id="ingredientBox">
 								<span>들어가는 재료 : </span><button type="button" class="boxbtn" id="ingredientPlusBtn">+</button><button type="button" class="boxbtn" id="ingredientMinusBtn">-</button>
@@ -203,6 +210,7 @@
 								</div>
 							</div>
 						</div>
+						<hr>
 						<div class="recipe cooking order">
 							<span>조리 순서 : </span><button type="button" class="boxbtn" id="stepPlusBtn">+</button><button type="button" class="boxbtn" id="stepMinusBtn">-</button>
 							<div id="stepBox">
@@ -214,7 +222,8 @@
 									<input type="file" name="recipeCookingOrderImgFile" accept="image/*">
 								</div>
 							</div>
-						</div>						
+						</div>				
+						<hr>		
 						<div class="recipe caution">
 							<span>주의 사항 : </span>
 							<!-- ★★★★★★★★★★★★★★주의사항 전송★★★★★★★★★★★★★★★ -->
