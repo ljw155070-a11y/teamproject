@@ -71,6 +71,8 @@ public class RecipeController {
 	
 	@GetMapping(value="/insertFrm")
 	public String recipeInsertFrm(Model model, @SessionAttribute Member member) {
+		System.out.println(member);
+		model.addAttribute(member);
 		return "recipe/insertFrm";
 	}
 	
