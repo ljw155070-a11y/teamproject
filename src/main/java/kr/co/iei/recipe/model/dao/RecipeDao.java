@@ -1,5 +1,6 @@
 package kr.co.iei.recipe.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -49,6 +50,14 @@ public interface RecipeDao {
 	int recipeCommentReportSelect(int recipeCommentNo, int memberNo);
 
 	int recipeCommentDelete(int recipeCommentNo);
+
+	int recipeRInsert(Recipe r);
+
+	int recipeNoCreate();
+
+	int recipeRIInsert(RecipeIngredient ri);
+
+	int recipeRCOLInsert(RecipeCookingOrder rco);
 
 	
 }
