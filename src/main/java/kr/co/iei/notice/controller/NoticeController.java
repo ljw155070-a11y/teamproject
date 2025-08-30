@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletResponse;
 import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.notice.model.service.NoticeService;
 import kr.co.iei.notice.model.vo.Notice;
@@ -85,6 +85,11 @@ public class NoticeController {
 			return "notice/detail";
 		}
 	}
+	@GetMapping(value="/fileDown")
+	public void fileDown(int noticeFileNo, HttpServletResponse response) {
+		NoticeFile noticeFile = noticeService.selectOneNoticeFile(noticeFileNo);
+	}
+	
 	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
 	@ResponseBody
 	public String editorImgUpload(MultipartFile upfile) {

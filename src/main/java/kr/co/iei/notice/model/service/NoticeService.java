@@ -93,6 +93,10 @@ public class NoticeService {
 		List filelist = noticeDao.selectNoticeFile(noticeNo);
 		return n;
 	}
+	public NoticeFile selectOneNoticeFile(int noticeFileNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }	
 
 	/*
