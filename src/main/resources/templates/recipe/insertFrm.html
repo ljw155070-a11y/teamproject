@@ -61,16 +61,19 @@
 			<form action="/recipe/insert" method="post" enctype="multipart/form-data">
 				<div class="recipe content-box">
 					<div class="recipe insert-title">
+					<!-- ★★★★★★★★★★★★★★제목 텍스트 값 전송★★★★★★★★★★★★★★★ -->
 						<span>게시글 제목:</span><input type="text" name="recipeTitle">
 					</div>
 					<div class="recipe insert-thumbnail">
 						<span>썸네일:</span>
+						<!-- ★★★★★★★★★★★★★★썸네일 파일 이름 전송★★★★★★★★★★★★★★★ -->
 						<input type="file" name="recipeThumbnailPath" accept="image/*">
 					</div>
 					<div class="recipe insert-info">
 						<div class="recipe insert-info-1">
 							<span>태그 :</span>
-							<select>
+							<!-- ★★★★★★★★★★★★★★레시피 종류 전송★★★★★★★★★★★★★★★ -->
+							<select name="recipeType">
 								<option value="1">한식</option>
 								<option value="2">중식</option>
 								<option value="3">일식</option>
@@ -79,6 +82,7 @@
 						</div>
 						<div class="recipe insert-info-2">
 							<span>난이도 :</span>
+							<!-- ★★★★★★★★★★★★★★레시피 난이도 전송★★★★★★★★★★★★★★★ -->
 							<select name="recipeLevel">
 								<option value="1">쉬움</option>
 								<option value="2">보통</option>
@@ -87,6 +91,7 @@
 						</div>
 						<div class="recipe insert-info-3">
 							<span>소요 시간 :</span>
+							<!-- ★★★★★★★★★★★★★★레시피 조리시간 전송★★★★★★★★★★★★★★★ -->
 							<select name="recipeCookingTime">
 								<option value="10">10분 미만</option>
 								<option value="30">30분 미만</option>
@@ -97,8 +102,10 @@
 						</div>
 						<div class="recipe ingredient">
 							<span>재료명 : </span>
+							<!-- ★★★★★★★★★★★★★★레시피 재료명 전송★★★★★★★★★★★★★★★ -->
 							<input type="text" name="recipeIngredientName">
 							<span>용량 : </span>
+							<!-- ★★★★★★★★★★★★★★레시피 재료 용량 전송★★★★★★★★★★★★★★★ -->
 							<input type="text" name="recipeIngredientVolume">
 						</div>
 						<div class="recipe cooking order">
@@ -106,13 +113,16 @@
 							<div id="stepBox">
 								<div class="order dynamic">
 									<span>Step 1</span>
+									<!-- ★★★★★★★★★★★★★★레시피 조리내용 전송★★★★★★★★★★★★★★★ -->
 									<input type="text" name="recipeCookingContent" placeholder = "이곳에 설명을 입력하세요">
+									<!-- ★★★★★★★★★★★★★★레시피 조리 이미지 전송★★★★★★★★★★★★★★★ -->
 									<input type="file" name="recipeCookingOrderImgPath" accept="image/*">
 								</div>
 							</div>
 						</div>						
 						<div class="recipe caution">
 							<span>주의 사항 : </span>
+							<!-- ★★★★★★★★★★★★★★주의사항 전송★★★★★★★★★★★★★★★ -->
 							<input type="text" name="recipeCaution" placeholder = "이곳에 설명을 입력하세요">
 						</div>
 						<div class="recipe insertBtn">
@@ -127,7 +137,7 @@
 	
 		  // [+] 새 스텝 추가
 		  $('#stepPlusBtn').on('click', function(){
-			let orderdivs = $(".order.dynamic");
+			let orderdivs = $("#stepBox .order.dynamic");
 			let orderNo = orderdivs.length;
 			//--------02_control.js > func9--------------
 			
@@ -145,8 +155,8 @@
 			console.log("5. 현재 마지막 배열 인덱스 : "+ orderArrIndex);
 			
 			//2. .order.dynamic 자식의 자식 span text() 값을 변경
-			orderNo++;
-			orderNoSpanText = "Step "+orderNo; 
+			let nextNo = orderNo+1;
+			orderNoSpanText = "Step "+nextNo; 
 			console.log("6. + 버튼을 누르면 들어가야할 스탭 span Text : " + orderNoSpanText);
 			//$(".order.dynamic span").text(orderNoSpanText);
 			
@@ -160,13 +170,22 @@
 			console.log("복사된 DIV : ", cloneDiv[0].outerHTML);
 			
 			//3. stepBox에 세팅된 div append 하기
-			$(stepBox).append(cloneDiv);
+			$('#stepBox').append(cloneDiv);
 			//********동일한 name 으로 이미지 여러개 전송하면 어케 되는지 확인해야함
 		  });
 
 		  // [-] 마지막 스텝 삭제 (최소 1개 유지) + 번호 감소
 		  $('#stepMinusBtn').on('click', function(){
-		
+		  	let orderdivs = $("#stepBox .order.dynamic");
+			let orderNo = orderdivs.length;
+			console.log("현재 마지막 조리 순서 :");
+			console.log(orderNo);
+			console.log("마지막 조리 순서의 인덱스 :");
+			let orderArrIndex = (orderNo-1);
+			console.log(orderArrIndex);
+			if(orderArrIndex!==0){
+				orderdivs.eq(orderArrIndex).remove();
+			}
 		  });
 
 		</script>
