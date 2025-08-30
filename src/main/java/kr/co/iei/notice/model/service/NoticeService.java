@@ -94,8 +94,8 @@ public class NoticeService {
 		return n;
 	}
 	public NoticeFile selectOneNoticeFile(int noticeFileNo) {
-		// TODO Auto-generated method stub
-		return null;
+		NoticeFile noticeFile = noticeDao.selectOneNoticeFile(noticeFileNo);
+		return noticeFile;
 	}
 }	
 
