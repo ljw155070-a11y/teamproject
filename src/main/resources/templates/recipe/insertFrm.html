@@ -101,12 +101,17 @@
 							</select>
 						</div>
 						<div class="recipe ingredient">
-							<span>재료명 : </span>
-							<!-- ★★★★★★★★★★★★★★레시피 재료명 전송★★★★★★★★★★★★★★★ -->
-							<input type="text" name="recipeIngredientName">
-							<span>용량 : </span>
-							<!-- ★★★★★★★★★★★★★★레시피 재료 용량 전송★★★★★★★★★★★★★★★ -->
-							<input type="text" name="recipeIngredientVolume">
+							<div id="ingredientBox">
+								<span>들어가는 재료 : </span><button type="button" id="ingredientPlusBtn">+</button><button type="button" id="ingredientMinusBtn">-</button>
+								<div class="ingredient dynamic">
+									<span>재료명 : </span>
+									<!-- ★★★★★★★★★★★★★★레시피 재료명 전송★★★★★★★★★★★★★★★ -->
+									<input type="text" name="recipeIngredientName">
+									<span>용량 : </span>
+									<!-- ★★★★★★★★★★★★★★레시피 재료 용량 전송★★★★★★★★★★★★★★★ -->
+									<input type="text" name="recipeIngredientVolume">
+								</div>
+							</div>
 						</div>
 						<div class="recipe cooking order">
 							<span>조리 순서 : </span><button type="button" id="stepPlusBtn">+</button><button type="button" id="stepMinusBtn">-</button>
@@ -134,6 +139,30 @@
 		</section>
 	</main>
 	<script>
+		$('#ingredientPlusBtn').on('click', function(){
+			let ingredientDivs = $("#ingredientBox .ingredient.dynamic");
+			let ingredientNo = ingredientDivs.length;
+			//--------02_control.js > func9--------------
+			
+			//0. const orderdivs=$(".order.dynamic"); -> 현재 스탭 div 박스가 몇개인지 
+			console.log("1. 현재 재료 모든 div box (배열) : ");
+			console.log(ingredientDivs);
+			console.log("2. 1번에 있는 div 의 개수 : " + ingredientNo);
+			let cloneDiv = ingredientDivs.eq(ingredientNo-1).clone();
+			cloneDiv.find('input').val("");
+			
+			//3. stepBox에 세팅된 div append 하기
+			$('#ingredientBox').append(cloneDiv);
+			//********동일한 name 으로 이미지 여러개 전송하면 어케 되는지 확인해야함
+		  });
+		
+		$('#ingredientMinusBtn').on('click', function(){
+			let ingredientDivs = $("#ingredientBox .ingredient.dynamic");
+			let ingredientNo = ingredientDivs.length;
+			if(ingredientNo>1){
+				ingredientDivs.eq(ingredientNo-1).remove();
+			}
+		});
 	
 		  // [+] 새 스텝 추가
 		  $('#stepPlusBtn').on('click', function(){
