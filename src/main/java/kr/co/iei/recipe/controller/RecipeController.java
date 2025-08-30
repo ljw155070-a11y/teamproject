@@ -219,7 +219,7 @@ public class RecipeController {
 			}
 		}
 		
-		int result = recipeService.insertRecipe();
+		int result = recipeService.insertRecipe(r, ingredientList, cookingOrderList);
 		if (result > 0) {
 	        model.addAttribute("title", "레시피 등록 완료");
 	        model.addAttribute("text", "레시피가 등록되었습니다.");
