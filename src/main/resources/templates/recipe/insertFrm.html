@@ -35,21 +35,109 @@
 		display:flex;
 		justify-content:center;
 		align-items:center;
+		gap:12px;
+		margin: 40px auto;
+		padding: 0 8px;
 	}
-	.recipe input[type="text"],.recipe select{
-		width:100%;
+	.recipe input[name="recipeTitle"]{
+		width:80%;
 		padding:0px 10px;
 		margin:0px 10px;
 		height: 40px;
 		font-size:16px;
 		border:1px solid #dddddd;
+		text-align:center;
 	}
 	*{
 		box-sizing:border-box;
 	}
 	
-	
-	
+	.boxbtn{
+	  display: inline-flex;
+	  align-items: center;
+	  justify-content: center;
+	  width: 32px;
+	  height: 32px;
+	  margin-left: 6px;
+	  border: 1px solid #ddd;
+	  border-radius: 16px;
+	  font-weight: 800;
+	  font-size: 18px;
+	  cursor: pointer;
+	}
+
+#ingredientPlusBtn, #stepPlusBtn{
+  	background-color: #ffca8a;
+  	border-color: #EBA854;
+  	color:white;
+}
+#ingredientPlusBtn:hover, #stepPlusBtn:hover{
+  	background-color: #d88d33;
+	border-color: #d88d33;
+}
+
+#ingredientMinusBtn, #stepMinusBtn{
+  	background-color: #f5f5f5;
+  	color: #666;
+}
+#ingredientMinusBtn:hover, #stepMinusBtn:hover{
+  	background-color: #e9e9e9;
+  	border-color: #ccc;
+  	color: #444;
+}
+.insert-info-1{
+	display:flex;
+	align-items: center;
+	gap : 12px;
+	justify-content:space-between;
+	margin : 20px 0px;
+	padding : 0px 40px;
+}
+.recipe.insertBtn{ 
+	margin-top: 28px; 
+}
+
+.recipe.insertBtn input[type="submit"]{
+  border: 0;
+  cursor: pointer;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 12px;
+  background: #FF9D23;           /* 메인 컬러 */
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+  box-shadow: 6px 6px 16px #EBA854;
+  /*가로 세로 번짐 크기 색상*/
+}
+
+.recipe.insertBtn input[type="submit"]:hover{
+  background:#f28b07;
+  box-shadow: 0 8px 20px #BFBFBF;
+}
+
+.recipe.insertBtn input[type="submit"]{
+	width: 100%;
+	max-width: 360px; 
+}
+
+#ingredientBox{
+	margin-bottom:50px;
+}
+#ingredientBox .dynamic{
+	margin-top:10px;
+}
+
+#stepBox{
+	margin-top:10px;
+}
+#stepBox .dynamic{
+	margin-top:10px;
+}
+
+.caution{
+	margin:50px 10px;
+}
 </style>
 </head>
 <body>
@@ -62,7 +150,7 @@
 				<div class="recipe content-box">
 					<div class="recipe insert-title">
 					<!-- ★★★★★★★★★★★★★★제목 텍스트 값 전송★★★★★★★★★★★★★★★ -->
-						<span>게시글 제목:</span><input type="text" name="recipeTitle">
+						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피">
 					</div>
 					<div class="recipe insert-thumbnail">
 						<span>썸네일:</span>
@@ -70,39 +158,41 @@
 						<input type="file" name="recipeThumbnailFile" accept="image/*">
 					</div>
 					<div class="recipe insert-info">
-						<div class="recipe insert-info-1">
-							<span>태그 :</span>
-							<!-- ★★★★★★★★★★★★★★레시피 종류 전송★★★★★★★★★★★★★★★ -->
-							<select name="recipeType">
-								<option value="한식">한식</option>
-								<option value="중식">중식</option>
-								<option value="일식">일식</option>
-								<option value="양식">양식</option>
-							</select>
-						</div>
-						<div class="recipe insert-info-2">
-							<span>난이도 :</span>
-							<!-- ★★★★★★★★★★★★★★레시피 난이도 전송★★★★★★★★★★★★★★★ -->
-							<select name="recipeLevel">
-								<option value="하">쉬움</option>
-								<option value="중">보통</option>
-								<option value="상">어려움</option>
-							</select>
-						</div>
-						<div class="recipe insert-info-3">
-							<span>소요 시간 :</span>
-							<!-- ★★★★★★★★★★★★★★레시피 조리시간 전송★★★★★★★★★★★★★★★ -->
-							<select name="recipeCookingTime">
-								<option value="10">10분 미만</option>
-								<option value="30">30분 미만</option>
-								<option value="60">1시간 미만</option>
-								<option value="120">2시간 미만</option>
-								<option value="180">3시간 미만</option>
-							</select>
+						<div class="insert-info-1">
+							<div class="recipe insert-info-1">
+								<span>태그 :</span>
+								<!-- ★★★★★★★★★★★★★★레시피 종류 전송★★★★★★★★★★★★★★★ -->
+								<select name="recipeType">
+									<option value="한식">한식</option>
+									<option value="중식">중식</option>
+									<option value="일식">일식</option>
+									<option value="양식">양식</option>
+								</select>
+							</div>
+							<div class="recipe insert-info-2">
+								<span>난이도 :</span>
+								<!-- ★★★★★★★★★★★★★★레시피 난이도 전송★★★★★★★★★★★★★★★ -->
+								<select name="recipeLevel">
+									<option value="하">쉬움</option>
+									<option value="중">보통</option>
+									<option value="상">어려움</option>
+								</select>
+							</div>
+							<div class="recipe insert-info-3">
+								<span>소요 시간 :</span>
+								<!-- ★★★★★★★★★★★★★★레시피 조리시간 전송★★★★★★★★★★★★★★★ -->
+								<select name="recipeCookingTime">
+									<option value="10">10분 미만</option>
+									<option value="30">30분 미만</option>
+									<option value="60">1시간 미만</option>
+									<option value="120">2시간 미만</option>
+									<option value="180">3시간 미만</option>
+								</select>
+							</div>
 						</div>
 						<div class="recipe ingredient">
 							<div id="ingredientBox">
-								<span>들어가는 재료 : </span><button type="button" id="ingredientPlusBtn">+</button><button type="button" id="ingredientMinusBtn">-</button>
+								<span>들어가는 재료 : </span><button type="button" class="boxbtn" id="ingredientPlusBtn">+</button><button type="button" class="boxbtn" id="ingredientMinusBtn">-</button>
 								<div class="ingredient dynamic">
 									<span>재료명 : </span>
 									<!-- ★★★★★★★★★★★★★★레시피 재료명 전송★★★★★★★★★★★★★★★ -->
@@ -114,7 +204,7 @@
 							</div>
 						</div>
 						<div class="recipe cooking order">
-							<span>조리 순서 : </span><button type="button" id="stepPlusBtn">+</button><button type="button" id="stepMinusBtn">-</button>
+							<span>조리 순서 : </span><button type="button" class="boxbtn" id="stepPlusBtn">+</button><button type="button" class="boxbtn" id="stepMinusBtn">-</button>
 							<div id="stepBox">
 								<div class="order dynamic">
 									<span>Step 1</span>
