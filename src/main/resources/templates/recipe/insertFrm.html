@@ -166,7 +166,16 @@
 
 		  // [-] 마지막 스텝 삭제 (최소 1개 유지) + 번호 감소
 		  $('#stepMinusBtn').on('click', function(){
-		
+		  	let orderdivs = $(".order.dynamic");
+			let orderNo = orderdivs.length;
+			console.log("현재 마지막 조리 순서 :");
+			console.log(orderNo);
+			console.log("마지막 조리 순서의 인덱스 :");
+			let orderArrIndex = (orderNo-1);
+			console.log(orderArrIndex);
+			if(orderArrIndex!==0){
+				orderdivs.eq(orderArrIndex).remove();
+			}
 		  });
 
 		</script>
