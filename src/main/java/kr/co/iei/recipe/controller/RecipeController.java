@@ -125,16 +125,120 @@ public class RecipeController {
 	@Autowired
 	private FileUtil fileUtil;
 	
-	/*
+
 	
 	@PostMapping(value="/insert")
-	public String insertRecipe(Recipe r, String[] recipeCookingContent, MultipartFile[] recipeCookingOrderImgPath, @SessionAttribute Member member) {
-		RecipeIngredient ri = new RecipeIngredient();
+	public String insertRecipe(Recipe r, 
+								MultipartFile recipeThumbnailFile,
+								String[] recipeIngredientName, 
+								String[] recipeIngredientVolume, 
+								String[] recipeCookingContent, 
+								MultipartFile[] recipeCookingOrderImgFile,
+								@SessionAttribute Member member,
+								Model model) {
 		
+		r.setMemberNo(member.getMemberNo());
+		//전달 받은 정보 형태부터 확인
+		/*
+		 * System.out.println(r);
+		System.out.println(recipeIngredientName[0]);
+		System.out.println(recipeIngredientName[1]);
+		System.out.println(recipeIngredientVolume[0]);
+		System.out.println(recipeIngredientVolume[1]);
+		System.out.println(recipeCookingContent[0]);
+		System.out.println(recipeCookingContent[1]);
+		System.out.println(recipeThumbnailFile);
+		 */
+ 
+		/*
+		 * 레시피
+		 * 	RECIPE_NO				: 현재 0임 자동 채번
+			RECIPE_TYPE				: r에 있음
+			RECIPE_TITLE			: r에 있음
+			RECIPE_CAUTION			: r에 있음
+			RECIPE_COOKING_TIME		: r에 있음
+			RECIPE_LEVEL			: r에 있음
+			RECIPE_VIEW_COUNT		: r에 있으나 초기값 0
+			RECIPE_WRITE_DATE		: sysdate 자동
+			RECIPE_UPDATE_DATE		: null
+			MEMBER_NO				: r에 있음
+			RECIPE_THUMBNAIL_PATH	: null 세팅해야함
+		 * 
+		 */
+		if(!recipeThumbnailFile.isEmpty()) {
+			String thumbSavepath = root+"/recipe/thumb";
+			String filename = recipeThumbnailFile.getOriginalFilename();
+			String filepath = fileUtil.upload(thumbSavepath,recipeThumbnailFile);
+			System.out.println(filepath);
+			r.setRecipeThumbnailPath(filepath);
+		}//비어있으면 기본 이미지 경로로 세팅해야 함
+		//이러면 r 은 준비 완료
 		
+		//재료랑 조리 순서 준비해야함
+		ArrayList<RecipeIngredient> ingredientList = new ArrayList<>();
+		if(recipeIngredientName[0] != null) {
+			for(int i=0; i<recipeIngredientName.length; i++) {
+				String name = recipeIngredientName[i];
+				String vol  = recipeIngredientVolume[i];
+				RecipeIngredient ri = new RecipeIngredient();
+				/*
+				 * 재료
+				 * 	RECIPE_INGREDIENT_NO		: 자동 채번
+					RECIPE_NO					: 서비스에서 r부터 집어넣고 no를 전달 받아야함
+					RECIPE_INGREDIENT_NAME		: ri에 있음
+					RECIPE_INGREDIENT_VOLUME	: ri에 있음
+				 * 
+				 * 
+				 */
+				ri.setRecipeIngredientName(name);
+				ri.setRecipeIngredientVolume(vol);
+				ingredientList.add(ri);
+			}
+		}
+		ArrayList<RecipeCookingOrder> cookingOrderList = new ArrayList<>(); 
+		String cookingOrderfileSavepath = root+"/recipe/order";
+		if(recipeCookingContent != null) {
+			for(int i=0; i<recipeCookingContent.length; i++) {
+				String content = recipeCookingContent[i];
+				String filename = recipeCookingOrderImgFile[i].getOriginalFilename();
+				String filepath = fileUtil.upload(cookingOrderfileSavepath,recipeCookingOrderImgFile[i]);
+				System.out.println(content);
+				System.out.println(filepath);
+				RecipeCookingOrder rco = new RecipeCookingOrder();
+				/*
+				 * 	RECIPE_COOKING_ORDER			: i+1 값으로 저장해서 넘겨줌
+					RECIPE_NO						: 서비스에서 r부터 집어넣고 no 전달받아야함 
+					RECIPE_COOKING_CONTENT			: rco에서 줌
+					RECIPE_COOKING_ORDER_IMG_PATH	: rco 에서 줌
+				 */
+				
+				rco.setRecipeCookingOrder(i+1);
+				rco.setRecipeCookingContent(content);
+				rco.setRecipeCookingOrderImgPath(filepath);
+				cookingOrderList.add(rco);
+			}
+		}
 		
+		int result = recipeService.insertRecipe();
+		if (result > 0) {
+	        model.addAttribute("title", "레시피 등록 완료");
+	        model.addAttribute("text", "레시피가 등록되었습니다.");
+	        model.addAttribute("icon", "success");
+	        model.addAttribute("loc", "/recipe/list?reqPage=1");
+	    } else {
+	        model.addAttribute("title", "레시피 등록 실패");
+	        model.addAttribute("text", "잠시 후 다시 시도해주세요.");
+	        model.addAttribute("icon", "error");
+	        model.addAttribute("loc", "/recipe/insertFrm");
+	    }
+		
+		return "common/msg";
 	}
-	*/
+}
+		
+		
+		
+	
 	/*
 	 * 	public String boardWrite(Board b, MultipartFile[] upfile, Model model) {
 		System.out.println(b);
@@ -160,4 +264,4 @@ public class RecipeController {
 	}
 	 * 
 	 * */
-}
+
