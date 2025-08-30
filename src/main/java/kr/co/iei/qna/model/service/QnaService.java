@@ -102,6 +102,7 @@ public class QnaService {
 
 	public int deleteQnaComment(int qnaCommentNo) {
 		int result = qnaDao.deleteQnaComment(qnaCommentNo);
+		System.out.println(result);
 		return result;
 	}
 	

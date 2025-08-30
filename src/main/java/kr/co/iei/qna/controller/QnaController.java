@@ -55,9 +55,10 @@ public class QnaController {
 		return result;
 	}
 	
-	@GetMapping(value="deleteComment")
+	@GetMapping(value="/deleteComment")
 	public String deleteComment(QnaComment qc) {
 		int result = qnaService.deleteQnaComment(qc.getQnaCommentNo());
-		return "/";
+		
+		return "redirect:/qna/view?qnaNo="+qc.getQnaNo();
 	}
 }

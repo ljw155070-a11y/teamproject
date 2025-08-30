@@ -275,7 +275,7 @@
 					<div class="commentBtn" onShow="showBtn()" th:if="${session.member != null}">
 						<button id="commentUpdate" th:onclick="updateComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">수정하기</button>
 						<button id="commentDelete" th:onclick="deleteComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">삭제하기</button>
-						<button id="commentReport">신고하기</button>
+						<button id="commentReport" th:if="${session.member.memberNo != qc.memberNo}">신고하기</button>
 					</div>
 			</th:block>
 		</section>
@@ -351,6 +351,23 @@
 					}
 			});		
 		}); //게시글 신고 끝
+		
+		$("#commentDelete").on("click",function(){
+			$.ajax({
+				url: "/qna/deleteComment",
+				type: "get",
+				data: {qnaNo : qnaNo, QnaCommentNo : QnaCommentNo},
+				success: function(){
+					
+				}
+			})
+		});
+		function deleteComment(qnaNo, qnaCommentNo){
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				location.href="/qna/deleteComment?qnaNo="+qnaNo+"&qnaCommentNo="+qnaCommentNo;
+			}
+			console.log(qnaNo, qnaCommentNo);
+		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
