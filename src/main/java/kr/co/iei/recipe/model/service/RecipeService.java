@@ -174,11 +174,12 @@ public class RecipeService {
 
 
 	public HashMap<String, Object> recipeReportedList(int reqPage) {
+		
 		int numPerPage = 10;
 		
 		
 		int end = reqPage * numPerPage;
-		int start = end - numPerPage;
+		int start = end - numPerPage+1;
 		
 		List<Member> list = recipeDao.recipeReportedList(start, end);
 		
@@ -220,6 +221,9 @@ public class RecipeService {
 		
 		reqSet.put("pageInfo", pageInfo);
 		reqSet.put("list", list);
+		
+		
+		
 		
 		return reqSet;
 	}	

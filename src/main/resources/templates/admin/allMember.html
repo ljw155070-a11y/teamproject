@@ -61,7 +61,7 @@
 	background-color: #FBA854;
 	border-radius: 50%;
 	margin: 6px;
-	color: #000;
+	color: #fff;
 	text-align: center;
 }
 
@@ -74,13 +74,26 @@
 	background-color: #ffffff;
 	border-radius: 50%;
 	margin: 6px;
-	color: #000;
+	color: #8F8F8F;
 	text-align: center;
 }
-
 .allMember-pageNavi {
-	text-align: center;
-	text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 4px;
+}  
+.allMember-pageNavi a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px; 
+  min-width: 28px;
+  text-decoration: none;
+}
+.material-symbols-outlined{
+	color:#8F8F8F;
+    line-height: 1;
 }
 
 .checkbox-wrap>input[type="checkbox"] {
@@ -173,7 +186,7 @@
 	resize: none;
 }
 .search-input{
-	margin : 30px 0px;
+	margin : 30px auto;
 	padding : 8px 12px;
 	width : 10%;
 	border-radius:48px;
@@ -183,13 +196,12 @@
 	background-color:white;
 	height:40px;
 	box-sizing:border-box;
-		
 }
 .search-input.div{
 	display:flex;
 	align-items:center;
 	justify-content:flex-end;
-	width:100%;
+	width:55%;
 		
 }
 .search-input input{
@@ -250,7 +262,7 @@
 			<div class="input-wrap">
 				<form th:action="@{/admin/searchMember}" method="get">
 					<div class="search-input div">
-						<input type="text" name="memberNickname" placeholder="조회 할 회원의 닉네임을 입력해주세요">
+						<input type="text" name="memberNickname" th:value="${memberNickname}" placeholder="조회 할 회원의 닉네임을 입력해주세요">
 						<span class="material-icons" id="qnaSearchBox">search</span>
 					</div>
 				</form>
