@@ -58,7 +58,7 @@
 	<main class="recipe content">
 		<div class="recipe title"><span>게시글 작성</span></div>
 		<section>
-			<form action="/recipe/insert" method="get" enctype="multipart/form-data">
+			<form action="/recipe/insert" method="post" enctype="multipart/form-data">
 				<div class="recipe content-box">
 					<div class="recipe insert-title">
 						<span>게시글 제목:</span><input type="text" name="recipeTitle">
@@ -105,7 +105,7 @@
 							<span>조리 순서 : </span><button type="button" id="stepPlusBtn">+</button><button type="button" id="stepMinusBtn">-</button>
 							<div id="stepBox">
 								<div class="order dynamic">
-									<span>Step<span>1</span></span>
+									<span>Step 1</span>
 									<input type="text" name="recipeCookingContent" placeholder = "이곳에 설명을 입력하세요">
 									<input type="file" name="recipeCookingOrderImgPath" accept="image/*">
 								</div>
@@ -127,16 +127,40 @@
 	
 		  // [+] 새 스텝 추가
 		  $('#stepPlusBtn').on('click', function(){
-			//-----------현재 div 복사해서 복사된 내용을 변경하고 추가하는 방식 (후순위)----
-			//0. order dynamic 클래스의 자식 span 의 자식 span 의 val 을 확인하고 const 로 변수 대입 
-			//1. orderno 기준 부모의 부모 div인 order dynamic 클래스 div 를 복사(clone)하고,
-			//2. 복사된 div 내 orderno
-			//3. orderno 기준 부모의 부모 div 바로 다음 요소 (after)에 복사된 div 를 추가
+			let orderdivs = $(".order.dynamic");
+			let orderNo = orderdivs.length;
 			//--------02_control.js > func9--------------
-			//0. const orderdivs=$(".order.dynamic"); -> 현재 스탭 div 박스가 몇개인지 알 수 있음 (배열로 저장됨)
+			
+			//0. const orderdivs=$(".order.dynamic"); -> 현재 스탭 div 박스가 몇개인지 
+			console.log("1. 현재 조리 순서 관련 모든 div box (배열) : ");
+			console.log(orderdivs);
+			console.log("2. 그 중 첫번째 div (대표적인 것) : ");
+			console.log(orderdivs.eq(0));
+			console.log("3. 1번에 있는 div 의 개수 : " + orderNo);
+			let orderNoSpanText = "Step "+orderNo; 
+			console.log("4. 현재 마지막 조리 순서 :"+ orderNoSpanText);
+			
 			//1. orderdivs.length 확인하고 이걸 또 저장해야함 const i = orderdivs.length
-			//2. 현재 배열의 길이 +1 으로 .order.dynamic 자식의 자식 span val() 값을 변경
+			const orderArrIndex = (orderdivs.length)-1;
+			console.log("5. 현재 마지막 배열 인덱스 : "+ orderArrIndex);
+			
+			//2. .order.dynamic 자식의 자식 span text() 값을 변경
+			orderNo++;
+			orderNoSpanText = "Step "+orderNo; 
+			console.log("6. + 버튼을 누르면 들어가야할 스탭 span Text : " + orderNoSpanText);
+			//$(".order.dynamic span").text(orderNoSpanText);
+			
+			//마지막 배열의 div를 복사
+			let cloneDiv = orderdivs.eq(orderArrIndex).clone();
+			console.log("7. 복사된 마지막 div : ");
+			console.log(cloneDiv);
+			cloneDiv.find('span').text(orderNoSpanText);
+			cloneDiv.find('input').val('');
+			console.log(cloneDiv);
+			console.log("복사된 DIV : ", cloneDiv[0].outerHTML);
+			
 			//3. stepBox에 세팅된 div append 하기
+			$(stepBox).append(cloneDiv);
 			//********동일한 name 으로 이미지 여러개 전송하면 어케 되는지 확인해야함
 		  });
 
@@ -146,7 +170,6 @@
 		  });
 
 		</script>
-	</script>
 	<th:block th:include="common/footer"></th:block>
 
 </body>
