@@ -20,6 +20,8 @@ import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.recipe.model.service.RecipeService;
 import kr.co.iei.recipe.model.vo.Recipe;
 import kr.co.iei.recipe.model.vo.RecipeComment;
+import kr.co.iei.recipe.model.vo.RecipeCookingOrder;
+import kr.co.iei.recipe.model.vo.RecipeIngredient;
 import kr.co.iei.util.FileUtil;
 
 @Controller
@@ -123,6 +125,16 @@ public class RecipeController {
 	@Autowired
 	private FileUtil fileUtil;
 	
+	/*
+	
+	@PostMapping(value="/insert")
+	public String insertRecipe(Recipe r, String[] recipeCookingContent, MultipartFile[] recipeCookingOrderImgPath, @SessionAttribute Member member) {
+		RecipeIngredient ri = new RecipeIngredient();
+		
+		
+		
+	}
+	*/
 	/*
 	 * 	public String boardWrite(Board b, MultipartFile[] upfile, Model model) {
 		System.out.println(b);
