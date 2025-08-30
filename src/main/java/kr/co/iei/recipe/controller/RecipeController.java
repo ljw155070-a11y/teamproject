@@ -152,25 +152,25 @@ public class RecipeController {
  
 		/*
 		 * 레시피
-		 * 	RECIPE_NO				: 현재 0임 자동 채번
-			RECIPE_TYPE				: r에 있음
-			RECIPE_TITLE			: r에 있음
-			RECIPE_CAUTION			: r에 있음
-			RECIPE_COOKING_TIME		: r에 있음
-			RECIPE_LEVEL			: r에 있음
+		 * 	-RECIPE_NO				: 현재 0임 자동 채번 - 
+			-RECIPE_TYPE				: r에 있음
+			-RECIPE_TITLE			: r에 있음
+			-RECIPE_CAUTION			: r에 있음
+			-RECIPE_COOKING_TIME		: r에 있음
+			-RECIPE_LEVEL			: r에 있음
 			RECIPE_VIEW_COUNT		: r에 있으나 초기값 0
 			RECIPE_WRITE_DATE		: sysdate 자동
 			RECIPE_UPDATE_DATE		: null
-			MEMBER_NO				: r에 있음
+			-MEMBER_NO				: r에 있음
 			RECIPE_THUMBNAIL_PATH	: null 세팅해야함
 		 * 
 		 */
 		if(!recipeThumbnailFile.isEmpty()) {
-			String thumbSavepath = root+"/recipe/thumb";
+			String thumbSavepath = root+"/recipe/";
 			String filename = recipeThumbnailFile.getOriginalFilename();
 			String filepath = fileUtil.upload(thumbSavepath,recipeThumbnailFile);
-			System.out.println(filepath);
-			r.setRecipeThumbnailPath(filepath);
+			System.out.println("/upload/recipe/"+filepath);
+			r.setRecipeThumbnailPath("/upload/recipe/"+filepath);
 		}//비어있으면 기본 이미지 경로로 세팅해야 함
 		//이러면 r 은 준비 완료
 		
@@ -196,7 +196,7 @@ public class RecipeController {
 			}
 		}
 		ArrayList<RecipeCookingOrder> cookingOrderList = new ArrayList<>(); 
-		String cookingOrderfileSavepath = root+"/recipe/order";
+		String cookingOrderfileSavepath = root+"/recipe/";
 		if(recipeCookingContent != null) {
 			for(int i=0; i<recipeCookingContent.length; i++) {
 				String content = recipeCookingContent[i];
@@ -214,13 +214,13 @@ public class RecipeController {
 				
 				rco.setRecipeCookingOrder(i+1);
 				rco.setRecipeCookingContent(content);
-				rco.setRecipeCookingOrderImgPath(filepath);
+				rco.setRecipeCookingOrderImgPath("/upload/recipe/"+filepath);
 				cookingOrderList.add(rco);
 			}
 		}
 		
 		int result = recipeService.insertRecipe(r, ingredientList, cookingOrderList);
-		if (result > 0) {
+		if (result > 1) {
 	        model.addAttribute("title", "레시피 등록 완료");
 	        model.addAttribute("text", "레시피가 등록되었습니다.");
 	        model.addAttribute("icon", "success");

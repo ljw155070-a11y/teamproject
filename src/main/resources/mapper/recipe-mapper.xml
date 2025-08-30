@@ -156,4 +156,60 @@ WHERE RECIPE_NO=#{reqRecipeNo}
 	<delete id="recipeCommentDelete">
 		DELETE RECIPE_COMMENT_TBL WHERE RECIPE_COMMENT_NO=#{recipeCommentNo}
 	</delete>
+	
+	<select id="recipeNoCreate" resultType="int">
+		SELECT RECIPE_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<insert id="recipeRInsert">
+		INSERT INTO RECIPE_TBL (
+		    RECIPE_NO,
+		    MEMBER_NO,
+		    RECIPE_TITLE,
+		    RECIPE_TYPE,
+		    RECIPE_LEVEL,
+		    RECIPE_COOKING_TIME, 
+		    RECIPE_CAUTION, 
+		    RECIPE_THUMBNAIL_PATH,
+		    RECIPE_WRITE_DATE
+		  ) VALUES (
+		    #{recipeNo}, 
+		    #{memberNo}, 
+		    #{recipeTitle}, 
+		    #{recipeType}, 
+		    #{recipeLevel},
+		    #{recipeCookingTime}, 
+		    #{recipeCaution}, 
+		    #{recipeThumbnailPath},
+		    SYSDATE
+		  )
+	</insert>
+	
+	<insert id="recipeRIInsert">
+		 INSERT INTO RECIPE_INGREDIENT_TBL (
+			 	RECIPE_INGREDIENT_NO, 
+		    	RECIPE_NO, 
+		    	RECIPE_INGREDIENT_NAME,
+		    	RECIPE_INGREDIENT_VOLUME
+	    	) VALUES (
+	    		RECIPE_INGREDIENT_NO_SEQ.NEXTVAL,
+	    		#{recipeNo},
+	    		#{recipeIngredientName},
+	    		#{recipeIngredientVolume}
+	    		)
+</insert>
+	<insert id="recipeRCOLInsert">
+		 INSERT INTO RECIPE_COOKING_ORDER_TBL (
+	 				RECIPE_COOKING_ORDER,
+      				RECIPE_NO, 
+      				RECIPE_COOKING_CONTENT, 
+      				RECIPE_COOKING_ORDER_IMG_PATH
+      				) VALUES (
+      				#{recipeCookingOrder},
+      				#{recipeNo}, 
+      				#{recipeCookingContent}, 
+      				#{recipeCookingOrderImgPath}
+      				)
+	</insert>
+
 </mapper>
