@@ -42,7 +42,31 @@
 	select * from notice_file_tbl where notice_no = #{noticeNo}
 	</select>
   
-  <select id="selectNoticeFile" resultType="noticeFile">
-  	select * from notice_file_tbl where notice_no = #{noticeNo}
+  <select id="selectOneNoticeFile" resultType="noticeFile">
+  	select * from notice_file_tbl where notice_file_no = #{noticeFileNo}
   </select>
+  
+  <update id="updateNotice">
+  	update notice_tbl set notice_title = #{noticeFileNo},
+  	notice_content = #{noticeContent} where notice_no = #{noticeNo}
+  </update>
+  
+  <delete id="deleteNoticeFile">
+  	delete from notice_file_tbl where notice_no = #{noticeNo}
+  </delete>
+  
+  <delete id="deleteNotice">
+  	delete from notice_tbl where notice_no = #{noticeNo}
+  </delete>
+  
+  <select id="selectNoticeFileList" resultType="noticeFile">
+		select *
+		from notice_file_tbl
+		where notice_file_no in
+		<foreach collection="array" item="noticeFileNo" open="("
+			close=")" separator=",">
+			#{noticeFileNo}
+		</foreach>
+	</select>
+	
 </mapper>

@@ -119,14 +119,20 @@ body {
 }
 
 .detail-content-btn .modify-btn {
+	text-decoration: none;
     border: none;
     cursor: pointer;
     background-color: #FF9D23;
     width: 130px;
-    height: 32px;
     border-radius: 50px;
     font-size: 16px;
     color: #fff;
+}
+
+.detail-content-btn a {
+	text-align: center;
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
 .detail-content-btn .delete-btn {
@@ -159,16 +165,14 @@ body {
                         </div>
                     </div>
                 <hr>
-                <form action="/notice/update" method="post" id="modify-content">
                     <div class="detail-content-box">
                         <textarea name="content-text" placeholder="운영 정책에 위반되는 글을 작성할 시 게시글이 삭제 조치될 수 있으며, 신고 누적 10회 시 회원 탈퇴가 될 수 있음을 알립니다."></textarea>
                         <hr>
                     </div>
                     <div class="detail-content-btn">
-                        <button type="submit" class="modify-btn">게시글 수정</button>
+                        <a th:href="@{/notice/updateFrm(noticeNo=${n.noticeNo})}" class="modify-btn">게시글 수정</a>
                         <button type="submit" class="delete-btn">게시글 삭제</button>
                     </div>
-                </form>
             </div>
         </section>
             <div class="detail-box2">
@@ -185,16 +189,14 @@ body {
                         </div>
                     </div>
                 <hr>
-                <form action="#" method="post" id="modify-content">
                     <div class="detail-content-box">
                         <textarea name="content-text" placeholder="이 플레이스홀더엔 무엇을 적어야 할고"></textarea>
                         <hr>
                     </div>
                     <div class="detail-content-btn">
-                        <button type="submit" class="modify-btn">게시글 수정</button>
+                        <a th:href="@{/notice/updateFrm(noticeNo=${n.noticeNo})}" class="modify-btn">게시글 수정</a>
                         <button type="submit" class="delete-btn">게시글 삭제</button>
                     </div>
-                </form>
             </div>
     	</main>
     <th:block th:include="common/footer"></th:block>

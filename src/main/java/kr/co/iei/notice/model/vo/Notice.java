@@ -1,6 +1,7 @@
 package kr.co.iei.notice.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -23,5 +24,7 @@ public class Notice {
 	private Date noticeUpdateDate;
 	private int noticeViewCount;
 	private int memberNo;
+	
+	private List<NoticeFile> fileList;
 
 }

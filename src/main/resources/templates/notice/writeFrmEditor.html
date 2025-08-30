@@ -112,7 +112,7 @@ body {
 	<th:block th:include="common/header"></th:block>
 	<main class="content notice-write-container">
 		<section class="section-notice-write-wrap">
-			<div class="page-title">공지사항 입력</div>
+			<div class="page-title">공지사항 입력(에디터)</div>
 			<div class="content-box">
 			<form action="/notice/write" method="post" enctype="multipart/form-data">
 				<div class="content-header">			
@@ -139,8 +139,8 @@ body {
 					</div>
 				</div>
 	            <textarea name=noticeWriteContent></textarea>							
-			</form>
 			<button class="add-btn" type="submit"><a href="/notice/list">추가하기</a></button>
+			</form>
 			</div>
 		</section>
 	</main>

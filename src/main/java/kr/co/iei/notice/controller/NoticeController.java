@@ -1,5 +1,6 @@
 package kr.co.iei.notice.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class NoticeController {
 			}
 		}
 		int result = noticeService.insertNotice(n, fileList);
-		model.addAttribute("title", "공지사항 작성 완료!");
+		model.addAttribute("title", "공지사항 등록 완료!");
 		model.addAttribute("text", "공지사항이 등록되었습니다.");
 		model.addAttribute("icon", "success");
 		model.addAttribute("loc", "/notice/list?reqPage=1");
@@ -88,6 +89,8 @@ public class NoticeController {
 	@GetMapping(value="/fileDown")
 	public void fileDown(int noticeFileNo, HttpServletResponse response) {
 		NoticeFile noticeFile = noticeService.selectOneNoticeFile(noticeFileNo);
+		String savepath = root + "/notice/";
+		fileUtil.downloadFile(savepath, noticeFile.getFilepath(), noticeFile.getFilename(), response);
 	}
 	
 	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
@@ -97,7 +100,36 @@ public class NoticeController {
 		String filepath = fileUtil.upload(savepath, upfile);
 		return filepath;
 	}
+	@GetMapping(value="/updateFrm")
+	public String updateFrm(int noticeNo, Model model) {
+		Notice n = noticeService.selectOneNotice(noticeNo, 0);
+		model.addAttribute("n", n);
+		return "notice/updateFrm";
+	}
+	@PostMapping(value="/update")
+	public String update(Notice n, MultipartFile[] upfile, int[] delFileNo) {
+		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
+		String savepath = root + "/notice/";
+		if(!upfile[0].isEmpty()) {
+			for (MultipartFile file : upfile) {
+				String filename = file.getOriginalFilename();
+				String filepath = fileUtil.upload(savepath, file);
+				NoticeFile nf = new NoticeFile();
+				nf.setFilename(filename);
+				nf.setFilepath(filepath);
+				fileList.add(nf);
+			}
+		}
+		List<NoticeFile> delFileList = noticeService.updateNotice(n, fileList, delFileNo);
+
+		for (NoticeFile noticeFile : delFileList) {
+			File delFile = new File(savepath + noticeFile.getFilepath());
+			delFile.delete();
+		}
+		return "redirect:/notice/view?noticeNo=" + n.getNoticeNo();
+	}
 }
+
 	
 	/*
 	@GetMapping(value="/list")
