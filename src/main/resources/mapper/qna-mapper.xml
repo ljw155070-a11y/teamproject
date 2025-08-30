@@ -39,4 +39,8 @@
 		insert into qna_report_tbl
    			values(#{qnaNo}, #{memberNo}, sysdate)
 	</insert>
+	
+	<delete id="deleteQnaComment">
+		delete from qna_comment_tbl where qna_comment_no = #{qnaCommentNo}
+	</delete>
 </mapper>
