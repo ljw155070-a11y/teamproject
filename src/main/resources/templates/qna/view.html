@@ -85,6 +85,7 @@
 	}
 	.update-delete>td{
 		border-top: 1px solid black;
+		text-align: center;
 	}
 	.update-delete>td>button{
 		margin: 0 auto;
@@ -98,17 +99,7 @@
 		color: white;
 		font-size: 15px;
 	}
-	.update-delete>td{
-		text-align: center;
-	}
-	/*
-	.update-delete>td>button:first-child{	
-		margin-left: 400px;
-	}
-	.update-delete>td>button:last-child{
-		margin-left: 10px;
-	}
-	*/
+	
 	.commentInputBox{
 		margin: 0 auto;
 		width: 100%;
@@ -224,7 +215,7 @@
 				</tr>
 				
 				<tr class="update-delete" onShow="showBtn()" th:if="${session.member != null}">
-					<td colspan="3">
+					<td colspan="3" th:if="${session.member.memberNo == q.memberNo}">
 						<button class="update-content">수정하기</button>
 						<button class="delete-content" th:onclick="deleteQna([[${q.qnaNo}]])">삭제하기</button>
 					</td>
@@ -379,14 +370,14 @@
 					location.href="/qna/delete?qnaNo="+(qnaNo);
 				}
 			})
-		}
+		}//게시글 삭제 끝
 		
 		function deleteComment(qnaNo, qnaCommentNo){
 			if(confirm("댓글을 삭제하시겠습니까?")){
 				location.href="/qna/deleteComment?qnaNo="+qnaNo+"&qnaCommentNo="+qnaCommentNo;
 			}
 			console.log(qnaNo, qnaCommentNo);
-		}
+		}//댓글 삭제
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
