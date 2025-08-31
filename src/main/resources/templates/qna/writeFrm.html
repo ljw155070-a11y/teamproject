@@ -14,21 +14,21 @@
 				<tr>
 					<td colspan="3">
 						<div class="inputTitle">
-							<input type="text" name="qnaTitle">
+							<input type="text" name="qnaTitle" th:value="${qnaTitle}">
 						</div>
 					</td>
 				</tr><!-- 제목 -->
 				
-				<tr>
+				<tr class="inputInfo">
 					<td>
-						<span th:text="${session.member.memberId}"></span>
+						<input type="hidden" name="memberNo" th:value="${session.member.memberNo}">
 					</td>
 				</tr><!-- 작성자 -->
 				
 				<tr>
 					<td colspan="4">
 						<div class="inputContent">
-							<textarea name="qnaContent"></textarea>
+							<textarea name="qnaContent" th:text="${qnaContent}"></textarea>
 						</div>
 					</td>
 				</tr><!-- 작성할 내용 -->

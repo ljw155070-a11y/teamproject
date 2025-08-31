@@ -70,6 +70,7 @@ public class QnaController {
 	
 	@PostMapping(value="/write")
 	public String insertQnaContent(Qna q, Model model) {
+		System.out.println(q.getQnaTitle());
 		int result = qnaService.insertQnaContent(q);
 		model.addAttribute("text", "질문 등록 완료");
 		model.addAttribute("icon", "success");
