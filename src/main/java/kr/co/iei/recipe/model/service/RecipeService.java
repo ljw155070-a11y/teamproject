@@ -1,6 +1,7 @@
 package kr.co.iei.recipe.model.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -174,11 +175,12 @@ public class RecipeService {
 
 
 	public HashMap<String, Object> recipeReportedList(int reqPage) {
+		
 		int numPerPage = 10;
 		
 		
 		int end = reqPage * numPerPage;
-		int start = end - numPerPage;
+		int start = end - numPerPage+1;
 		
 		List<Member> list = recipeDao.recipeReportedList(start, end);
 		
@@ -220,6 +222,9 @@ public class RecipeService {
 		
 		reqSet.put("pageInfo", pageInfo);
 		reqSet.put("list", list);
+		
+		
+		
 		
 		return reqSet;
 	}	
@@ -292,5 +297,26 @@ public class RecipeService {
 		recipeCommentDeleteResult.put("result", result);
 		recipeCommentDeleteResult.put("recipeCommentList", recipeCommentList);
 		return recipeCommentDeleteResult;
+	}
+
+	public int insertRecipe(Recipe r, ArrayList<RecipeIngredient> ingredientList,
+			ArrayList<RecipeCookingOrder> cookingOrderList) {
+		int result=-1;
+		//게시물 넘버부터 발급
+		int recipeNo=recipeDao.recipeNoCreate();
+		r.setRecipeNo(recipeNo);
+		result += recipeDao.recipeRInsert(r);
+		
+		for(RecipeIngredient ri:ingredientList) {
+			ri.setRecipeNo(recipeNo);
+			result+=recipeDao.recipeRIInsert(ri); //재료 넣기
+		}
+		for(RecipeCookingOrder rco:cookingOrderList) {
+			rco.setRecipeNo(recipeNo);
+			result+=recipeDao.recipeRCOLInsert(rco);//조리순서 넣기
+		}
+		
+		
+		return result;
 	}
 }
