@@ -60,6 +60,7 @@
 		padding: 3px;
 		margin-bottom: 10px;
 		width: 80%;
+		cursor: pointer;
 	}
 	
 	.menu-checkBox{
@@ -192,7 +193,7 @@
 			</form>
 		
 		<section class="qna content-list">
-			<table action="/qnaList" method="get" id="qnaListForm">
+			<table action="/qnaList" method="post" id="qnaListForm">
 				<tr>
 					<th>글 번호</th>
 					<th>제목</th>
@@ -215,4 +216,9 @@
 	<th:block th:include="common/footer"></th:block>
 </body>
 <script src="/js/sweetalert.min.js"></script>
+<script>
+	$(".contentInputBox").on("click", function(){
+		location.href="/qna/write";
+	})
+</script>
 </html>

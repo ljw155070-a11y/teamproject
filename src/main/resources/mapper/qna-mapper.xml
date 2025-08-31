@@ -43,4 +43,11 @@
 	<delete id="deleteQnaComment">
 		delete from qna_comment_tbl where qna_comment_no = #{qnaCommentNo}
 	</delete>
+	
+	<select id="getQnaNo" resultType="int">
+		select qna_tbl_seq.nextval from dual
+	</select>
+	<insert id="insertQna">
+		insert into qna_tbl values(qna_tbl_seq.nextval, #{memberNo}, #{qnaTitle}, #{qnaContent}, sysdate, #{qnaCount}, null)
+	</insert>
 </mapper>

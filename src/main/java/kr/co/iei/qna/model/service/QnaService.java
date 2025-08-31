@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.qna.model.dao.QnaDao;
 import kr.co.iei.qna.model.vo.Qna;
@@ -103,6 +104,14 @@ public class QnaService {
 	public int deleteQnaComment(int qnaCommentNo) {
 		int result = qnaDao.deleteQnaComment(qnaCommentNo);
 		System.out.println(result);
+		return result;
+	}
+
+	@Transactional
+	public int insertQnaContent(Qna q) {
+		int newQnaNo = qnaDao.getQnaNo();
+		q.setQnaNo(newQnaNo);
+		int result = qnaDao.insertQna(q);
 		return result;
 	}
 	

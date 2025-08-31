@@ -66,4 +66,13 @@ public class QnaController {
 		public String writeQna(){
 		return "qna/writeQnaContent";
 	}
+	
+	@PostMapping(value="/write")
+	public String insertQnaContent(Qna q, Model model) {
+		int result = qnaService.insertQnaContent(q);
+		model.addAttribute("text", "질문 등록 완료");
+		model.addAttribute("icon", "success");
+		model.addAttribute("loc", "qna/list?reqPage=1");
+		return "common/msg";
+	}
 }
