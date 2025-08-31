@@ -319,4 +319,93 @@ public class RecipeService {
 		
 		return result;
 	}
+
+	
+	public HashMap<String,Object> recipeSearchList(int reqPage, String field, String searchInput) {
+		int allRecipeCount=0;
+		
+		switch(field) {
+		case "title" : 
+			allRecipeCount=recipeDao.titleSearchCount(searchInput);
+			break;
+		case "ingredient" : 
+			allRecipeCount=recipeDao.ingredientSearchCount(searchInput);
+			break;
+		case "writer" :
+			allRecipeCount=recipeDao.writerSearchCount(searchInput);
+			break;
+		default:
+			allRecipeCount=0;
+			break;
+		}
+
+		int listSize=10;
+		
+		int endNum=reqPage*listSize;
+		int startNum=endNum-listSize+1;
+		
+		List<Recipe> list = new ArrayList<>();
+		switch (field) {
+		case "title":
+		    list = recipeDao.titleSearchList(startNum, endNum, searchInput);
+		    break;
+		case "ingredient":
+		    list = recipeDao.ingredientSearchList(startNum, endNum, searchInput);
+		    break;
+		case "writer":
+		    list = recipeDao.writerSearchList(startNum, endNum, searchInput);
+		    break;
+		default:
+		    list = null;
+            break;
+		 }
+		
+		HashMap<String,Object> reqPageSet = new HashMap<>();
+		
+		HashMap<String,Integer> pageInfo = new HashMap<>();
+		int startPageNo;
+		int endPageNo;
+		int totalPageNo = (int)Math.ceil(allRecipeCount/(double)listSize);
+		int pageCounts = 7;	//한 페이지에 선택 가능한 페이지를 몇개 출력할지
+		int pageWindowDiv=(pageCounts-1)/2;	//현재 기준 양옆에 몇개가 와야할지
+		startPageNo = Math.max(1,reqPage - pageWindowDiv);
+		endPageNo = Math.min(totalPageNo, reqPage+pageWindowDiv);
+
+		if(totalPageNo<=pageCounts) {
+			startPageNo = 1;
+			endPageNo = totalPageNo;
+		}else {
+			if((reqPage - pageWindowDiv)<1) {
+				endPageNo += (1-(reqPage - pageWindowDiv));
+			}else if((reqPage + pageWindowDiv)>totalPageNo) {
+				startPageNo -= (reqPage + pageWindowDiv)-totalPageNo;
+			}
+		}
+		
+		pageInfo.put("reqPage", reqPage);				//요청된 페이지 번호
+		pageInfo.put("startPageNo", startPageNo);		//현재 기준 시작 페이지 번호
+		pageInfo.put("endPageNo", endPageNo);			//현재 기준 끝 페이지 번호
+		pageInfo.put("allRecipeCount", allRecipeCount);	//전체 레시피 게시글 수
+		pageInfo.put("totalPageNo",totalPageNo);		//전체 페이지 번호
+		
+		reqPageSet.put("pageInfo",pageInfo);
+		reqPageSet.put("list", list);
+		
+		HashMap<String,Integer> test = (HashMap<String,Integer>)reqPageSet.get("pageInfo");
+		System.out.println("현재 요청된 페이지 번호 :"+test.get("reqPage"));
+		System.out.println("띄워야할 시작 페이지 번호 :"+test.get("startPageNo"));
+		System.out.println("띄워야할 마지막 페이지 번호 :"+test.get("endPageNo"));
+		System.out.println("전체 레시피 개수 :"+test.get("allRecipeCount"));
+		System.out.println("전체 페이지 개수 :"+test.get("totalPageNo"));
+		
+		List<Recipe> test2 = (List<Recipe>)reqPageSet.get("list");
+		for(Recipe r : test2) {
+			System.out.print(r.getRecipeNo()+"\t");
+			System.out.print(r.getRecipeTitle()+"\t");
+			System.out.print(r.getMemberNickname()+"\t");
+			System.out.println();
+		}
+		return reqPageSet;
+	}
+	
 }

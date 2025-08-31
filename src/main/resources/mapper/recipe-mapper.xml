@@ -30,7 +30,74 @@
   	<select id="allRecipeCount">
   		SELECT COUNT(*) FROM RECIPE_TBL
   	</select>
+  	<select id="titleSearchCount">
+  		SELECT COUNT(*) FROM RECIPE_TBL WHERE RECIPE_TITLE LIKE '%'||#{searchInput}||'%'
+  	</select>
+  	<select id="ingredientSearchCount">
+  		SELECT COUNT(*) FROM (SELECT DISTINCT RECIPE_NO FROM RECIPE_INGREDIENT_TBL RIGHT JOIN RECIPE_TBL USING(RECIPE_NO) WHERE RECIPE_INGREDIENT_NAME LIKE '%'||#{searchInput}||'%')
+  	</select>
+  	<select id="writerSearchCount">
+  		SELECT COUNT(*) FROM RECIPE_TBL LEFT JOIN MEMBER_TBL USING(MEMBER_NO) WHERE MEMBER_NICKNAME = #{searchInput}
+  	</select>
+  	<select id="titleSearchList" resultType="recipe">
+  	SELECT * 
+    FROM (
+        SELECT ROWNUM RNUM,A.* 
+        FROM (
+                SELECT R.RECIPE_NO,
+                		R.RECIPE_TYPE,
+                        R.RECIPE_THUMBNAIL_PATH,
+                        R.RECIPE_TITLE,
+                        M.MEMBER_NICKNAME,
+                        R.RECIPE_COOKING_TIME,
+                        R.RECIPE_LEVEL,
+                        R.RECIPE_VIEW_COUNT,
+                        R.MEMBER_NO,
+                        R.RECIPE_WRITE_DATE,
+                        R.RECIPE_UPDATE_DATE,
+                        NVL(G.AVG_RATE,0) AS RECIPE_RATE
+                    FROM RECIPE_TBL R
+                    JOIN MEMBER_TBL M
+                    ON (M.MEMBER_NO = R.MEMBER_NO)
+                    LEFT JOIN 
+                        (SELECT RECIPE_NO,AVG(RECIPE_RATE) AVG_RATE FROM RECIPE_GRADE_TBL GROUP BY RECIPE_NO) G
+                    ON(G.RECIPE_NO=R.RECIPE_NO) 
+WHERE R.RECIPE_TITLE LIKE '%' || #{searchInput} || '%' 
+ORDER BY RECIPE_NO DESC
+            ) A
+        ) WHERE RNUM BETWEEN #{startNum} AND #{endNum}
+  	</select>
+  	<select id="ingredientSearchList" resultType="recipe">
   	
+  	</select>
+  	<select id="writerSearchList" resultType="recipe">
+  	  	SELECT * 
+    FROM (
+        SELECT ROWNUM RNUM,A.* 
+        FROM (
+                SELECT R.RECIPE_NO,
+                		R.RECIPE_TYPE,
+                        R.RECIPE_THUMBNAIL_PATH,
+                        R.RECIPE_TITLE,
+                        M.MEMBER_NICKNAME,
+                        R.RECIPE_COOKING_TIME,
+                        R.RECIPE_LEVEL,
+                        R.RECIPE_VIEW_COUNT,
+                        R.MEMBER_NO,
+                        R.RECIPE_WRITE_DATE,
+                        R.RECIPE_UPDATE_DATE,
+                        NVL(G.AVG_RATE,0) AS RECIPE_RATE
+                    FROM RECIPE_TBL R
+                    JOIN MEMBER_TBL M
+                    ON (M.MEMBER_NO = R.MEMBER_NO)
+                    LEFT JOIN 
+                        (SELECT RECIPE_NO,AVG(RECIPE_RATE) AVG_RATE FROM RECIPE_GRADE_TBL GROUP BY RECIPE_NO) G
+                    ON(G.RECIPE_NO=R.RECIPE_NO) 
+WHERE M.MEMBER_NICKNAME = #{searchInput}
+ORDER BY RECIPE_NO DESC
+            ) A
+        ) WHERE RNUM BETWEEN #{startNum} AND #{endNum}
+  	</select>
   	<select id="recipeDetail" resultType="recipe">
   		SELECT * 
 FROM RECIPE_TBL
@@ -197,7 +264,7 @@ WHERE RECIPE_NO=#{reqRecipeNo}
 	    		#{recipeIngredientName},
 	    		#{recipeIngredientVolume}
 	    		)
-</insert>
+	</insert>
 	<insert id="recipeRCOLInsert">
 		 INSERT INTO RECIPE_COOKING_ORDER_TBL (
 	 				RECIPE_COOKING_ORDER,
