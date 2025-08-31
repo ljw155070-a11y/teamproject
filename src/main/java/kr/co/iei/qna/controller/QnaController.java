@@ -57,6 +57,7 @@ public class QnaController {
 	
 	@PostMapping(value="/deleteComment")
 	public String deleteComment(QnaComment qc) {
+		System.out.println(qc.getQnaCommentNo());
 		int result = qnaService.deleteQnaComment(qc.getQnaCommentNo());
 		
 		return "redirect:/qna/view?qnaNo="+qc.getQnaNo();
@@ -73,6 +74,16 @@ public class QnaController {
 		model.addAttribute("text", "질문 등록 완료");
 		model.addAttribute("icon", "success");
 		model.addAttribute("loc", "qna/list?reqPage=1");
+		return "common/msg";
+	}
+	
+	@GetMapping(value="/delete")
+	public String deleteQna(int qnaNo, Model model) {
+		int result = qnaService.deleteQna(qnaNo);
+		model.addAttribute("title", "질문 게시글 삭제 완료");
+		model.addAttribute("text", "게시글이 삭제되었습니다");
+		model.addAttribute("icon", "success");
+		model.addAttribute("loc", "/qna/list?reqPage=1");
 		return "common/msg";
 	}
 }

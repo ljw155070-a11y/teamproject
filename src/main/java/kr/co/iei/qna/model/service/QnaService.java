@@ -114,5 +114,10 @@ public class QnaService {
 		int result = qnaDao.insertQna(q);
 		return result;
 	}
+
+	public int deleteQna(int qnaNo) {
+		int result = qnaDao.deleteQna(qnaNo);
+		return result;
+	}
 	
 }

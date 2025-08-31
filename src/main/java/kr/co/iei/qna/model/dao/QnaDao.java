@@ -31,6 +31,8 @@ public interface QnaDao {
 
 	int insertQna(Qna q);
 
+	int deleteQna(int qnaNo);
+
 	
 
 }

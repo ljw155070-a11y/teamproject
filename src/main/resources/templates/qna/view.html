@@ -226,7 +226,7 @@
 				<tr class="update-delete" onShow="showBtn()" th:if="${session.member != null}">
 					<td colspan="3">
 						<button class="update-content">수정하기</button>
-						<button class="delete-content">삭제하기</button>
+						<button class="delete-content" th:onclick="deleteQna([[${q.qnaNo}]])">삭제하기</button>
 					</td>
 				</tr>
 			</table>
@@ -352,16 +352,35 @@
 			});		
 		}); //게시글 신고 끝
 		
-		$("#commentDelete").on("click",function(){
-			$.ajax({
-				url: "/qna/deleteComment",
-				type: "get",
-				data: {qnaNo : qnaNo, QnaCommentNo : QnaCommentNo},
-				success: function(){
+		function deleteQna(qnaNo){
+			swal({
+				title: "질문 게시글 삭제",
+				text: "게시글을 삭제하시겠습니까?",
+				icon: "warning",
+				button: {
+					confirm: {
+						text: "삭제",
+						value: true,
+						visible: true,
+						className: "btn-primary",
+						closeModal: true
+					},
+					cancel: {
+						text: "취소",
+						value: false,
+						visible: true,
+						className: "btn-secondary",
+						closeModal: true
+					}
+				}
 					
+			}).then(function(isConfirm){
+				if(isConfirm){
+					location.href="/qna/delete?qnaNo="+(qnaNo);
 				}
 			})
-		});
+		}
+		
 		function deleteComment(qnaNo, qnaCommentNo){
 			if(confirm("댓글을 삭제하시겠습니까?")){
 				location.href="/qna/deleteComment?qnaNo="+qnaNo+"&qnaCommentNo="+qnaCommentNo;
