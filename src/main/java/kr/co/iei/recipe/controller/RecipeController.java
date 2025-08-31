@@ -30,6 +30,16 @@ public class RecipeController {
 	@Autowired
 	private RecipeService recipeService;
 	
+	@GetMapping(value="/search")
+	public String recipeSearch(Model model,int reqPage,String field,String searchInput){
+		HashMap<String,Object> searchReqpageSet = recipeService.recipeSearchList(reqPage,field,searchInput);
+		model.addAttribute("reqPageSet",searchReqpageSet);
+		System.out.println(field);
+		System.out.println(searchInput);
+		return "recipe/list";
+	}
+	
+	
 	@GetMapping(value="/list")
 	public String recipeList(Model model,int reqPage, @SessionAttribute(required = false) Member member) {
 		//reqPage 의 값에 해당하는 페이지에 리스트를 전달
