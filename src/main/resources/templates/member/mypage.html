@@ -376,7 +376,7 @@
 	                        <div class="my-info-btn">
 	                            <button type="button" id="info-delete-btn">회원 탈퇴</button>
 	                            <button type="submit" id="info-update-btn">내 정보 수정</button>
-	                            <button th:if=${session.member.memberLevel==매운맛} type="button" id="admin-use-btn">관리자 페이지 이동</button>
+	                            <button th:if=${session.member.memberLevel=='매운맛'} type="button" id="admin-use-btn">관리자 페이지 이동</button>
 	                        </div>
                         </form>
 					</div>
@@ -595,7 +595,7 @@
 	    });
     	//관리자
 		$("#admin-use-btn").on("click",function(){
-			location.href = "/member/searchMember";
+			location.href = "/admin/allMember";
 		});
     
     </script>
