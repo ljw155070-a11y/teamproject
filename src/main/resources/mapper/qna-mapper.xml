@@ -135,7 +135,7 @@
 	</select>
 	
 	<select id = "selectAllQnaCommentReport" resultType="int">
-		select count(*) from qna_comment_report_tbl
+		select count(*) from qna_comment_report_tbl where qna_comment_no = #{qnaCommentNo} and member_no = #{memberNo} and qna_no = #{qnaNo}
 	</select>
 	<insert id="reportQnaComment">
 		insert into qna_comment_report_tbl

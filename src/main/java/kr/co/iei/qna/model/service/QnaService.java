@@ -229,11 +229,11 @@ public class QnaService {
 	}
 	public int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo) {
 		int count = qnaDao.selectAllQnaCommentReport(qnaNo, qnaCommentNo, memberNo);
-		if(count >= 0) {
+		if(count == 1) {
+			return 0;
+		}else {			
 			int result = qnaDao.reportQnaComment(qnaNo, qnaCommentNo, memberNo);
 			return result;
-		}else {			
-			return 0;
 		}
 	}//댓글 신고
 }//게시글 삭제
