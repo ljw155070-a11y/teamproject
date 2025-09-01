@@ -93,17 +93,37 @@ public class NoticeService {
 		return n;
 	}
 	*/
+	public Notice selectOnetNotice(int noticeNo) {
+		Notice notice = noticeDao.selectOneNotice(noticeNo);
+		return notice;
+	}
+	public NoticeFile selectOneNoticeFile(int noticeFileNo) {
+		NoticeFile noticeFile = noticeDao.selectOneNoticeFile(noticeFileNo);
+		return noticeFile;
+	}
+	@Transactional
+	public int updateNotice(Notice notice) {
+		int result = noticeDao.updateNotice(notice);
+		return result;
+	}
+	
+	/*
 	public Notice selectOneNotice(int noticeNo, int memberNo) {
 		Notice n = noticeDao.selectOneNotice(noticeNo);
 		List<NoticeFile> filelist = noticeDao.selectNoticeFile(noticeNo);
 		n.setFileList(filelist);
 		return n;
 	} 
-	
 	public NoticeFile selectOneNoticeFile(int noticeFileNo) {
 		NoticeFile noticeFile = noticeDao.selectOneNoticeFile(noticeFileNo);
 		return noticeFile;
 	}
+	@Transactional
+	public int updateNotice(Notice notice) {
+		int result = noticeDao.updateNotice(notice);
+		return result;
+	}
+	
 	@Transactional
 	public List<NoticeFile> updateNotice(Notice n, List<NoticeFile> fileList, int[] delFileNo) {
 	    int result = noticeDao.updateNotice(n);
@@ -121,9 +141,7 @@ public class NoticeService {
 	    }
 	    return delFileList;
 	}
-	
-	
-	/*
+
 	@Transactional
 	public List<NoticeFile> updateNotice(Notice n, List<NoticeFile> fileList, int[] delFileNo) {
 	    int result = noticeDao.updateNotice(n);

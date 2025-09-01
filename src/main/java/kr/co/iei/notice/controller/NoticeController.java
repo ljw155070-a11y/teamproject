@@ -37,11 +37,10 @@ public class NoticeController {
 	private FileUtil fileUtil;
 	
 	@GetMapping(value="/list")
-	public String noticeList(@RequestParam(value="reqPage", required=false) Integer reqPage, Model model) {
-		if(reqPage == null) reqPage = 1;
-		NoticeListData nl = noticeService.selectNoticeList(reqPage);
-		model.addAttribute("list", nl.getList());
-		model.addAttribute("pageNav", nl.getPageNav());
+	public String list(Model model, int reqPage) {
+		NoticeListData nld = noticeService.selectNoticeList(reqPage);
+		model.addAttribute("list", nld.getList());
+		model.addAttribute("pageNavi", nld.getPageNav());
 		return "notice/list";
 	}
 	@GetMapping(value="/searchTitle")
@@ -95,7 +94,7 @@ public class NoticeController {
 		}
 		return "notice/list";
 	}
-
+	/*
 	@GetMapping(value = "/detail") // =view
 	public String noticeDetail(int noticeNo, @SessionAttribute(required = false) Member member, Model model) {
 		int memberNo = member == null ? 0 : member.getMemberNo();
@@ -111,59 +110,26 @@ public class NoticeController {
 			return "notice/detail";
 		}
 	}
-
+	*/
+	@GetMapping(value="/detail")
+	public String detail(int noticeNo, Model model) {
+		Notice n = noticeService.selectOnetNotice(noticeNo);
+		model.addAttribute("n", n);
+		return "notice/detail";
+	}
+	
 	@GetMapping(value="/fileDown")
 	public void fileDown(int noticeFileNo, HttpServletResponse response) {
 		NoticeFile noticeFile = noticeService.selectOneNoticeFile(noticeFileNo);
 		String savepath = root + "/notice/";
 		fileUtil.downloadFile(savepath, noticeFile.getFilepath(), noticeFile.getFilename(), response);
 	}
-	
 	@GetMapping(value="/updateFrm")
 	public String updateFrm(int noticeNo, Model model) {
-		Notice n = noticeService.selectOneNotice(noticeNo, 0);
+		Notice n = noticeService.selectOnetNotice(noticeNo);
 		model.addAttribute("n", n);
 		return "notice/updateFrm";
 	}
-	@PostMapping(value="/update")
-	public String update(Notice n, MultipartFile[] upfile, int[] delFileNo) {
-		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-		String savepath = root + "/notice/";
-		if(!upfile[0].isEmpty()) {
-			for (MultipartFile file : upfile) {
-				String filename = file.getOriginalFilename();
-				String filepath = fileUtil.upload(savepath, file);
-				NoticeFile nf = new NoticeFile();
-				nf.setFilename(filename);
-				nf.setFilepath(filepath);
-				fileList.add(nf);
-			}
-		}
-		List<NoticeFile> delFileList = noticeService.updateNotice(n, fileList, delFileNo);
-
-		for (NoticeFile noticeFile : delFileList) {
-			File delFile = new File(savepath + noticeFile.getFilepath());
-			delFile.delete();
-		}
-		return "redirect:/notice/detail?noticeNo=" + n.getNoticeNo();
-	}
-	/*
-	@GetMapping(value = "/delete")
-	public String delete(int noticeNo, Model model) {
-		List<NoticeFile> list = noticeService.deleteNotice(noticeNo);
-		String savepath = root + "/notice/";
-		for (NoticeFile noticeFile : list) {
-			File delFile = new File(savepath + noticeFile.getFilepath());
-			delFile.delete();
-		}
-		model.addAttribute("title", "게시글 삭제 완료");
-		model.addAttribute("text", "게시글이 삭제 되었습니다.");
-		model.addAttribute("icon", "success");
-		model.addAttribute("loc", "/notice/list?reqPage=1");
-		return "common/msg";
-	}
-	*/
-	
 	@GetMapping(value="/delete")
 	public String delete(int noticeNo, Model model) {
 		int result = noticeService.deleteNotice(noticeNo);
@@ -191,3 +157,70 @@ public class NoticeController {
 	}
 	
 }
+
+/*
+@GetMapping(value="/list")
+	public String noticeList(@RequestParam(value="reqPage", required=false) Integer reqPage, Model model) {
+		if(reqPage == null) reqPage = 1;
+		NoticeListData nl = noticeService.selectNoticeList(reqPage);
+		model.addAttribute("list", nl.getList());
+		model.addAttribute("pageNav", nl.getPageNav());
+		return "notice/list";
+	} 
+ 
+@GetMapping(value = "/detail") // =view
+public String noticeDetail(int noticeNo, @SessionAttribute(required = false) Member member, Model model) {
+	int memberNo = member == null ? 0 : member.getMemberNo();
+	Notice n = noticeService.selectOneNotice(noticeNo, memberNo);
+	if (n == null) {
+		model.addAttribute("title", "게시글 조회 실패");
+		model.addAttribute("text", "이미 삭제된 게시글입니다.");
+		model.addAttribute("icon", "info");
+		model.addAttribute("loc", "/notice/list?reqPage=1");
+		return "common/msg";
+	} else {
+		model.addAttribute("n", n);
+		return "notice/detail";
+	}
+}
+*/
+
+/*
+@PostMapping(value="/update")
+public String update(Notice n, MultipartFile[] upfile, int[] delFileNo) {
+	List<NoticeFile> fileList = new ArrayList<NoticeFile>();
+	String savepath = root + "/notice/";
+	if(!upfile[0].isEmpty()) {
+		for (MultipartFile file : upfile) {
+			String filename = file.getOriginalFilename();
+			String filepath = fileUtil.upload(savepath, file);
+			NoticeFile nf = new NoticeFile();
+			nf.setFilename(filename);
+			nf.setFilepath(filepath);
+			fileList.add(nf);
+		}
+	}
+	List<NoticeFile> delFileList = noticeService.updateNotice(n, fileList, delFileNo);
+
+	for (NoticeFile noticeFile : delFileList) {
+		File delFile = new File(savepath + noticeFile.getFilepath());
+		delFile.delete();
+	}
+	return "redirect:/notice/detail?noticeNo=" + n.getNoticeNo();
+}
+/*
+@GetMapping(value = "/delete")
+public String delete(int noticeNo, Model model) {
+	List<NoticeFile> list = noticeService.deleteNotice(noticeNo);
+	String savepath = root + "/notice/";
+	for (NoticeFile noticeFile : list) {
+		File delFile = new File(savepath + noticeFile.getFilepath());
+		delFile.delete();
+	}
+	model.addAttribute("title", "게시글 삭제 완료");
+	model.addAttribute("text", "게시글이 삭제 되었습니다.");
+	model.addAttribute("icon", "success");
+	model.addAttribute("loc", "/notice/list?reqPage=1");
+	return "common/msg";
+}
+*/
