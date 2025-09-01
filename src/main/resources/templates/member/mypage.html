@@ -314,7 +314,7 @@
 	color: red;
 }
 #nickname-check-msg{
-	display: block;
+	padding-left: 300px;
 }
 </style>
 </head>
@@ -334,31 +334,31 @@
                     <div class="info-content">
                     	<form action="/member/update" method="post" >
 	                        <div class="info-input">
-	                        	<p class="input-msg nickname-check-msg" id="nickname-check-msg">ss</p>
+	                        	<p class="input-msg nickname-check-msg" id="nickname-check-msg">ㄱㄱ</p>
 	                            <div id="name-div">
-	                                <label for="Name">이름 : </label>
-	                                <input type="text" name="memberName" id="Name" th:value=${session.member.memberName} readonly="readonly">
+	                                <label for="memberName">이름 : </label>
+	                                <input type="text" name="memberName" id="memberName" th:value=${session.member.memberName} readonly="readonly">
 	                            </div>
 	                            <div id="nickname-div">
-	                                <label for="Nickname">닉네임 : </label>
-	                                <input type="text" name="memberNickname" id="Nickname" th:value=${session.member.memberNickname}>
+	                                <label for="memberNickname">닉네임 : </label>
+	                                <input type="text" name="memberNickname" id="memberNickname" th:value=${session.member.memberNickname}>
 	                            </div>
 	                            <div id="email-div">
-	                                <label for="Email">이메일 : </label>
-	                                <input type="text" name="memberEmail" id="Email" th:value=${session.member.memberEmail} readonly="readonly" >
+	                                <label for="memberEmail">이메일 : </label>
+	                                <input type="text" name="memberEmail" id="memberEmail" th:value=${session.member.memberEmail} readonly="readonly" >
 	                            </div>
 	                            <div id="id-div">
-	                                <label for="Id">아이디 : </label>
-	                                <input type="text" name="memberId" id="Id" th:value=${session.member.memberId} readonly="readonly">
+	                                <label for="memberId">아이디 : </label>
+	                                <input type="text" name="memberId" id="memberId" th:value=${session.member.memberId} readonly="readonly">
 	                            </div>
 	                            <div id="pw-div">
-	                                <label for="Pw">비밀번호 : </label>
-	                                <input type="password" name="memberPw" id="Pw" th:value=${session.member.memberPw} disabled="disabled">
+	                                <label for="memberPw">비밀번호 : </label>
+	                                <input type="password" name="memberPw" id="memberPw" th:value=${session.member.memberPw} disabled="disabled">
 	                            </div>
 	                            <div id="pw-re-div">
 	                                <label for="PwRe">비밀번호 확인 : </label>
-	                                <input type="password" name="memberPwRe" id="PwRe" >
-	                            	<p class="input-msg pw-check-msg" id="pw-check-msg">ss</p>
+	                                <input type="password" name="memberPwRe" id="memberPwRe" >
+	                            	<p class="input-msg pw-check-msg" id="pw-check-msg">ㄱㄱ</p>
 	                            </div>
 	                        </div>
 	                        <div class="my-info-btn">
@@ -534,27 +534,6 @@
         </div>
     </div>
     <script>
-    //j쿼리 발식으로 바꾸기.
-    const tabs = $(".my-tab>div");
-    const content = $(".tab-content>div");
-
-    tabs.forEach(function(item,i){
-        item.addEventListener('click',function(){
-            tabs.forEach(function(tab){
-                tab.classList.remove('active-tab');
-            });
-            content.forEach(function(cont){
-                cont.classList.remove('active-content');
-            });
-            tabs[i].classList.add('active-tab');
-            content[i].classList.add('active-content');
-        });
-    });
-    //처음에 화면이 로드가 되면 첫번째 탭을 활성화
-    tabs[0].classList.add('active-tab');
-    content[0].classList.add('active-content');
-	//
-	
     $("#info-update-btn").on("click",function(){
     	const valid = $(".valid");
     	if(valid.length !== 2){
@@ -562,7 +541,42 @@
     		e.preventDefault();
     	}
     });
+	
+	//비밀번호
+    $("#memberPwRe").on("keyup",function(){
+	    	$("#pw-check-msg").removeClass("valid").removeClass("invalid");
+	    	const memberPw = $("#memberPw").val();
+	    	const memberPwRe = $("#memberPwRe").val();
+	    	if(memberPw === inputPwRe){
+	    		$("#pw-check-msg").text("비밀번호가 일치 합니다.");
+	    		$("#pw-check-msg").addClass("valid");
+	    	}else{
+	    		$("#pw-check-msg").text("비밀번호가 일치하지 않습니다.");
+	    		$("#pw-check-msg").addClass("invalid");
+	    	}
+	    });
+    	
+    //닉네임 중복
+	$("#memberNickname").on("keyup",function(){
+	    	const memberNickname = $("#memberNickname").val();
+	    	$("#nickName-check-msg").removeClass("valid").removeClass("invalid");
+	    	$.ajax({
+	    		url : "/member/checkNickname",
+	    		type : "get",
+	    		data : {memberNickname : memberNickname},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		$("#nickName-check-msg").text("사용 가능한 닉네임 입니다.")
+	    		    	$("#nickName-check-msg").addClass("valid");	
+	    	    	}else if(result === 1){
+	    	    		$("#nickName-check-msg").text("이미 사용중인 닉네임 입니다.")
+	    		    	$("#nickName-check-msg").addClass("invalid");
+	    	    	}	    			
+	    		}
+	    	})
+	    });
 		
+    
     </script>
 	<th:block th:include="common/footer"></th:block>
 	</main>
