@@ -259,6 +259,26 @@
 			})
 		}
 	});
+	
+	$(".checkedDeleteRecipe").on("click",function(){
+		const checkbox = $(".chk:checked");
+		const tr = $(this).parent().parent().prev();
+		if(checkbox.length === 0){
+			return;
+		}
+		const no = new Array();
+		
+		checkbox.each(function(index,item){
+			const recipeNo = $(item).parent().parent().next().next().text();
+			no.push(recipeNo);
+		});
+		$.ajax({
+			url:"admin/deleteRecipe",
+			type:"post",
+			
+			
+		})
+	});
 	</script>
 	<th:block th:include="common/footer"></th:block>				
 </body>

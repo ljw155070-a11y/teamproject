@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -461,6 +462,18 @@ public class RecipeService {
 		
 		
 		return reqSet;
+	}
+
+	public boolean checkedDeleteRecipe(String no) {
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		int result = 0;
+		int count = sT1.countTokens();
+		while(sT1.hasMoreTokens()) {
+			String stringNo = sT1.nextToken();
+			int recipeNo = Integer.parseInt(stringNo);
+			result += recipeDao.recipeDelete(recipeNo);
+		}
+		return result==count;
 	}
 
 
