@@ -89,7 +89,7 @@
 
 .my-info-btn{
     overflow : hidden;
-    float: right;
+    
 }
 .my-info-btn>button{
     padding: 6px;
@@ -101,6 +101,7 @@
     border-radius: 9px;
     margin-left : 5px;
     justify-content: center;
+    float: right;
 }
 #pw-check-msg{
 	padding-top: 130px;
@@ -557,6 +558,21 @@
         </div>
     </div>
     <script>
+    //탭 이동
+    $('.my-tab > div').each(function(i) {
+        $(this).on('click', function() {
+            $('.my-tab > div').removeClass('active-tab');
+            $('.tab-content > div').removeClass('active-content');
+
+            $(this).addClass('active-tab');
+            $('.tab-content > div').eq(i).addClass('active-content');
+        });
+        $('.tab-content > div').eq(0).addClass('active-content');
+    });
+    //tabs[0].classList.add('active-tab');
+	//content[0].classList.add('active-content');
+    
+    
     $("#info-update-btn").on("click",function(){
     	const invalid = $(".invalid");
     	if(invalid.length > 0){

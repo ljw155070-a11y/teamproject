@@ -27,4 +27,5 @@ public class Member {
 	private int qnaCommentReportCount;
 	private int allReportCount;
 	private int suspendDays;
+	private String suspendReason;
 }
