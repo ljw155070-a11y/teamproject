@@ -33,6 +33,10 @@ public interface QnaDao {
 
 	int deleteQna(int qnaNo);
 
+	int selectAllQnaCommentReport(int qnaNo, int commentNo, int memberNo);
+
+	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
+
 	
 
 }
