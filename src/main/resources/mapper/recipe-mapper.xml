@@ -278,6 +278,18 @@ WHERE RECIPE_NO=#{reqRecipeNo}
       				#{recipeCookingOrderImgPath}
       				)
 	</insert>
+
+	<select id="editRecipeInfo" resultType="recipe">
+		SELECT * FROM RECIPE_TBL WHERE RECIPE_NO=#{recipeNo}
+	</select>
+	
+	<select id="editRecipeIngredientInfo" resultType="recipeIngredient">
+		SELECT * FROM RECIPE_INGREDIENT_TBL WHERE RECIPE_NO=#{recipeNo}
+	</select>
+	
+	<select id="editRecipeCookingOrderInfo" resultType="recipeCookingOrder">
+		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=#{recipeNo}
+	</select>
 	<select id="recipeCommentReportedList" resultType="recipeComment">
 		select * from(
     select rownum rnum,a.*
