@@ -19,7 +19,7 @@ body {
 }
 .detail-box {
     width: 950px;
-    height: 570px;
+    height: 590px;
     background-color: #fff;
     border-radius: 9px;
     margin: 0 auto;
@@ -45,7 +45,7 @@ body {
 
 .detail-box2 {
     width: 950px;
-    height: 570px;
+    height: 590px;
     background-color: #fff;
     border-radius: 9px;
     margin: 0 auto;
@@ -102,15 +102,18 @@ body {
     box-sizing: border-box;
     border: none;
     margin-left: 60px;
-    padding-top: 20px;
+	margin-top: 20px;
     align-items: center;
 }
 
-.detail-content-box ::placeholder{
+.detail-content-box {
+	padding-top: 20px;
+	height: 360px;
     color: #B2B2B2;
 }
 
 .detail-content-btn {
+	border-top: 2px solid #e6e6e6;
     display: flex;
     justify-content: center;  
     align-items: center; 
@@ -167,7 +170,6 @@ body {
                 <hr>
                     <div class="detail-content-box">
                         <span class="content-text">중요한 공지사항 입니다.</span>
-                        <hr>
                     </div>
                     <div class="detail-content-btn">
                         <a th:href="@{/notice/updateFrm(noticeNo=${n.noticeNo})}" class="modify-btn">게시글 수정</a>
@@ -191,7 +193,6 @@ body {
                 <hr>
                     <div class="detail-content-box">
                         <span class="content-text">중요한 공지사항 입니다.</span>
-                        <hr>
                     </div>
                     <div class="detail-content-btn">
                         <a th:href="@{/notice/updateFrm(noticeNo=${n.noticeNo})}" class="modify-btn">게시글 수정</a>

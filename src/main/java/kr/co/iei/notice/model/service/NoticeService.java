@@ -18,10 +18,6 @@ public class NoticeService {
 	@Autowired
 	private NoticeDao noticeDao;
 	
-	public List selectNoticeList() {
-		List list = noticeDao.selectNoticeList();
-		return list;
-	}
 	public NoticeListData selectNoticeList(int reqPage) {
 		int pageList = 10;
 		int end = reqPage * pageList;
@@ -117,30 +113,32 @@ public class NoticeService {
 	    }
 	    List<NoticeFile> delFileList = new ArrayList<>();
 	    if (delFileNo != null) {
-	        List list = noticeDao.selectNoticeFileList(delFileNo);
+	        List<NoticeFile> list = noticeDao.selectNoticeFileList(delFileNo);
+	        delFileList.addAll(list); // 실제 삭제될 파일들을 담기
 	        for (int noticeFileNo : delFileNo) {
 	            result += noticeDao.deleteNoticeFile(noticeFileNo);
 	        }
 	    }
 	    return delFileList;
 	}
+	
+	
 	/*
 	@Transactional
 	public List<NoticeFile> updateNotice(Notice n, List<NoticeFile> fileList, int[] delFileNo) {
-		int result = noticeDao.updateNotice(n);
-		for (NoticeFile noticeFile : fileList) {
-			noticeFile.setNoticeNo(n.getNoticeNo());
-			result += noticeDao.insertNoticeFile(noticeFile);
-		}
-		List<NoticeFile> delFileList = new ArrayList<NoticeFile>();
-		if (delFileNo != null) {
-			List list = noticeDao.selectNoticeFileList(delFileNo);
-
-			for (int noticeFileNo : delFileNo) {
-				result += noticeDao.deleteNoticeFile(noticeFileNo);
-			}
-		}
-		return delFileList;
+	    int result = noticeDao.updateNotice(n);
+	    for (NoticeFile noticeFile : fileList) {
+	        noticeFile.setNoticeNo(n.getNoticeNo());
+	        result += noticeDao.insertNoticeFile(noticeFile);
+	    }
+	    List<NoticeFile> delFileList = new ArrayList<>();
+	    if (delFileNo != null) {
+	        List list = noticeDao.selectNoticeFileList(delFileNo);
+	        for (int noticeFileNo : delFileNo) {
+	            result += noticeDao.deleteNoticeFile(noticeFileNo);
+	        }
+	    }
+	    return delFileList;
 	}
 	*/
 	@Transactional

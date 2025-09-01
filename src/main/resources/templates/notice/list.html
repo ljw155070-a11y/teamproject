@@ -214,7 +214,7 @@ body {
         	</div>
             <form action="notice/search" method="get" id="noticeSearch">
                 <div class="notice-search-top" style="width:100%;">
-                <a href="/notice/writeFrm" class="write-btn">글쓰기</a>
+                <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" href="/notice/writeFrm" class="write-btn">글쓰기</a>
                 <!--<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" style="display: inline-block;">글쓰기</a>-->
                     <select name="searchType">
                         <option value="title">제목</option>

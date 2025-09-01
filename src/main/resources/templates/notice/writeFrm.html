@@ -159,23 +159,6 @@ body {
 		}
 	});
 	
-	function uploadImg(file, editor){
-		const form = new FormData();
-		form.append("upfile", file);
-		
-		$.ajax({
-			url : "/notice/editorImg",
-			type: "post",
-			data: form,
-			processData : false,
-			contentType : false,
-			success : function(result) {
-				console.log(result);
-				$(editor).summernote("insertImage",
-						"/notice/editor/" + result);
-			}
-		});
-	}
 	</script>
     <th:block th:include="common/footer"></th:block>
 </body>

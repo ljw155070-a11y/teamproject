@@ -23,7 +23,7 @@
   </select>
   
   <insert id="insertNotice">
-  	insert into notice_tbl values (#{noticeNo} ,#{noticeFixTop} ,#{noticeTitle}, #{noticeContent}, sysdate)
+  	insert into notice_tbl values (NOTICE_SEQ.NEXTVAL ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, SYSDATE, SYSDATE, #{noticeViewCount}, #{memberNo})
   </insert>
   
   <insert id="insertNoticeFile">
@@ -47,12 +47,12 @@
   </select>
   
   <update id="updateNotice">
-  	update notice_tbl set notice_title = #{noticeFileNo},
+  	update notice_tbl set notice_title = #{noticeFileTitle},
   	notice_content = #{noticeContent} where notice_no = #{noticeNo}
   </update>
   
   <delete id="deleteNoticeFile">
-  	delete from notice_file_tbl where notice_no = #{noticeNo}
+  	delete from notice_file_tbl where notice_no = #{noticeFileNo}
   </delete>
   
   <delete id="deleteNotice">

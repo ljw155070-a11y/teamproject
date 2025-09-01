@@ -49,14 +49,14 @@ public class NoticeController {
 	public String noticeWriteFrm() {
 		return "notice/writeFrmEditor";
 	}
-
-	@PostMapping(value="/write")
+	
+	@PostMapping(value = "/write")
 	public String noticeWrite(Notice n, MultipartFile[] upfile, Model model) {
 		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-		if(upfile != null && upfile.length > 0 && !upfile[0].isEmpty()) {
+		if (!upfile[0].isEmpty()) {
 			String savepath = root + "/notice/";
-			
-			for(MultipartFile file : upfile) {
+
+			for (MultipartFile file : upfile) {
 				String filename = file.getOriginalFilename();
 				String filepath = fileUtil.upload(savepath, file);
 				NoticeFile noticeFile = new NoticeFile();
@@ -66,12 +66,22 @@ public class NoticeController {
 			}
 		}
 		int result = noticeService.insertNotice(n, fileList);
-		model.addAttribute("title", "공지사항 등록 완료!");
-		model.addAttribute("text", "공지사항 등록이 완료되었습니다.");
-		model.addAttribute("icon", "success");
-		model.addAttribute("loc", "/notice/list?reqPage=1");
-		return "common/msg";
+		if(result == 1) {
+			model.addAttribute("title", "공지사항 작성 완료!");
+			model.addAttribute("text", "공지사항이 등록되었습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/notice/list?reqPage=1");
+			return "common/msg";
+		}else if(result == 0) {
+			model.addAttribute("title", "공지사항 작성 실패!");
+			model.addAttribute("text", "공지사항 등록을 실패하였습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/notice/list?reqPage=1");
+			return "common/msg";
+		}
+		return "notice/list";
 	}
+
 	@GetMapping(value = "/detail") // =view
 	public String noticeDetail(int noticeNo, @SessionAttribute(required = false) Member member, Model model) {
 		int memberNo = member == null ? 0 : member.getMemberNo();
@@ -87,6 +97,7 @@ public class NoticeController {
 			return "notice/detail";
 		}
 	}
+
 	@GetMapping(value="/fileDown")
 	public void fileDown(int noticeFileNo, HttpServletResponse response) {
 		NoticeFile noticeFile = noticeService.selectOneNoticeFile(noticeFileNo);
@@ -122,6 +133,21 @@ public class NoticeController {
 		}
 		return "redirect:/notice/detail?noticeNo=" + n.getNoticeNo();
 	}
+	@GetMapping(value = "/delete")
+	public String delete(int noticeNo, Model model) {
+		List<NoticeFile> list = noticeService.deleteNotice(noticeNo);
+		String savepath = root + "/notice/";
+		for (NoticeFile noticeFile : list) {
+			File delFile = new File(savepath + noticeFile.getFilepath());
+			delFile.delete();
+		}
+		model.addAttribute("title", "게시글 삭제 완료");
+		model.addAttribute("text", "게시글이 삭제 되었습니다.");
+		model.addAttribute("icon", "success");
+		model.addAttribute("loc", "/notice/list?reqPage=1");
+		return "common/msg";
+	}
+	
 	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
 	@ResponseBody
 	public String editorImgUpload(MultipartFile upfile) {
@@ -129,51 +155,5 @@ public class NoticeController {
 		String filepath = fileUtil.upload(savepath, upfile);
 		return filepath;
 	}
-}
-
-	
-	/*
-	@GetMapping(value="/list")
-	public String noticeList(Model model) {
-		List list = noticeService.selectAll();
-		model.addAttribute("list", list);
-		return "notice/list";
-	}
-}
-	/*
-	@GetMapping(value="/list")
-	public String noticeList(int reqPage, Model model) {
-		NoticeListData nl = noticeService.selectNoticeList(reqPage);
-		model.addAttribute("list", nl.getList());
-		model.addAttribute("pageNav", nl.getPageNav());
-		return "notice/list";
-		
-	}
-}
-	/*
-	@GetMapping(value="/view")	
-	public String noticeModify(Model model) {
-		List list = noticeService.selectNoticeList();
-		
-//		model.addAttribute("pageNav", ListData.getPageNav());
-		return "notice/view";
-	}	
-	
-	@GetMapping(value="/writeFrm")	
-	public String noticeWriteFrm(Model model) {
-		List list = noticeService.selectNoticeList();
-		
-//		model.addAttribute("pageNav", ListData.getPageNav());
-		return "notice/writeFrm";
-	}	
-	
-	@GetMapping(value="/detail")	
-	public String noticeDetail(Model model) {
-		List list = noticeService.selectNoticeList();
-		
-//		model.addAttribute("pageNav", ListData.getPageNav());
-		return "notice/detail";
-	}	
 	
 }
-*/

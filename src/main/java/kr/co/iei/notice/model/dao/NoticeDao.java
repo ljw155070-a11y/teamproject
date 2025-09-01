@@ -11,17 +11,11 @@ import kr.co.iei.notice.model.vo.NoticeFile;
 @Mapper
 public interface NoticeDao {
 
-	List selectNoticeList(int reqPage);
-
-	int modifyeNotice(Notice n);
-
 	int selectNoticeTotal();
 
 	List selectNoticeList(HashMap<String, Object> param);
 
 	/*List selectAll();*/
-
-	List selectNoticeList();
 
 	int getNoticeNo();
 

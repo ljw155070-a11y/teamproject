@@ -123,8 +123,8 @@ body {
 					<div class="noticeSelect">
 						<span>고정여부 : </span>
 						<select name="fixType">
-	                        <option value="yes">예</option>
-	                        <option value="no">아니오</option>
+	                        <option value="yes" th:text="${notice.noticeFixTop == 1}">예</option>
+	                        <option value="no" th:text="${notice.noticeFixTop == 0}">아니오</option>
 	                    <span class="fileAdd">첨부파일
 	                    	<input type="file" name="upfile" multiple>
 	                    </span>
@@ -139,7 +139,7 @@ body {
 					</div>
 				</div>
 	            <textarea name=noticeWriteContent></textarea>							
-			<button class="add-btn" type="submit"><a href="/notice/list">추가하기</a></button>
+			<button class="add-btn" type="submit"><a href="/notice/list">등록하기</a></button>
 			</form>
 			</div>
 		</section>
