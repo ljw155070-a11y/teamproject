@@ -56,6 +56,7 @@
     border: 1px solid #bfbfbf;
     border-radius: 0 0 9px 9px;
     padding: 10px 35px;
+    display: flex;
 }
 .info-input>div{
     float: right;
@@ -86,7 +87,7 @@
     float: left;
 }
 .my-info-btn{
-    padding-left: 300px;
+    padding-left: 200px;
 }
 .my-info-btn>button{
     padding: 6px;
@@ -96,24 +97,34 @@
     margin-bottom: 5px;
     border: none;
     border-radius: 9px;
+    float: right;
 }
-.my-info-btn>button:first-child{
+.my-info-btn>button:last-child{
     background-color: #E5D0AC;
     color: #fff;
     font-weight: 700;
 }
-.my-info-btn>button:first-child:hover{
+.my-info-btn>button:last-child:hover{
     background-color: #a38d63;
     color: #fff;
 }
-.my-info-btn>button:last-child{
-    background-color: #FF9D23;
+.my-info-btn>#info-update-btn{
+	background-color: #FF9D23;
     color: #fff;
     font-weight: 700;
 }
-.my-info-btn>button:last-child:hover{
-    background-color: #ffc074;
+.my-info-btn>#info-update-btn:hover{
+	background-color: #ffc074;
     color: #d17b11;
+}
+.my-info-btn>button:first-child{
+    background-color: #EFEFEF;
+    color: #B2B2B2;
+    font-weight: 700;
+}
+.my-info-btn>button:first-child:hover{
+    background-color: #b3b3b3;
+    color: #e2e2e2;
 }
 .page-bottom-content{
     margin: 0 auto;
@@ -157,6 +168,7 @@
 .tbl-box>table{
     width: 710px;
     border-spacing: 0;
+    
 }
 .th-css>th{
     font-weight: 500;
@@ -362,8 +374,9 @@
 	                            </div>
 	                        </div>
 	                        <div class="my-info-btn">
-	                            <button type="button">관리자 페이지 이동</button>
+	                            <button type="button" id="info-delete-btn">회원 탈퇴</button>
 	                            <button type="submit" id="info-update-btn">내 정보 수정</button>
+	                            <button th:if=${session.member.memberLevel==매운맛} type="button" id="admin-use-btn">관리자 페이지 이동</button>
 	                        </div>
                         </form>
 					</div>
@@ -580,7 +593,10 @@
 	    		}
 	    	})
 	    });
-		
+    	//관리자
+		$("#admin-use-btn").on("click",function(){
+			location.href = "/member/searchMember";
+		});
     
     </script>
 	<th:block th:include="common/footer"></th:block>

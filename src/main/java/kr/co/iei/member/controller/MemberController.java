@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.iei.member.model.service.MemberService;
@@ -114,14 +115,27 @@ public class MemberController {
 	}
 	
 	@GetMapping(value = "/mypage")
-	public String mypage() {
+	public String mypage(@SessionAttribute(required = false) Member member, Model model) {
+		if(member == null) {
+			model.addAttribute("title","로그인 확인.");
+			model.addAttribute("text","로그인 후 이용해 주세요.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/member/loginFrm");
+			return "common/msg";
+		}
 		return "member/mypage";
 	}
 	
 	@PostMapping(value = "/update")
-	public String update(Member m) {
+	public String update(Member m, HttpSession session) {
 		int result = memberService.updateMember(m);
-		return "redirect:/member/mypage?memberId="+m.getMemberId();
+		
+		if(result > 0) {
+			Member member = (Member)session.getAttribute("member");
+			member.setMemberNickname(m.getMemberNickname());
+		}
+		
+		return "redirect:/member/mypage";
 	}
 	
 }
