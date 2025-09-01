@@ -32,5 +32,7 @@ public interface MemberDao {
 
 	List<Member> searchMemberList(int start, int end, String memberNickname);
 
+	int updateMember(Member m);
+
 
 }
