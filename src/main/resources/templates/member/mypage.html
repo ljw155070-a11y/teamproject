@@ -88,7 +88,8 @@
 }
 
 .my-info-btn{
-    
+    overflow : hidden;
+    float: right;
 }
 .my-info-btn>button{
     padding: 6px;
@@ -99,10 +100,13 @@
     border: none;
     border-radius: 9px;
     margin-left : 5px;
-    display: flex;
-    float: right;
+    justify-content: center;
 }
-
+#pw-check-msg{
+	padding-top: 130px;
+	padding-left: 350px;
+	text-align: right;
+}
 .my-info-btn>button:last-child{
     background-color: #E5D0AC;
     color: #fff;
@@ -330,7 +334,7 @@
 	color: red;
 }
 #nickname-check-msg{
-	padding-left: 300px;
+	text-align: right;
 }
 </style>
 </head>
@@ -374,9 +378,11 @@
 	                            <div id="pw-re-div">
 	                                <label for="memberPwRe">비밀번호 확인 : </label>
 	                                <input type="password" name="memberPwRe" id="memberPwRe" >
-	                            	<p class="input-msg pw-check-msg" id="pw-check-msg"></p>
 	                            </div>
 	                        </div>
+                           	<div>
+                           		<p class="input-msg pw-check-msg" id="pw-check-msg"></p>
+                           	</div>
 	                        <div class="my-info-btn">
 	                            <button type="button" id="info-delete-btn">회원 탈퇴</button>
 	                            <button type="submit" id="info-update-btn">내 정보 수정</button>
