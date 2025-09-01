@@ -63,18 +63,19 @@ public class QnaController {
 		return "redirect:/qna/view?qnaNo="+qc.getQnaNo();
 	}
 	
-	@GetMapping(value="/writeFrm")
+	@PostMapping(value="/writeFrm")
 		public String writeQna(){
-		return "qna/writeQnaContent";
+		return "qna/writeFrm";
 	}
 	
 	@PostMapping(value="/write")
 	public String insertQnaContent(Qna q, Model model) {
 		System.out.println(q.getQnaTitle());
 		int result = qnaService.insertQnaContent(q);
+		model.addAttribute("title", "게시글 등록 완료");
 		model.addAttribute("text", "질문 등록 완료");
 		model.addAttribute("icon", "success");
-		model.addAttribute("loc", "qna/list?reqPage=1");
+		model.addAttribute("loc", "/qna/list?reqPage=1");
 		return "common/msg";
 	}
 	
