@@ -217,7 +217,7 @@ hr{
 								<div class="order dynamic">
 									<span>Step 1</span>
 									<!-- ★★★★★★★★★★★★★★레시피 조리내용 전송★★★★★★★★★★★★★★★ -->
-									<input type="text" name="recipeCookingContent" placeholder = "이곳에 설명을 입력하세요">
+									<textarea name=recipeCookingContent></textarea>
 									<!-- ★★★★★★★★★★★★★★레시피 조리 이미지 전송★★★★★★★★★★★★★★★ -->
 									<input type="file" name="recipeCookingOrderImgFile" accept="image/*">
 								</div>
@@ -238,6 +238,7 @@ hr{
 		</section>
 	</main>
 	<script>
+
 		$('#ingredientPlusBtn').on('click', function(){
 			let ingredientDivs = $("#ingredientBox .ingredient.dynamic");
 			let ingredientNo = ingredientDivs.length;
