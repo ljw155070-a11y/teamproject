@@ -42,4 +42,9 @@ public interface QnaDao {
 
 	int qnaCommentReportedTotalCount();
 
+	int selectAllQnaCommentReport(int qnaNo, int commentNo, int memberNo);
+
+	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
+
+
 }

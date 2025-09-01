@@ -1,5 +1,5 @@
 package kr.co.iei.member.controller;
-
+import kr.co.iei.notice.model.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.iei.member.model.service.MemberService;
@@ -15,9 +16,15 @@ import kr.co.iei.member.model.vo.Member;
 @Controller
 @RequestMapping(value = "/member")
 public class MemberController {
+
+    private final NoticeService noticeService;
 	
 	@Autowired
 	private MemberService memberService;
+
+    MemberController(NoticeService noticeService) {
+        this.noticeService = noticeService;
+    }
 	
 	@GetMapping(value = "/loginFrm")
 	public String loginFrm() {
@@ -105,6 +112,30 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 		
+	}
+	
+	@GetMapping(value = "/mypage")
+	public String mypage(@SessionAttribute(required = false) Member member, Model model) {
+		if(member == null) {
+			model.addAttribute("title","로그인 확인.");
+			model.addAttribute("text","로그인 후 이용해 주세요.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/member/loginFrm");
+			return "common/msg";
+		}
+		return "member/mypage";
+	}
+	
+	@PostMapping(value = "/update")
+	public String update(Member m, HttpSession session) {
+		int result = memberService.updateMember(m);
+		
+		if(result > 0) {
+			Member member = (Member)session.getAttribute("member");
+			member.setMemberNickname(m.getMemberNickname());
+		}
+		
+		return "redirect:/member/mypage";
 	}
 	
 }

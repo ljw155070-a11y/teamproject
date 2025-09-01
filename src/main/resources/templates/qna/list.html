@@ -171,8 +171,8 @@
 			<div class="content-title">질문 게시판</div>
 			
 			  <div class="qna content-wrap">
-				<form class="writeBtn" action="/qna/write" method="post">
-					<button class="contentInputBox">글쓰기</button>
+				<form class="writeBtn" action="/qna/writeFrm" method="post">
+					<input type="submit" class="contentInputBox" value="글쓰기">
 				</form>
 				
 				<div class="menuSearchBox">
@@ -217,8 +217,6 @@
 </body>
 <script src="/js/sweetalert.min.js"></script>
 <script>
-	$(".contentInputBox").on("click", function(){
-		location.href="/qna/write";
-	})
+	
 </script>
 </html>

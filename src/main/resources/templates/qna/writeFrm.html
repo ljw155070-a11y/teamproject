@@ -4,18 +4,82 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	.writeContent{
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	.content-space{
+		height: 80px;
+	}
+	
+	.write-content-wrap{
+		margin: 0 auto;
+	}
+	.qnaWriteTbl{
+		margin: 0 auto;
+		width: 1000px;
+		margin-top: 30px;
+		margin-bottom: 20px;
+		border: 1px solid orange;
+		border-radius: 15px;
+	}
+	.write-title{
+		text-align: center;
+		color: orange;
+		font-weight: bold;
+	}
+	
+	.inputTitle>input{
+		margin: 0 auto;
+		width:100%;
+		height: 50px;
+		box-sizing: border-box;
+		float: left;
+		border: none;
+		border-bottom: 1px solid black;
+		text-align: center;
+		font-size: 20px;
+	}
+	.inputInfo>td>*{
+		margin-left: 10px;
+	}
+	.inputContent>[name=qnaContent]{
+		margin: 0 auto;
+		width: 100%;
+		height: 500px;
+		box-sizing: border-box;
+		border: none;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+	}
+	.writeBtnSubmit{
+		margin: 0 auto;
+		text-align: center;
+	}
+	.writeBtnSubmit>td>button{
+		margin-bottom: 10px;
+		background-color: orange;
+		color: white;
+		border: none;
+		border: 1px solid orange;
+		border-radius: 15px;
+		padding: 10px;
+	}
+</style>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main class="writeContent">
 		<section class="write-content-wrap">
-			<div class="write-title">질문 게시판 등록</div>
+			<div class="content-space"></div>
+			<div class="write-title">질문 게시판 작성</div>
 		
 			<form action="/qna/write" method="post">
 				<table class="qnaWriteTbl">
 					<tr>
 						<td colspan="3">
 							<div class="inputTitle">
-								<input type="text" name="qnaTitle" th:value="${qnaTitle}">
+								<input type="text" name="qnaTitle" th:value="${qnaTitle}" placeholder="제목을 입력해주세요">
 							</div>
 						</td>
 					</tr><!-- 제목 -->
@@ -24,6 +88,7 @@
 						<td>
 							<span th:text="${session.member.memberName}"></span>
 							<input type="hidden" name="memberName" th:value="${session.member.memberName}">
+							<input type="hidden" name="memberNo" th:value="${session.member.memberNo}">
 						</td>
 					</tr><!-- 작성자 -->
 					
@@ -35,9 +100,9 @@
 						</td>
 					</tr><!-- 작성할 내용 -->
 				
-					<tr>
+					<tr class="writeBtnSubmit">
 						<td colspan="4">
-							<button type="submit" class="writeBtnSubmit">등록하기</button>
+							<button type="submit">등록하기</button>
 						</td>
 					</tr>
 				</table>

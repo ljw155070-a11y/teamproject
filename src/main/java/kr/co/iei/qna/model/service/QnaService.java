@@ -72,11 +72,10 @@ public class QnaService {
 		List list = qnaDao.selectAllQna(param);
 		QnaListData qld = new QnaListData(list, pageNavi);
 		return qld;
-	}
+	}//질문 목록창 및 페이징
 
 	public Qna selectOneQnaList(int qnaNo) {
 		Qna q = qnaDao.selectOneQnaList(qnaNo);
-		System.out.println(q);
 		if(q != null) {
 			HashMap<String, Object> param = new HashMap<String, Object>();
 			param.put("qnaNo", qnaNo);		
@@ -84,13 +83,12 @@ public class QnaService {
 			q.setQnaCommentList(qnaCommentList);
 		}
 		return q;
-	}
+	}//상세보기
 
 	public int insertQnaComment(QnaComment qc) {
-		System.out.println(qc);
 		int result = qnaDao.insertQnaComment(qc);
 		return result;
-	}
+	}//댓글 작성
 
 	public int qnaReport(int qnaNo, int memberNo) {
 		int count = qnaDao.selectAllQnaReport(qnaNo, memberNo);
@@ -100,21 +98,21 @@ public class QnaService {
 		}else {
 			return 0;
 		}
-	}
+	}//게시글 신고
 
 	public int deleteQnaComment(int qnaCommentNo) {
 		int result = qnaDao.deleteQnaComment(qnaCommentNo);
 		System.out.println(result);
 		return result;
-	}
+	}//댓글 삭제
 
 	@Transactional
-	public int insertQnaContent(Qna q) {
+	public int insertQnaContent(Qna q) {	
 		int newQnaNo = qnaDao.getQnaNo();
-		q.setQnaNo(newQnaNo);
 		int result = qnaDao.insertQna(q);
+		System.out.println(result);
 		return result;
-	}
+	}//게시글 작성
 
 	public int deleteQna(int qnaNo) {
 		int result = qnaDao.deleteQna(qnaNo);
@@ -229,4 +227,15 @@ public class QnaService {
 		
 		return reqSet;
 	}
-}
+	public int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo) {
+		int count = qnaDao.selectAllQnaCommentReport(qnaNo, qnaCommentNo, memberNo);
+		if(count >= 0) {
+			int result = qnaDao.reportQnaComment(qnaNo, qnaCommentNo, memberNo);
+			return result;
+		}else {			
+			return 0;
+		}
+	}//댓글 신고
+}//게시글 삭제
+
+
