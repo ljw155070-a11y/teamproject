@@ -329,12 +329,12 @@
             <div class="page-top-content">
                 <div class="top-content">
                     <div class="page-top-title">
-                        내 정보 수정
+                        내 정보
                     </div>
                     <div class="info-content">
                     	<form action="/member/update" method="post" >
 	                        <div class="info-input">
-	                        	<p class="input-msg nickname-check-msg" id="nickname-check-msg">ㄱㄱ</p>
+	                        	<p class="input-msg nickname-check-msg" id="nickname-check-msg"></p>
 	                            <div id="name-div">
 	                                <label for="memberName">이름 : </label>
 	                                <input type="text" name="memberName" id="memberName" th:value=${session.member.memberName} readonly="readonly">
@@ -356,9 +356,9 @@
 	                                <input type="password" name="memberPw" id="memberPw" th:value=${session.member.memberPw} disabled="disabled">
 	                            </div>
 	                            <div id="pw-re-div">
-	                                <label for="PwRe">비밀번호 확인 : </label>
+	                                <label for="memberPwRe">비밀번호 확인 : </label>
 	                                <input type="password" name="memberPwRe" id="memberPwRe" >
-	                            	<p class="input-msg pw-check-msg" id="pw-check-msg">ㄱㄱ</p>
+	                            	<p class="input-msg pw-check-msg" id="pw-check-msg"></p>
 	                            </div>
 	                        </div>
 	                        <div class="my-info-btn">
@@ -535,9 +535,9 @@
     </div>
     <script>
     $("#info-update-btn").on("click",function(){
-    	const valid = $(".valid");
-    	if(valid.length !== 2){
-    		alert("비밀번호를 다시 확인해 주세요.");
+    	const invalid = $(".invalid");
+    	if(invalid.length > 0){
+    		alert("입력 정보를 다시 확인해 주세요.");
     		e.preventDefault();
     	}
     });
@@ -547,7 +547,7 @@
 	    	$("#pw-check-msg").removeClass("valid").removeClass("invalid");
 	    	const memberPw = $("#memberPw").val();
 	    	const memberPwRe = $("#memberPwRe").val();
-	    	if(memberPw === inputPwRe){
+	    	if(memberPw === memberPwRe){
 	    		$("#pw-check-msg").text("비밀번호가 일치 합니다.");
 	    		$("#pw-check-msg").addClass("valid");
 	    	}else{
@@ -559,19 +559,24 @@
     //닉네임 중복
 	$("#memberNickname").on("keyup",function(){
 	    	const memberNickname = $("#memberNickname").val();
-	    	$("#nickName-check-msg").removeClass("valid").removeClass("invalid");
+	    	$("#nickname-check-msg").removeClass("valid").removeClass("invalid");
 	    	$.ajax({
 	    		url : "/member/checkNickname",
 	    		type : "get",
 	    		data : {memberNickname : memberNickname},
 	    		success : function(result){
-	    	    	if(result===0){
-	    	    		$("#nickName-check-msg").text("사용 가능한 닉네임 입니다.")
-	    		    	$("#nickName-check-msg").addClass("valid");	
-	    	    	}else if(result === 1){
-	    	    		$("#nickName-check-msg").text("이미 사용중인 닉네임 입니다.")
-	    		    	$("#nickName-check-msg").addClass("invalid");
-	    	    	}	    			
+	    	    	 if(result === 0){
+	    	    		$("#nickname-check-msg").text("사용 가능한 닉네임 입니다.")
+	    		    	$("#nickname-check-msg").addClass("valid");	
+	    	    	}else if(result===1){
+	    	    		$("#nickname-check-msg").text("이미 사용중인 닉네임 입니다.")
+	    		    	$("#nickname-check-msg").addClass("invalid");
+	    	    	}	    
+	    	    	 /*
+	    	    	 if(result === $("#memberNickname")){
+		    	    		$("#nickname-check-msg").text("현재 닉네임 입니다.")
+		    	    		$("#nickname-check-msg").addClass("valid");
+		    	    }*/
 	    		}
 	    	})
 	    });

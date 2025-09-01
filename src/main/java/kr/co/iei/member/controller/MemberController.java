@@ -118,4 +118,10 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
+	@PostMapping(value = "/update")
+	public String update(Member m) {
+		int result = memberService.updateMember(m);
+		return "redirect:/member/mypage?memberId="+m.getMemberId();
+	}
+	
 }

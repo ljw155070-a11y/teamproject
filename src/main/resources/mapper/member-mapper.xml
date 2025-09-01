@@ -127,5 +127,11 @@
   		  )
   		  where #{start} <![CDATA[<=]]> rnum and rnum<![CDATA[<=]]> #{end} 
   </select>
+  
+  <update id="updateMember">
+  	update into member_tbl set
+  		member_nickname = #{memberNickname} 
+  	where membre_id = #{memberId}
+  </update>
 </mapper>
 
