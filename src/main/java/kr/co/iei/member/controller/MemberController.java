@@ -1,5 +1,5 @@
 package kr.co.iei.member.controller;
-
+import kr.co.iei.notice.model.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +15,15 @@ import kr.co.iei.member.model.vo.Member;
 @Controller
 @RequestMapping(value = "/member")
 public class MemberController {
+
+    private final NoticeService noticeService;
 	
 	@Autowired
 	private MemberService memberService;
+
+    MemberController(NoticeService noticeService) {
+        this.noticeService = noticeService;
+    }
 	
 	@GetMapping(value = "/loginFrm")
 	public String loginFrm() {
@@ -105,6 +111,11 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 		
+	}
+	
+	@GetMapping(value = "/mypage")
+	public String mypage() {
+		return "member/mypage";
 	}
 	
 }

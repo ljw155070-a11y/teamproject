@@ -136,6 +136,7 @@
     font-size: 16px;
     color: #DEB17A;
     padding-left: 2px;
+    cursor: pointer;
 }
 .my-tab>div:first-child{
     border-left: none;
@@ -294,233 +295,237 @@
     font-weight: 900;
     border-bottom: none;
 }
+/*
 .tab-content>div{
     display: none;
 }
+*/
 .tab-content>.active-content{
     display: block;
 }
 .to1>span{
-    color: #FFCF4B; 
-}
+    color: #FFCF4B;
+} 
 </style>
 </head>
 <body>
-	<th:block th:include="common/header"></th:block>
 	<main>
-	<div class="mypage">
-        <div class="content-title">
-            <p>마이페이지</p>
-        </div>
-        <main>
-            <div class="mypage-input-box">
-                <div class="page-top-content">
-                    <div class="top-content">
-                        <div class="page-top-title">
-                            내 정보 수정
-                        </div>
-                        <div class="info-content">
-                            <div class="info-input">
-                                <div id="name-div">
-                                    <label for="Name">이름 : </label>
-                                    <input type="text" name="memberName" id="Name">
-                                </div>
-                                <div id="nickname-div">
-                                    <label for="Nickname">닉네임 : </label>
-                                    <input type="text" name="memberNickname" id="Nickname">
-                                </div>
-                                <div id="email-div">
-                                    <label for="Email">이메일 : </label>
-                                    <input type="text" name="memberEmail" id="Email">
-                                </div>
-                                <div id="id-div">
-                                    <label for="Id">아이디 : </label>
-                                    <input type="text" name="memberId" id="Id">
-                                </div>
-                                <div id="pw-div">
-                                    <label for="Pw">비밀번호 : </label>
-                                    <input type="password" name="memberPw" id="Pw">
-                                </div>
-                                <div id="pw-re-div">
-                                    <label for="PwRe">비밀번호 확인 : </label>
-                                    <input type="password" name="memberPwRe" id="PwRe">
-                                </div>
-                            </div>
-                            <div class="my-info-btn">
-                                <button type="button">관리자 페이지 이동</button>
-                                <button type="button">내 정보 수정</button>
-                            </div>
-                        </div>
+	<th:block th:include="common/header"></th:block>
+		<div class="mypage">
+			<div class="content-title">
+	            <p>마이페이지</p>
+	        </div>
+        <div class="mypage-input-box">
+            <div class="page-top-content">
+                <div class="top-content">
+                    <div class="page-top-title">
+                        내 정보 수정
                     </div>
-                </div>
-                <div class="page-bottom-content">
-                    <div class="tab-content-box">
-                        <div class="my-tab">
-                            <div>내 레시피</div>
-                            <div>내 Q&A</div>
-                            <div>내가 쓴 댓글</div>
-                            <div>평점 남긴 레시피</div>
+                    <div class="info-content">
+                    	<form action="/member/update" method="post" >
+	                        <div class="info-input">
+	                            <div id="name-div">
+	                                <label for="Name">이름 : </label>
+	                                <input type="text" name="memberName" id="Name">
+	                            </div>
+	                            <div id="nickname-div">
+	                                <label for="Nickname">닉네임 : </label>
+	                                <input type="text" name="memberNickname" id="Nickname">
+	                            </div>
+	                            <div id="email-div">
+	                                <label for="Email">이메일 : </label>
+	                                <input type="text" name="memberEmail" id="Email">
+	                            </div>
+	                            <div id="id-div">
+	                                <label for="Id">아이디 : </label>
+	                                <input type="text" name="memberId" id="Id">
+	                            </div>
+	                            <div id="pw-div">
+	                                <label for="Pw">비밀번호 : </label>
+	                                <input type="password" name="memberPw" id="Pw">
+	                            </div>
+	                            <div id="pw-re-div">
+	                                <label for="PwRe">비밀번호 확인 : </label>
+	                                <input type="password" name="memberPwRe" id="PwRe">
+	                            </div>
+	                        </div>
+	                        <div class="my-info-btn">
+	                            <button type="button">관리자 페이지 이동</button>
+	                            <button type="submit">내 정보 수정</button>
+	                        </div>
+                        </form>
+					</div>
+		      </div>
+            </div>
+            <div class="page-bottom-content">
+                <div class="tab-content-box">
+                    <div class="my-tab">
+                        <div>내 레시피</div>
+                        <div>내 Q&A</div>
+                        <div>내가 쓴 댓글</div>
+                        <div>평점 남긴 레시피</div>
+                    </div>
+                    <div class="tab-content">
+                        <!-- 레시피 -->
+                        <div class="my-recipe">
+                            <div class="tbl-box">
+                                <table>
+                                    <tr class="th-css">
+                                        <th class="to1" width="20%" >글 번호</th>
+                                        <th class="to1" width="60%">레시피 제목</th>
+                                        <th class="to1" width="20%">작성일</th>
+                                    </tr>
+                                    <tr class="td-css2">
+                                        <td width="20%" ><div class="to1">1</div></td>
+                                        <td width="60%" ><div class="to1">요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름</div></td>
+                                        <td width="20%" ><div class="to1">2025/08/30</div></td>
+                                    </tr>
+                                    <tr class="td-css2">
+                                        <td width="20%" ><div class="to1">1</div></td>
+                                        <td width="60%" ><div class="to1">요리이름</div></td>
+                                        <td width="20%" ><div class="to1">2025/08/30</div></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                        <div class="tab-content">
-                            <!-- 레시피 -->
-                            <div class="my-recipe">
-                                <div class="tbl-box">
-                                    <table>
-                                        <tr class="th-css">
-                                            <th class="to1" width="20%" >글 번호</th>
-                                            <th class="to1" width="60%">레시피 제목</th>
-                                            <th class="to1" width="20%">작성일</th>
-                                        </tr>
-                                        <tr class="td-css2">
-                                            <td width="20%" ><div class="to1">1</div></td>
-                                            <td width="60%" ><div class="to1">요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름</div></td>
-                                            <td width="20%" ><div class="to1">2025/08/30</div></td>
-                                        </tr>
-                                        <tr class="td-css2">
-                                            <td width="20%" ><div class="to1">1</div></td>
-                                            <td width="60%" ><div class="to1">요리이름</div></td>
-                                            <td width="20%" ><div class="to1">2025/08/30</div></td>
-                                        </tr>
-                                    </table>
-                                </div>
+                        <!-- 레시피 -->
+                        <!-- Q&A -->
+                        <div class="my-qna">
+                            <div class="tbl-box">
+                                <table>
+                                    <tr class="th-css">
+                                        <th class="to1" width="20%" >글 번호</th>
+                                        <th class="to1" width="55%">Q&A 제목</th>
+                                        <th class="to1" width="25%">작성일</th>
+                                    </tr>
+                                    <tr class="td-css2">
+                                        <td width="20%" ><div class="to1">1</div></td>
+                                        <td width="55%" ><div class="to1">도움.....질문질문질문질문질문질문질문질문질문질문질문질문질문질문질문질문</div></td>
+                                        <td width="25%" ><div class="to1">2025/08/30</div></td>
+                                    </tr>
+                                    <tr class="td-css2">
+                                        <td width="20%" ><div class="to1">1</div></td>
+                                        <td width="55%" ><div class="to1">질문도움</div></td>
+                                        <td width="25%" ><div class="to1">2025/08/30</div></td>
+                                    </tr>
+                                </table>
                             </div>
-                            <!-- 레시피 -->
-                            <!-- Q&A -->
-                            <div class="my-qna">
-                                <div class="tbl-box">
-                                    <table>
-                                        <tr class="th-css">
-                                            <th class="to1" width="20%" >글 번호</th>
-                                            <th class="to1" width="55%">Q&A 제목</th>
-                                            <th class="to1" width="25%">작성일</th>
-                                        </tr>
-                                        <tr class="td-css2">
-                                            <td width="20%" ><div class="to1">1</div></td>
-                                            <td width="55%" ><div class="to1">도움.....질문질문질문질문질문질문질문질문질문질문질문질문질문질문질문질문</div></td>
-                                            <td width="25%" ><div class="to1">2025/08/30</div></td>
-                                        </tr>
-                                        <tr class="td-css2">
-                                            <td width="20%" ><div class="to1">1</div></td>
-                                            <td width="55%" ><div class="to1">질문도움</div></td>
-                                            <td width="25%" ><div class="to1">2025/08/30</div></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- Q&A -->
-                            <!-- 댓글 -->
-                            <div class="my-comment">
-                                <div class="tbl-box">
-                                    <table>
-                                        <tr class="th-css">
-                                            <th class="to1" width="20%" >게시판</th>
-                                            <th class="to1" width="40%">게시글 제목</th>
-                                            <th class="to1" width="40%">댓글</th>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><a class="to1">레시피 게시판</a></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">제발....</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                        <tr class="td-css">
-                                            <td width="20%" ><div class="to1">레시피 게시판</div></td>
-                                            <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
-                                            <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- 댓글 -->
-                            <!-- grade -->
-                            <div class="my-grade">
-                                <div class="tbl-box">
-                                    <table>
-                                        <tr class="th-css">
-                                            <th class="to1" width="20%" >글 번호</th>
-                                            <th class="to1" width="55%">Q&A 제목</th>
-                                            <th class="to1" width="25%">평점</th>
-                                        </tr>
-                                        <tr class="td-css2">
-                                            <td width="20%" ><div class="to1">1</div></td>
-                                            <td width="55%" ><div class="to1">요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름</div></td>
-                                            <td width="25%" >
-                                                <div class="to1">
-                                                    <span class="material-icons">star</span>
-                                                    <span class="material-icons">star</span>
-                                                    <span class="material-icons">star_half</span>
-                                                    <span class="material-icons">star_border</span>
-                                                    <span class="material-icons">star_border</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="td-css2">
-                                            <td width="20%" ><div class="to1">1</div></td>
-                                            <td width="55%" ><div class="to1">요리</div></td>
-                                            <td width="25%" >
-                                                <div class="to1">
-                                                    <span class="material-icons">star</span>
-                                                    <span class="material-icons">star</span>
-                                                    <span class="material-icons">star</span>
-                                                    <span class="material-icons">star_half</span>
-                                                    <span class="material-icons">star_border</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            
-                            <!-- grade -->
-                                <!-- 네비 -->
-                                <!--네비 -->
                         </div>
-                        
+                        <!-- Q&A -->
+                        <!-- 댓글 -->
+                        <div class="my-comment">
+                            <div class="tbl-box">
+                                <table>
+                                    <tr class="th-css">
+                                        <th class="to1" width="20%" >게시판</th>
+                                        <th class="to1" width="40%">게시글 제목</th>
+                                        <th class="to1" width="40%">댓글</th>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><a class="to1">레시피 게시판</a></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">제발....</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                    <tr class="td-css">
+                                        <td width="20%" ><div class="to1">레시피 게시판</div></td>
+                                        <td width="40%" ><div class="to1">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div></td>
+                                        <td width="40%" ><div class="to1">야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호 야호</div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 댓글 -->
+                        <!-- grade -->
+                        <div class="my-grade">
+                            <div class="tbl-box">
+                                <table>
+                                    <tr class="th-css">
+                                        <th class="to1" width="20%" >글 번호</th>
+                                        <th class="to1" width="55%">Q&A 제목</th>
+                                        <th class="to1" width="25%">평점</th>
+                                    </tr>
+                                    <tr class="td-css2">
+                                        <td width="20%" ><div class="to1">1</div></td>
+                                        <td width="55%" ><div class="to1">요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름</div></td>
+                                        <td width="25%" >
+                                            <div class="to1">
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star_half</span>
+                                                <span class="material-icons">star_border</span>
+                                                <span class="material-icons">star_border</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="td-css2">
+                                        <td width="20%" ><div class="to1">1</div></td>
+                                        <td width="55%" ><div class="to1">요리</div></td>
+                                        <td width="25%" >
+                                            <div class="to1">
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star</span>
+                                                <span class="material-icons">star_half</span>
+                                                <span class="material-icons">star_border</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- grade -->
+						<!-- 네비 -->
+						<!--네비 -->
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
-	</main>
+    <script>
+		
+		
+    </script>
 	<th:block th:include="common/footer"></th:block>
+	</main>
 </body>
 </html>
