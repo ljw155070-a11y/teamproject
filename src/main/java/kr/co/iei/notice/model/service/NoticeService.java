@@ -110,20 +110,19 @@ public class NoticeService {
 	}
 	@Transactional
 	public List<NoticeFile> updateNotice(Notice n, List<NoticeFile> fileList, int[] delFileNo) {
-		int result = noticeDao.updateNotice(n);
-		for (NoticeFile noticeFile : fileList) {
-			noticeFile.setNoticeNo(n.getNoticeNo());
-			result += noticeDao.insertNoticeFile(noticeFile);
-		}
-		List<NoticeFile> delFileList = new ArrayList<>();
-		if (delFileNo != null) {
-			delFileList = noticeDao.selectNoticeFileList(delFileNo);
-
-			for (int noticeFileNo : delFileNo) {
-				result += noticeDao.deleteNoticeFile(noticeFileNo);
-			}
-		}
-		return delFileList;
+	    int result = noticeDao.updateNotice(n);
+	    for (NoticeFile noticeFile : fileList) {
+	        noticeFile.setNoticeNo(n.getNoticeNo());
+	        result += noticeDao.insertNoticeFile(noticeFile);
+	    }
+	    List<NoticeFile> delFileList = new ArrayList<>();
+	    if (delFileNo != null) {
+	        List list = noticeDao.selectNoticeFileList(delFileNo);
+	        for (int noticeFileNo : delFileNo) {
+	            result += noticeDao.deleteNoticeFile(noticeFileNo);
+	        }
+	    }
+	    return delFileList;
 	}
 	/*
 	@Transactional

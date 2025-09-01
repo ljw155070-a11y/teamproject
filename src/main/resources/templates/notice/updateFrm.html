@@ -81,7 +81,7 @@ body {
     align-items: center;
 }
 
-.noticeSelect span {
+.noticeSelect div {
     color: #656565;
     font-weight: 500;
 	font-size: 17px;
@@ -127,37 +127,40 @@ body {
 	<main class="content notice-write-container">
 		<section class="section-notice-write-wrap">
 			<div class="content-box">
-			<form action="/notice/write" method="post" enctype="multipart/form-data">			
-					<div class="input-item">
-						<input type="text" placeholder="제목을 입력하세요.">
-					</div>
-						<hr style="border: 1px solid #E6E6E6">
-					<div class="noticeSelect">
-						<span>고정여부 : </span>
-						<select name="fixType">
-	                        <option value="yes">예</option>
-	                        <option value="no">아니오</option>
-	                    <span class="fileAdd">첨부파일
-	                    	<input type="file" name="upfile" multiple>
-	                    </span>
-	                    </select>
-	                    <div class="noticeType">
-	                    	<span>공지유형 : </span>
-							<select name="searchType">
-	                        	<option value="general">일반</option>
-	                        	<option value="check">점검</option>
-	                    	</select>
-	                    </div>
-					</div>
-                    <hr style="border: 1px solid #E6E6E6">
-	                <div class="detail-content-box">
-                        <textarea name="content-text" placeholder="운영 정책에 위반되는 글을 작성할 시 게시글이 삭제 조치될 수 있으며, 신고 누적 5회 시 회원 탈퇴가 될 수 있음을 알립니다."></textarea>
-                        <hr style="border: 1px solid #E6E6E6">
-                    </div>						
+			<form action="/notice/update" method="post" enctype="multipart/form-data">			
+    			<div class="input-item">
+        			<input type="text" name="noticeTitle" th:value="${n.noticeTitle}">
+    			</div>
+    			<hr style="border: 1px solid #E6E6E6">
+    		<div class="noticeSelect">
+        			<span>고정여부 : </span>
+        			<select name="fixType">
+            			<option value="yes">예</option>
+            			<option value="no">아니오</option>
+        			</select>
+        			<div class="fileAdd">첨부파일
+        				<div class="file : ${n.fileList}" class="files">
+	            			<span class="delfilename" th:text="${file.filename}"></span>
+	            			<span class="material-icons del-btn" th:onclick="deletefile([[${file.noticeFileNo}]], this)">delete</span>
+        				</div>
+        			</div>
+        		<div class="noticeType">
+            		<span>공지유형 : </span>
+            		<select name="searchType">
+               			<option value="general">일반</option>
+                		<option value="check">점검</option>
+            		</select>
+        		</div>
+    		</div>
+    		<hr style="border: 1px solid #E6E6E6">
+    			<div class="detail-content-box">
+        			<textarea name="noticeContent" placeholder="운영 정책에 위반되는 글을 작성할 시 게시글이 삭제 조치될 수 있으며, 신고 누적 5회 시 회원 탈퇴가 될 수 있음을 알립니다."></textarea>
+    			</div>	
+    			<hr style="border: 1px solid #E6E6E6">
+    			<div class="add-btn">
+        			<button type="submit">수정하기</button>
+    			</div>
 			</form>
-            <div class="add-btn">
-                <button type="submit"><a href="/notice/list">수정하기</a></button>
-            </div>
 			</div>
 		</section>
 	</main>

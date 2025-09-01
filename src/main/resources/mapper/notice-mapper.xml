@@ -23,7 +23,7 @@
   </select>
   
   <insert id="insertNotice">
-  	insert into notice_tbl values (#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{notice}, sysdate)
+  	insert into notice_tbl values (#{noticeNo} ,#{noticeFixTop} ,#{noticeTitle}, #{noticeContent}, sysdate)
   </insert>
   
   <insert id="insertNoticeFile">

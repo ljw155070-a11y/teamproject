@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +37,8 @@ public class NoticeController {
 	private FileUtil fileUtil;
 	
 	@GetMapping(value="/list")
-	public String noticeList(int reqPage, Model model) {
+	public String noticeList(@RequestParam(value="reqPage", required=false) Integer reqPage, Model model) {
+		if(reqPage == null) reqPage = 1;
 		NoticeListData nl = noticeService.selectNoticeList(reqPage);
 		model.addAttribute("list", nl.getList());
 		model.addAttribute("pageNav", nl.getPageNav());
@@ -45,14 +47,13 @@ public class NoticeController {
 	
 	@GetMapping(value="/writeFrm")
 	public String noticeWriteFrm() {
-		return "notice/writeFrm";
-		
+		return "notice/writeFrmEditor";
 	}
 
-	@GetMapping(value="/write")
+	@PostMapping(value="/write")
 	public String noticeWrite(Notice n, MultipartFile[] upfile, Model model) {
 		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-		if(!upfile[0].isEmpty()) {
+		if(upfile != null && upfile.length > 0 && !upfile[0].isEmpty()) {
 			String savepath = root + "/notice/";
 			
 			for(MultipartFile file : upfile) {
@@ -66,7 +67,7 @@ public class NoticeController {
 		}
 		int result = noticeService.insertNotice(n, fileList);
 		model.addAttribute("title", "공지사항 등록 완료!");
-		model.addAttribute("text", "공지사항이 등록되었습니다.");
+		model.addAttribute("text", "공지사항 등록이 완료되었습니다.");
 		model.addAttribute("icon", "success");
 		model.addAttribute("loc", "/notice/list?reqPage=1");
 		return "common/msg";
@@ -93,13 +94,6 @@ public class NoticeController {
 		fileUtil.downloadFile(savepath, noticeFile.getFilepath(), noticeFile.getFilename(), response);
 	}
 	
-	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
-	@ResponseBody
-	public String editorImgUpload(MultipartFile upfile) {
-		String savepath = root + "/notice/editor/";
-		String filepath = fileUtil.upload(savepath, upfile);
-		return filepath;
-	}
 	@GetMapping(value="/updateFrm")
 	public String updateFrm(int noticeNo, Model model) {
 		Notice n = noticeService.selectOneNotice(noticeNo, 0);
@@ -126,7 +120,14 @@ public class NoticeController {
 			File delFile = new File(savepath + noticeFile.getFilepath());
 			delFile.delete();
 		}
-		return "redirect:/notice/view?noticeNo=" + n.getNoticeNo();
+		return "redirect:/notice/detail?noticeNo=" + n.getNoticeNo();
+	}
+	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
+	@ResponseBody
+	public String editorImgUpload(MultipartFile upfile) {
+		String savepath = root + "/notice/editor/";
+		String filepath = fileUtil.upload(savepath, upfile);
+		return filepath;
 	}
 }
 

@@ -117,7 +117,7 @@ body {
 			<form action="/notice/write" method="post" enctype="multipart/form-data">
 				<div class="content-header">			
 					<div class="input-item">
-						<input type="text" placeholder="제목을 입력하세요.">
+						<input type="text" name="noticeTitle" placeholder="제목을 입력하세요.">
 					</div>
 						<hr style="border: 1px solid #E6E6E6">
 					<div class="noticeSelect">
@@ -139,7 +139,7 @@ body {
 					</div>
 				</div>
 	            <textarea name=noticeWriteContent></textarea>							
-			<button class="add-btn" type="submit"><a href="/notice/list">추가하기</a></button>
+			<button class="add-btn" type="submit">등록하기</button>
 			</form>
 			</div>
 		</section>
@@ -158,6 +158,24 @@ body {
 			}
 		}
 	});
+	
+	function uploadImg(file, editor){
+		const form = new FormData();
+		form.append("upfile", file);
+		
+		$.ajax({
+			url : "/notice/editorImg",
+			type: "post",
+			data: form,
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				console.log(result);
+				$(editor).summernote("insertImage",
+						"/notice/editor/" + result);
+			}
+		});
+	}
 	</script>
     <th:block th:include="common/footer"></th:block>
 </body>

@@ -62,7 +62,6 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>3.0.5</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -97,7 +96,6 @@
 		    <version>3.5.4</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -126,5 +124,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
