@@ -79,6 +79,10 @@ public interface RecipeDao {
 	ArrayList<RecipeIngredient> editRecipeIngredientInfo(int recipeNo);
 
 	ArrayList<RecipeCookingOrder> editRecipeCookingOrderInfo(int recipeNo);
+	int recipeCommentReportedTotalCount();
+
+	List<Member> recipeCommentReportedList(int start, int end);
+	
 
 	
 }

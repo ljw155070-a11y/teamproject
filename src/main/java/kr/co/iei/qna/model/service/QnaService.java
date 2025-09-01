@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.dao.QnaDao;
 import kr.co.iei.qna.model.vo.Qna;
 import kr.co.iei.qna.model.vo.QnaComment;
@@ -116,8 +117,116 @@ public class QnaService {
 	public int deleteQna(int qnaNo) {
 		int result = qnaDao.deleteQna(qnaNo);
 		return result;
-	}//게시글 삭제
+	}
+	public HashMap<String, Object> qnaReportedList(int reqPage) {
 
+		int numPerPage = 10;
+		
+		
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage+1;
+		
+		List<Member> list = qnaDao.qnaReportedList(start, end);
+		
+		HashMap<String, Object> reqSet = new HashMap<>();
+		
+		
+		//전체 게시물 수
+		int totalCount = qnaDao.qnaReportedTotalCount();
+		
+		HashMap<String, Integer> pageInfo = new HashMap<>();
+		//전체 페이지 수
+		int totalPage = (int)(Math.ceil(totalCount/(double)numPerPage));
+		
+		//페이지네비 길이
+		int pageNaviSize = 5;
+		
+		//양쪽에 올 네비 갯수
+		int bothSidePage = (pageNaviSize-1)/2;
+		
+		int startNo = Math.max(1, reqPage-bothSidePage);
+		
+		int endNo = Math.min(totalPage, reqPage+bothSidePage);
+		
+		if(totalPage <= pageNaviSize) {
+			startNo = 1;
+			endNo = totalPage;
+		}else {
+			if((reqPage-bothSidePage)<1) {
+				endNo += (1-(reqPage-bothSidePage));
+			}else if((reqPage+bothSidePage)>totalPage) {
+				startNo -= (reqPage+bothSidePage)-totalPage; 
+			}
+		}
+		pageInfo.put("reqPage", reqPage);
+		pageInfo.put("startNo", startNo);
+		pageInfo.put("endNo", endNo);
+		pageInfo.put("totalCount", totalCount);
+		pageInfo.put("totalPage", totalPage);
+		
+		reqSet.put("pageInfo", pageInfo);
+		reqSet.put("list", list);
+		
+		
+		
+		
+		return reqSet;
+	}
+
+	public HashMap<String, Object> qnaCommentReportedList(int reqPage) {
+
+		int numPerPage = 10;
+		
+		
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage+1;
+		
+		List<Member> list = qnaDao.qnaCommentReportedList(start, end);
+		
+		HashMap<String, Object> reqSet = new HashMap<>();
+		
+		
+		//전체 게시물 수
+		int totalCount = qnaDao.qnaCommentReportedTotalCount();
+		
+		HashMap<String, Integer> pageInfo = new HashMap<>();
+		//전체 페이지 수
+		int totalPage = (int)(Math.ceil(totalCount/(double)numPerPage));
+		
+		//페이지네비 길이
+		int pageNaviSize = 5;
+		
+		//양쪽에 올 네비 갯수
+		int bothSidePage = (pageNaviSize-1)/2;
+		
+		int startNo = Math.max(1, reqPage-bothSidePage);
+		
+		int endNo = Math.min(totalPage, reqPage+bothSidePage);
+		
+		if(totalPage <= pageNaviSize) {
+			startNo = 1;
+			endNo = totalPage;
+		}else {
+			if((reqPage-bothSidePage)<1) {
+				endNo += (1-(reqPage-bothSidePage));
+			}else if((reqPage+bothSidePage)>totalPage) {
+				startNo -= (reqPage+bothSidePage)-totalPage; 
+			}
+		}
+		pageInfo.put("reqPage", reqPage);
+		pageInfo.put("startNo", startNo);
+		pageInfo.put("endNo", endNo);
+		pageInfo.put("totalCount", totalCount);
+		pageInfo.put("totalPage", totalPage);
+		
+		reqSet.put("pageInfo", pageInfo);
+		reqSet.put("list", list);
+		
+		
+		
+		
+		return reqSet;
+	}
 	public int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo) {
 		int count = qnaDao.selectAllQnaCommentReport(qnaNo, qnaCommentNo, memberNo);
 		if(count >= 0) {
@@ -127,5 +236,6 @@ public class QnaService {
 			return 0;
 		}
 	}//댓글 신고
-	
-}
+}//게시글 삭제
+
+
