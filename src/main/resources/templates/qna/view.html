@@ -211,7 +211,7 @@
 				
 				<tr class="reportInput">
 					<td colspan ="5">
-						<button colspan="3"><span class="material-icons">cell_tower</span>신고하기</button>
+						<button colspan="3" onShow="showReportBtn()" th:if="${session.member.memberNo} != ${q.memberNo}"><span class="material-icons">cell_tower</span>신고하기</button>
 					</td>	
 				</tr>
 				
