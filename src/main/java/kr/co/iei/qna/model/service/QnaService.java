@@ -120,7 +120,7 @@ public class QnaService {
 
 	public int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo) {
 		int count = qnaDao.selectAllQnaCommentReport(qnaNo, qnaCommentNo, memberNo);
-		if(count == 0) {
+		if(count >= 0) {
 			int result = qnaDao.reportQnaComment(qnaNo, qnaCommentNo, memberNo);
 			return result;
 		}else {			
