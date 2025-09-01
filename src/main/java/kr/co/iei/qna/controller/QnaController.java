@@ -34,10 +34,8 @@ public class QnaController {
 	}
 	
 	@GetMapping(value="/view")
-	public String qnaView(Model model, int qnaNo, @SessionAttribute(required=false) Member member) {
-		
+	public String qnaView(Model model, int qnaNo, @SessionAttribute(required=false) Member member) {		
 		Qna q = qnaService.selectOneQnaList(qnaNo);
-		System.out.println(q);
 		model.addAttribute("q", q);
 		return "qna/view";
 	}
