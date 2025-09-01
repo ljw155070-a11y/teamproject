@@ -5,42 +5,45 @@
 <title>Insert title here</title>
 </head>
 <body>
-<main class="writeContent">
-	<section class="write-content-wrap">
-		<div class="write-title">질문 게시판 등록</div>
+	<th:block th:include="common/header"></th:block>
+	<main class="writeContent">
+		<section class="write-content-wrap">
+			<div class="write-title">질문 게시판 등록</div>
 		
-		<form action="/qna/write" method="post">
-			<table class="qnaWriteTbl">
-				<tr>
-					<td colspan="3">
-						<div class="inputTitle">
-							<input type="text" name="qnaTitle">
-						</div>
-					</td>
-				</tr><!-- 제목 -->
+			<form action="/qna/write" method="post">
+				<table class="qnaWriteTbl">
+					<tr>
+						<td colspan="3">
+							<div class="inputTitle">
+								<input type="text" name="qnaTitle" th:value="${qnaTitle}">
+							</div>
+						</td>
+					</tr><!-- 제목 -->
 				
-				<tr>
-					<td>
-						<span></span>
-					</td>
-				</tr><!-- 작성자 -->
+					<tr class="inputInfo">
+						<td>
+							<span th:text="${session.member.memberName}"></span>
+							<input type="hidden" name="memberName" th:value="${session.member.memberName}">
+						</td>
+					</tr><!-- 작성자 -->
+					
+					<tr>
+						<td colspan="4">
+							<div class="inputContent">
+								<textarea name="qnaContent" th:text="${qnaContent}"></textarea>
+							</div>
+						</td>
+					</tr><!-- 작성할 내용 -->
 				
-				<tr>
-					<td colspan="4">
-						<div class="inputContent">
-							<textarea></textarea>
-						</div>
-					</td>
-				</tr><!-- 작성할 내용 -->
-				
-				<tr>
-					<td colspan="4">
-						<button type="submit" class="writeBtn">등록하기</button>
-					</td>
-				</tr>
-			</table>
-		</form>
-	</section>
-</main>
+					<tr>
+						<td colspan="4">
+							<button type="submit" class="writeBtnSubmit">등록하기</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</section>
+	</main>
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

@@ -27,6 +27,12 @@ public interface QnaDao {
 
 	int deleteQnaComment(int qnaCommentNo);
 
+	int getQnaNo();
+
+	int insertQna(Qna q);
+
+	int deleteQna(int qnaNo);
+
 	
 
 }
