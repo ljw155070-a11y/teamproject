@@ -63,4 +63,82 @@
 	<delete id="deleteQna">
 		delete from qna_tbl where qna_no = #{qnaNo}
 	</delete>
+	
+	<select id="qnaReportedList" resultType="qna">
+		select * from(
+    select rownum rnum,a.*
+    from(
+    select  
+        qna_no,
+        qna_title,
+        (select count(*) from qna_report_tbl where qna_no = q.qna_no) report_count,
+        member_id,
+        (select max(qna_report_date)
+    	 from qna_report_tbl
+    	 join qna_tbl using(qna_no) 
+    	 where qna_no=q.qna_no
+    	) qna_report_date
+    from qna_tbl q
+    join member_tbl using(member_no)
+    order by report_count desc, qna_report_date) a ) 
+    where report_count <![CDATA[>=]]> 1 and rnum between #{start} and #{end}
+	</select>
+	
+	<select id="qnaReportedTotalCount" resultType="int">
+		select count(*) from
+		(select 
+		 qna_no, 
+         qna_title,
+           (select count(*) 
+            from qna_report_tbl 
+            where qna_no = r.qna_no) report_count,
+        	member_id
+    		from qna_tbl r
+    		join member_tbl using(member_no)
+   		) 
+   		 where report_count <![CDATA[>=]]> 1 
+	</select>
+	
+	<select id="qnaCommentReportedList" resultType="qnaComment">
+		select * from(
+    select rownum rnum,a.*
+    from(
+    select  
+        qna_comment_no,
+        qna_comment_content,
+        (select count(*) from qna_comment_report_tbl where qna_comment_no = q.qna_comment_no) report_count,
+        member_id,
+        (select max(qna_report_date)
+    	 from qna_comment_report_tbl
+    	 join qna_comment_tbl using(qna_comment_no) 
+    	 where qna_comment_no=q.qna_comment_no
+    	) qna_comment_report_date
+    from qna_comment_tbl q
+    join member_tbl using(member_no)
+    order by report_count desc, qna_comment_report_date) a ) 
+    where report_count <![CDATA[>=]]> 1 and rnum between 1 and 10
+	</select>
+	
+	<select id="qnaCommentReportedTotalCount" resultType="int">
+		select count(*) from
+		(select 
+		 qna_comment_no, 
+         qna_comment_content,
+           (select count(*) 
+            from qna_comment_report_tbl 
+            where qna_comment_no = r.qna_comment_no) report_count,
+        	member_id
+    		from qna_comment_tbl r
+    		join member_tbl using(member_no)
+   		) 
+   		 where report_count <![CDATA[>=]]> 1
+	</select>
+	
+	<select id = "selectAllQnaCommentReport" resultType="int">
+		select count(*) from qna_comment_report_tbl
+	</select>
+	<insert id="reportQnaComment">
+		insert into qna_comment_report_tbl
+		values(#{qnaNo}, #{memberNo}, #{qnaCommentNo}, sysdate)
+	</insert>
 </mapper>
