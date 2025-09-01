@@ -109,9 +109,12 @@ public class QnaService {
 
 	@Transactional
 	public int insertQnaContent(Qna q) {
+		
 		int newQnaNo = qnaDao.getQnaNo();
 		q.setQnaNo(newQnaNo);
+		System.out.println("insertQna 호출"+q);
 		int result = qnaDao.insertQna(q);
+		System.out.println(result);
 		return result;
 	}
 
