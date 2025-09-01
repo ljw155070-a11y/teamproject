@@ -56,14 +56,15 @@
         qna_date,
         qna_count,
         qna_update_date
-    ) values (
-        #{qnaNo},
-        #{memberNo},
-        #{qnaTitle},
-        #{qnaContent},
-        sysdate,
-        default,
-        null
+    )
+    	values (
+        	#{qnaNo},
+	        #{memberNo},
+    	    #{qnaTitle},
+        	#{qnaContent},
+        	sysdate,
+    	    default,
+	        null
     )
 	</insert>
 	

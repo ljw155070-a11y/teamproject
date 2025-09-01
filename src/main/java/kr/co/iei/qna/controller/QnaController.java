@@ -84,7 +84,7 @@ public class QnaController {
 		model.addAttribute("title", "질문 게시글 삭제 완료");
 		model.addAttribute("text", "게시글이 삭제되었습니다");
 		model.addAttribute("icon", "success");
-		model.addAttribute("loc", "/qna/list?reqPage=1");
+		model.addAttribute("loc", "redirect:/qna/list?reqPage=1");
 		return "common/msg";
 	}
 }
