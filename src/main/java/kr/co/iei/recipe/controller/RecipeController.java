@@ -303,6 +303,11 @@ public class RecipeController {
 	    }
 		return "common/msg";
 	}
+	@ResponseBody
+	@PostMapping(value="editComment")
+	public String editComment(int recipeCommentNo,int recipeNo,String recipeCommentContent) {
+		return "fail";
+	}
 }
 		
 		
