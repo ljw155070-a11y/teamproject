@@ -278,7 +278,6 @@ WHERE RECIPE_NO=#{reqRecipeNo}
       				#{recipeCookingOrderImgPath}
       				)
 	</insert>
-<<<<<<< HEAD
 
 	<select id="editRecipeInfo" resultType="recipe">
 		SELECT * FROM RECIPE_TBL WHERE RECIPE_NO=#{recipeNo}
@@ -291,7 +290,6 @@ WHERE RECIPE_NO=#{reqRecipeNo}
 	<select id="editRecipeCookingOrderInfo" resultType="recipeCookingOrder">
 		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=#{recipeNo}
 	</select>
-=======
 	<select id="recipeCommentReportedList" resultType="recipeComment">
 		select * from(
     select rownum rnum,a.*
@@ -326,5 +324,4 @@ WHERE RECIPE_NO=#{reqRecipeNo}
    		 where report_count <![CDATA[>=]]> 1 
 	</select>
 	
->>>>>>> 3e4ce13637617195ebef393408598e7cbb6c755f
 </mapper>
