@@ -491,6 +491,23 @@ public class RecipeService {
 		return result==count;
 	}
 
+	public int editRecipe(int recipeNo, String recipeTitle, ArrayList<RecipeIngredient> ingredientList, String recipeCaution) {
+		int result=-1;
+		//일단 재료 삭제하고
+		result = recipeDao.deleteIngredient(recipeNo);
+		if(result>=1) {
+			result=1;
+		}
+		//새로 전달받은 재료 추가하고
+		for(RecipeIngredient ri:ingredientList) {
+			ri.setRecipeNo(recipeNo);
+			result+=recipeDao.recipeRIInsert(ri); //재료 넣기
+		}
+		//제목, 주의사항 수정 (업데이트)
+		result+= recipeDao.recipeUpdate(recipeNo, recipeTitle,recipeCaution);
+		return result;
+	}
+
 	
 	
 }

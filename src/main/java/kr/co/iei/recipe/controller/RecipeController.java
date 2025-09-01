@@ -245,7 +245,7 @@ public class RecipeController {
 		return "common/msg";
 	}
 	
-	@GetMapping(value="/edit")
+	@GetMapping(value="/editFrm")
 	public String editRecipeFrm(Model model,int recipeNo) {
 		System.out.println("수정 컨트롤러 호출됨");
 		System.out.println(recipeNo);
@@ -262,7 +262,46 @@ public class RecipeController {
 		model.addAttribute(riList);
 		model.addAttribute(rcoList);
 		
-		return "recipe/edit";
+		return "recipe/editFrm";
+	}
+	
+	@PostMapping(value="/edit")
+	public String editRecipe(int recipeNo,String recipeTitle,String[] recipeIngredientName,String[] recipeIngredientVolume,String recipeCaution,Model model) {
+		//레시피 재료는 그냥 해당하는 레시피 넘버 싹 삭제하고, 다시 insert 하자...
+		ArrayList<RecipeIngredient> ingredientList = new ArrayList<>();
+		if(recipeIngredientName[0] != null) {
+			for(int i=0; i<recipeIngredientName.length; i++) {
+				String name = recipeIngredientName[i];
+				String vol  = recipeIngredientVolume[i];
+				RecipeIngredient ri = new RecipeIngredient();
+				/*
+				 * 재료
+				 * 	RECIPE_INGREDIENT_NO		: 자동 채번
+					RECIPE_NO					: 서비스에서 r부터 집어넣고 no를 전달 받아야함
+					RECIPE_INGREDIENT_NAME		: ri에 있음
+					RECIPE_INGREDIENT_VOLUME	: ri에 있음
+				 * 
+				 * 
+				 */
+				ri.setRecipeIngredientName(name);
+				ri.setRecipeIngredientVolume(vol);
+				ingredientList.add(ri);
+			}
+		}
+		//나머지는 업데이트
+		int result = recipeService.editRecipe(recipeNo,recipeTitle,ingredientList,recipeCaution);
+		if (result > 3) {
+	        model.addAttribute("title", "레시피 수정 완료");
+	        model.addAttribute("text", "레시피가 수정되었습니다.");
+	        model.addAttribute("icon", "success");
+	        model.addAttribute("loc", "/recipe/detail?reqRecipeNo="+recipeNo);
+	    } else {
+	        model.addAttribute("title", "레시피 등록 실패");
+	        model.addAttribute("text", "잠시 후 다시 시도해주세요.");
+	        model.addAttribute("icon", "error");
+	        model.addAttribute("loc", "/recipe/detail?reqRecipeNo="+recipeNo);
+	    }
+		return "common/msg";
 	}
 }
 		
