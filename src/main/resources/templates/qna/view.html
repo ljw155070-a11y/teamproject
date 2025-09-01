@@ -85,6 +85,7 @@
 	}
 	.update-delete>td{
 		border-top: 1px solid black;
+		text-align: center;
 	}
 	.update-delete>td>button{
 		margin: 0 auto;
@@ -98,17 +99,7 @@
 		color: white;
 		font-size: 15px;
 	}
-	.update-delete>td{
-		text-align: center;
-	}
-	/*
-	.update-delete>td>button:first-child{	
-		margin-left: 400px;
-	}
-	.update-delete>td>button:last-child{
-		margin-left: 10px;
-	}
-	*/
+	
 	.commentInputBox{
 		margin: 0 auto;
 		width: 100%;
@@ -191,6 +182,7 @@
 		font-size: 15px;
 		background-color: #F4F4F4;
 		padding-left: 5px;
+		text-align: right;
 	}
 </style>
 <body>
@@ -224,9 +216,9 @@
 				</tr>
 				
 				<tr class="update-delete" onShow="showBtn()" th:if="${session.member != null}">
-					<td colspan="3">
+					<td colspan="3" th:if="${session.member.memberNo == q.memberNo}">
 						<button class="update-content">수정하기</button>
-						<button class="delete-content">삭제하기</button>
+						<button class="delete-content" th:onclick="deleteQna([[${q.qnaNo}]])">삭제하기</button>
 					</td>
 				</tr>
 			</table>
@@ -269,6 +261,7 @@
 						<p th:text="${qc.memberNo}"></p>
 						<p class="commentDate" th:text="${qc.qnaCommentDate}"></p>
 						<p th:text="${qc.qnaCommentContent}"></p>
+					
 					</li>
 					
 				</ul>
@@ -352,22 +345,136 @@
 			});		
 		}); //게시글 신고 끝
 		
-		$("#commentDelete").on("click",function(){
-			$.ajax({
-				url: "/qna/deleteComment",
-				type: "get",
-				data: {qnaNo : qnaNo, QnaCommentNo : QnaCommentNo},
-				success: function(){
+		function deleteQna(qnaNo){
+			swal({
+				title: "질문 게시글 삭제",
+				text: "게시글을 삭제하시겠습니까?",
+				icon: "warning",
+				button: {
+					confirm: {
+						text: "삭제",
+						value: true,
+						visible: true,
+						className: "btn-primary",
+						closeModal: true
+					},
+					cancel: {
+						text: "취소",
+						value: false,
+						visible: true,
+						className: "btn-secondary",
+						closeModal: true
+					}
+				}
 					
+			}).then(function(isConfirm){
+				if(isConfirm){
+					$.ajax({
+						url: "/qna/delete?qnaNo="+(qnaNo),
+						type: "get",
+						data: {qnaNo, qnaNo},
+						success: function(result){
+							if(result === 1){
+								swal({
+									title: "결과",
+									text: "게시글 삭제",
+									icon: "warning",
+									buttons: {
+										confirm: {
+											text: "게시글 삭제를 취소했습니다",
+											value: false,
+											visible: true,
+											className: "btn-secondary",
+											closeModal: true
+										}
+									}	
+								})
+							}else{
+								swal({
+									title: "결과",
+									text: "게시글 삭제",
+									icon: "warning",
+									buttons: {
+										confirm: {
+											text: "게시글 삭제를 완료했습니다",
+											value: true,
+											visible: true,
+											className: "btn-primary",
+											closeModal: true
+										}
+									}	
+								})
+							}
+						}
+					});
 				}
 			})
-		});
+		}//게시글 삭제 끝
+		
 		function deleteComment(qnaNo, qnaCommentNo){
-			if(confirm("댓글을 삭제하시겠습니까?")){
-				location.href="/qna/deleteComment?qnaNo="+qnaNo+"&qnaCommentNo="+qnaCommentNo;
-			}
-			console.log(qnaNo, qnaCommentNo);
-		}
+				swal({
+					title: "댓글 삭제",
+					text: "댓글을 삭제하시겠습니까?",
+					icon: "warning",
+					buttons: {
+						confirm: {
+							text: "삭제",
+							value: true,
+							visible: true,
+							className: "btn-primary",
+							closeModal: true
+						},
+						cancel: {
+							text: "취소",
+							value: false,
+							visible: true,
+							className: "btn-secondary",
+							closeModal: true
+						}
+					}
+				}).then(function(isConfirm){
+					if(isConfirm){
+						$.ajax({
+							url: "/qna/deleteComment?qnaNo="+qnaNo+"&qnaCommentNo="+qnaCommentNo,
+							type: "post",
+							data: {qnaNo : qnaNo, qnaCommentNo: qnaCommentNo},
+							success: function(result){
+								if(result === 1){
+									swal({
+										title: "결과",
+										text: "댓글 삭제",
+										icon: "warning",
+										buttons: {
+											confirm: {
+												text: "댓글 삭제를 취소했습니다",
+												value: false,
+												visible: true,
+												className: "btn-secondary",
+												closeModal: true
+											}
+										}	
+									})
+								}else{
+									swal({
+										title: "결과",
+										text: "댓글 삭제",
+										icon: "warning",
+										buttons: {
+											confirm: {
+												text: "댓글 삭제가 완료되었습니다",
+												value: true,
+												visible: true,
+												className: "btn-primary",
+												closeModal: true
+											}
+										}
+									});
+								}
+							}
+						});
+					}
+				})
+		}//댓글 삭제
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

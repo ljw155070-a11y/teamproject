@@ -60,6 +60,7 @@
 		padding: 3px;
 		margin-bottom: 10px;
 		width: 80%;
+		cursor: pointer;
 	}
 	
 	.menu-checkBox{
@@ -170,9 +171,9 @@
 			<div class="content-title">질문 게시판</div>
 			
 			  <div class="qna content-wrap">
-				<div class="writeBtn">
-					<button class="contentInputBox">글쓰기</button>
-				</div>
+				<form class="writeBtn" action="/qna/writeFrm" method="post">
+					<input type="submit" class="contentInputBox" value="글쓰기">
+				</form>
 				
 				<div class="menuSearchBox">
 					<form action="/" method="get">
@@ -192,7 +193,7 @@
 			</form>
 		
 		<section class="qna content-list">
-			<table action="/qnaList" method="get" id="qnaListForm">
+			<table action="/qnaList" method="post" id="qnaListForm">
 				<tr>
 					<th>글 번호</th>
 					<th>제목</th>
@@ -215,4 +216,7 @@
 	<th:block th:include="common/footer"></th:block>
 </body>
 <script src="/js/sweetalert.min.js"></script>
+<script>
+	
+</script>
 </html>

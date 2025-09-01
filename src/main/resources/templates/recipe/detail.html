@@ -191,7 +191,7 @@
 							<th:block th:each="rc : ${recipeDetailSet.recipeCookingOrderList}">
 								<tr>
 									<td style="width:10%; text-align:center;"><span th:text="${rc.recipeCookingOrder}" style="display:inline-block; line-height:40px; color: white; width:40px;height:40px; background-color:#EBA854; border-radius:40px; text-align:center"></span></td>
-									<td th:text="${rc.recipeCookingContent}" style="width:40%;"></td>
+									<td th:text="${rc.recipeCookingContent}" style="width:40%; padding:40px"></td>
 									<td style="width:40%;"><img th:src="${rc.recipeCookingOrderImgPath}" alt="조리순서" style = "width:100%;" ></td>
 								</tr>
 								<tr><td colspan="3"><hr></td></tr>
@@ -203,7 +203,7 @@
 						<div class="space"></div>
 						
 						<th:block th:if="${session.member != null}">
-						<hr>
+						<hr style="margin-bottom:20px;">
 							<div class="recipe gradeinput">
 								<div>평점주기</div>
 								<span class="material-icons">star</span>
@@ -216,7 +216,7 @@
 							</div>
 							<div class="recipe pointer" style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
 						<th:block th:if="${session.member.memberNo} == ${recipeDetailSet.recipeDetail.memberNo}">
-							<hr>
+							<hr style="margin-top:20px;">
 							<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
 								<button type="button" class="recipe btn edit">게시글 수정</button>
 								<button type="button" class="recipe btn delete" th:onclick="deleteRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]])">게시글 삭제</button>
