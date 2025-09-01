@@ -76,14 +76,12 @@ public class QnaController {
 		return "common/msg";
 	}
 	
-	@GetMapping(value="/delete")
-	public String deleteQna(int qnaNo, Model model) {
+	@PostMapping(value="/delete")
+	@ResponseBody
+	public int deleteQna(int qnaNo) {
 		int result = qnaService.deleteQna(qnaNo);
-		model.addAttribute("title", "질문 게시글 삭제 완료");
-		model.addAttribute("text", "게시글이 삭제되었습니다");
-		model.addAttribute("icon", "success");
-		model.addAttribute("loc", "redirect:/qna/list?reqPage=1");
-		return "common/msg";
+		
+		return result;
 	}
 	
 	@PostMapping(value="/reportComment")

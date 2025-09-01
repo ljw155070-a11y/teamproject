@@ -34,6 +34,8 @@ public interface QnaDao {
 
 	int deleteQna(int qnaNo);
 
+	int selectAllQnaCommentReport(int qnaNo, int qnaCommentNo, int memberNo);
+
 	List<Member> qnaReportedList(int start, int end);
 
 	int qnaReportedTotalCount();
@@ -42,7 +44,7 @@ public interface QnaDao {
 
 	int qnaCommentReportedTotalCount();
 
-	int selectAllQnaCommentReport(int qnaNo, int commentNo, int memberNo);
+	
 
 	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
 

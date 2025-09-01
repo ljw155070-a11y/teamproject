@@ -244,6 +244,26 @@ public class RecipeController {
 		
 		return "common/msg";
 	}
+	
+	@GetMapping(value="/edit")
+	public String editRecipeFrm(Model model,int recipeNo) {
+		System.out.println("수정 컨트롤러 호출됨");
+		System.out.println(recipeNo);
+		Recipe r = recipeService.editRecipeInfo(recipeNo);
+		ArrayList<RecipeIngredient> riList = recipeService.editRecipeIngredientInfo(recipeNo);
+		ArrayList<RecipeCookingOrder> rcoList = recipeService.editRecipeCookingOrderInfo(recipeNo);
+		
+		System.out.println("수정 컨트롤러에서 수신한 내용 : ");
+		System.out.println(r);
+		System.out.println(riList);
+		System.out.println(rcoList);
+		
+		model.addAttribute(r);
+		model.addAttribute(riList);
+		model.addAttribute(rcoList);
+		
+		return "recipe/edit";
+	}
 }
 		
 		

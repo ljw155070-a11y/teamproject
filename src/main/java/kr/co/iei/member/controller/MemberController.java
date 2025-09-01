@@ -36,7 +36,7 @@ public class MemberController {
 		System.out.println(m);
 		Member member = memberService.login(m);
 		System.out.println(member);
-
+		
 		if(member == null) {
 			model.addAttribute("title","로그인 실패");
 			model.addAttribute("text","아이디 또는 패스워드를 확인하세요.");
@@ -44,8 +44,10 @@ public class MemberController {
 			model.addAttribute("loc","/member/loginFrm");
 			return "common/msg";
 		} else if(member.getSuspendDays() != 0) {
-			model.addAttribute("title","로그인 실패");
-			model.addAttribute("text","이용이 정지 된 회원 입니다.");
+			model.addAttribute("title","계정 이용이 정지되었습니다.");
+			
+			model.addAttribute("text","정지사유 : "+member.getSuspendReason()+'\n'+member.getSuspendDays()+"일 이용이 정지되었습니다.");
+//			model.addAttribute("text",member.getSuspendDays()+"일 이용이 정지되었습니다.");
 			model.addAttribute("icon","error");
 			model.addAttribute("loc","/");
 			return "common/msg";

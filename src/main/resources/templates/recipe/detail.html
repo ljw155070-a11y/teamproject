@@ -66,10 +66,16 @@
 		color:#72450d;
 		cursor:pointer;
 	}
-	.recipe.ingredientList,.recipe.cookingOrderList{
+	.recipe.cookingOrderList{
 		display:flex;
 		justify-content:space-between;
 		padding : 20px 100px;
+	}
+	.listFlex{
+		display:flex;
+		justify-content:space-between;
+		padding : 20px 100px;
+		flex-direction:row;
 	}
 	.recipe.detailInfo-title{
 		font-size:1.2em;
@@ -173,12 +179,19 @@
 					<div class="recipe detailInfo">
 					<div class="recipe detailInfo-title">재료</div>
 						<div class="recipe ingredientList">
-							<div th:each="ri : ${recipeDetailSet.recipeIngredientList}">
-								<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a class="recipe btn" th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="padding:0px 15px; background-color: #FF9D23; border: none; color: #fff; border-radius: 15px; font-weight: bold">구매</a></div>
-								<div th:text="${ri.recipeIngredientVolume}"></div>
+							<div class="listFlex">
+								<div th:each="ri : ${recipeDetailSet.recipeIngredientList}" th:if="${recipeDetailSet.recipeIngredientList.indexOf(ri)+1}<=4">
+										<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a class="recipe btn" th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="padding:0px 15px; background-color: #FF9D23; border: none; color: #fff; border-radius: 15px; font-weight: bold">구매</a></div>
+										<div th:text="${ri.recipeIngredientVolume}"></div>
+								</div>
+							</div>
+							<div class="listFlex">
+								<div th:each="ri : ${recipeDetailSet.recipeIngredientList}" th:if="${recipeDetailSet.recipeIngredientList.indexOf(ri)+1}>4">
+										<div><span th:text="${ri.recipeIngredientName}" style="margin-right:10px;"></span><a class="recipe btn" th:href="@{https://www.coupang.com/np/search(q=${ri.recipeIngredientName})}"  target="_blank" style="padding:0px 15px; background-color: #FF9D23; border: none; color: #fff; border-radius: 15px; font-weight: bold">구매</a></div>
+										<div th:text="${ri.recipeIngredientVolume}"></div>
+								</div>
 							</div>
 						</div>
-						<hr>
 						<div class="recipe detailInfo-title">조리 순서</div>
 						<div class="recipe cookingOrderList">
 							<table>
@@ -214,11 +227,11 @@
 								<input type="hidden" name="recipeNo" id="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
 								<input type="hidden" name="memberNo" id="memberNo" th:value="${session.member.memberNo}">
 							</div>
-							<div class="recipe pointer" style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
+							<div class="recipe pointer" style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])" th:if="${recipeDetailSet.recipeDetail.memberNo}!=${session.member.memberNo}"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
 						<th:block th:if="${session.member.memberNo} == ${recipeDetailSet.recipeDetail.memberNo}">
 							<hr style="margin-top:20px;">
 							<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
-								<button type="button" class="recipe btn edit">게시글 수정</button>
+								<button type="button" class="recipe btn edit" th:onclick="editRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]])">게시글 수정</button>
 								<button type="button" class="recipe btn delete" th:onclick="deleteRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]])">게시글 삭제</button>
 							</div>
 						</th:block>
@@ -278,7 +291,7 @@
 								</tr>
 							</table>
 							<div class="recipe comment link" style="justify-content:flex-end; margin-bottom:30px; display:flex; gap:20px;">
-								<a th:onclick="reportRecipeComment([[${rcomment.recipeCommentNo}]],[[${session.member.memberNo}]])">신고하기</a>
+								<a th:onclick="reportRecipeComment([[${rcomment.recipeCommentNo}]],[[${session.member.memberNo}]])" th:if="${rcomment.memberNo}!=${session.member.memberNo}">신고하기</a>
 								<a href="#">수정하기</a>
 								<a th:onclick="deleteRecipeComment([[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]])">삭제하기</a>
 							</div>
@@ -359,6 +372,36 @@
 								}
 						}
 					})
+				}
+			});
+		}
+		
+		function editRecipe(recipeNo){
+			swal({
+				title : "레시피 수정",
+				text : "게시글을 수정하시겠습니까?",
+				icon : "warning",
+				buttons : {
+					confirm : {
+						text:"수정",
+						value:true,
+						visible : true,
+						className : "btn-primary",
+						closeModal : true
+					},
+					cancel:{
+						text:"취소",
+						value:false,
+						visible : true,
+						className : "btn-secondary",
+						closeModal : true
+					}
+				}
+			}).then(function(isConfirm){
+					console.log(recipeNo);
+				if(isConfirm){
+					console.log("confirm으로 넘어옴");
+					location.href="/recipe/edit?recipeNo="+recipeNo;
 				}
 			});
 		}
