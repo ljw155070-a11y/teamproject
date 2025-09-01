@@ -349,7 +349,7 @@
 				title: "질문 게시글 삭제",
 				text: "게시글을 삭제하시겠습니까?",
 				icon: "warning",
-				button: {
+				buttons: {
 					confirm: {
 						text: "삭제",
 						value: true,
@@ -369,26 +369,12 @@
 			}).then(function(isConfirm){
 				if(isConfirm){
 					$.ajax({
-						url: "/qna/delete?qnaNo="+(qnaNo),
-						type: "get",
-						data: {qnaNo, qnaNo},
+						url: "/qna/delete?qnaNo="+qnaNo,
+						type: "post",
+						data: {qnaNo : qnaNo},
 						success: function(result){
+							console.log(result)
 							if(result === 1){
-								swal({
-									title: "결과",
-									text: "게시글 삭제",
-									icon: "warning",
-									buttons: {
-										confirm: {
-											text: "게시글 삭제를 취소했습니다",
-											value: false,
-											visible: true,
-											className: "btn-secondary",
-											closeModal: true
-										}
-									}	
-								})
-							}else{
 								swal({
 									title: "결과",
 									text: "게시글 삭제",
@@ -399,6 +385,26 @@
 											value: true,
 											visible: true,
 											className: "btn-primary",
+											closeModal: true
+										}
+									}	
+								}).then(function(isConfirm){
+									if(isConfirm){
+										location.href="/qna/list?reqPage=1";
+									}
+								})
+								
+							}else{
+								swal({
+									title: "결과",
+									text: "게시글 삭제",
+									icon: "warning",
+									buttons: {
+										confirm: {
+											text: "게시글 삭제를 취소했습니다",
+											value: false,
+											visible: true,
+											className: "btn-secondary",
 											closeModal: true
 										}
 									}	
@@ -452,6 +458,10 @@
 												closeModal: true
 											}
 										}	
+									}).then(function(isConfirm){
+										if(isConfirm){
+											location.href="redirect:/qna/view?qnaNo="+(qnaNo);
+										}
 									})
 								}else{
 									swal({
@@ -467,7 +477,11 @@
 												closeModal: true
 											}
 										}
-									});
+									}).then(function(isConfirm){
+										if(isConfirm){
+											location.href="/qna/view?qnaNo="+(qnaNo);
+										}
+									})
 								}
 							}
 						});
