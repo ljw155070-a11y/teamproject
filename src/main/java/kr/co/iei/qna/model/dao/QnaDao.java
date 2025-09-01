@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.vo.Qna;
 import kr.co.iei.qna.model.vo.QnaComment;
 
@@ -35,8 +36,17 @@ public interface QnaDao {
 
 	int selectAllQnaCommentReport(int qnaNo, int qnaCommentNo, int memberNo);
 
-	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
+	List<Member> qnaReportedList(int start, int end);
+
+	int qnaReportedTotalCount();
+
+	List<Member> qnaCommentReportedList(int start, int end);
+
+	int qnaCommentReportedTotalCount();
 
 	
+
+	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
+
 
 }

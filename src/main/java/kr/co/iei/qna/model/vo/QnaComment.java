@@ -20,4 +20,7 @@ public class QnaComment {
 	private String qnaCommentContent;
 	private Date qnaCommentDate;
 	private Date qnaCommentUpdateDate;
+	private String memberId;
+	private int reportCount;
+	private int rNum;
 }

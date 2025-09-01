@@ -29,4 +29,5 @@ public class Recipe {
 	private String memberId;
 	private int rNum;
 	private int reportCount;
+	
 }
