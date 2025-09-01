@@ -148,7 +148,7 @@
     justify-content: flex-start;
     margin-left: 30px;
 }
-.recipe-report{
+.recipe-comment-report{
 	background-color: #FBA854;
 	color : #fff;
 	font-weight: 600;
@@ -170,8 +170,8 @@
 					<tr>
 						<th style="width:10%;">선택</th>
 						<th style="width:14%;">번호</th>
-						<th style="width:14%;">게시글번호</th>
-						<th style="width:32%;">제목</th>
+						<th style="width:14%;">댓글 번호</th>
+						<th style="width:32%;">댓글 내용</th>
 						<th style="width:10%;">신고수</th>
 						<th style="width:10%;">작성자</th>
 						<th style="width:10%;">삭제</th>
@@ -181,20 +181,21 @@
 							<div class="checkbox-wrap">
 								<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
 								<label th:for="${'chk'+status.count}"></label>
+								<span th:text="${r.recipeNo}" style="display:none;"></span>
 							</div>
 						</td>
 						<td th:text="${r.rNum}"></td>
-						<td th:text="${r.recipeNo}"></td>
-						<td th:text="${r.recipeTitle}"></td>
+						<td th:text="${r.recipeCommentNo}"></td>
+						<td th:text="${r.recipeCommentContent}"></td>
 						<td th:text="${r.reportCount}"></td>
 						<td th:text="${r.memberId}"></td>
 						<td>
-							<button class="deleteBtn deleteRecipe">게시글 삭제</button>
+							<button class="deleteBtn deleteRecipe">댓글 삭제</button>
 						</td>
 					</tr>	
 					<tr>
 						<td colspan="7">
-							<button class="deleteBtn checkedDeleteRecipe">선택 게시글 삭제</button>
+							<button class="deleteBtn checkedDeleteRecipe">선택 댓글 삭제</button>
 						</td>
 					</tr>
 				</table>		
@@ -223,41 +224,38 @@
 		</section>		
 	</main>
 	<script>
-	$(".recipe-comment-report").on("click",function(){
-		location.href = "/admin/recipeCommentReport";
+	$(".recipe-report").on("click",function(){
+		location.href = "/admin/recipeReport";
 	});
-	
 	$(".qna-report").on("click",function(){
 		location.href = "/admin/qnaReport";
 	});
-	
 	$(".qna-comment-report").on("click",function(){
 		location.href = "/admin/qnaCommentReport";
 	});
-	
 	$(".deleteRecipe").on("click",function(){
 		const thisRow = $(this).parent().parent();
-		const recipeNo = $(this).parent().parent().children().eq(2).text();
-		if(confirm("이 게시글을 삭제하시겠습니까?")){
+		const recipeCommentNo = $(this).parent().parent().children().eq(2).text();
+		const recipeNo = thisRow.find("span").text();
+		if(confirm("이 댓글을 삭제하시겠습니까?")){
 			$.ajax({
-				url:"/admin/recipeDelete",
+				url: "/admin/deleteComment",
+				data: {recipeCommentNo : recipeCommentNo , recipeNo : recipeNo},
 				type: "post",
-				data : {recipeNo : recipeNo},
 				success: function(result){
-					if(result==="success"){
+					console.log(result);
+					if(result.result===1){
 						alert("게시글이 삭제되었습니다.");
 						thisRow.remove();
-					}else {
+					}else{
 						alert("잠시 후에 다시 시도해주세요.");
 					}
-					console.log(result);
 				},
 				error: function(){
 					alert("에러.");
 				}
-				
 			})
-		}
+		}	
 	});
 	</script>
 	<th:block th:include="common/footer"></th:block>				

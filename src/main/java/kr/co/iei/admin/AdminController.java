@@ -47,6 +47,12 @@ public class AdminController {
 		model.addAttribute("reqSet", reqSet);
 		return "admin/recipeReport";
 	}
+	@GetMapping(value="/recipeCommentReport")
+	public String recipeCommentReportedList(@RequestParam(defaultValue = "1")int reqPage, Model model) {
+		HashMap<String, Object> reqSet = recipeService.recipeCommentReportedList(reqPage);
+		model.addAttribute("reqSet", reqSet);
+		return "admin/recipeCommentReport";
+	}
 	@PostMapping(value="/suspendMember")
 	public String suspendMember(int memberNo, int suspendDays, String suspendReason) {
 		int result = memberService.suspendMember(memberNo, suspendDays, suspendReason);
@@ -59,5 +65,33 @@ public class AdminController {
 		model.addAttribute("reqPage", reqPage);
 		model.addAttribute("memberNickname", memberNickname);
 		return "/admin/allMember";
-	}	
+	}
+	@GetMapping(value="/qnaReport")
+	public String qnaReportedList(@RequestParam(defaultValue = "1")int reqPage, Model model) {
+		HashMap<String, Object> reqSet = qnaService.qnaReportedList(reqPage);
+		model.addAttribute("reqSet", reqSet);
+		return "admin/qnaReport";
+	}
+	@GetMapping(value="/qnaCommentReport")
+	public String qnaCommentReportedList(@RequestParam(defaultValue = "1")int reqPage, Model model) {
+		HashMap<String, Object> reqSet = qnaService.qnaCommentReportedList(reqPage);
+		model.addAttribute("reqSet", reqSet);
+		return "admin/qnaCommentReport";
+	}
+	@ResponseBody
+	@PostMapping(value="/recipeDelete")
+	public String recipeDelete(int recipeNo) {
+		int result = recipeService.recipeDelete(recipeNo);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	@ResponseBody
+	@PostMapping(value="/deleteComment")
+	public HashMap<String, Object> recipeDeleteComment(int recipeNo, int recipeCommentNo) {
+		HashMap<String, Object> recipeDeleteCommentResult = recipeService.recipeCommentDelete(recipeCommentNo, recipeNo);
+		return recipeDeleteCommentResult;
+	}
 }
