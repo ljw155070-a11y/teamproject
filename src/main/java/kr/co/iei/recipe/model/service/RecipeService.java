@@ -407,5 +407,21 @@ public class RecipeService {
 		}
 		return reqPageSet;
 	}
+
+	public Recipe editRecipeInfo(int recipeNo) {
+		Recipe r = recipeDao.editRecipeInfo(recipeNo);
+		
+		return r;
+	}
+
+	public ArrayList<RecipeIngredient> editRecipeIngredientInfo(int recipeNo) {
+		ArrayList<RecipeIngredient> list = recipeDao.editRecipeIngredientInfo(recipeNo);
+		return list;
+	}
+
+	public ArrayList<RecipeCookingOrder> editRecipeCookingOrderInfo(int recipeNo) {
+		ArrayList<RecipeCookingOrder> list = recipeDao.editRecipeCookingOrderInfo(recipeNo);
+		return list;
+	}
 	
 }
