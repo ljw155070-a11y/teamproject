@@ -279,4 +279,49 @@ WHERE RECIPE_NO=#{reqRecipeNo}
       				)
 	</insert>
 
+	<select id="editRecipeInfo" resultType="recipe">
+		SELECT * FROM RECIPE_TBL WHERE RECIPE_NO=#{recipeNo}
+	</select>
+	
+	<select id="editRecipeIngredientInfo" resultType="recipeIngredient">
+		SELECT * FROM RECIPE_INGREDIENT_TBL WHERE RECIPE_NO=#{recipeNo}
+	</select>
+	
+	<select id="editRecipeCookingOrderInfo" resultType="recipeCookingOrder">
+		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=#{recipeNo}
+	</select>
+	<select id="recipeCommentReportedList" resultType="recipeComment">
+		select * from(
+    select rownum rnum,a.*
+    from(
+    select  
+        recipe_comment_no,
+        recipe_comment_content,
+        (select count(*) from recipe_comment_report_tbl where recipe_comment_no = r.recipe_comment_no) report_count,
+        member_id,
+        (select max(recipe_comment_report_date)
+    	 from recipe_comment_report_tbl
+    	 join recipe_comment_tbl using(recipe_comment_no) 
+    	 where recipe_comment_no=r.recipe_comment_no
+    	) recipe_comment_report_date
+    from recipe_comment_tbl r
+    join member_tbl using(member_no)
+    order by report_count desc, recipe_comment_report_date) a ) 
+    where report_count <![CDATA[>=]]> 1 and rnum between #{start} and #{end}
+	</select>
+	<select id="recipeCommentReportedTotalCount" resultType="int">
+		select count(*) from
+		(select 
+		 recipe_comment_no, 
+         recipe_comment_content,
+           (select count(*) 
+            from recipe_comment_report_tbl 
+            where recipe_comment_no = r.recipe_comment_no) report_count,
+        	member_id
+    		from recipe_comment_tbl r
+    		join member_tbl using(member_no)
+   		) 
+   		 where report_count <![CDATA[>=]]> 1 
+	</select>
+	
 </mapper>

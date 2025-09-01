@@ -20,4 +20,7 @@ public class RecipeComment {
 	private int recipeNo;
 	private Date recipeCommentUpdateDate;
 	private String memberNickname;
+	private int rNum;
+	private int reportCount;
+	public String memberId;
 }
