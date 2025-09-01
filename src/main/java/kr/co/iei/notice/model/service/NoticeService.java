@@ -141,12 +141,21 @@ public class NoticeService {
 	    return delFileList;
 	}
 	*/
+	/*
 	@Transactional
 	public List<NoticeFile> deleteNotice(int noticeNo) {
 		List delFileList = noticeDao.selectNoticeFile(noticeNo);
 		int result = noticeDao.deleteNotice(noticeNo);
 		return delFileList;
 	}
+	*/
+	
+	@Transactional
+	public int deleteNotice(int noticeNo) {
+		int result = noticeDao.deleteNotice(noticeNo);
+		return result;
+	}
+	
 	public NoticeListData searchTitle(int reqPage, String searchTitle) {
 		int pageList = 10;
 		

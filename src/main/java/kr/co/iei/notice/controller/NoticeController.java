@@ -147,6 +147,7 @@ public class NoticeController {
 		}
 		return "redirect:/notice/detail?noticeNo=" + n.getNoticeNo();
 	}
+	/*
 	@GetMapping(value = "/delete")
 	public String delete(int noticeNo, Model model) {
 		List<NoticeFile> list = noticeService.deleteNotice(noticeNo);
@@ -160,6 +161,25 @@ public class NoticeController {
 		model.addAttribute("icon", "success");
 		model.addAttribute("loc", "/notice/list?reqPage=1");
 		return "common/msg";
+	}
+	*/
+	
+	@GetMapping(value="/delete")
+	public String delete(int noticeNo, Model model) {
+		int result = noticeService.deleteNotice(noticeNo);
+		if(result > 0) {
+			model.addAttribute("title", "삭제 성공");
+			model.addAttribute("text", "게시글이 삭제되었습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/notice/list?reqPage=1");
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "삭제 실패");
+			model.addAttribute("text", "잠시후 다시 시도해 주세요.");
+			model.addAttribute("icon", "warning");
+			model.addAttribute("loc", "/notice/view?noticeNo="+noticeNo);
+			return "common/msg";
+		}
 	}
 	
 	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")

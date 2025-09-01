@@ -35,11 +35,14 @@ public interface NoticeDao {
 
 	int deleteNoticeFile(int noticeFileNo);
 
-	int deleteNotice(int noticeNo);
+	/*int deleteNotice(int noticeNo);*/
 
+	int deleteNotice(int noticeNo);
+	
 	int searchTitleCount(String searchTitle);
 
 	List searchTitleNotice(HashMap<String, Object> param);
+
 
 	
 
