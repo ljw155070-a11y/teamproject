@@ -54,14 +54,14 @@ body {
     border: 0.5px solid #E5E5E5;
     border-radius: 50px;
 }
-.search-box {
+.searchTitle {
     cursor: pointer;
     position: relative;
     display: inline-block;
     flex-grow: 1;
     max-width: 650px;
 }
-.search-box input {
+.searchTitle input {
     width: 100%;
     padding: 10px 0px 10px 10px; 
     font-size: 17px;
@@ -69,11 +69,11 @@ body {
     border: 0.5px solid #E5E5E5;
     border-radius: 50px;
 }
-.search-box ::placeholder {
+.searchTitle ::placeholder {
     color: #999999;
     text-align: center;
 }
-.search-box .search-btn {
+.searchTitle .search-btn {
 	color: #FBA854;
     position: absolute;
     right: 10px;
@@ -83,18 +83,19 @@ body {
     background: transparent;
     cursor: pointer;
 }
-.search-box .search-btn {
+.searchTitle .search-btn {
     width: 30px;
     background-color: transparent;
 }
-.search-box button {
+.searchTitle button {
     background-color: transparent;
 }
 .notice-list-box {
     width: 950px;
+    height: 718px;
     margin: 0 auto;
     background-color: #fff;
-    border-radius: 9px;
+    border-radius: 10px;
 }
 
 #list-text {
@@ -212,7 +213,7 @@ body {
         	<div class="notice-title">
            	 	<div class="notice-title">공지사항</div>
         	</div>
-            <form action="notice/search" method="get" id="noticeSearch">
+            <form action="/notice/searchTitle" method="get" id="noticeSearch">
                 <div class="notice-search-top" style="width:100%;">
                 <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" href="/notice/writeFrm" class="write-btn">글쓰기</a>
                 <!--<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" style="display: inline-block;">글쓰기</a>-->
@@ -221,8 +222,9 @@ body {
                         <option value="content">내용</option>
                         <option value="date">작성일</option>
                     </select>
-                    <div class="search-box">
-                        <input type="text" name="search" placeholder="검색할 내용을 입력하세요.">
+                    <div class="searchTitle">
+                        <input type="text" name="searchTitle" placeholder="검색할 내용을 입력하세요.">
+                        <input type=hidden name="reqPage" id="reqPage" value="1">
                         <button type="submit" class="search-btn"><span class="material-icons">search</span></button>
                     </div>
                 </div>

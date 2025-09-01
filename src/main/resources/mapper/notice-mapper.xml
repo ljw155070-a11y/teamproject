@@ -16,14 +16,36 @@
 		#{end}
   </select>
   
+  <select id="searchTitleCount" resultType="int">
+  	select count(*) from notice_tbl where notice_title like '%'||'${searchTitle}'||'%'
+  </select>
+  
+  <select id="searchTitleNotice" resultType="notice">
+  	select * from 
+  	(select rownum as rnum, n. * from
+  		(select
+  			notice_no, notice_title, member_no, notice_write_date
+  			from notice_tbl where notice_title like '%'||'${searchTitle}'||'%'
+  			order by notice_no desc
+  		)n
+  	)
+  	where #{start} <![CDATA[ <= ]]> rnum and rnum <![CDATA[ <= ]]> #{end}
+  </select>
+  
   <select id="selectNoticeTotal" resultType="int">
   	<![CDATA[ 
   	select count(*) from notice_tbl
 	]]>
   </select>
   
+  <!-- 
   <insert id="insertNotice">
   	insert into notice_tbl values (NOTICE_SEQ.NEXTVAL ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, SYSDATE, SYSDATE, #{noticeViewCount}, #{memberNo})
+  </insert>
+   -->
+  
+   <insert id="insertNotice">
+  	insert into notice_tbl values (NOTICE_SEQ.NEXTVAL ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent})
   </insert>
   
   <insert id="insertNoticeFile">

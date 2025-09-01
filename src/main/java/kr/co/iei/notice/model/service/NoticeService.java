@@ -147,5 +147,67 @@ public class NoticeService {
 		int result = noticeDao.deleteNotice(noticeNo);
 		return delFileList;
 	}
-}	
+	public NoticeListData searchTitle(int reqPage, String searchTitle) {
+		int pageList = 10;
+		
+		int end = reqPage * pageList;
+		int start = end-pageList+1;
+		HashMap<String, Object> param = new HashMap<String,Object>();
+		param.put("start", start);
+		param.put("end", end);
+		
+		int total = noticeDao.searchTitleCount(searchTitle);
+		if(total > 0) {
+			int totalPage = (int)(Math.ceil(total/(double)pageList));
+			
+			int pageNavSize = 5;
+			
+			int pageNo = ((reqPage-1)/pageNavSize)*pageNavSize+1;
+			
+			String pageNav = "<ul class='pagination circle-style'>";
+			if(pageNo != 1) {
+				pageNav += "<li>";
+				pageNav += "<a class='page-item' href='/notice/searchTitle?searchTitle="+searchTitle+"&reqPage="+(pageNo-1)+"'>";
+				pageNav += "<span class='material-icons'>chevron_left</span>";
+				pageNav += "</a>";
+				pageNav += "</li>";
+			}
+			for(int i=0;i<pageNavSize;i++) {
+				pageNav += "<li>";
+				if(pageNo == reqPage) {
+					pageNav += "<a class='page-item active-page' href='/notice/searchTitle?searchTitle="+searchTitle+"&reqPage="+pageNo+"'>";
+				}else {
+					pageNav += "<a class='page-item' href='/notice/searchTitle?searchTitle="+searchTitle+"&reqPage="+pageNo+"'>";
+				}
+				pageNav += pageNo;
+				pageNav += "</a>";
+				pageNav += "</li>";
+				
+				pageNo++;
+				if(pageNo > totalPage) {
+					break;
+				}
+			}
+			if(pageNo <= totalPage) {
+				pageNav += "<li>";
+				pageNav += "<a class='page-item' href='/admission/list?reqPage="+pageNo+"'>";
+				pageNav += "<span class='material-icons'>chevron_right</span>";
+				pageNav += "</a>";
+				pageNav += "</li>";
+			}
+			pageNav += "</ul>";                    
+			
+			param.put("searchTitle", searchTitle);
+			List list = noticeDao.searchTitleNotice(param);
+			
+			
+			NoticeListData nld = new NoticeListData(list, pageNav);
+			
+			return nld;
+		}else {
+			return null;
+		}
+	}
+}
+		
 

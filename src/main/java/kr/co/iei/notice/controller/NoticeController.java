@@ -44,7 +44,21 @@ public class NoticeController {
 		model.addAttribute("pageNav", nl.getPageNav());
 		return "notice/list";
 	}
-	
+	@GetMapping(value="/searchTitle")
+	public String searchTitle(String searchTitle, int reqPage, Model model) {
+		if(!searchTitle.isEmpty()) {
+			NoticeListData nld = noticeService.searchTitle(reqPage, searchTitle);
+			if(nld != null) {
+				model.addAttribute("list", nld.getList());
+				model.addAttribute("pageNavi", nld.getPageNav());
+			}else {
+				model.addAttribute("list", "작성된 게시글이 존재하지 않습니다.");
+			}
+		}else {
+			model.addAttribute("list", "작성된 게시글이 존재하지 않습니다.");
+		}
+		return "notice/list";
+	}
 	@GetMapping(value="/writeFrm")
 	public String noticeWriteFrm() {
 		return "notice/writeFrmEditor";
