@@ -1,5 +1,7 @@
 package kr.co.iei.recipe.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -49,6 +51,28 @@ public interface RecipeDao {
 	int recipeCommentReportSelect(int recipeCommentNo, int memberNo);
 
 	int recipeCommentDelete(int recipeCommentNo);
+
+	int recipeRInsert(Recipe r);
+
+	int recipeNoCreate();
+
+	int recipeRIInsert(RecipeIngredient ri);
+
+	int recipeRCOLInsert(RecipeCookingOrder rco);
+
+	HashMap<String, Object> recipeTitleSearchList(int reqPage, String searchInput);
+
+	int titleSearchCount(String searchInput);
+
+	int ingredientSearchCount(String searchInput);
+
+	int writerSearchCount(String searchInput);
+
+	List<Recipe> titleSearchList(int startNum, int endNum, String searchInput);
+
+	List<Recipe> ingredientSearchList(int startNum, int endNum, String searchInput);
+
+	List<Recipe> writerSearchList(int startNum, int endNum, String searchInput);
 
 	
 }
