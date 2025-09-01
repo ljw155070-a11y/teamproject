@@ -251,7 +251,23 @@
 	font-weight: 600;
 	cursor:pointer;
 }
-
+.pathBtn{
+	width : 120px;
+	height:36px;
+	border : none;
+	border-radius:20px;
+	text-align:center;
+	background-color: #FBA854;
+	color : #fff;
+	font-size:18px;
+	font-weight: 600;
+	cursor:pointer;
+	
+}
+.reportPath{
+	display: flex;
+    justify-content: flex-end;
+}
 </style>
 </head>
 <body>
@@ -266,6 +282,9 @@
 						<span class="material-icons" id="qnaSearchBox">search</span>
 					</div>
 				</form>
+					<div class="reportPath">
+						<button class="pathBtn">신고 관리</button>
+					</div>
 			</div>
 			<table class="allMember-tbl">
 				<tr>
@@ -405,9 +424,10 @@
 			modal.fadeOut();
 		});
 		
-		$("#qnaSearchBox").on("click",function(){
-			
-		});
+		
+		$(".pathBtn").on("click",function(){
+			location.href = "/admin/recipeReport";
+		});	
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
