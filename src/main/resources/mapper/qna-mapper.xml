@@ -63,4 +63,12 @@
 	<delete id="deleteQna">
 		delete from qna_tbl where qna_no = #{qnaNo}
 	</delete>
+	
+	<select id = "selectAllQnaCommentReport" resultType="int">
+		select count(*) from qna_comment_report_tbl
+	</select>
+	<insert id="reportQnaComment">
+		insert into qna_comment_report_tbl
+		values(#{qnaNo}, #{memberNo}, #{qnaCommentNo}, sysdate)
+	</insert>
 </mapper>
