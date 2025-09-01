@@ -289,23 +289,34 @@
     padding: 10px;
     padding-bottom: 30px;
 }
+
 /*  */
-.tab>.active-tab{
-    background-color: white;
-    font-weight: 900;
-    border-bottom: none;
-}
 /*
+.active-tab
+    background-color: #F5EFD5;
+}
+*/
+
 .tab-content>div{
     display: none;
 }
-*/
+
 .tab-content>.active-content{
     display: block;
 }
 .to1>span{
     color: #FFCF4B;
-} 
+}
+.valid{
+	color: blue;
+}
+.invalid{
+	color: red;
+}
+#nickname-check-msg{
+	float: right;
+	display: inline-block;
+}
 </style>
 </head>
 <body>
@@ -324,34 +335,36 @@
                     <div class="info-content">
                     	<form action="/member/update" method="post" >
 	                        <div class="info-input">
+	                        	<p class="input-msg nickname-check-msg" id="nickname-check-msg">ss</p>
 	                            <div id="name-div">
 	                                <label for="Name">이름 : </label>
-	                                <input type="text" name="memberName" id="Name">
+	                                <input type="text" name="memberName" id="Name" th:value=${session.member.memberName} readonly="readonly">
 	                            </div>
 	                            <div id="nickname-div">
 	                                <label for="Nickname">닉네임 : </label>
-	                                <input type="text" name="memberNickname" id="Nickname">
+	                                <input type="text" name="memberNickname" id="Nickname" th:value=${session.member.memberNickname}>
 	                            </div>
 	                            <div id="email-div">
 	                                <label for="Email">이메일 : </label>
-	                                <input type="text" name="memberEmail" id="Email">
+	                                <input type="text" name="memberEmail" id="Email" th:value=${session.member.memberEmail} readonly="readonly" >
 	                            </div>
 	                            <div id="id-div">
 	                                <label for="Id">아이디 : </label>
-	                                <input type="text" name="memberId" id="Id">
+	                                <input type="text" name="memberId" id="Id" th:value=${session.member.memberId} readonly="readonly">
 	                            </div>
 	                            <div id="pw-div">
 	                                <label for="Pw">비밀번호 : </label>
-	                                <input type="password" name="memberPw" id="Pw">
+	                                <input type="password" name="memberPw" id="Pw" th:value=${session.member.memberPw} disabled="disabled">
 	                            </div>
 	                            <div id="pw-re-div">
 	                                <label for="PwRe">비밀번호 확인 : </label>
-	                                <input type="password" name="memberPwRe" id="PwRe">
+	                                <input type="password" name="memberPwRe" id="PwRe" >
+	                            	<p class="input-msg pw-check-msg" id="pw-check-msg">ss</p>
 	                            </div>
 	                        </div>
 	                        <div class="my-info-btn">
 	                            <button type="button">관리자 페이지 이동</button>
-	                            <button type="submit">내 정보 수정</button>
+	                            <button type="submit" id="info-update-btn">내 정보 수정</button>
 	                        </div>
                         </form>
 					</div>
@@ -522,7 +535,34 @@
         </div>
     </div>
     <script>
-		
+    //j쿼리 발식으로 바꾸기.
+    const tabs = $(".my-tab>div");
+    const content = $(".tab-content>div");
+
+    tabs.forEach(function(item,i){
+        item.addEventListener('click',function(){
+            tabs.forEach(function(tab){
+                tab.classList.remove('active-tab');
+            });
+            content.forEach(function(cont){
+                cont.classList.remove('active-content');
+            });
+            tabs[i].classList.add('active-tab');
+            content[i].classList.add('active-content');
+        });
+    });
+    //처음에 화면이 로드가 되면 첫번째 탭을 활성화
+    tabs[0].classList.add('active-tab');
+    content[0].classList.add('active-content');
+	//
+	
+    $("#info-update-btn").on("click",function(){
+    	const valid = $(".valid");
+    	if(valid.length !== 2){
+    		alert("비밀번호를 다시 확인해 주세요.");
+    		e.preventDefault();
+    	}
+    });
 		
     </script>
 	<th:block th:include="common/footer"></th:block>
