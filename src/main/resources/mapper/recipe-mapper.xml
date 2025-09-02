@@ -332,4 +332,7 @@ WHERE RECIPE_NO=#{reqRecipeNo}
 		UPDATE RECIPE_TBL SET RECIPE_TITLE=#{recipeTitle},RECIPE_CAUTION=#{recipeCaution} WHERE RECIPE_NO=#{recipeNo}
 	</update>
 	
+	<update id="editComment">
+		UPDATE RECIPE_COMMENT_TBL SET RECIPE_COMMENT_CONTENT=#{editText} WHERE RECIPE_COMMENT_NO=#{recipeCommentNo} AND RECIPE_NO=#{recipeNo}
+	</update>
 </mapper>
