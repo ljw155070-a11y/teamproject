@@ -153,6 +153,15 @@
 	color : #fff;
 	font-weight: 600;
 }
+.recipeReport-tbl>tbody>tr:hover{
+	background-color: #E6E6E6;
+}
+.recipeReport-tbl>tbody>tr:nth-child(1):hover{
+	background-color: #fff;
+}
+.recipeReport-tbl>tbody>tr:last-child:hover{
+	background-color: #fff;
+}
 </style>
 </head>
 <body>
@@ -171,7 +180,7 @@
 						<th style="width:10%;">선택</th>
 						<th style="width:14%;">번호</th>
 						<th style="width:14%;">게시글 번호</th>
-						<th style="width:32%;">댓글 내용</th>
+						<th style="width:32%;">게시글 제목</th>
 						<th style="width:10%;">신고수</th>
 						<th style="width:10%;">작성자</th>
 						<th style="width:10%;">삭제</th>
@@ -222,7 +231,7 @@
 			</div>	
 		</section>		
 	</main>
-	<script>
+	<script th:inline="javascript">
 	$(".recipe-report").on("click",function(){
 		location.href = "/admin/recipeReport";
 	});
@@ -257,7 +266,12 @@
 			})
 		}
 	});
-	
+	$(".chk").on("click",function(e){
+		e.stopPropagation();
+	});
+	$(".chk+label").on("click",function(e){
+		e.stopPropagation();
+	});
 	$(".checkedDeleteRecipe").on("click",function(){
 		const checkbox = $(".chk:checked");
 		if(checkbox.length === 0){

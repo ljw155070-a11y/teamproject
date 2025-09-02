@@ -138,9 +138,7 @@
 	font-weight: 600;
 	cursor:pointer;
 }
-.deleteRecipe{
-	
-}
+
 .checkedDeleteRecipe{
 	width:160px;
 	height: 30px;
@@ -182,8 +180,8 @@
 					<tr>
 						<th style="width:10%;">선택</th>
 						<th style="width:14%;">번호</th>
-						<th style="width:14%;">게시글번호</th>
-						<th style="width:32%;">제목</th>
+						<th style="width:14%;">게시글 번호</th>
+						<th style="width:32%;">게시글 제목</th>
 						<th style="width:10%;">신고수</th>
 						<th style="width:10%;">작성자</th>
 						<th style="width:10%;">삭제</th>
@@ -247,8 +245,7 @@
 		location.href = "/admin/qnaCommentReport";
 	});
 	
-	$(".deleteRecipe").on("click",function(e){
-		e.stopPropagation();
+	$(".deleteRecipe").on("click",function(){
 		const thisRow = $(this).parent().parent();
 		const recipeNo = $(this).parent().parent().children().eq(2).text();
 		if(confirm("이 게시글을 삭제하시겠습니까?")){
@@ -271,8 +268,14 @@
 			})
 		}
 	});
-	
-	$(".checkedDeleteRecipe").on("click",function(){
+	$(".chk").on("click",function(e){
+		e.stopPropagation();
+	});
+	$(".chk+label").on("click",function(e){
+		e.stopPropagation();
+	});
+	$(".checkedDeleteRecipe").on("click",function(e){
+		e.stopPropagation();
 		const checkbox = $(".chk:checked");
 		if(checkbox.length === 0){
 			return;
