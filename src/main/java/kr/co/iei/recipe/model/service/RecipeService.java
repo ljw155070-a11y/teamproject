@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.recipe.model.dao.RecipeDao;
@@ -230,13 +231,15 @@ public class RecipeService {
 		return reqSet;
 	}	
 
+	@Transactional
 	public int recipeCommentInsert(RecipeComment rc) {
 		System.out.println("호출됨");
 		System.out.println(rc);
 		int result = recipeDao.recipeCommentInsert(rc);
-		return 0;
+		return result;
 	}
 
+	@Transactional
 	public int recipeGradeInsert(int recipeNo, int memberNo, int recipeRate) {
 		System.out.println("★★★★★★★");
 		System.out.println(recipeNo);
@@ -253,6 +256,7 @@ public class RecipeService {
 		return result;
 	}
 
+	@Transactional
 	public int recipeReport(int recipeNo, int memberNo) {
 		System.out.println("★★★★★★★");
 		System.out.println(recipeNo);
@@ -268,6 +272,7 @@ public class RecipeService {
 		
 	}
 
+	@Transactional
 	public int recipeDelete(int recipeNo) {
 		System.out.println("서비스 호출됨");
 		System.out.println(recipeNo);
@@ -275,6 +280,7 @@ public class RecipeService {
 		return result;
 	}
 
+	@Transactional
 	public int recipeCommentReport(int recipeCommentNo, int memberNo) {
 		System.out.println("★★★★★★★");
 		System.out.println(recipeCommentNo);
@@ -289,6 +295,7 @@ public class RecipeService {
 		}
 	}
 
+	@Transactional
 	public HashMap<String, Object> recipeCommentDelete(int recipeCommentNo,int recipeNo) {
 		System.out.println("서비스 호출됨");
 		System.out.println(recipeCommentNo);
@@ -300,6 +307,7 @@ public class RecipeService {
 		return recipeCommentDeleteResult;
 	}
 
+	@Transactional
 	public int insertRecipe(Recipe r, ArrayList<RecipeIngredient> ingredientList,
 			ArrayList<RecipeCookingOrder> cookingOrderList) {
 		int result=-1;
@@ -409,6 +417,7 @@ public class RecipeService {
 		return reqPageSet;
 	}
 
+	@Transactional
 	public Recipe editRecipeInfo(int recipeNo) {
 		Recipe r = recipeDao.editRecipeInfo(recipeNo);
 		
@@ -491,6 +500,7 @@ public class RecipeService {
 		return result==count;
 	}
 
+	@Transactional
 	public int editRecipe(int recipeNo, String recipeTitle, ArrayList<RecipeIngredient> ingredientList, String recipeCaution) {
 		int result=-1;
 		//일단 재료 삭제하고
@@ -506,6 +516,17 @@ public class RecipeService {
 		//제목, 주의사항 수정 (업데이트)
 		result+= recipeDao.recipeUpdate(recipeNo, recipeTitle,recipeCaution);
 		return result;
+	}
+	
+	@Transactional
+	public int editComment(int recipeCommentNo, int recipeNo, String editText) {
+		int result = recipeDao.editComment(recipeCommentNo,recipeNo,editText);
+		return result;
+	}
+
+	public Recipe recipeGradeRanking() {
+		Recipe r = recipeDao.recipeGradeRanking();
+		return r;
 	}
 
 	
