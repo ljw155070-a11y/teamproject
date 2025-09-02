@@ -524,6 +524,11 @@ public class RecipeService {
 		return result;
 	}
 
+	public Recipe recipeGradeRanking() {
+		Recipe r = recipeDao.recipeGradeRanking();
+		return r;
+	}
+
 	
 	
 }

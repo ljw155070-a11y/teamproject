@@ -88,6 +88,8 @@ public interface RecipeDao {
 	int recipeUpdate(int recipeNo, String recipeTitle, String recipeCaution);
 
 	int editComment(int recipeCommentNo, int recipeNo, String editText);
+
+	Recipe recipeGradeRanking();
 	
 
 	
