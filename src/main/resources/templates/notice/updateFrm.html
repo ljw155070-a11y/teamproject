@@ -122,6 +122,9 @@ body {
     text-decoration: none;
     color: #fff;
 }
+.hidden{
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -129,7 +132,7 @@ body {
 	<main class="content notice-write-container">
 		<section class="section-notice-write-wrap">
 			<div class="content-box">
-			<form action="/notice/write" method="post" enctype="multipart/form-data">			
+			<form action="/notice/update" method="post" enctype="multipart/form-data">			
     			<div class="input-item">
     				<input type="hidden" name="noticeNo" id="noticeNo" th:value="${notice.noticeNo}">
         			<input type="text" name="noticeTitle" th:value="${notice.noticeTitle}">
@@ -155,6 +158,7 @@ body {
     		<hr style="border: 1px solid #E6E6E6">
     			<div class="detail-content-box">
         			<textarea name="noticeContent" th:value="${notice.noticeContent}"></textarea>
+        			<a class="hidden"  th:text="${notice.noticeContent}"></a>
     			</div>	
     			<hr style="border: 1px solid #E6E6E6">
     			<div class="add-btn">
@@ -164,7 +168,23 @@ body {
 			</div>
 		</section>
 	</main>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
+	$("[name=noticeContent]").summernote({
+		width : 850,
+		height : 500,
+		lang : "ko-KR",
+		callbacks : {
+			onImageUpload : function(file) {
+				uploadImage(file[0], this);
+			}
+		}
+	});
+	const contentValue = $('.hidden').text();
+	$('[name=noticeContent]').summernote('code',contentValue);
+	
 		function deleteFile(noticeFileNo, obj){
 			const input = $("<input>");
 			input.attr("name","delFileNo");

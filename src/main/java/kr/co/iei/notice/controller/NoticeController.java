@@ -127,6 +127,7 @@ public class NoticeController {
 	public String updateFrm(int noticeNo, Model model) {
 		Notice notice = noticeService.selectOnetNotice(noticeNo);
 		model.addAttribute("notice", notice);
+		System.out.println(notice);
 		return "notice/updateFrm";
 	}
 	@PostMapping(value="/update")
