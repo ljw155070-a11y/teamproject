@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.iei.member.model.service.MemberService;
 import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.service.QnaService;
+import kr.co.iei.qna.model.vo.QnaComment;
 import kr.co.iei.recipe.model.service.RecipeService;
 
 @Controller
@@ -93,5 +94,30 @@ public class AdminController {
 	public HashMap<String, Object> recipeDeleteComment(int recipeNo, int recipeCommentNo) {
 		HashMap<String, Object> recipeDeleteCommentResult = recipeService.recipeCommentDelete(recipeCommentNo, recipeNo);
 		return recipeDeleteCommentResult;
+	}
+	@ResponseBody
+	@PostMapping(value="/qnaDelete")
+	public String qnaDelete(int qnaNo) {
+		int result = qnaService.deleteQna(qnaNo);
+		if(result>0) {
+			return "success";			
+		}else {
+			return "fail";
+		}
+	}
+	@ResponseBody
+	@PostMapping(value="/qnaCommentDelete")
+	public String qnaCommentDelete(QnaComment qc) {
+		int result = qnaService.deleteQnaComment(qc.getQnaCommentNo());
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	@GetMapping(value="checkedDeleteRecipe")
+	public String checkedDeleteRecipe(String no) {
+		boolean result = recipeService.checkedDeleteRecipe(no);
+		return "redirect:/admin/recipeReport";
 	}
 }

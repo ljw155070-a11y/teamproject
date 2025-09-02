@@ -169,11 +169,12 @@
 				<table class="recipeReport-tbl">
 					<tr>
 						<th style="width:10%;">선택</th>
-						<th style="width:12%;">번호</th>
-						<th style="width:36%;">댓글 내용</th>
-						<th style="width:15%;">신고수</th>
-						<th style="width:15%;">작성자</th>
-						<th style="width:12%;">삭제</th>
+						<th style="width:14%;">번호</th>
+						<th style="width:14%;">댓글 번호</th>
+						<th style="width:32%;">댓글 내용</th>
+						<th style="width:10%;">신고수</th>
+						<th style="width:10%;">작성자</th>
+						<th style="width:10%;">삭제</th>
 					</tr>
 					<tr th:each="q,status : ${reqSet.list}">
 						<td>
@@ -183,6 +184,7 @@
 							</div>
 						</td>
 						<td th:text="${q.rNum}"></td>
+						<td th:text="${q.qnaCommentNo}"></td>
 						<td th:text="${q.qnaCommentContent}"></td>
 						<td th:text="${q.reportCount}"></td>
 						<td th:text="${q.memberId}"></td>
@@ -191,7 +193,7 @@
 						</td>
 					</tr>	
 					<tr>
-						<td colspan="6">
+						<td colspan="7">
 							<button class="deleteBtn checkedDeleteRecipe">선택 게시글 삭제</button>
 						</td>
 					</tr>
@@ -229,6 +231,30 @@
 	});
 	$(".recipe-comment-report").on("click",function(){
 		location.href = "/admin/recipeCommentReport";
+	});
+	$(".deleteRecipe").on("click",function(){
+		const thisRow = $(this).parent().parent();
+		const qnaCommentNo = $(this).parent().parent().children().eq(2).text();
+		if(confirm("이 게시글을 삭제하시겠습니까?")){
+			$.ajax({
+				url:"/admin/qnaCommentDelete",
+				type: "post",
+				data : {qnaCommentNo : qnaCommentNo},
+				success: function(result){
+					if(result==="success"){
+						alert("게시글이 삭제되었습니다.");
+						thisRow.remove();
+					}else {
+						alert("잠시 후에 다시 시도해주세요.");
+					}
+					console.log(result);
+				},
+				error: function(){
+					alert("에러.");
+				}
+				
+			})
+		}
 	});
 	</script>
 	<th:block th:include="common/footer"></th:block>				
