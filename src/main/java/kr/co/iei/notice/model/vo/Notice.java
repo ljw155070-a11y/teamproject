@@ -22,7 +22,6 @@ public class Notice {
 	private String noticeWriter;
 	private Date noticeWriteDate;
 	private Date noticeUpdateDate;
-	private int noticeViewCount;
 	private int memberNo;
 	
 	private List<NoticeFile> fileList;

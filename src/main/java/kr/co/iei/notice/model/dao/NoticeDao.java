@@ -15,8 +15,6 @@ public interface NoticeDao {
 
 	List selectNoticeList(HashMap<String, Object> param);
 
-	/*List selectAll();*/
-
 	int getNoticeNo();
 
 	int writeNotice(Notice notice);
@@ -35,13 +33,13 @@ public interface NoticeDao {
 
 	int deleteNoticeFile(int noticeFileNo);
 
-	/*int deleteNotice(int noticeNo);*/
-
 	int deleteNotice(int noticeNo);
 	
 	int searchTitleCount(String searchTitle);
 
 	List searchTitleNotice(HashMap<String, Object> param);
+
+	int insertNotice(Notice notice);
 
 
 

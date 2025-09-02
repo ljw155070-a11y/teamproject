@@ -74,10 +74,12 @@ public class NoticeService {
 		NoticeListData nl = new NoticeListData(list, pageNav);
 		return nl;
 	}
+	
 	public Notice selectOnetNotice(int noticeNo) {
 		Notice notice = noticeDao.selectOneNotice(noticeNo);
 		return notice;
 	}
+	
 	public NoticeFile selectOneNoticeFile(int noticeFileNo) {
 		NoticeFile noticeFile = noticeDao.selectOneNoticeFile(noticeFileNo);
 		return noticeFile;
@@ -86,11 +88,14 @@ public class NoticeService {
 		int result = noticeDao.writeNotice(notice);
 		return result;
 	}	
+	/*
+	
 	@Transactional
 	public int updateNotice(Notice notice) {
 		int result = noticeDao.updateNotice(notice);
 		return result;
 	}
+	 */
 	
 	@Transactional
 	public int deleteNotice(int noticeNo) {
@@ -159,9 +164,36 @@ public class NoticeService {
 			return null;
 		}
 	}
+
+	public List<NoticeFile> updateNotice(Notice notice, List<NoticeFile> fileList, int[] delFileNo) {
+		int result = noticeDao.updateNotice(notice);
+		for (NoticeFile noticeFile : fileList) {
+			noticeFile.setNoticeNo(notice.getNoticeNo());
+			result += noticeDao.insertNoticeFile(noticeFile);
+		}
+		List<NoticeFile> delFileList = new ArrayList<NoticeFile>();
+		if (delFileNo != null) {
+			List list = noticeDao.selectNoticeFileList(delFileNo);
+
+			for (int noticeFileNo : delFileNo) {
+				result += noticeDao.deleteNoticeFile(noticeFileNo);
+
+			}
+		}
+		return delFileList;
+	}
+
+	public int insertNotice(Notice notice, List<NoticeFile> fileList) {
+		int newNoticeNo = noticeDao.getNoticeNo();
+		notice.setNoticeNo(newNoticeNo);
+		int result = noticeDao.insertNotice(notice);
+		for (NoticeFile noticeFile : fileList) {
+			noticeFile.setNoticeNo(newNoticeNo);
+			result += noticeDao.insertNoticeFile(noticeFile);
+		}
+		return result;
+	}
 }
-	
-	
 	/*
 	@Transactional
 	public int insertNotice(Notice n, List<NoticeFile> fileList) {

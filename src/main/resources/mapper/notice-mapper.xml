@@ -41,13 +41,11 @@
   <insert id="writeNotice">
   	insert into notice_tbl value(notice_seq.nextval, #{noticeTitle}, #{noticeContent}, #{memberId}, sysdate)
   </insert>
-  
-  <!--   
+    
    <insert id="insertNotice">
-  	insert into notice_tbl values (NOTICE_SEQ.NEXTVAL ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent})
+  	insert into notice_tbl values (notice_seq.nextval ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, SYSDATE, SYSDATE, #{memberNo})
   </insert>
-   -->
-  
+   
   <insert id="insertNoticeFile">
   	insert into notice_file_tbl values(notice_file_seq.nextval, #{noticeNo}, #{filename}, #{filepath})
   </insert>
@@ -68,14 +66,6 @@
   	select * from notice_file_tbl where notice_file_no = #{noticeFileNo}
   </select>
   
-  <!-- 
-  
-  <update id="updateNotice">
-  	update notice_tbl set notice_title = #{noticeFileTitle},
-  	notice_content = #{noticeContent} where notice_no = #{noticeNo}
-  </update>
-  
-   -->
    <update id="updateNotice">
    	update notice_tbl set notice_title = #{noticeTitle}, notice_content = #{noticeContent} where notice_no = #{noticeNo}
    </update>

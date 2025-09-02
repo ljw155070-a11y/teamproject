@@ -127,7 +127,8 @@ body {
 			<div class="content-box">
 			<form action="/notice/write" method="post" enctype="multipart/form-data">			
     			<div class="input-item">
-        			<input type="text" name="noticeTitle" th:value="${n.noticeTitle}">
+    				<input type="hidden" name="noticeNo" id="noticeNo" th:value="${notice.noticeNo}">
+        			<input type="text" name="noticeTitle" th:value="${notice.noticeTitle}">
     			</div>
     			<hr style="border: 1px solid #E6E6E6">
     		<div class="noticeSelect">
@@ -137,7 +138,7 @@ body {
             			<option value="no">아니오</option>
         			</select>
         			<div class="fileAdd">첨부파일
-        				<div class="file : ${n.fileList}" class="files">
+        				<div class="file : ${notice.fileList}" class="files">
 	            			<span class="delfilename" th:text="${file.filename}"></span>
 	            			<span class="material-icons del-btn" th:onclick="deletefile([[${file.noticeFileNo}]], this)">delete</span>
         				</div>
@@ -163,26 +164,14 @@ body {
 		</section>
 	</main>
 	<script>
-	const contentValue = $('.hidden').text();
-	$('#noticeContent').summernote('code',contentValue);
-	function uploadImage(file) {
-	    let formData = new FormData();
-	    formData.append("upfile", file);
-		$.ajax({
-		    url: "/notice/writeFrm/editorImg",
-		    type: "POST",
-		    data: formData,
-		    contentType: false,
-		    processData: false,
-		    success: function(url) {
-		        $('#noticeContent').summernote('insertImage', url);
-		    },
-		    error: function(xhr, status, error) {
-		        console.log("AJAX 에러", status, error);
-		        alert("이미지 업로드 실패");
-		    }
-		});
-	}
+		function deleteFile(noticeFileNo, obj){
+			const input = $("<input>");
+			input.attr("name","delFileNo");
+			input.attr("type","hidden");
+			input.val(noticeFileNo);
+			$(".section-notice-write-wrap>form").append(input);
+			$(obj).parent().remove();
+		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
