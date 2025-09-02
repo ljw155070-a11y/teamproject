@@ -89,7 +89,12 @@ public interface RecipeDao {
 
 	int editComment(int recipeCommentNo, int recipeNo, String editText);
 
-	Recipe recipeGradeRanking();
+
+	Recipe recipeGradeRankingr();
+
+	Member recipeGradeRankingm();
+
+	double recipeGradeRankingDouble();
 	
 
 	

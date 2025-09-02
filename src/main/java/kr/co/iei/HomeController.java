@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.recipe.model.service.RecipeService;
 import kr.co.iei.recipe.model.vo.Recipe;
 
@@ -17,9 +18,15 @@ public class HomeController {
 	
 	@GetMapping(value="/")
 	public String main(Model model) {
-		Recipe r = recipeService.recipeGradeRanking();
+		Recipe r = recipeService.recipeGradeRankingr();
+		Member m = recipeService.recipeGradeRankingm();
+		double avgrate = recipeService.recipeGradeRankingDouble(); 
 		model.addAttribute("r",r);
+		model.addAttribute("m",m);
+		model.addAttribute("avgrate",avgrate);
 		System.out.println(r);
+		System.out.println(m);
+		System.out.println(avgrate);
 		return "index";
 	}
 }

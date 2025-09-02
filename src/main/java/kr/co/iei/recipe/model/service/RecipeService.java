@@ -524,9 +524,19 @@ public class RecipeService {
 		return result;
 	}
 
-	public Recipe recipeGradeRanking() {
-		Recipe r = recipeDao.recipeGradeRanking();
+	public Recipe recipeGradeRankingr() {
+		Recipe r = recipeDao.recipeGradeRankingr();
 		return r;
+	}
+
+	public Member recipeGradeRankingm() {
+		Member m = recipeDao.recipeGradeRankingm();
+		return m;
+	}
+
+	public double recipeGradeRankingDouble() {
+		double avgrate = recipeDao.recipeGradeRankingDouble(); 
+		return avgrate;
 	}
 
 	
