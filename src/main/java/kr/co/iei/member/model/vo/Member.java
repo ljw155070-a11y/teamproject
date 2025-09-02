@@ -28,4 +28,5 @@ public class Member {
 	private int allReportCount;
 	private int suspendDays;
 	private String suspendReason;
+	private int suspendYN;
 }
