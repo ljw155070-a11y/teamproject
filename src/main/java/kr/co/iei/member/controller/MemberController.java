@@ -172,7 +172,7 @@ public class MemberController {
 //		/결과가 없을 떄
 		return 0;
 	}
-	@ResponseBody
+	
 	@GetMapping(value = "/newPw")
 	public String newPw() {
 		return "member/newPw";
