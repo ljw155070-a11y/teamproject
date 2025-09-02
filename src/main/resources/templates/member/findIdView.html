@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="/js/jquery-3.6.0.js"></script>
+<style>
+.dialog {
+  display:none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.dialog>.tb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog>.tb .inner {
+  width: 500px;
+  height: 350px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.dialog .top {
+  display: flex;
+  align-item: center;
+  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.dialog .title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.dialog .ct {
+  max-height: 60vh;
+  /*height: 60vh;*/
+  overflow-y: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #fff;
+}
+</style>
+</head>
+<body>
+		<button onClick="modal('dialog')">아이디확인</button>
+		<div id="dialog" class="dialog">
+		  <div class="tb">
+		    <div class="inner" style="max-width:800px;">
+		      <div class="top">
+		        <div class="title">아이디 확인</div>
+		        <a href="#" class="modal-close">닫기</a>
+		      </div>
+		      <div class="ct">
+		      	아이디는 {} 입니다.
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<script>
+			//모달 열기
+			function modal(id){
+			  $("#" + id).fadeIn()
+			}
+			//모달 닫기
+			$('.modal-close').on('click', function(e){
+			  e.preventDefault();
+			  const modal = $(this).parents('.dialog');
+			  modal.fadeOut();
+			});
+		</script>
+</body>
+</html>
