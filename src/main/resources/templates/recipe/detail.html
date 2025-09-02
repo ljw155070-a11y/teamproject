@@ -316,7 +316,7 @@
 		
 		//2. 수정 버튼을 누른다. -> 삭제하기 버튼을 수정 취소로 변경
 		$(o).next().text("수정 취소");
-		$(o).next().attr("onclick","editCommentCancel(this,"+recipeCommentNo+","+recipeNo+","+recipeCommentContent+")");
+		$(o).next().attr("onclick","editCommentCancel(this,"+recipeCommentNo+","+recipeNo+")");
 		
 		//3. 수정 버튼을 누른다. -> 현재 수정하려는 table에서 두번째 tr 내 td의 text 값을 가져온다.
 		const text=$(o).parent().prev().children().children().eq(1).children().children().eq(0).text();
