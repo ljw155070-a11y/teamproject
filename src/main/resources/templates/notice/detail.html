@@ -156,7 +156,7 @@ body {
         <section class="notice-detail-wrap">
             <div class="detail-box">
                 <div class="detail-box-title">
-                    <span th:utext="${n.noticeTitle}"></span>
+                    <span th:utext="${notice.noticeTitle}"></span>
                 </div>
                 <hr>
                     <div class="detail-textbar">
@@ -164,16 +164,16 @@ body {
                             <span class="writer">작성자 : 관리자</span>
                         <div class="notice-view">
                         <span>작성일 : </span>
-                            <span class="date" th:text="${n.noticeWriteDate}"></span>
+                            <span class="date" th:text="${notice.noticeWriteDate}"></span>
                         </div>
                     </div>
                 <hr>
                     <div class="detail-content-box">
-                        <span class="content-text" th:utext="${n.noticeContent}"></span>
+                        <span class="content-text" th:utext="${notice.noticeContent}"></span>
                     </div>
                     <div class="detail-content-btn">
-                        <a th:href="@{/notice/updateFrm(noticeNo=${n.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
-                        <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" th:onclick="deleteNotice([[${n.noticeNo}]]);" class="delete-btn">게시글 삭제</a>
+                        <a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
+                        <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" th:onclick="deleteNotice([[${notice.noticeNo}]]);" class="delete-btn">게시글 삭제</a>
                     </div>
             </div>
         </section>
@@ -187,17 +187,17 @@ body {
                             <span class="writer">작성자 : 관리자</span>
                         <div class="notice-view">
                         <span>작성일 : </span>
-                            <span class="date" th:text="${n.noticeWriteDate}"></span>
+                            <span class="date" th:text="${notice.noticeWriteDate}"></span>
                         </div>
                     </div>
                 <hr>
                     <div class="detail-content-box">
-                        <span class="content-text" th:utext="${n.noticeContent}"></span>
+                        <span class="content-text" th:utext="${notice.noticeContent}"></span>
                         
                     </div>
                     <div class="detail-content-btn">
-                        <a th:href="@{/notice/updateFrm(noticeNo=${n.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
-                        <a th:onclick="deleteNotice([[${n.noticeNo}]]);" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="delete-btn">게시글 삭제</a>
+                        <a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
+                        <a th:onclick="deleteNotice([[${notice.noticeNo}]]);" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="delete-btn">게시글 삭제</a>
                     </div>
             </div>
     	</main>

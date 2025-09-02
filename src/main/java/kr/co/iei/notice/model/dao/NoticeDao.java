@@ -29,7 +29,7 @@ public interface NoticeDao {
 
 	NoticeFile selectOneNoticeFile(int noticeFileNo);
 
-    int updateNotice(Notice n);
+    int updateNotice(Notice notice);
 
 	List selectNoticeFileList(int[] delFileNo);
 

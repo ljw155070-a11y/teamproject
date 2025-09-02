@@ -39,7 +39,7 @@ public class NoticeController {
 	private FileUtil fileUtil;
 	
 	@GetMapping(value="/list")
-	public String noticeList(Model model, int reqPage) {
+	public String list(Model model, int reqPage) {
 		NoticeListData nl = noticeService.selectNoticeList(reqPage);
 		model.addAttribute("list", nl.getList());
 		model.addAttribute("pageNav", nl.getPageNav());
@@ -60,60 +60,11 @@ public class NoticeController {
 		}
 		return "notice/list";
 	}
-	@GetMapping(value="/writeFrm")
-	public String noticeWriteFrm(@SessionAttribute Member member, Model model) {
-		return "notice/writeFrm";
-	}
-	
-	@PostMapping(value="/writeFrm/editorImg", produces="plain/text;charset=utf-8")
-	@ResponseBody
-	 public String editorImage(MultipartFile upfile) {
-		 String savepath = "C:/image/";
-	     String filename = UUID.randomUUID() + "_" + upfile.getOriginalFilename();
-	     File file = new File(savepath + filename);
-    try {
-         upfile.transferTo(file);
-     } catch (IOException e) {
-         e.printStackTrace();
-         return "fail";
-     }
-     return "/editorImg/" + filename;
- }
-	
-	@PostMapping(value = "/write")
-	public String noticeWrite(Notice notice, Model model) {
-		int result = noticeService.writeNotice(notice);
-		if(result > 0) {
-			model.addAttribute("title", "작성 성공");
-			model.addAttribute("text", "게시글이 작성되었습니다.");
-			model.addAttribute("icon", "success");
-			model.addAttribute("loc", "/notice/list?reqPage=1");
-			return "common/msg";
-		}else {
-			model.addAttribute("title", "작성 실패");
-			model.addAttribute("text", "잠시후 다시 시도해 주세요.");
-			model.addAttribute("icon", "warning");
-			model.addAttribute("loc", "/notice/list?reqPage=1");
-			return "common/msg";
-		}
-	}
 	@GetMapping(value="/detail")
 	public String detail(int noticeNo, Model model) {
-		Notice n = noticeService.selectOnetNotice(noticeNo);
-		model.addAttribute("n", n);
+		Notice notice = noticeService.selectOnetNotice(noticeNo);
+		model.addAttribute("notice", notice);
 		return "notice/detail";
-	}
-	@GetMapping(value="/fileDown")
-	public void fileDown(int noticeFileNo, HttpServletResponse response) {
-		NoticeFile noticeFile = noticeService.selectOneNoticeFile(noticeFileNo);
-		String savepath = root + "/notice/";
-		fileUtil.downloadFile(savepath, noticeFile.getFilepath(), noticeFile.getFilename(), response);
-	}
-	@GetMapping(value="/updateFrm")
-	public String updateFrm(int noticeNo, Model model) {
-		Notice n = noticeService.selectOnetNotice(noticeNo);
-		model.addAttribute("n", n);
-		return "notice/updateFrm";
 	}
 	@GetMapping(value="/delete")
 	public String delete(int noticeNo, Model model) {
@@ -132,6 +83,74 @@ public class NoticeController {
 			return "common/msg";
 		}
 	}
+	@GetMapping(value="/writeFrm")
+	public String writeFrm(@SessionAttribute Member member, Model model) {
+		return "notice/writeFrm";
+	}
+	
+	@PostMapping(value="/writeFrm/editorImg", produces="plain/text;charset=utf-8")
+	@ResponseBody
+	 public String editorImg(MultipartFile upfile) {
+		 String savepath = "C:/image/";
+	     String filename = UUID.randomUUID() + "_" + upfile.getOriginalFilename();
+	     File file = new File(savepath + filename);
+    try {
+         upfile.transferTo(file);
+     } catch (IOException e) {
+         e.printStackTrace();
+         return "fail";
+     }
+     return "/editorImg/" + filename;
+ }
+	
+	@PostMapping(value = "/write")
+	public String write(Notice notice, Model model) {
+		int result = noticeService.writeNotice(notice);
+		if(result > 0) {
+			model.addAttribute("title", "작성 성공");
+			model.addAttribute("text", "게시글이 작성되었습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/notice/list?reqPage=1");
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "작성 실패");
+			model.addAttribute("text", "잠시후 다시 시도해 주세요.");
+			model.addAttribute("icon", "warning");
+			model.addAttribute("loc", "/notice/list?reqPage=1");
+			return "common/msg";
+		}
+	}
+	@GetMapping(value="/updateFrm")
+	public String updateFrm(int noticeNo, Model model) {
+		Notice notice = noticeService.selectOnetNotice(noticeNo);
+		model.addAttribute("notice", notice);
+		return "notice/updateFrm";
+	}
+	@PostMapping(value="/update")
+	public String update(Notice notice, Model model) {
+		int result = noticeService.updateNotice(notice);
+		if(result >0) {
+			model.addAttribute("title", "수정 성공");
+			model.addAttribute("text", "게시글이 수정되었습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/notice/view?noticeNo="+notice.getNoticeNo());
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "수정 실패");
+			model.addAttribute("text", "잠시후 다시 시도해 주세요.");
+			model.addAttribute("icon", "warning");
+			model.addAttribute("loc", "/notice/view?noticeNo="+notice.getNoticeNo());
+			return "common/msg";
+		}
+	}
+	
+	@GetMapping(value="/fileDown")
+	public void fileDown(int noticeFileNo, HttpServletResponse response) {
+		NoticeFile noticeFile = noticeService.selectOneNoticeFile(noticeFileNo);
+		String savepath = root + "/notice/";
+		fileUtil.downloadFile(savepath, noticeFile.getFilepath(), noticeFile.getFilename(), response);
+	}
+	
 	}
 
 /*
