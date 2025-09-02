@@ -39,7 +39,7 @@ public class NoticeController {
 	private FileUtil fileUtil;
 	
 	@GetMapping(value="/list")
-	public String list(int reqPage, Model model) {
+	public String list(@RequestParam(value = "reqPage", defaultValue = "1") int reqPage, Model model) {
 		NoticeListData nl = noticeService.selectNoticeList(reqPage);
 		model.addAttribute("list", nl.getList());
 		model.addAttribute("pageNav", nl.getPageNav());

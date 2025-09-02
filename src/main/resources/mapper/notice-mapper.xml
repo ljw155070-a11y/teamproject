@@ -37,17 +37,13 @@
   	select count(*) from notice_tbl
 	]]>
   </select>
-  
-  <insert id="writeNotice">
-  	insert into notice_tbl value(notice_seq.nextval, #{noticeTitle}, #{noticeContent}, #{memberId}, sysdate)
-  </insert>
-    
+   
    <insert id="insertNotice">
-  	insert into notice_tbl values (notice_seq.nextval ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, SYSDATE, SYSDATE, #{memberNo})
+  	insert into notice_tbl values (notice_seq.nextval, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, #{noticeWriteDate}, #{noticeUpdateDate}, #{memberNo})
   </insert>
    
   <insert id="insertNoticeFile">
-  	insert into notice_file_tbl values(notice_file_seq.nextval, #{noticeNo}, #{filename}, #{filepath})
+  	insert into notice_file_tbl values(notice_file_seq.nextval, #{noticeFileNo}, #{filename}, #{filepath})
   </insert>
   
   <select id="getNoticeNo" resultType="int">

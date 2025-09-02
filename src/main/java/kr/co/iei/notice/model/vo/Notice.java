@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 @Alias(value="notice")
 public class Notice {
 	private int noticeNo;
-	private int noticeFixTop;
-	private String noticeType;
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeWriter;

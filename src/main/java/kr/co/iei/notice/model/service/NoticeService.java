@@ -84,10 +84,6 @@ public class NoticeService {
 		NoticeFile noticeFile = noticeDao.selectOneNoticeFile(noticeFileNo);
 		return noticeFile;
 	}
-	public int writeNotice(Notice notice) {
-		int result = noticeDao.writeNotice(notice);
-		return result;
-	}	
 	/*
 	
 	@Transactional
