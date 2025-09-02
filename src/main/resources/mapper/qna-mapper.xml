@@ -146,4 +146,8 @@
 		insert into qna_comment_report_tbl
 		values(#{qnaNo}, #{memberNo}, #{qnaCommentNo}, sysdate)
 	</insert>
+	
+	<update id="updateQnaComment">
+		update qna_comment_tbl set qna_comment_content = #{qnaCommentContent} where qna_comment_no = #{qnaCommentNo}
+	</update>
 </mapper>

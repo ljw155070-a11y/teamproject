@@ -90,4 +90,12 @@ public class QnaController {
 		int result = qnaService.reportQnaComment(qnaNo, qnaCommentNo, memberNo);
 		return result;
 	}
+	
+	@PostMapping(value="/updateComment")
+	public String updateComment(QnaComment qc) {
+		System.out.println(qc);
+		int result = qnaService.updateQnaComment(qc);
+		System.out.println(result);
+		return "redirect:/qna/view?qnaNo="+qc.getQnaNo();
+	}
 }
