@@ -15,16 +15,16 @@
 	</select>
 	
 	<select id="selectOneQnaList" resultType="qna">
-		select m.member_name, q.qna_title, q.qna_content, q.qna_date, q.qna_count
+		select q.qna_no, q.member_no, m.member_name, q.qna_title, q.qna_content, q.qna_date, q.qna_count
 		from qna_tbl q 
 		join member_tbl m on q. member_no = m.member_no
 		where qna_no = #{qnaNo}
 	</select>
 	
 	<select id="selectAllQnaCommentList" resultType="qnaComment">
-	SELECT M.MEMBER_NAME, QC.QNA_COMMENT_CONTENT, QNA_COMMENT_DATE 
+	SELECT M.MEMBER_NAME, QC.QNA_COMMENT_CONTENT, QC.QNA_COMMENT_DATE, QC.qna_comment_no, M.member_no, QC.QNA_NO
     FROM QNA_COMMENT_TBL QC 
-    JOIN MEMBER_TBL M ON QC.MEMBER_NO = M.MEMBER_NO WHERE QNA_NO = #{qnaNo}
+    JOIN MEMBER_TBL M ON QC.MEMBER_NO = M.MEMBER_NO WHERE QNA_NO = #{qnaNo} order by qna_comment_no desc
 	</select>
 	
 	<insert id="insertQnaComment">
