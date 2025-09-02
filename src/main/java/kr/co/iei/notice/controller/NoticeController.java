@@ -1,8 +1,10 @@
 package kr.co.iei.notice.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,19 +39,19 @@ public class NoticeController {
 	private FileUtil fileUtil;
 	
 	@GetMapping(value="/list")
-	public String list(Model model, int reqPage) {
-		NoticeListData nld = noticeService.selectNoticeList(reqPage);
-		model.addAttribute("list", nld.getList());
-		model.addAttribute("pageNavi", nld.getPageNav());
+	public String noticeList(Model model, int reqPage) {
+		NoticeListData nl = noticeService.selectNoticeList(reqPage);
+		model.addAttribute("list", nl.getList());
+		model.addAttribute("pageNav", nl.getPageNav());
 		return "notice/list";
 	}
 	@GetMapping(value="/searchTitle")
 	public String searchTitle(String searchTitle, int reqPage, Model model) {
 		if(!searchTitle.isEmpty()) {
-			NoticeListData nld = noticeService.searchTitle(reqPage, searchTitle);
-			if(nld != null) {
-				model.addAttribute("list", nld.getList());
-				model.addAttribute("pageNavi", nld.getPageNav());
+			NoticeListData nl = noticeService.searchTitle(reqPage, searchTitle);
+			if(nl != null) {
+				model.addAttribute("list", nl.getList());
+				model.addAttribute("pageNav", nl.getPageNav());
 			}else {
 				model.addAttribute("list", "작성된 게시글이 존재하지 않습니다.");
 			}
@@ -62,6 +64,21 @@ public class NoticeController {
 	public String noticeWriteFrm(@SessionAttribute Member member, Model model) {
 		return "notice/writeFrm";
 	}
+	
+	@PostMapping(value="/writeFrm/editorImg", produces="plain/text;charset=utf-8")
+	@ResponseBody
+	 public String editorImage(MultipartFile upfile) {
+		 String savepath = "C:/image/";
+	     String filename = UUID.randomUUID() + "_" + upfile.getOriginalFilename();
+	     File file = new File(savepath + filename);
+    try {
+         upfile.transferTo(file);
+     } catch (IOException e) {
+         e.printStackTrace();
+         return "fail";
+     }
+     return "/editorImg/" + filename;
+ }
 	
 	@PostMapping(value = "/write")
 	public String noticeWrite(Notice notice, Model model) {
@@ -115,16 +132,7 @@ public class NoticeController {
 			return "common/msg";
 		}
 	}
-	
-	@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
-	@ResponseBody
-	public String editorImgUpload(MultipartFile upfile) {
-		String savepath = root + "/notice/editor/";
-		String filepath = fileUtil.upload(savepath, upfile);
-		return filepath;
 	}
-	
-}
 
 /*
 @PostMapping(value = "/write")
@@ -142,6 +150,14 @@ public class NoticeController {
 				fileList.add(noticeFile);
 			}
 		} 
+		
+@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
+@ResponseBody
+	public String editorImgUpload(MultipartFile upfile) {
+		String savepath = root + "/notice/editor/";
+		String filepath = fileUtil.upload(savepath, upfile);
+		return filepath;
+	}
  
 @GetMapping(value="/list")
 	public String noticeList(@RequestParam(value="reqPage", required=false) Integer reqPage, Model model) {

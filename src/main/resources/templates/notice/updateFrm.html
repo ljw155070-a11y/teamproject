@@ -125,7 +125,7 @@ body {
 	<main class="content notice-write-container">
 		<section class="section-notice-write-wrap">
 			<div class="content-box">
-			<form action="/notice/update" method="post" enctype="multipart/form-data">			
+			<form action="/notice/write" method="post" enctype="multipart/form-data">			
     			<div class="input-item">
         			<input type="text" name="noticeTitle" th:value="${n.noticeTitle}">
     			</div>
@@ -152,7 +152,7 @@ body {
     		</div>
     		<hr style="border: 1px solid #E6E6E6">
     			<div class="detail-content-box">
-        			<textarea name="noticeContent" placeholder="운영 정책에 위반되는 글을 작성할 시 게시글이 삭제 조치될 수 있으며, 신고 누적 5회 시 회원 탈퇴가 될 수 있음을 알립니다."></textarea>
+        			<textarea name="noticeContent" required></textarea>
     			</div>	
     			<hr style="border: 1px solid #E6E6E6">
     			<div class="add-btn">
@@ -162,6 +162,28 @@ body {
 			</div>
 		</section>
 	</main>
+	<script>
+	const contentValue = $('.hidden').text();
+	$('#noticeContent').summernote('code',contentValue);
+	function uploadImage(file) {
+	    let formData = new FormData();
+	    formData.append("upfile", file);
+		$.ajax({
+		    url: "/notice/writeFrm/editorImg",
+		    type: "POST",
+		    data: formData,
+		    contentType: false,
+		    processData: false,
+		    success: function(url) {
+		        $('#noticeContent').summernote('insertImage', url);
+		    },
+		    error: function(xhr, status, error) {
+		        console.log("AJAX 에러", status, error);
+		        alert("이미지 업로드 실패");
+		    }
+		});
+	}
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

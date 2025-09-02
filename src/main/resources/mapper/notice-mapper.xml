@@ -38,15 +38,15 @@
 	]]>
   </select>
   
-  <!-- 
-  <insert id="insertNotice">
-  	insert into notice_tbl values (NOTICE_SEQ.NEXTVAL ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, SYSDATE, SYSDATE, #{noticeViewCount}, #{memberNo})
+  <insert id="writeNotice">
+  	insert into notice_tbl value(notice_seq.nextval, #{noticeTitle}, #{noticeContent}, #{memberId}, sysdate)
   </insert>
-   -->
   
+  <!--   
    <insert id="insertNotice">
   	insert into notice_tbl values (NOTICE_SEQ.NEXTVAL ,#{noticeFixTop} ,#{noticeType}, #{noticeTitle}, #{noticeContent})
   </insert>
+   -->
   
   <insert id="insertNoticeFile">
   	insert into notice_file_tbl values(notice_file_seq.nextval, #{noticeNo}, #{filename}, #{filepath})
