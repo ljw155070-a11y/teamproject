@@ -129,9 +129,9 @@
   </select>
   
   <update id="updateMember">
-  	update into member_tbl set
+  	update member_tbl set
   		member_nickname = #{memberNickname} 
-  	where membre_id = #{memberId}
+  	where member_id = #{memberId}
   </update>
 </mapper>
 

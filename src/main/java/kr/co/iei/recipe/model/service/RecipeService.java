@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -476,6 +477,35 @@ public class RecipeService {
 		
 		
 		return reqSet;
+	}
+
+	public boolean checkedDeleteRecipe(String no) {
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		int result = 0;
+		int count = sT1.countTokens();
+		while(sT1.hasMoreTokens()) {
+			String stringNo = sT1.nextToken();
+			int recipeNo = Integer.parseInt(stringNo);
+			result += recipeDao.recipeDelete(recipeNo);
+		}
+		return result==count;
+	}
+
+	public int editRecipe(int recipeNo, String recipeTitle, ArrayList<RecipeIngredient> ingredientList, String recipeCaution) {
+		int result=-1;
+		//일단 재료 삭제하고
+		result = recipeDao.deleteIngredient(recipeNo);
+		if(result>=1) {
+			result=1;
+		}
+		//새로 전달받은 재료 추가하고
+		for(RecipeIngredient ri:ingredientList) {
+			ri.setRecipeNo(recipeNo);
+			result+=recipeDao.recipeRIInsert(ri); //재료 넣기
+		}
+		//제목, 주의사항 수정 (업데이트)
+		result+= recipeDao.recipeUpdate(recipeNo, recipeTitle,recipeCaution);
+		return result;
 	}
 
 	

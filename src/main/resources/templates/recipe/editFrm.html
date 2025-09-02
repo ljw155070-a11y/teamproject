@@ -150,84 +150,33 @@ hr{
 	<main class="recipe content">
 		<div class="recipe title"><span>게시글 작성</span></div>
 		<section>
-			<form action="/recipe/insert" method="post" enctype="multipart/form-data">
+			<form action="/recipe/edit" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="recipeNo" th:value="${recipe.recipeNo}">
 				<div class="recipe content-box">
 					<div class="recipe insert-title">
 					<!-- ★★★★★★★★★★★★★★제목 텍스트 값 전송★★★★★★★★★★★★★★★ -->
-						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피">
-					</div>
-					<hr>
-					<div class="recipe insert-thumbnail">
-						<span>썸네일:</span>
-						<!-- ★★★★★★★★★★★★★★썸네일 파일 이름 전송★★★★★★★★★★★★★★★ -->
-						<input type="file" name="recipeThumbnailFile" accept="image/*">
+						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피" th:value="${recipe.recipeTitle}">
 					</div>
 					<hr>
 					<div class="recipe insert-info">
-						<div class="insert-info-1">
-							<div class="recipe insert-info-1">
-								<span>태그 :</span>
-								<!-- ★★★★★★★★★★★★★★레시피 종류 전송★★★★★★★★★★★★★★★ -->
-								<select name="recipeType">
-									<option value="한식">한식</option>
-									<option value="중식">중식</option>
-									<option value="일식">일식</option>
-									<option value="양식">양식</option>
-								</select>
-							</div>
-							<div class="recipe insert-info-2">
-								<span>난이도 :</span>
-								<!-- ★★★★★★★★★★★★★★레시피 난이도 전송★★★★★★★★★★★★★★★ -->
-								<select name="recipeLevel">
-									<option value="하">쉬움</option>
-									<option value="중">보통</option>
-									<option value="상">어려움</option>
-								</select>
-							</div>
-							<div class="recipe insert-info-3">
-								<span>소요 시간 :</span>
-								<!-- ★★★★★★★★★★★★★★레시피 조리시간 전송★★★★★★★★★★★★★★★ -->
-								<select name="recipeCookingTime">
-									<option value="10">10분 미만</option>
-									<option value="30">30분 미만</option>
-									<option value="60">1시간 미만</option>
-									<option value="120">2시간 미만</option>
-									<option value="180">3시간 미만</option>
-								</select>
-							</div>
-						</div>
-						<hr>
 						<div class="recipe ingredient">
 							<div id="ingredientBox">
 								<span>들어가는 재료 : </span><button type="button" class="boxbtn" id="ingredientPlusBtn">+</button><button type="button" class="boxbtn" id="ingredientMinusBtn">-</button>
-								<div class="ingredient dynamic">
+								<div class="ingredient dynamic" th:each="ri:${recipeIngredientList}">
 									<span>재료명 : </span>
 									<!-- ★★★★★★★★★★★★★★레시피 재료명 전송★★★★★★★★★★★★★★★ -->
-									<input type="text" name="recipeIngredientName">
+									<input type="text" name="recipeIngredientName" th:value="${ri.recipeIngredientName}">
 									<span>용량 : </span>
 									<!-- ★★★★★★★★★★★★★★레시피 재료 용량 전송★★★★★★★★★★★★★★★ -->
-									<input type="text" name="recipeIngredientVolume">
+									<input type="text" name="recipeIngredientVolume" th:value="${ri.recipeIngredientVolume}">
 								</div>
 							</div>
 						</div>
 						<hr>
-						<div class="recipe cooking order">
-							<span>조리 순서 : </span><button type="button" class="boxbtn" id="stepPlusBtn">+</button><button type="button" class="boxbtn" id="stepMinusBtn">-</button>
-							<div id="stepBox">
-								<div class="order dynamic">
-									<span>Step 1</span>
-									<!-- ★★★★★★★★★★★★★★레시피 조리내용 전송★★★★★★★★★★★★★★★ -->
-									<input type="text" name="recipeCookingContent" placeholder = "이곳에 설명을 입력하세요">
-									<!-- ★★★★★★★★★★★★★★레시피 조리 이미지 전송★★★★★★★★★★★★★★★ -->
-									<input type="file" name="recipeCookingOrderImgFile" accept="image/*">
-								</div>
-							</div>
-						</div>				
-						<hr>		
 						<div class="recipe caution">
 							<span>주의 사항 : </span>
 							<!-- ★★★★★★★★★★★★★★주의사항 전송★★★★★★★★★★★★★★★ -->
-							<input type="text" name="recipeCaution" placeholder = "이곳에 설명을 입력하세요">
+							<input type="text" name="recipeCaution" placeholder = "이곳에 설명을 입력하세요" th:value="${recipe.recipeCaution}">
 						</div>
 						<div class="recipe insertBtn">
 							<input type="submit" value="게시글 작성하기">
