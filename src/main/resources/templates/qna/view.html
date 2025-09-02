@@ -560,6 +560,7 @@
 			$(obj).css("color", "blue");
 			//작성된 댓글의 위치
 			const qnaCommentContent = $(obj).parent().prev().children().last().children().eq(2).text();
+			
 			//댓글 수정을 작성할 양식
 			const textArea = $("<textarea>");
 			$(obj).parent().prev().children().last().append(textArea);
@@ -593,9 +594,9 @@
 				qnaNoRef.val(qnaNo);
 				
 				const qnaCommentContent = $("<input type='text' name='qnaCommentContent'>");
-				qnaCommentContent.val(qnaCommentContent);
-				const newCommentContent = $(obj).parent().prev().children().eq(1).children().last().clone();
-				
+				const newCommentContent = $(obj).parent().prev().children().eq(1).children().last();
+				qnaCommentContent.val(newCommentContent);
+				$(obj).parent().prev().children().last().children().eq(3).clone();
 				form.append(qnaCommentNoInput).append(qnaNoRef).append(qnaCommentContent);
 				
 				$("body").append(form);
