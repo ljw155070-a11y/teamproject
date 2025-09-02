@@ -138,6 +138,9 @@
 	font-weight: 600;
 	cursor:pointer;
 }
+.deleteRecipe{
+	
+}
 .checkedDeleteRecipe{
 	width:160px;
 	height: 30px;
@@ -152,6 +155,15 @@
 	background-color: #FBA854;
 	color : #fff;
 	font-weight: 600;
+}
+.recipeReport-tbl>tbody>tr:hover{
+	background-color: #E6E6E6;
+}
+.recipeReport-tbl>tbody>tr:nth-child(1):hover{
+	background-color: #fff;
+}
+.recipeReport-tbl>tbody>tr:last-child:hover{
+	background-color: #fff;
 }
 </style>
 </head>
@@ -176,7 +188,7 @@
 						<th style="width:10%;">작성자</th>
 						<th style="width:10%;">삭제</th>
 					</tr>
-					<tr th:each="r,status : ${reqSet.list}">
+					<tr th:each="r,status : ${reqSet.list}" th:onclick="connectRecipeDetail([[${r.recipeNo}]])" style="cursor:pointer;">
 						<td>
 							<div class="checkbox-wrap">
 								<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
@@ -200,7 +212,7 @@
 				</table>		
 		</section>
 		<section class="recipeReport-footer">	
-			<div class="recipeReport-pageNavi">
+			<div class="recipeReport-pageNavi" th:if="${reqSet.pageInfo.totalPage>0}">
 				<a href="/admin/recipeReport?reqPage=1"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
 				
 				<th:block th:if="${(reqSet.pageInfo.reqPage)-5 <= 1}">
@@ -235,7 +247,8 @@
 		location.href = "/admin/qnaCommentReport";
 	});
 	
-	$(".deleteRecipe").on("click",function(){
+	$(".deleteRecipe").on("click",function(e){
+		e.stopPropagation();
 		const thisRow = $(this).parent().parent();
 		const recipeNo = $(this).parent().parent().children().eq(2).text();
 		if(confirm("이 게시글을 삭제하시겠습니까?")){
@@ -250,7 +263,6 @@
 					}else {
 						alert("잠시 후에 다시 시도해주세요.");
 					}
-					console.log(result);
 				},
 				error: function(){
 					alert("에러.");
@@ -262,7 +274,6 @@
 	
 	$(".checkedDeleteRecipe").on("click",function(){
 		const checkbox = $(".chk:checked");
-		const tr = $(this).parent().parent().prev();
 		if(checkbox.length === 0){
 			return;
 		}
@@ -272,13 +283,26 @@
 			const recipeNo = $(item).parent().parent().next().next().text();
 			no.push(recipeNo);
 		});
+		const noList = no.join("/");
 		$.ajax({
-			url:"admin/deleteRecipe",
-			type:"post",
-			
+			url:"/admin/checkedDeleteRecipe",
+			type:"get",
+			data:{no:noList},
+			success:function(result){
+				checkbox.each(function(index,item){
+					$(item).parent().parent().parent().remove();
+				});
+			},
+			error:function(){
+				alert("에러");
+			}
 			
 		})
 	});
+	
+	function connectRecipeDetail(recipeNo){
+		location.href="/recipe/detail?reqRecipeNo="+recipeNo;
+	}
 	</script>
 	<th:block th:include="common/footer"></th:block>				
 </body>

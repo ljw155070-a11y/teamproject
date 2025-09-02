@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer{
 		//addResourceHandlers를 직접 구현하면 기본 세팅도 사라지므로 기본 세팅 추가
 		registry
 			.addResourceHandler("/**")
-			.addResourceLocations("classpath:/static/");
+			.addResourceLocations("classpath:/templates/","classpath:/static/");
 		registry
 			.addResourceHandler("/upload/**")
 			.addResourceLocations("file:///"+root+"/");
