@@ -139,7 +139,7 @@ body {
 					</div>
 				</div>
 	            <textarea name=noticeWriteContent></textarea>							
-			<button class="add-btn" type="submit"><a href="/notice/list">등록하기</a></button>
+			<button class="add-btn" type="submit">등록하기</button>
 			</form>
 			</div>
 		</section>
@@ -148,7 +148,7 @@ body {
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
-	$("[name=noticeWriteContent]").summernote({
+	$("#noticeWriteContent").summernote({
 		width : 850,
 		height : 500,
 		lang : "ko-KR",

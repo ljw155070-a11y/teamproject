@@ -39,7 +39,7 @@ public class NoticeController {
 	private FileUtil fileUtil;
 	
 	@GetMapping(value="/list")
-	public String list(@RequestParam(value = "reqPage", defaultValue = "1") int reqPage, Model model) {
+	public String list(int reqPage, Model model) {
 		NoticeListData nl = noticeService.selectNoticeList(reqPage);
 		model.addAttribute("list", nl.getList());
 		model.addAttribute("pageNav", nl.getPageNav());
@@ -97,19 +97,18 @@ public class NoticeController {
 	}
 	@PostMapping(value = "/write")
 	public String write(Notice notice, Model model, MultipartFile[] upfile) {
+		System.out.println(11);
 		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-		// 첨부파일이 없으면 첫번째 파일이 비어있음 -> 첨부파일이 있을 때만 데이터 처리
+	
 		if (!upfile[0].isEmpty()) {
-			// 실제 파일이 업로드 될 폴더 설정
+			
 			String savepath = root + "/notice/";
 
 			for (MultipartFile file : upfile) {
-				// 사용자가 업로드한 파일의 원본이름
+				
 				String filename = file.getOriginalFilename();
 				String filepath = fileUtil.upload(savepath, file);
-				// 파일을 업로드할 위치와 파일객체를 주면서 업로드 요청
-				// -> 파일명이 겹쳤을 떄 중복처리를 해서 업로드 수행
-				// -> 중복처리가 된 파일명을 리턴(DB에 insert해야 하므로)
+				
 				NoticeFile noticeFile = new NoticeFile();
 				noticeFile.setFilename(filename);
 				noticeFile.setFilepath(filepath);
@@ -163,93 +162,3 @@ public class NoticeController {
 	
 	}
 
-/*
-@PostMapping(value = "/write")
-	public String noticeWrite(Notice n, MultipartFile[] upfile, Model model) {
-		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-		if (!upfile[0].isEmpty()) {
-			String savepath = root + "/notice/";
-
-			for (MultipartFile file : upfile) {
-				String filename = file.getOriginalFilename();
-				String filepath = fileUtil.upload(savepath, file);
-				NoticeFile noticeFile = new NoticeFile();
-				noticeFile.setFilename(filename);
-				noticeFile.setFilepath(filepath);
-				fileList.add(noticeFile);
-			}
-		} 
-		
-@PostMapping(value="/editorImg", produces="plain/text;charset=utf-8")
-@ResponseBody
-	public String editorImgUpload(MultipartFile upfile) {
-		String savepath = root + "/notice/editor/";
-		String filepath = fileUtil.upload(savepath, upfile);
-		return filepath;
-	}
- 
-@GetMapping(value="/list")
-	public String noticeList(@RequestParam(value="reqPage", required=false) Integer reqPage, Model model) {
-		if(reqPage == null) reqPage = 1;
-		NoticeListData nl = noticeService.selectNoticeList(reqPage);
-		model.addAttribute("list", nl.getList());
-		model.addAttribute("pageNav", nl.getPageNav());
-		return "notice/list";
-	} 
- 
-@GetMapping(value = "/detail") // =view
-public String noticeDetail(int noticeNo, @SessionAttribute(required = false) Member member, Model model) {
-	int memberNo = member == null ? 0 : member.getMemberNo();
-	Notice n = noticeService.selectOneNotice(noticeNo, memberNo);
-	if (n == null) {
-		model.addAttribute("title", "게시글 조회 실패");
-		model.addAttribute("text", "이미 삭제된 게시글입니다.");
-		model.addAttribute("icon", "info");
-		model.addAttribute("loc", "/notice/list?reqPage=1");
-		return "common/msg";
-	} else {
-		model.addAttribute("n", n);
-		return "notice/detail";
-	}
-}
-*/
-
-/*
-@PostMapping(value="/update")
-public String update(Notice n, MultipartFile[] upfile, int[] delFileNo) {
-	List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-	String savepath = root + "/notice/";
-	if(!upfile[0].isEmpty()) {
-		for (MultipartFile file : upfile) {
-			String filename = file.getOriginalFilename();
-			String filepath = fileUtil.upload(savepath, file);
-			NoticeFile nf = new NoticeFile();
-			nf.setFilename(filename);
-			nf.setFilepath(filepath);
-			fileList.add(nf);
-		}
-	}
-	List<NoticeFile> delFileList = noticeService.updateNotice(n, fileList, delFileNo);
-
-	for (NoticeFile noticeFile : delFileList) {
-		File delFile = new File(savepath + noticeFile.getFilepath());
-		delFile.delete();
-	}
-	return "redirect:/notice/detail?noticeNo=" + n.getNoticeNo();
-}
-/*
-@GetMapping(value = "/delete")
-public String delete(int noticeNo, Model model) {
-	List<NoticeFile> list = noticeService.deleteNotice(noticeNo);
-	String savepath = root + "/notice/";
-	for (NoticeFile noticeFile : list) {
-		File delFile = new File(savepath + noticeFile.getFilepath());
-		delFile.delete();
-	}
-	model.addAttribute("title", "게시글 삭제 완료");
-	model.addAttribute("text", "게시글이 삭제 되었습니다.");
-	model.addAttribute("icon", "success");
-	model.addAttribute("loc", "/notice/list?reqPage=1");
-	return "common/msg";
-}
-*/

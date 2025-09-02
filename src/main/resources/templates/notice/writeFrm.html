@@ -149,44 +149,20 @@ body {
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
-	$('#noticeWriteContent').summernote({
+	$("#noticeWriteContent").summernote({
 		width : 850,
 		height : 500,
 		lang : "ko-KR",
 		callbacks : {
 			onImageUpload : function(file) {
-				for (let i = 0; i < files.length; i++) {
-	                uploadImage(files[i]);
+				uploadImage(file[0], this);
 			}
 		}
-		}
 	});
-	function uploadImage(file) {
-	    let formData = new FormData();
-	    formData.append("upfile", file);
-		$.ajax({
-		    url: "/notice/writeFrm/editorImg",
-		    type: "POST",
-		    data: formData,
-		    contentType: false,
-		    processData: false,
-		    success: function(url) {
-		        $('#noticeWriteContent').summernote('insertImage', url);
-		    },
-		    error: function(xhr, status, error) {
-		        console.log("AJAX 에러", status, error);
-		        alert("이미지 업로드 실패");
-		    }
-		});
-	}
-	$('#noticeTitle').on("focus",function(){
-		const noticeTitle = $("#noticeTitle");
-		noticeTitle.attr("placeholder","");			
-	});
-	$('#noticeTitle').on("blur",function(){
-		const noticeTitle = $("#noticeTitle");	
-		noticeTitle.attr("placeholder","제목을 입력해주세요.");
-	});
+	
+	$(".add-btn").on("click",function(){
+		location.href = "/notice/list?reqPage=1";
+	})
 	</script>
     <th:block th:include="common/footer"></th:block>
 </body>
