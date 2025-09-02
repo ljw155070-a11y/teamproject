@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.findIdFrm{
+.findPwFrm{
     background-color: #F4F4F4;
     width: 100%;
     height: 1150px;
@@ -19,25 +19,34 @@
     text-align: center;
     margin-bottom: 70px;
 }
-.findId-content{
+.findPw-content{
     background-color: #fff;
     width: 700px;
-    padding-bottom : 70px;
+    padding-bottom : 75px;
     margin: 0 auto;
     border-radius: 9px;
     padding-top: 70px;
 }
-.search-id-box{
+.search-pw-box{
     width: 580px;
+    padding-bottom: 40px;
     border: 1px solid #BFBFBF;
     margin: 0 auto;
     padding-left: 30px;
-    padding-top: 40px;
+	padding-top: 40px;
     font-size: 18px;
     font-weight: 500;
-    padding-bottom: 40px;
 }
-
+.id-box>label{
+    font-size: 16px;
+    font-weight: 500;
+}
+.id-box>input{
+    font-size: 16px;
+    font-weight: 500;
+    width: 250px;
+    height: 30px;
+}
 .email-box>label{
     font-size: 16px;
     font-weight: 500;
@@ -74,7 +83,7 @@
     height: 34px;
     margin-left: 5px;
 }
-#find-id-btn{
+#find-pw-btn{
     margin-left: 110px;
     width: 200px;
     height: 70px;
@@ -103,32 +112,8 @@
     color: #fff;
     cursor: pointer;
 }
-#auth-btn:hover{
-    background-color: #ffc074;
-    color: #d17b11;
-}
-#send-btn:hover{
-    background-color: #ffc074;
-    color: #d17b11;
-}
-#find-id-btn:hover{
-    background-color: #ffc074;
-    color: #d17b11;
-}
-.email-box>#check-email{
-	text-align: left;
-	padding-left: 55px;
-}
-#time-zone{
-	padding-left:5px;
-	text-align: left; 
-}
-#authMsg{
-	text-align: left;
-	padding-left: 65px;
-}
-.emailConfirm-span{
-	overflow: hidden;
+.hi{
+	display: none;
 }
 .valid{
 	color: blue;
@@ -136,170 +121,93 @@
 .invalid{
 	color: red;
 }
-.hi{
-	display: none;
+#check-id{
+	text-align: left;
+	padding-left: 58px;
 }
-/*모달*/
-.dialog {
-  display:none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+#time-zone{
+	padding-left: 5px;
 }
-
-.dialog>.tb {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.dialog>.tb .inner {
-  width: 500px;
-  height: 160px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 16px;
-}
-
-.dialog .top {
-  display: flex;
-  align-item: center;
-  border-bottom: 1px solid #ddd;
-  justify-content: space-between;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-}
-
-.dialog .title {
-  font-weight: bold;
-  font-size: 20px;
-  margin: 0 auto;
-  padding: 10px;
-	padding-left: 50px;
-}
-
-.dialog .ct {
-  max-height: 60vh;
-  /*height: 60vh;*/
-  overflow-y: auto;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: #fff;
-  text-align: center;
-    font-size: 20px;
-    padding: 20px;
-}
-.p_close{
-	width: 60px;
-    border: 1px solid #bfbfbf;
-    text-align: center;
-    padding: 8px;
-    background: #EFEFEF;
-    color: #646464;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 9px;
+#authMsg{
+	text-align: left;
+	padding-left: 65px;
 }
 </style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main>
-		<div class="findIdFrm">
-			<div class="content-title">아이디 찾기</div>
-			<div class="findId-content">
-				<div class="search-id-box">
-					<p><span class="material-icons agree">check</span> 회원 정보에 등록한 이메일 주소로 아이디 찾기</p>
+		<div class="findPwFrm">
+			<div class="content-title">비밀번호 찾기</div>
+			<div class="findPw-content">
+				<div class="search-pw-box">
+					<p><span class="material-icons agree">check</span> 회원 정보에 등록한 이메일 주소로 비밀번호 찾기</p>
 					<div class="input-box">
-							<div class="email-box">
-								
-									<p id="check-email" class="emailConfirm"></p>
-									<label for="memberEmail">이메일 : </label>
-									<input type="text" name="memberEmail" id="memberEmail">
-									<button type="button" id="send-btn">인증요청</button>
-								
-							</div>
-							<div class="auth-code hi">
-								<label for="memberEmail"></label>
-								<input type="text" name="auth-code" id="auth-code" placeholder="인증 번호 6자리">
-								<button type="button" id="auth-btn">인증확인</button>
-								<span id="time-zone" class="emailConfirm"></span>
-							</div>
-								<span id="authMsg" class="emailConfirm"></span>
-							<div class="findId-btn">
-								<button onClick="modal('dialog')" id="find-id-btn" >아이디 확인</button>
-								<!-- 모달 -->
-								<div id="modal" class="dialog">
-								  <div class="tb">
-								    <div class="inner" style="max-width:800px;">
-								      <div class="top">
-									      <div class="title">아이디 확인</div>
-								        <a class="p_close">닫기</a>
-								      </div>
-								      <div class="ct">
-								      	회원님의 아이디는 [ <span id="findIdSpan"></span> ] 입니다.
-								      </div>
-								    </div>
-								  </div>
-								</div>
-							</div>
+						<div class="id-box">
+							<p id="check-id" class="idConfirm"></p>
+							<label for="memberId">아이디 : </label>
+							<input type="text" name="memberId" id="memberId">
+						</div>
+						<div class="email-box">
+							<p id="check-email" class="emailConfirm"></p>
+							<label for="memberEmail">이메일 : </label>
+							<input type="text" name="memberEmail" id="memberEmail">
+							<button type="button" id="send-btn">인증요청</button>
+						</div>
+						<div class="auth-code hi">
+							<label for="memberEmail"></label>
+							<input type="text" name="auth-code" id="auth-code" placeholder="인증 번호 6자리">
+							<button type="button" id="auth-btn">인증확인</button>
+							<span id="time-zone" class="emailConfirm">5:00</span>
+						</div>
+						<span id="authMsg" class="emailConfirm"></span>
+						<div class="findPw-btn">
+							<button type="submit" id="find-pw-btn">다음으로 이동</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
 	<script>
-		$("#find-id-btn").on("click",function(){
-			const memberEmail = $("#memberEmail").val();
-			if(memberEmail===""){
-				alert("이메일을 입력하세요.");
-				return;
-			}else{				
-				$.ajax({
-					url : "/member/findIdView",
-					type : "get",
-					data : {memberEmail : memberEmail},
-					success : function(result){
-						if(result !== null){
-							$("#findIdSpan").text(result);
-						}else if(result === null){
-							$("#findIdSpan").text("아이디를 찾지 못했습니다. 다시 확인해 주세요.");
-						}
-					}
-				});	
-			}
+		//아이디=이메일 확인
+		/*const findIdEmail = {
+		};*/
+		$("#find-pw-btn").on("click",function(){
+			const invalid = $(".invalid");
+			const valid = $(".valid");
+	    	if(invalid.length > 0){
+	    		alert("입력 내용을 다시 확인해 주세요.");
+	    		e.preventDefault();
+	    	}else if(valid.length < 1){
+	    		alert("아이디, 이메일,인증번호를 다시 확인 해 주세요.");
+	    		e.preventDefault();
+	    	}
 		});
-		//const inputCode = $("#auth-code").val();
-    	//if(mailCode === inputCode){
 		
-    	//모달 열기
-		function modal(id){
+		$("#find-pw-btn").on("click",function(){
+			const memberId = $("#memberId").val();
 			const memberEmail = $("#memberEmail").val();
-			const inputCode = $("#auth-code").val();
-			if(memberEmail===""){
-				e.preventDefault();
-			}else if(inputCode !== mailCode){
-				alert("인증번호를 입력하세요.");
-				e.preventDefault();
-			} else {
-			  $("." + id).fadeIn()
-			}
-    	}
-	    //모달 닫기
-	    $('.p_close').on('click', function(e){
-	      e.preventDefault();
-	      const modal = $(this).parents('.dialog');
-	      modal.fadeOut();
-	    });
-
-	
-	    //이메일확인
+			$.ajax({
+				url : "/member/findIdEmail",
+				type : "get",
+				data : {memberId:memberId, memberEmail:memberEmail},
+				success : function(result){
+					console.log(result);
+					if(result===1){
+						//성공
+						location.href = "/member/newPw";
+					}else if(result===0){
+						//실패
+						alert("이메일과 아이디를 다시 확인해 주세요.");
+			    		return;
+					}	
+				}
+			});
+				
+		});
+		
+		//이메일확인
 	    $("#memberEmail").on("keyup",function(){
 	    	const memberEmail = $("#memberEmail").val();
 	    	$("#check-email").removeClass("valid").removeClass("invalid");
@@ -318,8 +226,28 @@
 	    		}
 	    	})
 	    });
+	
+		//아이디 확인
+		$("#memberId").on("keyup",function(){
+	    	const memberId = $("#memberId").val();
+	    	$("#check-id").removeClass("valid").removeClass("invalid");
+	    	$.ajax({
+	    		url : "/member/checkId",
+	    		type : "get",
+	    		data : {memberId : memberId},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		$("#check-id").text("없는 아이디 입니다.")
+	    		    	$("#check-id").addClass("invalid");
+	    	    	}else if(result === 1){
+	    	    		$("#check-id").text("")
+	    		    	$("#check-id").addClass("valid");	
+	    	    	}	    			
+	    		}
+	    	})
+	    });
 	    
-	  //이메일 인증
+	  	//이메일 인증
 	    let mailCode = null;
 	    let intervalId = null;
 	    
@@ -388,21 +316,6 @@
 	    		$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec : sec}`);
 	    	}, 1000);
 	    }
-	    /*.......모달로 하기
-	    $("#find-id-btn").on("click",function(){
-	    	const invalid = $(".invalid");
-	    	if(invalid.length > 0){
-	    		alert("입력 내용을 다시 확인해 주세요.");
-	    		e.preventDefault();
-	    	}else{
-	    		const memberEmail = $('#memberEmail').val();
-				$("#memberEmail").val(memberEmail);
-				window.open("", "findIdView", "width=600,height=300");
-				$("#memberEmail").attr("target","findIdView");
-				$("#memberEmail").submit();
-	    	}
-	    });
-	    */
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

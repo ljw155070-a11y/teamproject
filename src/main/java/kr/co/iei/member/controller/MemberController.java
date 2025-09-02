@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jakarta.servlet.http.HttpSession;
+import kr.co.iei.HomeController;
 import kr.co.iei.member.model.service.MemberService;
 import kr.co.iei.member.model.vo.Member;
 
 @Controller
 @RequestMapping(value = "/member")
 public class MemberController {
+
+    private final HomeController homeController;
 
     private final NoticeController noticeController;
 
@@ -25,9 +28,10 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-    MemberController(NoticeService noticeService, NoticeController noticeController) {
+    MemberController(NoticeService noticeService, NoticeController noticeController, HomeController homeController) {
         this.noticeService = noticeService;
         this.noticeController = noticeController;
+        this.homeController = homeController;
     }
 	
 	@GetMapping(value = "/loginFrm")
@@ -147,18 +151,32 @@ public class MemberController {
 		return "member/findId";
 	}
 	@ResponseBody
-	@GetMapping(value = "findIdView")
+	@GetMapping(value = "/findIdView")
 	public String findIdView(String memberEmail) {
 		Member member = memberService.findId(memberEmail);
-//		System.out.println(member.getMemberId());
 		return member.getMemberId();
-//		
 	}
-	
-//	@GetMapping(value = "/findIdView")
-//	public String findIdView(String memberEmail,Model model) {
-//		return "member/findIdView";
-//	}
+	@GetMapping(value = "/findPw")
+	public String findPw() {
+		return "member/findPw";
+	}
+	@ResponseBody
+	@GetMapping(value = "/findIdEmail")
+	public int findIdEmail(String memberEmail, String memberId) {
+		Member member = memberService.findIdEmail(memberEmail,memberId);
+		System.out.println(member);
+		if(member != null) {
+			//결과가 있을 떄
+			return 1;
+		}
+//		/결과가 없을 떄
+		return 0;
+	}
+	@ResponseBody
+	@GetMapping(value = "/newPw")
+	public String newPw() {
+		return "member/newPw";
+	}
 	
 	
 }

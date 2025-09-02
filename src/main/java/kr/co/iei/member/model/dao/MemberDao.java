@@ -36,6 +36,8 @@ public interface MemberDao {
 
 	Member findMemberId(Member m);
 
+	Member findIdEmail(Member m);
+
 
 
 }
