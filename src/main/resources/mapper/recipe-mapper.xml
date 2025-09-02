@@ -109,7 +109,7 @@ WHERE RECIPE_NO=#{reqRecipeNo}
   	</select>
   	
   	<select id="recipeCookingOrderList" resultType="recipeCookingOrder">
-  		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=#{reqRecipeNo}
+  		SELECT * FROM RECIPE_COOKING_ORDER_TBL WHERE RECIPE_NO=#{reqRecipeNo} ORDER BY RECIPE_COOKING_ORDER ASC
   	</select>
   	
   	<select id="recipeCommentList" resultType="recipeComment">
@@ -323,5 +323,13 @@ WHERE RECIPE_NO=#{reqRecipeNo}
    		) 
    		 where report_count <![CDATA[>=]]> 1 
 	</select>
+	
+	<delete id="deleteIngredient">
+		DELETE RECIPE_INGREDIENT_TBL WHERE RECIPE_NO=#{recipeNo}
+	</delete>
+	
+	<update id="recipeUpdate">
+		UPDATE RECIPE_TBL SET RECIPE_TITLE=#{recipeTitle},RECIPE_CAUTION=#{recipeCaution} WHERE RECIPE_NO=#{recipeNo}
+	</update>
 	
 </mapper>
