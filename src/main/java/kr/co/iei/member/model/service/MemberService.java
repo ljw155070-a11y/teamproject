@@ -192,6 +192,22 @@ public class MemberService {
 		int result = memberDao.updateMember(m);
 		return result;
 	}
+//	public Member findMemberId(String memberEmail) {
+//		Member m = new Member();
+//		m.setMemberEmail(memberEmail);
+//		Member member = memberDao.findMemberId(m);
+//		return member;
+//	} 모달로 하기
+
+
+
+	public Member findId(String memberEmail) {
+		Member m = new Member();
+		m.setMemberEmail(memberEmail);
+		Member member = memberDao.findMemberId(m);
+		return member;
+		
+	}
 
 
 

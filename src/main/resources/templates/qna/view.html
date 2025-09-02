@@ -163,6 +163,7 @@
 		padding-right: 10px;
 		font-weight: bold;
 	}
+	
 	.commentDate{
 		padding-right: 10px;
 		color: gray;
@@ -468,7 +469,7 @@
 									swal({
 										title: "결과",
 										text: "댓글 삭제",
-										icon: "warning",
+										icon: "fail",
 										buttons: {
 											confirm: {
 												text: "댓글 삭제가 완료되었습니다",
@@ -537,7 +538,7 @@
 								swal({
 									title: "결과",
 									text: "댓글 신고 실패",
-									icon: "warning",
+									icon: "fail",
 									buttons: {
 										confirm: {
 											text: "댓글 신고가 취소되었습니다",
@@ -559,8 +560,15 @@
 			$(obj).css("color", "blue");
 			//작성된 댓글의 위치
 			const qnaCommentContent = $(obj).parent().prev().children().last().children().eq(2).text();
+			
 			//댓글 수정을 작성할 양식
-			$(obj).parent().prev().children().last().children().text(qnaCommentContent);
+			const textArea = $("<textarea>");
+			$(obj).parent().prev().children().last().append(textArea);
+			textArea.val(qnaCommentContent);
+			textArea.css("border-radius", "15px");
+			textArea.css("width", "700px");
+			textArea.css("padding-bottom", "30px");
+			textArea.css("margin-left", "5px");
 			//이전 댓글을 숨길 코드
 			$(obj).parent().prev().children().last().children().eq(2).hide();
 			//새로운 댓글을 보여줄 코드
@@ -569,33 +577,84 @@
 			$(obj).text("수정 완료");
 			$(obj).attr("onclick", "updateCommentComplete(this, "+qnaNo+", "+qnaCommentNo+")");
 			$(obj).next().text("수정 취소");
-			$(obj).next().attr("onclick","updateCommentCancel(this, "+qnaNo+", "+qnaCommentNo+")");
-			
+			$(obj).next().attr("onclick","updateCommentCancel(this, "+qnaNo+", "+qnaCommentNo+")");			
 			}//댓글 수정
 		
 			function updateCommentComplete(obj, qnaNo, qnaCommentNo){
 				const form = $("<form>");
 				form.attr("action", "/qna/updateComment");
 				form.attr("method", "post");
-				form.hide();
 				
-				const newQnaCommentNoInput = $("<input>");
-				newQnaCommentNoInput.attr = $("type", "text");
-				newQnaCommentNoInput.attr = $("name", "newCommentInput");
-				newQnaCommentNoInput.val = $(qnaCommentNo);
+				const qnaCommentNoInput = $("<input type='text' name='qnaCommentNo'>");
+				qnaCommentNoInput.val(qnaCommentNo);
 				
-				const qnaNoInput = $("<input type='text' name='qnaNoInput'>");
-				qnaNoInput.val(qnaNo);
+				const qnaNoRef = $("<input>");
+				qnaNoRef.attr("type", "text");
+				qnaNoRef.attr("name", "qnaNo");
+				qnaNoRef.val(qnaNo);
 				
-				const qnaCommentContent = $(obj).parent().prev().children().last().clone();
-				form.append(newQnaCommentNoInput).append(qnaNoInput).append(qnaCommentContent);
-				$(".body").append(form);
+				const qnaCommentContent = $("<input type='text' name='qnaCommentContent'>");
+				const newCommentContent = $(obj).parent().prev().children().eq(1).children().last();
+				qnaCommentContent.val(newCommentContent);
+				$(obj).parent().prev().children().last().children().eq(3).clone();
+				form.append(qnaCommentNoInput).append(qnaNoRef).append(qnaCommentContent);
+				
+				$("body").append(form);
+				
 				form.submit();
 			}//댓글 수정 완료
 			
 		function updateCommentCancel(obj, qnaNo, qnaCommentNo){
 				
-			}
+			}//댓글 수정 취소
+			
+		/*function updateQna(qnaNo, memberNo){
+				swal({
+					title: "게시글 수정",
+					text: "게시글을 수정하시겠습니까?",
+					icon: "warning",
+					buttons: {
+						confirm: {
+							text: "수정",
+							value: true,
+							visible: true,
+							className: "btn-primary",
+							closeModal: true
+						},
+						cancel: {
+							text: "취소",
+							value: false,
+							visible: true,
+							className: "btn-secondary",
+							closeModal: true
+						}
+					}
+				}).then(function(isConfirm){
+					if(isConfirm){
+						$.ajax({
+							url: "/qna/updateFrm",
+							type: "post",
+							data: {qnaNo : qnaNo, memberNo : memberNo},
+							success: function(result){
+								if(result === 1){									
+								swal({
+									title: "결과",
+									text: "게시글 수정 완료",
+									icon: "success",
+									buttons: {
+										confirm: {
+											text
+											}
+										}
+									})
+								}
+							}
+						});
+					}else{
+						
+					}
+				});
+			}*/ //게시글 수정
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

@@ -37,7 +37,7 @@ public interface MemberDao {
 
 	List<JoinUserDate> monthlyJoinUsers();
 
-	
+	Member findMemberId(Member m);
 
 
 }

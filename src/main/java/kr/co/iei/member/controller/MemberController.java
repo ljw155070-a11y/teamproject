@@ -1,4 +1,5 @@
 package kr.co.iei.member.controller;
+import kr.co.iei.notice.controller.NoticeController;
 import kr.co.iei.notice.model.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,13 +18,16 @@ import kr.co.iei.member.model.vo.Member;
 @RequestMapping(value = "/member")
 public class MemberController {
 
+    private final NoticeController noticeController;
+
     private final NoticeService noticeService;
 	
 	@Autowired
 	private MemberService memberService;
 
-    MemberController(NoticeService noticeService) {
+    MemberController(NoticeService noticeService, NoticeController noticeController) {
         this.noticeService = noticeService;
+        this.noticeController = noticeController;
     }
 	
 	@GetMapping(value = "/loginFrm")
@@ -43,9 +47,8 @@ public class MemberController {
 			model.addAttribute("icon","error");
 			model.addAttribute("loc","/member/loginFrm");
 			return "common/msg";
-		} else if(member.getSuspendDays() != 0) {
+		} else if(member.getSuspendYN() != 0) {
 			model.addAttribute("title","계정 이용이 정지되었습니다.");
-			
 			model.addAttribute("text","정지사유 : "+member.getSuspendReason()+'\n'+member.getSuspendDays()+"일 이용이 정지되었습니다.");
 //			model.addAttribute("text",member.getSuspendDays()+"일 이용이 정지되었습니다.");
 			model.addAttribute("icon","error");
@@ -139,5 +142,23 @@ public class MemberController {
 		
 		return "redirect:/member/mypage";
 	}
+	@GetMapping(value = "/findId")
+	public String findId() {
+		return "member/findId";
+	}
+	@ResponseBody
+	@GetMapping(value = "findIdView")
+	public String findIdView(String memberEmail) {
+		Member member = memberService.findId(memberEmail);
+//		System.out.println(member.getMemberId());
+		return member.getMemberId();
+//		
+	}
+	
+//	@GetMapping(value = "/findIdView")
+//	public String findIdView(String memberEmail,Model model) {
+//		return "member/findIdView";
+//	}
+	
 	
 }

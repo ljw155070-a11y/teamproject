@@ -123,7 +123,8 @@ public class QnaService {
 	public int deleteQna(int qnaNo) {
 		int result = qnaDao.deleteQna(qnaNo);
 		return result;
-	}
+	}//게시글 삭제
+	
 	public HashMap<String, Object> qnaReportedList(int reqPage) {
 
 		int numPerPage = 10;
@@ -244,6 +245,12 @@ public class QnaService {
 			return result;
 		}
 	}//댓글 신고
-}//게시글 삭제
+
+	@Transactional
+	public int updateQnaComment(QnaComment qc) {
+		int result = qnaDao.updateQnaComment(qc);
+		return result;
+	}
+}
 
 
