@@ -15,11 +15,16 @@
 	</select>
 	
 	<select id="selectOneQnaList" resultType="qna">
-		select * from qna_tbl where qna_no = #{qnaNo}
+		select m.member_name, q.qna_title, q.qna_content, q.qna_date, q.qna_count
+		from qna_tbl q 
+		join member_tbl m on q. member_no = m.member_no
+		where qna_no = #{qnaNo}
 	</select>
 	
 	<select id="selectAllQnaCommentList" resultType="qnaComment">
-	SELECT * FROM QNA_COMMENT_TBL where qna_no=#{qnaNo}
+	SELECT M.MEMBER_NAME, QC.QNA_COMMENT_CONTENT, QNA_COMMENT_DATE 
+    FROM QNA_COMMENT_TBL QC 
+    JOIN MEMBER_TBL M ON QC.MEMBER_NO = M.MEMBER_NO WHERE QNA_NO = #{qnaNo}
 	</select>
 	
 	<insert id="insertQnaComment">
@@ -135,7 +140,7 @@
 	</select>
 	
 	<select id = "selectAllQnaCommentReport" resultType="int">
-		select count(*) from qna_comment_report_tbl
+		select count(*) from qna_comment_report_tbl where qna_comment_no = #{qnaCommentNo} and member_no = #{memberNo} and qna_no = #{qnaNo}
 	</select>
 	<insert id="reportQnaComment">
 		insert into qna_comment_report_tbl

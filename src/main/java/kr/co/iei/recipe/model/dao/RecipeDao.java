@@ -82,6 +82,10 @@ public interface RecipeDao {
 	int recipeCommentReportedTotalCount();
 
 	List<Member> recipeCommentReportedList(int start, int end);
+
+	int deleteIngredient(int recipeNo);
+
+	int recipeUpdate(int recipeNo, String recipeTitle, String recipeCaution);
 	
 
 	

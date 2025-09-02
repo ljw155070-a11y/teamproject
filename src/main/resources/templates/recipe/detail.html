@@ -227,7 +227,7 @@
 								<input type="hidden" name="recipeNo" id="recipeNo" th:value="${recipeDetailSet.recipeDetail.recipeNo}">
 								<input type="hidden" name="memberNo" id="memberNo" th:value="${session.member.memberNo}">
 							</div>
-							<div class="recipe pointer" style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
+							<div class="recipe pointer" style="text-align:right; padding:0px 30px; color:red;" th:onclick="reportRecipe([[${recipeDetailSet.recipeDetail.recipeNo}]],[[${session.member.memberNo}]])" th:if="${recipeDetailSet.recipeDetail.memberNo}!=${session.member.memberNo}"><span>신고하기</span><span class="material-icons">cell_tower</span></div>
 						<th:block th:if="${session.member.memberNo} == ${recipeDetailSet.recipeDetail.memberNo}">
 							<hr style="margin-top:20px;">
 							<div class="recipe button" style="display:flex; justify-content:center; gap:100px; padding:50px;">
@@ -287,13 +287,13 @@
 									<td style="width:70%; text-align:right; height:30px; padding-top:10px; padding-right:10px;"><div><span th:text="${rcomment.recipeCommentDate}"></span></div></td>
 								</tr>
 								<tr>
-									<td colspan="2" style="color:#444444;"><div th:text="${rcomment.recipeCommentContent}"></div></td>
+									<td colspan="2" style="color:#444444;"><div id="recipeCommentDivId" th:text="${rcomment.recipeCommentContent}"></div></td>
 								</tr>
 							</table>
 							<div class="recipe comment link" style="justify-content:flex-end; margin-bottom:30px; display:flex; gap:20px;">
-								<a th:onclick="reportRecipeComment([[${rcomment.recipeCommentNo}]],[[${session.member.memberNo}]])">신고하기</a>
-								<a href="#">수정하기</a>
-								<a th:onclick="deleteRecipeComment([[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]])">삭제하기</a>
+								<a th:onclick="reportRecipeComment([[${rcomment.recipeCommentNo}]],[[${session.member.memberNo}]])" th:if="${rcomment.memberNo}!=${session.member.memberNo}">신고하기</a>
+								<a th:onclick="editRecipeComment([[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]],[[${rcomment.recipeCommentContent}]])" th:if="${rcomment.memberNo}==${session.member.memberNo}">수정하기</a>
+								<a th:onclick="deleteRecipeComment([[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]])" th:if="${rcomment.memberNo}==${session.member.memberNo}">삭제하기</a>
 							</div>
 						</div>
 					</th:block>
@@ -305,6 +305,15 @@
 
 	<script src="/js/sweetalert.min.js"></script>
 	<script>
+	function editRecipeComment(recipeCommentNo,recipeNo){
+		const textarea = $("<textarea>"); // <textarea>
+		textarea.addName("newRecipeCommentContent"); // <textarea name="newRecipeCommentContent">
+		textarea.addClass("recipe textarea"); // <textarea name="newRecipeCommentContent" class="recipe textarea">
+		textarea.addStyle("height:75px; width:98%;");
+		//<textarea name= "recipeCommentContent" class="recipe textarea" style="height:75px; width:98%;"></textarea>
+		$("#recipecommentbox-"+recipeCommentNo).append(textarea);
+	//안됨 다시해야함
+	}
 		function deleteRecipe(recipeNo){
 			swal({
 				title : "레시피 삭제",
@@ -401,7 +410,7 @@
 					console.log(recipeNo);
 				if(isConfirm){
 					console.log("confirm으로 넘어옴");
-					location.href="/recipe/edit?recipeNo="+recipeNo;
+					location.href="/recipe/editFrm?recipeNo="+recipeNo;
 				}
 			});
 		}

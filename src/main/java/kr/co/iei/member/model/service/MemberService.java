@@ -186,7 +186,7 @@ public class MemberService {
 	}
 
 
-
+	@Transactional
 	public int updateMember(Member m) {
 		int result = memberDao.updateMember(m);
 		return result;
