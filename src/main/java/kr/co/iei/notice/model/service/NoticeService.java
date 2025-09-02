@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.iei.member.model.dao.MemberDao;
+import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.notice.model.dao.NoticeDao;
 import kr.co.iei.notice.model.vo.Notice;
 import kr.co.iei.notice.model.vo.NoticeFile;
@@ -17,6 +19,9 @@ import kr.co.iei.notice.model.vo.NoticeListData;
 public class NoticeService {
 	@Autowired
 	private NoticeDao noticeDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	public NoticeListData selectNoticeList(int reqPage) {
 		int pageList = 10;
@@ -180,11 +185,14 @@ public class NoticeService {
 	}
 
 	public int insertNotice(Notice notice, List<NoticeFile> fileList) {
+		System.out.println("공지사항 : "+notice);
 		int newNoticeNo = noticeDao.getNoticeNo();
 		notice.setNoticeNo(newNoticeNo);
+		notice.setMemberNo(notice.getNoticeWriter());
 		int result = noticeDao.insertNotice(notice);
 		for (NoticeFile noticeFile : fileList) {
 			noticeFile.setNoticeNo(newNoticeNo);
+			System.out.println("최종 파일 : "+noticeFile);
 			result += noticeDao.insertNoticeFile(noticeFile);
 		}
 		return result;

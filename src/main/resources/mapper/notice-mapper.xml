@@ -39,11 +39,11 @@
   </select>
    
    <insert id="insertNotice">
-  	insert into notice_tbl values (#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, #{noticeWriteDate}, #{noticeUpdateDate}, #{memberNo})
+  	insert into notice_tbl values (#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, sysdate, sysdate, #{memberNo})
   </insert>
    
   <insert id="insertNoticeFile">
-  	insert into notice_file_tbl values(notice_file_seq.nextval, #{noticeNo}, #{filename}, #{filepath})
+  	insert into notice_file_tbl values(notice_file_seq.nextval, #{filename}, #{noticeNo}, #{filepath})
   </insert>
   
   <select id="getNoticeNo" resultType="int">

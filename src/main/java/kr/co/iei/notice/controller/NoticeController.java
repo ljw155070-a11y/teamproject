@@ -112,6 +112,7 @@ public class NoticeController {
 				NoticeFile noticeFile = new NoticeFile();
 				noticeFile.setFilename(filename);
 				noticeFile.setFilepath(filepath);
+				System.out.println("공지사항 파일 : "+noticeFile);
 				fileList.add(noticeFile);
 			}
 		}

@@ -138,9 +138,11 @@ body {
 	                    </div>
 					</div>
 				</div>
-	            <textarea name=noticeWriteContent></textarea>							
+	            <textarea name=noticeContent></textarea>
+	            <input type="hidden" name="noticeWriter" th:value="${session.member.memberNo}">	
+	            						
 			<button class="add-btn" type="submit">등록하기</button>
-			<button class="add-btn" type="button">취소하기</button>
+			<button class="add-btn" type="button" th:onclick="back();">취소하기</button>
 			</form>
 			</div>
 		</section>
@@ -149,7 +151,7 @@ body {
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
-	$("#noticeWriteContent").summernote({
+	$("[name=noticeContent]").summernote({
 		width : 850,
 		height : 500,
 		lang : "ko-KR",
@@ -163,6 +165,9 @@ body {
 	$(".add-btn").on("click",function(){
 		location.href = "/notice/list?reqPage=1";
 	})
+	function back(){
+		location.href = "/notice/list?reqPage=1";
+	}
 	</script>
     <th:block th:include="common/footer"></th:block>
 </body>
