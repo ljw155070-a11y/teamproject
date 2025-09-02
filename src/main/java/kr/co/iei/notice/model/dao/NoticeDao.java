@@ -19,7 +19,7 @@ public interface NoticeDao {
 
 	int getNoticeNo();
 
-	int insertNotice(Notice n);
+	int writeNotice(Notice notice);
 
 	int insertNoticeFile(NoticeFile noticeFile);
 
@@ -42,6 +42,7 @@ public interface NoticeDao {
 	int searchTitleCount(String searchTitle);
 
 	List searchTitleNotice(HashMap<String, Object> param);
+
 
 
 	
