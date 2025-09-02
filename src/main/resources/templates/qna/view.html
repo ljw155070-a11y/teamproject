@@ -43,7 +43,7 @@
 	}
 	.writtenTitle>td{
 		margin: 0 auto;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid gray;
 		font-weight: bold;
 	}
 	
@@ -55,7 +55,7 @@
 	.contentInfo>td{	
 		margin: 0 auto;
 		text-align: center;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid gray;
 	}
 	
 	.writtenContent{
@@ -63,7 +63,7 @@
 		height: 400px;
 	}
 	.writtenContent>td{
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid gray;
 		padding-left: 5px;
 	}
 	
@@ -84,7 +84,7 @@
 		width: 10%;
 	}
 	.update-delete>td{
-		border-top: 1px solid black;
+		border-top: 1px solid gray;
 		text-align: center;
 	}
 	.update-delete>td>button{
@@ -154,12 +154,14 @@
 		margin: 0 auto;
 		float: left;
 		padding-top: 20px;
-		width: 60px;
+		width: 80px;
 		border-right: 1px solid orange;
 		height: 80px;
 		text-align: center;
 		color: gray;
-		font-size: 25px;
+		font-size: 23px;
+		padding-right: 10px;
+		font-weight: bold;
 	}
 	.commentDate{
 		padding-right: 10px;
@@ -167,7 +169,7 @@
 		text-align: right;
 	}
 	#commentInfo>p:last-child{
-		padding-left: 70px;
+		padding-left: 100px;
 	}
 	
 	.commentBtn{
@@ -200,7 +202,7 @@
 				</tr>
 					
 					<tr class="contentInfo"><!-- 작성자, 조회수, 작성일 -->
-						<td>작성자 : <span th:text="${q.memberNo}"></span></td>
+						<td>작성자 : <span th:text="${q.memberName}"></span></td>
 						<td>조회수 : <span th:text="${q.qnaCount}"></span></td>
 						<td>작성일 : <span th:text="${q.qnaDate}"></span></td>
 					</tr>
@@ -211,13 +213,13 @@
 				
 				<tr class="reportInput">
 					<td colspan ="5">
-						<button colspan="3" onShow="showReportBtn()" th:if="${session.member.memberNo} != ${q.memberNo}"><span class="material-icons">cell_tower</span>신고하기</button>
+						<button colspan="3" onShow="showReportBtn()" th:if="${session.member.memberName} != ${q.memberName}"><span class="material-icons">cell_tower</span>신고하기</button>
 					</td>	
 				</tr>
 				
 				<tr class="update-delete" onShow="showBtn()" th:if="${session.member != null}">
-					<td colspan="3" th:if="${session.member.memberNo == q.memberNo}">
-						<button class="update-content">수정하기</button>
+					<td colspan="3" th:if="${session.member.memberName == q.memberName}">
+						<button class="update-content" th:onclick="updateQna([[${q.qnaNo}]], [[${q.memberNo}]])">수정하기</button>
 						<button class="delete-content" th:onclick="deleteQna([[${q.qnaNo}]])">삭제하기</button>
 					</td>
 				</tr>
@@ -258,18 +260,17 @@
 					</li>
 					
 					<li id="commentInfo">
-						<p th:text="${qc.memberNo}"></p>
+						<p th:text="${qc.memberName}"></p>
 						<p class="commentDate" th:text="${qc.qnaCommentDate}"></p>
 						<p th:text="${qc.qnaCommentContent}"></p>
-					
 					</li>
-					
 				</ul>
-					<div class="commentBtn" onShow="showBtn()" th:if="${session.member != null}">
-						<button id="commentUpdate" th:onclick="updateComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">수정하기</button>
-						<button id="commentDelete" th:onclick="deleteComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">삭제하기</button>
-						<button id="commentReport" th:onclick="reportComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]], [[${q.memberNo}]])" th:if="${session.member.memberNo != qc.memberNo}">신고하기</button>
-					</div>
+				
+				<div class="commentBtn" onShow="showBtn()" th:if="${session.member != null}">
+					<button id="commentUpdate" th:onclick="updateComment(this, [[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">수정하기</button>
+					<button id="commentDelete" th:onclick="deleteComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">삭제하기</button>
+					<button id="commentReport" th:onclick="reportComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]], [[${q.memberNo}]])" th:if="${session.member.memberNo != qc.memberNo}">신고하기</button>
+				</div>
 			</th:block>
 		</section>
 	</main>
@@ -554,37 +555,47 @@
 			});
 		}//댓글 신고
 		
-		/*function updateComment(qnaNo, qnaCommentNo){
-			swal({
-				title: "댓글 수정",
-				text: "댓글을 수정하시겠습니까?",
-				icon: "warning",
-				buttons: {
-					confirm: {
-						text: "수정",
-						value: true,
-						visible: true,
-						className: "btn-primary",
-						closeModal: true
-					},
-					cancel: {
-						text: "취소",
-						value: false,
-						visible: true,
-						className: "btn-primary",
-						closeModal: true
-					}
-				}
-			}).then(function(result){
-				if(result === 1){
-					$.ajax({
-						
-					})
-				}else{
-					
-				}
-			})
-			}//댓글 수정*/
+		function updateComment(obj, qnaNo, qnaCommentNo){
+			$(obj).css("color", "blue");
+			//작성된 댓글의 위치
+			const qnaCommentContent = $(obj).parent().prev().children().last().children().eq(2).text();
+			//댓글 수정을 작성할 양식
+			$(obj).parent().prev().children().last().children().text(qnaCommentContent);
+			//이전 댓글을 숨길 코드
+			$(obj).parent().prev().children().last().children().eq(2).hide();
+			//새로운 댓글을 보여줄 코드
+			$(obj).parent().prev().children().last().show();
+			
+			$(obj).text("수정 완료");
+			$(obj).attr("onclick", "updateCommentComplete(this, "+qnaNo+", "+qnaCommentNo+")");
+			$(obj).next().text("수정 취소");
+			$(obj).next().attr("onclick","updateCommentCancel(this, "+qnaNo+", "+qnaCommentNo+")");
+			
+			}//댓글 수정
+		
+			function updateCommentComplete(obj, qnaNo, qnaCommentNo){
+				const form = $("<form>");
+				form.attr("action", "/qna/updateComment");
+				form.attr("method", "post");
+				form.hide();
+				
+				const newQnaCommentNoInput = $("<input>");
+				newQnaCommentNoInput.attr = $("type", "text");
+				newQnaCommentNoInput.attr = $("name", "newCommentInput");
+				newQnaCommentNoInput.val = $(qnaCommentNo);
+				
+				const qnaNoInput = $("<input type='text' name='qnaNoInput'>");
+				qnaNoInput.val(qnaNo);
+				
+				const qnaCommentContent = $(obj).parent().prev().children().last().clone();
+				form.append(newQnaCommentNoInput).append(qnaNoInput).append(qnaCommentContent);
+				$(".body").append(form);
+				form.submit();
+			}//댓글 수정 완료
+			
+		function updateCommentCancel(obj, qnaNo, qnaCommentNo){
+				
+			}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
