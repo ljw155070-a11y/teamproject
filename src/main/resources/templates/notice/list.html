@@ -243,7 +243,7 @@ body {
             	 	<td>
             	 		<a style="text-align:center;" th:href="@{/notice/detail(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a>
             	 	</td>  
-            	 	<td style="text-align:center;"><div class="to" th:text="${notice.noticeContent}"></div></td>
+            	 	<td style="text-align:center;"><div class="to" th:utext="${notice.noticeContent}"></div></td>
             	 	<td style="text-align:center;" th:text="${notice.noticeWriteDate}"></td>
             	 </tr>
             </table>

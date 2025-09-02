@@ -90,7 +90,20 @@ body {
 
 .add-btn {
 	cursor: pointer;
+	color: #fff;
 	background-color: #FF9D23;
+	width: 215px;
+	height: 50px;
+	border: none;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 9px;
+	margin: 20px;
+	margin-left: 235px;
+}
+.add-btn2 {
+	cursor: pointer;
+	background-color: #EAEAEA;
 	width: 215px;
 	height: 50px;
 	border: none;
@@ -98,7 +111,7 @@ body {
 	font-weight: 700;
 	border-radius: 9px;
 	margin: 20px;
-	margin-left: 365px;
+	color: #848484;
 }
 
 .add-btn a {
@@ -142,7 +155,7 @@ body {
 	            <input type="hidden" name="noticeWriter" th:value="${session.member.memberNo}">	
 	            						
 			<button class="add-btn" type="submit">등록하기</button>
-			<button class="add-btn" type="button" th:onclick="back();">취소하기</button>
+			<button class="add-btn2" type="button" th:onclick="back();">취소하기</button>
 			</form>
 			</div>
 		</section>

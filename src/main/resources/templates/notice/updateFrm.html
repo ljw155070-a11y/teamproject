@@ -30,6 +30,9 @@ body {
 	border-radius: 9px 9px 0px 0px;
 	}
 	
+.input-item {
+	text-align: center;
+}	
 .input-item input {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -105,6 +108,7 @@ body {
     height: 50px;
     font-weight: 600;
     border-radius: 9px;
+    color: #fff;
     font-size: 18px;
 }
 
@@ -131,29 +135,26 @@ body {
         			<input type="text" name="noticeTitle" th:value="${notice.noticeTitle}">
     			</div>
     			<hr style="border: 1px solid #E6E6E6">
-    		<div class="noticeSelect">
-        			<span>고정여부 : </span>
-        			<select name="fixType">
-            			<option value="yes">예</option>
-            			<option value="no">아니오</option>
-        			</select>
-        			<div class="fileAdd">첨부파일
-        				<div class="file : ${notice.fileList}" class="files">
-	            			<span class="delfilename" th:text="${file.filename}"></span>
-	            			<span class="material-icons del-btn" th:onclick="deletefile([[${file.noticeFileNo}]], this)">delete</span>
-        				</div>
-        			</div>
-        		<div class="noticeType">
-            		<span>공지유형 : </span>
-            		<select name="searchType">
-               			<option value="general">일반</option>
-                		<option value="check">점검</option>
-            		</select>
-        		</div>
-    		</div>
+    			<div class="noticeSelect">
+						<span>고정여부 : </span>
+						<select name="fixType">
+	                        <option value="yes">예</option>
+	                        <option value="no">아니오</option>
+	                    <span class="fileAdd">첨부파일
+	                    	<input type="file" name="upfile" multiple>
+	                    </span>
+	                    </select>
+	                    <div class="noticeType">
+	                    	<span>공지유형 : </span>
+							<select name="searchType">
+	                        	<option value="general">일반</option>
+	                        	<option value="check">점검</option>
+	                    	</select>
+	                    </div>
+					</div>
     		<hr style="border: 1px solid #E6E6E6">
     			<div class="detail-content-box">
-        			<textarea name="noticeContent" required></textarea>
+        			<textarea name="noticeContent" th:value="${notice.noticeContent}"></textarea>
     			</div>	
     			<hr style="border: 1px solid #E6E6E6">
     			<div class="add-btn">
