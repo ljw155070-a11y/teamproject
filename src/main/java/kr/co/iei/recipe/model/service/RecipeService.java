@@ -539,6 +539,7 @@ public class RecipeService {
 		return avgrate;
 	}
 
+
 	public List<Recipe> dailyRecipe(String recipeType) {
 		List<Recipe> recipeLists = recipeDao.dailyRecipe(recipeType);
 		return recipeLists;
@@ -546,6 +547,68 @@ public class RecipeService {
 
 
 	
+
+	public Recipe koTypeOfTopInfoR() {
+		Recipe r = recipeDao.koTypeOfTopInfoR();
+		return r;
+	}
+
+	public Member koTypeOfTopInfoM() {
+		Member m = recipeDao.koTypeOfTopInfoM();
+		return m;
+	}
+
+	public double koTypeOfTopInfoAvgrate() {
+		double avgrate = recipeDao.koTypeOfTopInfoAvgrate(); 
+		return avgrate;
+	}
+
+	public Recipe cnTypeOfTopInfoR() {
+		Recipe r = recipeDao.cnTypeOfTopInfoR();
+		return r;
+	}
+
+	public Member cnTypeOfTopInfoM() {
+		Member m = recipeDao.cnTypeOfTopInfoM();
+		return m;
+	}
+
+	public double cnTypeOfTopInfoAvgrate() {
+		double avgrate = recipeDao.cnTypeOfTopInfoAvgrate(); 
+		return avgrate;
+	}
+
+	public Recipe jpTypeOfTopInfoR() {
+		Recipe r = recipeDao.jpTypeOfTopInfoR();
+		return r;
+	}
+
+	public Member jpTypeOfTopInfoM() {
+		Member m = recipeDao.jpTypeOfTopInfoM();
+		return m;
+	}
+
+	public double jpTypeOfTopInfoAvgrate() {
+		double avgrate = recipeDao.jpTypeOfTopInfoAvgrate(); 
+		return avgrate;
+	}
+
+	public Recipe enTypeOfTopInfoR() {
+		Recipe r = recipeDao.enTypeOfTopInfoR();
+		return r;
+	}
+
+	public Member enTypeOfTopInfoM() {
+		Member m = recipeDao.enTypeOfTopInfoM();
+		return m;
+	}
+
+	public double enTypeOfTopInfoAvgrate() {
+		double avgrate = recipeDao.enTypeOfTopInfoAvgrate(); 
+		return avgrate;
+	}
+
+
 	
 	
 }

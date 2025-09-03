@@ -34,10 +34,8 @@ public class QnaController {
 	}
 	
 	@GetMapping(value="/view")
-	public String qnaView(Model model, int qnaNo, @SessionAttribute(required=false) Member member) {	
-		System.out.println(qnaNo);
+	public String qnaView(Model model, int qnaNo, @SessionAttribute(required=false) Member member) {
 		Qna q = qnaService.selectOneQnaList(qnaNo);
-		System.out.println(q);
 		model.addAttribute("q", q);
 		return "qna/view";
 	}
@@ -92,10 +90,30 @@ public class QnaController {
 	}
 	
 	@PostMapping(value="/updateComment")
-	public String updateComment(QnaComment qc) {
+	@ResponseBody
+	public int updateComment(QnaComment qc) {
 		System.out.println(qc);
 		int result = qnaService.updateQnaComment(qc);
 		System.out.println(result);
-		return "redirect:/qna/view?qnaNo="+qc.getQnaNo();
+		return result;
 	}
+	
+	
+	@GetMapping(value="/updateFrm")
+	public Qna updateFrm(int qnaNo, Model model) {
+		System.out.println(qnaNo);
+		Qna q = qnaService.selectOneQnaList(qnaNo);
+		System.out.println(q);
+		model.addAttribute("q", q);
+		return q;
+	}
+	@PostMapping(value="/update")
+	public String update(Qna q) {
+		System.out.println(q);
+		int result = qnaService.updateQna(q);
+		System.out.println(result);
+		return "redirect:/qna/view?qnaNo="+q.getQnaNo();
+	}
+	
+	
 }

@@ -211,9 +211,35 @@ public class MemberService {
 
 
 
+	public Member findIdEmail(String memberEmail, String memberId) {
+		Member m = new Member();
+		m.setMemberEmail(memberEmail);
+		m.setMemberId(memberId);
+		Member member = memberDao.findIdEmail(m);
+		return member;
+	}
 	public List<JoinUserDate> monthlyJoinUsers() {
 		List<JoinUserDate> stats = memberDao.monthlyJoinUsers();
 		return stats;
 	}
+
+
+
+	public int newPw(Member m) {
+		int result = memberDao.newPw(m);
+		return result;
+	}
+
+
+
+	public int deleteMember(int MemberNo) {
+		int result = memberDao.deleteMember(MemberNo);
+		return result;
+	}
+
+
+
+
+
 
 }
