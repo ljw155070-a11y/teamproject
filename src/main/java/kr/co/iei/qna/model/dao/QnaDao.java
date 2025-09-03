@@ -50,5 +50,7 @@ public interface QnaDao {
 
 	int updateQnaComment(QnaComment qc);
 
+	int updateQna(Qna q);
+
 
 }
