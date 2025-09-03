@@ -436,15 +436,18 @@
                                         <th class="to1" width="60%">레시피 제목</th>
                                         <th class="to1" width="20%">작성일</th>
                                     </tr>
-                                    <tr class="td-css2">
-                                        <td width="20%" ><div class="to1">1</div></td>
-                                        <td width="60%" ><div class="to1">요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름요리이름</div></td>
-                                        <td width="20%" ><div class="to1">2025/08/30</div></td>
-                                    </tr>
-                                    <tr class="td-css2">
-                                        <td width="20%" ><div class="to1">1</div></td>
-                                        <td width="60%" ><div class="to1">요리이름</div></td>
-                                        <td width="20%" ><div class="to1">2025/08/30</div></td>
+                                    <tr th:each="recipe : ${list}" class="td-css2" >
+                                        <td width="20%" >
+                                        	<div class="to1" th:text=${recipe.recipeNo}></div>
+                                        </td>
+                                        <td width="60%" >
+	                                        <div class="to1">
+	                                        	<a th:href="@{/recipe/detail(reqRecipeNo=${recipe.recipeNo})}" th:text=${recipe.recipeTitle}></a>
+	                                        </div>
+										</td>
+                                        <td width="20%">
+                                        	<div class="to1" th:text=${recipe.recipeWriteDate}></div>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -595,6 +598,14 @@
         });
         $('.tab-content > div').eq(0).addClass('active-content');
     });
+    
+    $('.tab-content > div').eq(0).on("click",function(){
+    	
+    });
+    
+    
+    
+    
     //tabs[0].classList.add('active-tab');
 	//content[0].classList.add('active-content');
     
