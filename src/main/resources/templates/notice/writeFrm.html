@@ -26,7 +26,6 @@ body {
 .content-box {
 	margin: 0 auto;
 	width: 950px;
-	height: 800px;
 	border-radius: 9px;
 	background-color: #fff;
 	}
@@ -127,10 +126,10 @@ body {
 		<section class="section-notice-write-wrap">
 			<div class="page-title">공지사항 입력</div>
 			<div class="content-box">
-			<form action="/notice/write" method="post" enctype="multipart/form-data">
+			<form action="/notice/write" class="form" method="post" enctype="multipart/form-data">
 				<div class="content-header">			
 					<div class="input-item">
-						<input type="text" name="noticeTitle" placeholder="제목을 입력하세요.">
+						<input type="text" name="noticeTitle" placeholder="제목을 입력하세요." required>
 					</div>
 						<hr style="border: 1px solid #E6E6E6">
 					<div class="noticeSelect">
@@ -153,8 +152,16 @@ body {
 				</div>
 	            <textarea name=noticeContent></textarea>
 	            <input type="hidden" name="noticeWriter" th:value="${session.member.memberNo}">	
+	            
+	            <div class="content-header">			
+					<div class="input-item">
+						<h3 class="reportTitle">이용 제한 조치된 회원 안내</h3>
+					</div>
+						<hr style="border: 1px solid #E6E6E6">
+				</div>
+	            <textarea name=noticeReportContent></textarea>
 	            						
-			<button class="add-btn" type="submit">등록하기</button>
+			<button class="add-btn" type="submit" id="submit">등록하기</button>
 			<button class="add-btn2" type="button" th:onclick="back();">취소하기</button>
 			</form>
 			</div>
@@ -162,9 +169,21 @@ body {
 	</main>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
 	$("[name=noticeContent]").summernote({
+		width : 850,
+		height : 500,
+		lang : "ko-KR",
+		callbacks : {
+			onImageUpload : function(file) {
+				uploadImage(file[0], this);
+			}
+		}
+	});
+	
+	$("[name=noticeReportContent]").summernote({
 		width : 850,
 		height : 500,
 		lang : "ko-KR",
@@ -181,6 +200,51 @@ body {
 	function back(){
 		location.href = "/notice/list?reqPage=1";
 	}
+	$("#submit").on('click',function(e){
+		const content = $("[name=noticeContent]").summernote('isEmpty');
+		if(content){
+			e.preventDefault(); // 전송 막기
+		      swal({
+		          title : "내용 확인",
+		          text : "내용을 입력해주세요!",
+		          icon : "warning",
+		          buttons : {
+		              confirm:{
+		                  text: "확인",
+		                  value: true,
+		                  visible : true,
+		                  className : "btn-swal-color",
+		                  closeModal : true
+		              }
+		          }
+		   		});
+		}else {
+            $(".form").submit();
+        }
+	})
+	
+	$("#submit").on('click',function(e){
+		const content = $("[name=noticeReportContent]").summernote('isEmpty');
+		if(content){
+			e.preventDefault(); // 전송 막기
+		      swal({
+		          title : "내용 확인",
+		          text : "내용을 입력해주세요!",
+		          icon : "warning",
+		          buttons : {
+		              confirm:{
+		                  text: "확인",
+		                  value: true,
+		                  visible : true,
+		                  className : "btn-swal-color",
+		                  closeModal : true
+		              }
+		          }
+		   		});
+		}else {
+            $(".form").submit();
+        }
+	})
 	</script>
     <th:block th:include="common/footer"></th:block>
 </body>

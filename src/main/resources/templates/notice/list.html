@@ -209,7 +209,7 @@ body {
                 <div class="notice-search-top" style="width:100%;">
                 <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" href="/notice/writeFrm" class="write-btn">글쓰기</a>
                     <div class="searchTitle">
-                        <input type="text" name="searchTitle" placeholder="검색할 제목을 입력하세요.">
+                        <input type="text" name="searchTitle" placeholder="검색할 제목을 입력하세요." required>
                         <input type=hidden name="reqPage" id="reqPage" value="1">
                         <button type="submit" class="search-btn"><span class="material-icons">search</span></button>
                     </div>

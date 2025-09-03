@@ -19,7 +19,6 @@ body {
 .content-box {
 	margin: 0 auto;
 	width: 870px;
-	height: 670px;
 	border-radius: 9px;
 	background-color: #fff;
 	}
@@ -82,16 +81,15 @@ body {
     align-items: center;
 }
 
+.noticeSelect .fileAdd{
+	padding-left: 10px;
+}
+
 .noticeSelect div {
     color: #656565;
     font-weight: 500;
 	font-size: 17px;
 }
-
-.noticeSelect input {
-	padding-left: 20px;
-}
-
 .note-editor.note-frame {
     margin: 0 auto;
 }
@@ -129,7 +127,7 @@ body {
 
 .section-notice-write-wrap .add-btn {
     padding-top: 17px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-left: 320px;
 }
 
@@ -140,6 +138,13 @@ body {
 .hidden{
 	display: none;
 }
+.noticeReport {
+	display: none;
+}
+
+.reportTitle {
+	padding: 10px;
+}
 </style>
 </head>
 <body>
@@ -147,10 +152,10 @@ body {
 	<main class="content notice-write-container">
 		<section class="section-notice-write-wrap">
 			<div class="content-box">
-			<form action="/notice/update" method="post" enctype="multipart/form-data">			
+			<form action="/notice/update" class="form" method="post" enctype="multipart/form-data">			
     			<div class="input-item">
     				<input type="hidden" name="noticeNo" id="noticeNo" th:value="${notice.noticeNo}">
-        			<input type="text" name="noticeTitle" th:value="${notice.noticeTitle}">
+        			<input type="text" name="noticeTitle" th:value="${notice.noticeTitle}" required>
     			</div>
     			<hr style="border: 1px solid #E6E6E6">
     			<div class="noticeSelect">
@@ -158,10 +163,11 @@ body {
 						<select name="fixType">
 	                        <option value="yes">예</option>
 	                        <option value="no">아니오</option>
-	                    <span class="fileAdd">첨부파일
+	                    </select>
+	                    <span class="file">첨부파일 : </span>
+	                    <span class="fileAdd">추가파일 : 
 	                    	<input type="file" name="upfile" multiple>
 	                    </span>
-	                    </select>
 	                    <div class="noticeType">
 	                    	<span>공지유형 : </span>
 							<select name="searchType">
@@ -175,10 +181,18 @@ body {
         			<textarea name="noticeContent" th:value="${notice.noticeContent}"></textarea>
         			<a class="hidden"  th:text="${notice.noticeContent}"></a>
     			</div>	
+    			<div class="content-header">			
+					<div class="input-item">
+						<h3 class="reportTitle">이용 제한 조치된 회원 안내</h3>
+					</div>
+						<hr style="border: 1px solid #E6E6E6">
+				</div>
+	            <textarea name=noticeReportContent></textarea>
+	            <a class="noticeReport"  th:utext="${notice.noticeReportContent}"></a>
     			<hr style="border: 1px solid #E6E6E6">
     			<div class="add-btn">
-        			<button type="submit">수정하기</button>
-        			<button type="submit" id="delete" th:onclick="back();">취소하기</button>
+        			<button type="submit" id="submit">수정하기</button>
+        			<button type="button" id="delete" th:onclick="back([[${notice.noticeNo}]]);">취소하기</button>
     			</div>
 			</form>
 			</div>
@@ -186,6 +200,7 @@ body {
 	</main>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
 	$("[name=noticeContent]").summernote({
@@ -198,8 +213,23 @@ body {
 			}
 		}
 	});
+	
+	$("[name=noticeReportContent]").summernote({
+		width : 870,
+		height : 390,
+		lang : "ko-KR",
+		callbacks : {
+			onImageUpload : function(file) {
+				uploadImage(file[0], this);
+			}
+		}
+	});
+	
 	const contentValue = $('.hidden').text();
 	$('[name=noticeContent]').summernote('code',contentValue);
+	
+	const reportValue = $('.noticeReport').text();
+	$('[name=noticeReportContent]').summernote('code',reportValue);
 	
 		function deleteFile(noticeFileNo, obj){
 			const input = $("<input>");
@@ -209,9 +239,54 @@ body {
 			$(".section-notice-write-wrap>form").append(input);
 			$(obj).parent().remove();
 		}
-		function back(){
-			location.href = "/notice/list?reqPage=1";
+		function back(noticeNo){
+			location.href = "/notice/detail?noticeNo=" + noticeNo;
 		}
+		$("#submit").on('click',function(e){
+			const content = $("[name=noticeContent]").summernote('isEmpty');
+			if(content){
+				e.preventDefault(); // 전송 막기
+			      swal({
+			          title : "내용 확인",
+			          text : "내용을 입력해주세요!",
+			          icon : "warning",
+			          buttons : {
+			              confirm:{
+			                  text: "확인",
+			                  value: true,
+			                  visible : true,
+			                  className : "btn-swal-color",
+			                  closeModal : true
+			              }
+			          }
+			   		});
+			}else {
+	            $(".form").submit();
+	        }
+		})
+		
+		$("#submit").on('click',function(e){
+			const content = $("[name=noticeReportContent]").summernote('isEmpty');
+			if(content){
+				e.preventDefault(); // 전송 막기
+			      swal({
+			          title : "내용 확인",
+			          text : "내용을 입력해주세요!",
+			          icon : "warning",
+			          buttons : {
+			              confirm:{
+			                  text: "확인",
+			                  value: true,
+			                  visible : true,
+			                  className : "btn-swal-color",
+			                  closeModal : true
+			              }
+			          }
+			   		});
+			}else {
+	            $(".form").submit();
+	        }
+		})
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
