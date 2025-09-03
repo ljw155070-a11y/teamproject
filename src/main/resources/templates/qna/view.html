@@ -212,7 +212,7 @@
 					<td colspan="3"><span th:text="${q.qnaContent}"></span></td>
 				</tr>
 				
-				<tr class="reportInput">
+				<tr class="reportInput" th:if="${session.member != null}">
 					<td colspan ="5">
 						<button colspan="3" onShow="showReportBtn()" th:if="${session.member.memberName} != ${q.memberName}"><span class="material-icons">cell_tower</span>신고하기</button>
 					</td>	
