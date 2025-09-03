@@ -24,12 +24,14 @@
 	.recipe.content{
 		width:1080px;
 		margin:100px auto;
+		
 	}
 	.recipe.content-box{
 		background-color:white;
 		width : 100%;
 		min-height: 500px;
 		border-radius:20px;
+		box-shadow:0 6px 18px rgba(0,0,0,.08);
 	}
 	.recipe.title{
 		width : 100%;
@@ -91,6 +93,7 @@
 		margin:50px 0px;
 		padding : 20px;
 		box-sizing:border-box;
+		box-shadow:0 6px 18px rgba(0,0,0,.08);
 	}
 	.recipe.comment-box-output{
 		width:100%;
@@ -100,6 +103,7 @@
 		margin:50px 0px;
 		padding : 20px;
 		box-sizing:border-box;
+		box-shadow:0 6px 18px rgba(0,0,0,.08);
 	}
 	.recipe.comment-box-input>form{
 		height:100%;
@@ -153,6 +157,10 @@
 		justify-content : center;
 		text-align:center;
 		box-sizing:border-box;
+	}
+	.recipe.textarea{
+		height:75px;
+		width:98%;
 	}
 </style>
 </head>
@@ -252,7 +260,7 @@
 											<td>
 												
 												<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 댓글 내용 ★★★★★★★★★★★★★★★★★★★★★★★ -->
-												<textarea name= "recipeCommentContent" class="recipe textarea" style="height:75px; width:98%;"></textarea>
+												<textarea name= "recipeCommentContent" class="recipe textarea"></textarea>
 											
 											</td>
 										</tr>
@@ -292,7 +300,7 @@
 							</table>
 							<div class="recipe comment link" style="justify-content:flex-end; margin-bottom:30px; display:flex; gap:20px;">
 								<a th:onclick="reportRecipeComment([[${rcomment.recipeCommentNo}]],[[${session.member.memberNo}]])" th:if="${rcomment.memberNo}!=${session.member.memberNo}">신고하기</a>
-								<a th:onclick="editRecipeComment([[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]],[[${rcomment.recipeCommentContent}]])" th:if="${rcomment.memberNo}==${session.member.memberNo}">수정하기</a>
+								<a th:onclick="editRecipeComment(this,[[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]],[[${rcomment.recipeCommentContent}]])" th:if="${rcomment.memberNo}==${session.member.memberNo}">수정하기</a>
 								<a th:onclick="deleteRecipeComment([[${rcomment.recipeCommentNo}]],[[${rcomment.recipeNo}]])" th:if="${rcomment.memberNo}==${session.member.memberNo}">삭제하기</a>
 							</div>
 						</div>
@@ -305,15 +313,101 @@
 
 	<script src="/js/sweetalert.min.js"></script>
 	<script>
-	function editRecipeComment(recipeCommentNo,recipeNo){
-		const textarea = $("<textarea>"); // <textarea>
-		textarea.addName("newRecipeCommentContent"); // <textarea name="newRecipeCommentContent">
-		textarea.addClass("recipe textarea"); // <textarea name="newRecipeCommentContent" class="recipe textarea">
-		textarea.addStyle("height:75px; width:98%;");
-		//<textarea name= "recipeCommentContent" class="recipe textarea" style="height:75px; width:98%;"></textarea>
-		$("#recipecommentbox-"+recipeCommentNo).append(textarea);
-	//안됨 다시해야함
+	function editRecipeComment(o,recipeCommentNo,recipeNo,recipeCommentContent){
+		//1. 수정 버튼을 누른다. -> 수정하기 버튼을 수정 완료로 변경
+		$(o).text("수정 완료");
+		$(o).attr("onclick","editCommentComplete(this,"+recipeCommentNo+","+recipeNo+")");
+		
+		//2. 수정 버튼을 누른다. -> 삭제하기 버튼을 수정 취소로 변경
+		$(o).next().text("수정 취소");
+		$(o).next().attr("onclick","editCommentCancel(this,"+recipeCommentNo+","+recipeNo+")");
+		
+		//3. 수정 버튼을 누른다. -> 현재 수정하려는 table에서 두번째 tr 내 td의 text 값을 가져온다.
+		const text=$(o).parent().prev().children().children().eq(1).children().children().eq(0).text();
+		
+		//4. 수정 버튼을 누른다. -> 현재 수정하려는 table에서 두번째 tr 내 td의 text 값을 숨김 처리한다.
+		$(o).parent().prev().children().children().eq(1).children().children().hide();
+		
+		//5. 수정 버튼을 누른다. -> 현재 수정하려는 table에서 두번째 tr을 input 박스로 교체한다. (value값은 3번의 값으로 넣어둔다.)
+		const textarea = $("<textarea>");
+		textarea.attr("name","recipeCommentContent");
+		textarea.addClass("recipe textarea");
+		textarea.val(text);
+		const div=$("<div>");
+		div.append(textarea);
+		$(o).parent().prev().children().children().eq(1).children().append(div);
 	}
+	//7. 수정 완료 버튼을 클릭하면 댓글 수정 완료 js 를 호출한다.
+	function editCommentComplete(o,recipeCommentNo,recipeNo){
+		const editText=$(o).parent().prev().children().children().eq(1).children().children().children().val();
+		console.log(editText);
+		//8. 수정 완료 js에서는 댓글 수정 완료 컨트롤러를 호출한다.
+		$.ajax({
+			url:"/recipe/editComment",
+			type:"post",
+			data:{recipeCommentNo:recipeCommentNo,recipeNo:recipeNo,editText:editText},
+			success:function(r){
+				//인풋 박스 remove -> hide처리된 text 다시 show 처리 후 수정된 text로 값 변경
+				if(r==="success"){
+					swal({
+						title : "알림",
+						text : "댓글 수정이 완료되었습니다.",
+						icon : "warning",
+						buttons : {
+							confirm : {
+								text:"확인",
+								value:true,
+								visible : true,
+								className : "btn-primary",
+								closeModal : true
+							}
+						}
+						}).then(function(isConfirm){
+							$(o).parent().prev().children().children().eq(1).children().children().eq(0).show();
+							$(o).parent().prev().children().children().eq(1).children().children().eq(0).text(editText);
+							$(o).parent().prev().children().children().eq(1).children().children().eq(1).remove();
+							//인풋 박스 remove -> hide처리된 text 다시 show 처리 후 수정된 text로 값 변경
+							$(o).text("수정하기");
+							$(o).attr("onclick","editRecipeComment(this,"+recipeCommentNo+","+recipeNo+")");
+							
+							//2. 수정 버튼을 누른다. -> 삭제하기 버튼을 수정 취소로 변경
+							$(o).next().text("삭제하기");
+							$(o).next().attr("onclick","deleteRecipeComment("+recipeCommentNo+","+recipeNo+")");
+						})
+				}else if(r==="fail"){
+					swal({
+						title : "알림",
+						text : "댓글 수정이 실패했습니다.",
+						icon : "warning",
+						buttons : {
+							confirm : {
+								text:"확인",
+								value:true,
+								visible : true,
+								className : "btn-primary",
+								closeModal : true
+							}
+						}
+						}).then(function(isConfirm){
+							$(o).parent().prev().children().children().eq(1).children().children().eq(0).show();
+							$(o).parent().prev().children().children().eq(1).children().children().eq(1).remove();
+							//인풋 박스 remove -> hide처리된 text 다시 show 처리 후 수정된 text로 값 변경
+						})
+				}
+			}
+		})
+	}
+	function editCommentCancel(o,recipeCommentNo,recipeNo){
+		$(o).parent().prev().children().children().eq(1).children().children().eq(0).show();
+		$(o).parent().prev().children().children().eq(1).children().children().eq(1).remove();
+		$(o).prev().text("수정하기");
+		$(o).prev().attr("onclick","editRecipeComment(this,"+recipeCommentNo+","+recipeNo+")");
+		
+		//2. 수정 버튼을 누른다. -> 삭제하기 버튼을 수정 취소로 변경
+		$(o).text("삭제하기");
+		$(o).attr("onclick","deleteRecipeComment("+recipeCommentNo+","+recipeNo+")");
+	}
+		//9. 수정 취소 js에서는 4번에서 hide 처리된 text를 다시 show 처리하고 현재 인풋박스는 remove 
 		function deleteRecipe(recipeNo){
 			swal({
 				title : "레시피 삭제",

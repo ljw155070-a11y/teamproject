@@ -85,11 +85,14 @@ public class QnaService {
 		return q;
 	}//상세보기
 
+	@Transactional
 	public int insertQnaComment(QnaComment qc) {
+		System.out.println(qc);
 		int result = qnaDao.insertQnaComment(qc);
 		return result;
 	}//댓글 작성
 
+	@Transactional
 	public int qnaReport(int qnaNo, int memberNo) {
 		int count = qnaDao.selectAllQnaReport(qnaNo, memberNo);
 		if(count == 0) {
@@ -99,8 +102,10 @@ public class QnaService {
 			return 0;
 		}
 	}//게시글 신고
-
+	
+	@Transactional
 	public int deleteQnaComment(int qnaCommentNo) {
+		System.out.println("댓글삭제 호출 : "+qnaCommentNo);
 		int result = qnaDao.deleteQnaComment(qnaCommentNo);
 		System.out.println(result);
 		return result;
@@ -113,11 +118,13 @@ public class QnaService {
 		System.out.println(result);
 		return result;
 	}//게시글 작성
+
 	@Transactional
 	public int deleteQna(int qnaNo) {
 		int result = qnaDao.deleteQna(qnaNo);
 		return result;
-	}
+	}//게시글 삭제
+	
 	public HashMap<String, Object> qnaReportedList(int reqPage) {
 
 		int numPerPage = 10;
@@ -227,6 +234,8 @@ public class QnaService {
 		
 		return reqSet;
 	}
+	
+	@Transactional
 	public int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo) {
 		int count = qnaDao.selectAllQnaCommentReport(qnaNo, qnaCommentNo, memberNo);
 		if(count == 1) {
@@ -236,6 +245,12 @@ public class QnaService {
 			return result;
 		}
 	}//댓글 신고
-}//게시글 삭제
+
+	@Transactional
+	public int updateQnaComment(QnaComment qc) {
+		int result = qnaDao.updateQnaComment(qc);
+		return result;
+	}
+}
 
 

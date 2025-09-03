@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.main-content{
-		display:flex;
-		flex-direction: column;
-	}
-	.image-wrap{
-		align-self: center;
-		width:50%;
-		display: flex;
-    	justify-content: center;
-		margin:0 auto;
+	body{
+		background-color:#f3f4f6;
 		
 	}
-	.image-wrap>img{
-		width: 1080px;
-		margin-top:62.188px;
+	.main-content{
+		width:1080px;
+		margin:24px auto;
+		background-color:white;
+		display:flex;
+		flex-direction: column;
+		border-radius:18px;
+		box-shadow:0 12px 30px rgba(0,0,0,.06);
+	}
+	
+	.image-wrap{
+		align-self: center;
+		display: flex;
+    	justify-content: center;
+		margin:30px auto;
+		transition-duration:0.5s;
+		border-radius:12px;
+		box-shadow:0 4px 14px rgba(0,0,0,0.2);
+	}
+	.image-wrap img{
+		height:300px;
+		border-radius:12px;
 	}
 	.recommend-wrap{
 		margin:0 auto;
@@ -115,15 +129,63 @@
 		margin-left: 200px;
 		color:#BFBFBF;	
 	}
+	.space{
+		height:70px;
+	}
+	.image-info{
+		margin:0 auto;
+		text-align:center;
+		padding:16px;
+		border-radius:12px;
+		box-shadow:0 4px 14px rgba(0,0,0,0.2);
+		transition-duration:0.3s;
+  		text-align:left;
+	}
+	.image-info h2{
+		margin:5px 0;
+		font-size:22px;
+		font-weight:900
+	}
+	.image-info span{
+		margin:5px 0;
+		
+	}
 	
+	.image-info a{
+	  	text-decoration:none;
+	  	color: #444;
+	}
+	.image-info .material-icons{
+		color:var(--main1);
+	}
+	.image-info:hover{
+	  	box-shadow:0 12px 28px rgba(0,0,0,0.2);
+	}
+
+	#main-content-title{
+ 		color:#222; 
+		font-size:24px;
+		font-weight:900;
+		margin:0 auto;
+		margin-top:48px;
+	}
 </style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
+	<div class="space"></div>
 	<main class="content">
 		<div class="main-content">
+			<div id="main-content-title">오늘의 인기 레시피</div>
 			<div class="image-wrap">
-				<img src="/img/test.jpg" name="title-img">
+				<a th:href="@{/recipe/detail(reqRecipeNo=${r.recipeNo})}"><img th:src="${r.recipeThumbnailPath}" name="title-img"></a>
+			</div>
+			<div class="image-info">
+				<a th:href="@{/recipe/detail(reqRecipeNo=${r.recipeNo})}">
+				  <h2 th:text="${r.recipeTitle}">레시피 제목</h2>
+				  <div><span class="material-icons">account_circle</span><span th:text="${m.memberNickname}">작성자 아이디</span></div>
+				  <div><span class="material-icons">star</span><span th:text="${avgrate}"></span></div>
+			  	</a>
 			</div>
 			<div class="recommend-wrap">
 				<div class="recommend-title"><p>오늘의 추천 레시피</p></div>
@@ -131,17 +193,17 @@
 					<div>
 						<img src="/img/test.jpg" name="recommend-img">
 						<p>떡볶이</p>
-						<p>Ejrqh**</p>
+						<p>한식</p>
 					</div>	
 					<div>
 						<img src="/img/test.jpg" name="recommend-img">
 						<p>닭갈비</p>
-						<p>ekfre**</p>
+						<p>중식</p>
 					</div>
 					<div>
 						<img src="/img/test.jpg" name="recommend-img">
 						<p>스파게티</p>
-						<p>tmvkr**</p>
+						<p>양식</p>
 					</div>
 				</div>
 			</div>

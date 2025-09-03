@@ -86,6 +86,15 @@ public interface RecipeDao {
 	int deleteIngredient(int recipeNo);
 
 	int recipeUpdate(int recipeNo, String recipeTitle, String recipeCaution);
+
+	int editComment(int recipeCommentNo, int recipeNo, String editText);
+
+
+	Recipe recipeGradeRankingr();
+
+	Member recipeGradeRankingm();
+
+	double recipeGradeRankingDouble();
 	
 
 	

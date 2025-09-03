@@ -8,16 +8,19 @@
 <title>Insert title here</title>
 <style>
 	body{
-		background-color:#eeeeee;
-		/*임시 적용 헤더 완성되면 제거*/
+		background-color:#f3f4f6;
+		color:#222;
 	}
-	
+	a{
+		text-decoration:none;
+		color:#333;
+	}
 	.space{
 		height:50px;
 	}
 	.content-title{
 		text-align:center;
-	    font-size: 22px;
+	    font-size: 24px;
     	color: #EBA854 ;
     	font-family: ns-b;
     	/*임시 적용 헤더 완성되면 제거*/
@@ -25,22 +28,23 @@
 
 	.recipe.content{
 		width:1080px;
-		margin:100px auto;
+		margin:60px auto;
 	}
 	
 	.content-head form{
 		display:flex;
 		justify-content:space-between;
 		align-items:center;
+		gap:12px;
 	}
 	.recipe.searchInput{
 		margin : 30px 0px;
 		padding : 8px 12px;
-		width : 10%;
-		border-radius:48px;
+		width : 140px;
+		border-radius:24px;
 		text-align:center;
 		font-size:16px;
-		border : 1px solid #BFBFBF;
+		border : 1px solid #d1d5db;
 		background-color:white;
 		height:40px;
 		box-sizing:border-box;
@@ -61,11 +65,12 @@
 	.recipe.searchInput.div button{
 		border : none;
 		background-color: transparent;
-		color : #EBA854;
+		color : #FF8C1A;
+		cursor:pointer;
 	}
 	
 	.recipe.searchInput.div span{
-		font-size : 28px;
+		font-size : 24px;
 	}
 	.recipe.select:hover{
 		cursor:pointer;
@@ -75,7 +80,9 @@
 		background-color:white;
 		width : 100%;
 		min-height: 500px;
-		border-radius:20px;
+		border-radius:16px;
+		box-shadow:0 6px 18px rgba(0,0,0,.08);
+		padding:16px 20px;
 	}
 
 	
@@ -86,8 +93,14 @@
 	}
 	
 	.recipe.subtitle{
-		font-size:0.5em;
-	}
+		font-size:0.9em;
+		color:#666;
+		text-align:left;
+  		display:flex;
+ 	 	align-items:center;
+  		gap:6px;
+  		line-height:1.5;
+}
 	
 	.recipe.pageBtn{
 		text-align:center;
@@ -101,10 +114,11 @@
 		border-radius:20px;
 		margin:0px 7.5px;
 		line-height:40px;
+		
 	}
 	
 	.recipe.pageBtn a span{
-		font-size:18px;
+		font-size:16px;
 		display:inline-block;
 		line-height:40px;
 		color: #868686;
@@ -122,15 +136,19 @@
 		cursor:pointer;
 	}
 	.recipe.listbox td{
-		padding : 10px 0px;
+		padding : 14px 8px;
+		border-bottom:1px solid #eee;
+	}
+	.recipe.listbox td img{
+	  width:70%;
+	  border-radius:10px;
+	}
+	.recipe.listbox th{
+		height:55px;
 		
 	}
-	
-	.recipe.listbox th{
-		height:100px;
-	}
 	tbody tr:hover{
-		background-color:#e9e9e9;
+		background-color:#f9fafb;
 		cursor:pointer;
 		
 	}
@@ -143,6 +161,10 @@
 		border:none;
 		text-align:center;
 		line-height:40px;
+	}
+	table .material-icons{
+		font-size:18px;
+		color:#ffb84d;
 	}
 
 </style>
@@ -190,7 +212,7 @@
 					
 					<tbody>
 						<tr>
-							<td colspan="4"><hr></td>
+							<td colspan="4"><hr style="display:none;"></td>
 						</tr>
 						<th:block th:each="r:${reqPageSet.list}">
 							<tr th:onclick="connectRecipeDetail([[${r.recipeNo}]])">
@@ -199,11 +221,11 @@
 									<img th:src="${r.recipeThumbnailPath}" alt="썸네일" style = "width:70%;" >
 								</td>
 								<td>
-									<div><a th:text="${r.recipeTitle}" th:href="@{/recipe/detail(reqRecipeNo=${r.recipeNo})}"></a></div>
-									<div class="recipe subtitle">작성자 : <span th:text="${r.memberNickname}"></span></div>
-									<div class="recipe subtitle">조리시간 : <span th:text="${r.recipeCookingTime}"></span></div>
+									<div><a th:text="${r.recipeTitle}" th:href="@{/recipe/detail(reqRecipeNo=${r.recipeNo})}" style="font-size:18px; font-weight:900; color:#444;"></a></div>
+									<div class="recipe subtitle"><span class="material-icons">account_circle</span><span th:text="${r.memberNickname}"></span></div>
+									<div class="recipe subtitle"><span class="material-icons">access_time</span>  <span th:text="${r.recipeCookingTime}"></span></div>
+									<div class="recipe subtitle"><span class="material-icons">star</span> <span th:text="${r.recipeRate}"></span></div>
 									<div class="recipe subtitle">난이도 : <span th:text="${r.recipeLevel}"></span></div>
-									<div class="recipe subtitle">평점 : <span th:text="${r.recipeRate}"></span></div>
 									<!-- 
 									<div class="recipe subtitle">조회수 : <span th:text="${r.recipeViewCount}"></span></div>
 									 -->

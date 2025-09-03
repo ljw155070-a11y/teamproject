@@ -153,6 +153,15 @@
 	color : #fff;
 	font-weight: 600;
 }
+.recipeReport-tbl>tbody>tr:hover{
+	background-color: #E6E6E6;
+}
+.recipeReport-tbl>tbody>tr:nth-child(1):hover{
+	background-color: #fff;
+}
+.recipeReport-tbl>tbody>tr:last-child:hover{
+	background-color: #fff;
+}
 </style>
 </head>
 <body>
@@ -171,12 +180,12 @@
 						<th style="width:10%;">선택</th>
 						<th style="width:14%;">번호</th>
 						<th style="width:14%;">게시글 번호</th>
-						<th style="width:32%;">댓글 내용</th>
+						<th style="width:32%;">게시글 제목</th>
 						<th style="width:10%;">신고수</th>
 						<th style="width:10%;">작성자</th>
 						<th style="width:10%;">삭제</th>
 					</tr>
-					<tr th:each="q,status : ${reqSet.list}">
+					<tr th:each="q,status : ${reqSet.list}" th:onclick="connectQnaDetail([[${q.qnaNo}]])" style="cursor:pointer;">
 						<td>
 							<div class="checkbox-wrap">
 								<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
@@ -200,7 +209,7 @@
 				</table>		
 		</section>
 		<section class="recipeReport-footer">	
-			<div class="recipeReport-pageNavi">
+			<div class="recipeReport-pageNavi" th:if="${reqSet.pageInfo.totalPage>0}">
 				<a href="/admin/recipeReport?reqPage=1"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
 				
 				<th:block th:if="${(reqSet.pageInfo.reqPage)-5 <= 1}">
@@ -222,7 +231,7 @@
 			</div>	
 		</section>		
 	</main>
-	<script>
+	<script th:inline="javascript">
 	$(".recipe-report").on("click",function(){
 		location.href = "/admin/recipeReport";
 	});
@@ -232,7 +241,8 @@
 	$(".qna-comment-report").on("click",function(){
 		location.href = "/admin/qnaCommentReport";
 	});
-	$(".deleteRecipe").on("click",function(){
+	$(".deleteRecipe").on("click",function(e){
+		e.stopPropagation();
 		const thisRow = $(this).parent().parent();
 		const qnaNo = $(this).parent().parent().children().eq(2).text();
 		if(confirm("이 게시글을 삭제하시겠습니까?")){
@@ -256,6 +266,46 @@
 			})
 		}
 	});
+	$(".chk").on("click",function(e){
+		e.stopPropagation();
+	});
+	$(".chk+label").on("click",function(e){
+		e.stopPropagation();
+	});
+	$(".checkedDeleteRecipe").on("click",function(){
+		const checkbox = $(".chk:checked");
+		if(checkbox.length === 0){
+			return;
+		}
+		const no = new Array();
+		
+		checkbox.each(function(index,item){
+			const qnaNo = $(item).parent().parent().next().next().text();
+			console.log(qnaNo);
+			no.push(qnaNo);
+			console.log(no);
+		});
+		const noList = no.join("/");
+		console.log(noList);
+		$.ajax({
+			url:"/admin/checkedDeleteRecipe",
+			type:"get",
+			data:{no:noList},
+			success:function(result){
+				checkbox.each(function(index,item){
+					console.log("삭제 대상:", $(item).parent().parent().parent());
+					$(item).parent().parent().parent().remove();
+				});
+			},
+			error:function(){
+				alert("에러");
+			}
+			
+		})
+	});
+	function connectQnaDetail(qnaNo){
+		location.href="/qna/view?qnaNo="+qnaNo;
+	}
 	</script>
 	<th:block th:include="common/footer"></th:block>				
 </body>

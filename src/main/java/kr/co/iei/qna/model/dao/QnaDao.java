@@ -48,5 +48,7 @@ public interface QnaDao {
 
 	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
 
+	int updateQnaComment(QnaComment qc);
+
 
 }

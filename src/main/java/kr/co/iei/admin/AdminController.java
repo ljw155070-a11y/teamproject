@@ -1,6 +1,9 @@
 package kr.co.iei.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.iei.member.model.service.MemberService;
+import kr.co.iei.member.model.vo.JoinUserDate;
 import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.service.QnaService;
 import kr.co.iei.qna.model.vo.QnaComment;
@@ -65,7 +69,7 @@ public class AdminController {
 		model.addAttribute("reqSet", reqSet);
 		model.addAttribute("reqPage", reqPage);
 		model.addAttribute("memberNickname", memberNickname);
-		return "/admin/allMember";
+		return "admin/allMember";
 	}
 	@GetMapping(value="/qnaReport")
 	public String qnaReportedList(@RequestParam(defaultValue = "1")int reqPage, Model model) {
@@ -115,9 +119,23 @@ public class AdminController {
 			return "fail";
 		}
 	}
-	@GetMapping(value="checkedDeleteRecipe")
+	@GetMapping(value="/checkedDeleteRecipe")
 	public String checkedDeleteRecipe(String no) {
 		boolean result = recipeService.checkedDeleteRecipe(no);
 		return "redirect:/admin/recipeReport";
+	}
+	@GetMapping(value="/webStatistics")
+	public String webStatistics() {
+		List<JoinUserDate> stats = memberService.monthlyJoinUsers();
+		List<String> months = new ArrayList<>();
+		List<Integer> counts = new ArrayList<>();
+		for(JoinUserDate stat : stats) {
+			months.add(stat.getMonths());
+			counts.add(stat.getJoinCounts());
+		}
+		Map<String, Object> result = new HashMap<>();
+		result.put("months", months);
+		result.put("counts", counts);
+		return "admin/webStatistics";
 	}
 }
