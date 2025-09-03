@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.iei.member.model.service.MemberService;
 import kr.co.iei.util.EmailSender;
 
 @Controller
@@ -27,6 +28,8 @@ public class EmailController {
 	@GetMapping(value="/sendCode")
 	@ResponseBody
 	public String sendCode(String receiver) {
+		
+		Member m = MemberService.selectAllEmail(receiver);
 		
 		String emailTitle = "레시피허브 인증메일입니다";
 		

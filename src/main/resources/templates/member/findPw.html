@@ -125,6 +125,10 @@
 	text-align: left;
 	padding-left: 58px;
 }
+#check-email{
+	text-align: left;
+	padding-left: 58px;
+}
 #time-zone{
 	padding-left: 5px;
 }
@@ -173,21 +177,24 @@
 		//아이디=이메일 확인
 		/*const findIdEmail = {
 		};*/
-		$("#find-pw-btn").on("click",function(){
+		
+		$("#find-pw-btn").on("click",function(e){
 			const invalid = $(".invalid");
 			const valid = $(".valid");
+			const authCode = $("#auth-code").val();
 	    	if(invalid.length > 0){
 	    		alert("입력 내용을 다시 확인해 주세요.");
 	    		e.preventDefault();
-	    	}else if(valid.length < 1){
-	    		alert("아이디, 이메일,인증번호를 다시 확인 해 주세요.");
+	    	}else if(valid.length === 0){
+	    		alert("아이디,이메일,인증번호를 다시 확인 해 주세요.");
 	    		e.preventDefault();
-	    	}else if(valid.length < 1){
+	    	}else if(authCode === ""){
 	    		alert("아이디, 이메일,인증번호를 다시 확인 해 주세요.");
 	    		e.preventDefault();
 	    	}
+		});
 		
-		$("#find-pw-btn").on("click",function(){
+		$("#send-btn").on("click",function(){
 			const memberId = $("#memberId").val();
 			const memberEmail = $("#memberEmail").val();
 			$.ajax({
@@ -195,10 +202,9 @@
 				type : "get",
 				data : {memberId:memberId, memberEmail:memberEmail},
 				success : function(result){
-					console.log(result);
 					if(result===1){
 						//성공
-						location.href = "/member/newPw";
+						//location.href = "/member/newPw";
 					}else if(result===0){
 						//실패
 						alert("이메일과 아이디를 다시 확인해 주세요.");
@@ -253,7 +259,7 @@
 	    let mailCode = null;
 	    let intervalId = null;
 	    
-	    $("#send-btn").on("click",function(){
+		$("#send-btn").on("click",function(){
 	    	$("#auth-code").text("").removeClass("valid").removeClass("invalid");
 	    	const receiver = $("#memberEmail").val();
 	    	if(receiver === ""){
@@ -275,7 +281,7 @@
 	    			alert("메일 전송 실패. 이메일을 확인해 주세요");
 	    		}
 	    	});
-	    });
+		});
 	    
 	  //인증버튼 클릭
 	    $("#auth-btn").on("click",function(){
@@ -293,6 +299,7 @@
 	    		$("#time-zone").text("");
 	    	}
 	    });
+	
 	    //타이머 시작 함수
 	    function startAuthTime(){
 	    	clearInterval(intervalId);
