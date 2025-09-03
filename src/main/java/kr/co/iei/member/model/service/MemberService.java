@@ -232,6 +232,13 @@ public class MemberService {
 
 
 
+	public int deleteMember(int MemberNo) {
+		int result = memberDao.deleteMember(MemberNo);
+		return result;
+	}
+
+
+
 
 
 

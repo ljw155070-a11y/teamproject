@@ -337,6 +337,30 @@
 #nickname-check-msg{
 	text-align: right;
 }
+.cancelBtn{
+	color: #fff;
+	background: #FF9D23;
+	border: none;
+	border-radius: 9px;
+	cursor: pointer;
+	font-weight: 600;
+}
+.cancelBtn:hover{
+	background-color: #ffc074;
+    color: #d17b11;
+}
+.confirmBtn{
+	color: #656565;
+	background: #EAEAEA;
+	border: none;
+	border-radius: 9px;
+	cursor: pointer;
+	font-weight: 600;
+}
+.confirmBtn:hover{
+	background-color: #b3b3b3;
+    color: #f0f0f0;
+}
 </style>
 </head>
 <body>
@@ -557,6 +581,7 @@
             </div>
         </div>
     </div>
+    <script src="/js/sweetalert.min.js"></script>
     <script>
     //탭 이동
     $('.my-tab > div').each(function(i) {
@@ -572,7 +597,7 @@
     //tabs[0].classList.add('active-tab');
 	//content[0].classList.add('active-content');
     
-    
+    //정보(닉네임수정)
     $("#info-update-btn").on("click",function(){
     	const invalid = $(".invalid");
     	if(invalid.length > 0){
@@ -623,7 +648,36 @@
 		$("#admin-use-btn").on("click",function(){
 			location.href = "/admin/allMember";
 		});
-    
+    	//탈퇴info-delete-btn
+    	$("#info-delete-btn").on("click",function(){
+    		swal({
+				title : "회원 탈퇴",
+				text : "정말 회원을 탈퇴하시겠습니까?",
+				icon : "warning",
+				buttons : {
+					cancel : {
+						text : "취소",
+						value : false,
+						visible : true,
+						className : "cancelBtn",
+						closeModal : true
+					},
+					confirm : {
+						text : "탈퇴하기",
+						value : true,
+						visible : true,
+						className : "confirmBtn",
+						closeModal : true
+					}
+				}
+			}).then(function(isConfirm){
+				if(isConfirm){						
+				location.href = "/member/deleteMember";
+				}
+    		});
+    	});
+    	
+    	
     </script>
 	<th:block th:include="common/footer"></th:block>
 	</main>
