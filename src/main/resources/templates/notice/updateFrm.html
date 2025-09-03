@@ -112,10 +112,10 @@ body {
     font-size: 18px;
 }
 
-.add-btn button .delete {
+#delete {
 	border: none;
     cursor: pointer;
-    background-color: #848484;
+    background-color: #EAEAEA;
     width: 215px;
     height: 50px;
     font-weight: 600;
@@ -127,7 +127,7 @@ body {
 .section-notice-write-wrap .add-btn {
     padding-top: 17px;
     padding-bottom: 10px;
-    padding-left: 310px;
+    padding-left: 217px;
 }
 
 .add-btn a {
@@ -175,7 +175,7 @@ body {
     			<hr style="border: 1px solid #E6E6E6">
     			<div class="add-btn">
         			<button type="submit">수정하기</button>
-        			<button type="submit" class="delete" th:onclick="back();">취소하기</button>
+        			<button type="submit" id="delete" th:onclick="back();">취소하기</button>
     			</div>
 			</form>
 			</div>
