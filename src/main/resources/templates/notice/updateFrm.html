@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 view</title>
+<title>공지사항 updateFrm</title>
 <style>
 body {
 	background-color: #f4f4f4;
@@ -18,8 +18,8 @@ body {
 	}
 .content-box {
 	margin: 0 auto;
-	width: 820px;
-	height: 590px;
+	width: 870px;
+	height: 670px;
 	border-radius: 9px;
 	background-color: #fff;
 	}
@@ -112,6 +112,18 @@ body {
     font-size: 18px;
 }
 
+.add-btn button .delete {
+	border: none;
+    cursor: pointer;
+    background-color: #848484;
+    width: 215px;
+    height: 50px;
+    font-weight: 600;
+    border-radius: 9px;
+    color: #fff;
+    font-size: 18px;
+}
+
 .section-notice-write-wrap .add-btn {
     padding-top: 17px;
     padding-bottom: 10px;
@@ -163,6 +175,7 @@ body {
     			<hr style="border: 1px solid #E6E6E6">
     			<div class="add-btn">
         			<button type="submit">수정하기</button>
+        			<button type="submit" class="delete" th:onclick="back();">취소하기</button>
     			</div>
 			</form>
 			</div>
@@ -173,8 +186,8 @@ body {
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
 	$("[name=noticeContent]").summernote({
-		width : 850,
-		height : 500,
+		width : 870,
+		height : 370,
 		lang : "ko-KR",
 		callbacks : {
 			onImageUpload : function(file) {
@@ -192,6 +205,9 @@ body {
 			input.val(noticeFileNo);
 			$(".section-notice-write-wrap>form").append(input);
 			$(obj).parent().remove();
+		}
+		function back(){
+			location.href = "/notice/list?reqPage=1";
 		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
