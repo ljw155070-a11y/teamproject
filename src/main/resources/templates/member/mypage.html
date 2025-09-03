@@ -379,6 +379,7 @@
                     <div class="info-content">
                     	<form action="/member/update" method="post" >
 	                        <div class="info-input">
+	                        	<input type="hidden" name="memberNo" id="memberNo" th:value=${session.member.memberNo}>
 	                        	<p class="input-msg nickname-check-msg" id="nickname-check-msg"></p>
 	                            <div id="name-div">
 	                                <label for="memberName">이름 : </label>
