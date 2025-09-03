@@ -220,7 +220,7 @@
 				
 				<tr class="update-delete" onShow="showBtn()" th:if="${session.member != null}">
 					<td colspan="3" th:if="${session.member.memberName == q.memberName}">
-						<button class="update-content" th:onclick="updateQna([[${q.qnaNo}]], [[${q.memberNo}]])">수정하기</button>
+						<button class="update-content" th:onclick="updateQna([[${q.qnaNo}]])">수정하기</button>
 						<button class="delete-content" th:onclick="deleteQna([[${q.qnaNo}]])">삭제하기</button>
 					</td>
 				</tr>
@@ -268,7 +268,7 @@
 				</ul>
 				
 				<div class="commentBtn" onShow="showBtn()" th:if="${session.member != null}">
-					<button id="commentUpdate" th:onclick="updateComment(this, [[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">수정하기</button>
+					<button id="commentUpdate" th:onclick="updateComment(this, [[${q.qnaNo}]], [[${qc.qnaCommentNo}]], [[${qc.qnaCommentContent}]]);" th:if="${session.member.memberNo == qc.memberNo}">수정하기</button>
 					<button id="commentDelete" th:onclick="deleteComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]]);" th:if="${session.member.memberNo == qc.memberNo}">삭제하기</button>
 					<button id="commentReport" th:onclick="reportComment([[${q.qnaNo}]], [[${qc.qnaCommentNo}]], [[${q.memberNo}]])" th:if="${session.member.memberNo != qc.memberNo}">신고하기</button>
 				</div>
@@ -556,59 +556,101 @@
 			});
 		}//댓글 신고
 		
-		function updateComment(obj, qnaNo, qnaCommentNo){
-			$(obj).css("color", "blue");
-			//작성된 댓글의 위치
-			const qnaCommentContent = $(obj).parent().prev().children().last().children().eq(2).text();
-			
-			//댓글 수정을 작성할 양식
-			const textArea = $("<textarea>");
-			$(obj).parent().prev().children().last().append(textArea);
-			textArea.val(qnaCommentContent);
-			textArea.css("border-radius", "15px");
-			textArea.css("width", "700px");
-			textArea.css("padding-bottom", "30px");
-			textArea.css("margin-left", "5px");
-			//이전 댓글을 숨길 코드
-			$(obj).parent().prev().children().last().children().eq(2).hide();
-			//새로운 댓글을 보여줄 코드
-			$(obj).parent().prev().children().last().show();
-			
+		function updateComment(obj, qnaNo, qnaCommentNo, qnaCommentContent){
 			$(obj).text("수정 완료");
 			$(obj).attr("onclick", "updateCommentComplete(this, "+qnaNo+", "+qnaCommentNo+")");
 			$(obj).next().text("수정 취소");
-			$(obj).next().attr("onclick","updateCommentCancel(this, "+qnaNo+", "+qnaCommentNo+")");			
+			$(obj).next().attr("onclick","updateCommentCancel(this, "+qnaNo+", "+qnaCommentNo+")");
+			
+			//수정하기 버튼을 눌렀을 때 부모 이전의 마지막 자식의 3번째 자식의 글을 불러온다.
+			const prevText = $(obj).parent().prev().children().last().children().eq(2).text();
+			
+			//수정하기 버튼을 눌렀을 때 부모 이전의 마지막 자식의 3번째 자식의 글을 숨김 처리.
+			$(obj).parent().prev().children().last().children().eq(2).hide();
+			
+			//숨김 처리한 댓글 위에 새로운 글을 작성할 textarea 생성
+			const newTextArea = $("<textarea>");
+			newTextArea.attr("name", "qnaCommentContent");
+			newTextArea.addClass("newQnaCommentContent");
+			newTextArea.val(prevText);
+			//새 글을 작성할 textarea를 div로 감싼다.
+			const div = $("<div>");
+			div.append(newTextArea);
+			newTextArea.css(
+				"width", "700px"
+			);
+			newTextArea.css(
+				"margin-left", "0"
+			);
+			newTextArea.css(
+				"margin-top", "0px"
+			);
+			newTextArea.css(
+				"border", "none"
+			);
+			newTextArea.css(
+				"box-sizing", "border-box"
+			);
+			newTextArea.css(
+				"border-spacing", "0"
+			);
+			newTextArea.css(
+				"border-radius", "0"
+			);
+			div.css(
+				"margin-left", "100px"
+			);
+			//div를 부모 이전의 마지막 자식에 넣는다.
+			$(obj).parent().prev().children().last().append(div);
 			}//댓글 수정
 		
 			function updateCommentComplete(obj, qnaNo, qnaCommentNo){
-				const form = $("<form>");
-				form.attr("action", "/qna/updateComment");
-				form.attr("method", "post");
-				
-				const qnaCommentNoInput = $("<input type='text' name='qnaCommentNo'>");
-				qnaCommentNoInput.val(qnaCommentNo);
-				
-				const qnaNoRef = $("<input>");
-				qnaNoRef.attr("type", "text");
-				qnaNoRef.attr("name", "qnaNo");
-				qnaNoRef.val(qnaNo);
-				
-				const qnaCommentContent = $("<input type='text' name='qnaCommentContent'>");
-				const newCommentContent = $(obj).parent().prev().children().eq(1).children().last();
-				qnaCommentContent.val(newCommentContent);
-				$(obj).parent().prev().children().last().children().eq(3).clone();
-				form.append(qnaCommentNoInput).append(qnaNoRef).append(qnaCommentContent);
-				
-				$("body").append(form);
-				
-				form.submit();
+				const qnaCommentContent = $(obj).parent().prev().children().last().children().last().children().val();
+				$.ajax({
+					url: "/qna/updateComment",
+					type: "post",
+					data: {qnaNo : qnaNo, qnaCommentNo : qnaCommentNo, qnaCommentContent : qnaCommentContent},
+					success: function(result){
+						if(result === 1){
+							swal({
+								title: "결과",
+								text: "댓글 수정 완료",
+								icon: "success",
+								buttons: {
+									confirm: {
+										text: "확인",
+										value: true,
+										visible: true,
+										className: "btn-primary",
+										closeModal: true
+									}
+								}
+							}).then(function(isConfirm){
+								$(obj).parent().prev().children().last().children().eq(2).show(); //감춰놨던 댓글창을 보여줌
+								$(obj).parent().prev().children().last().children().eq(2).text(qnaCommentContent);//이전 댓글에 새로운 댓글을 덮어씌움
+								$(obj).parent().prev().children().last().children().eq(3).remove();//댓글 수정창을 감춤
+								
+								$(obj).text("수정하기");
+								$(obj).attr("onclick", "updateComment(this, "+qnaNo+", "+qnaCommentNo+")");
+								$(obj).next().text("삭제하기");
+								$(obj).next().attr("onclick", "deleteComment("+qnaNo+", "+qnaCommentNo+")");
+							});
+						}
+					}
+				});
 			}//댓글 수정 완료
 			
 		function updateCommentCancel(obj, qnaNo, qnaCommentNo){
+				$(obj).parent().prev().children().last().children().eq(2).show(); //댓글 수정창에서
+				$(obj).parent().prev().children().last().children().eq(3).remove(); // 댓글 수정창 없애기
+				$(obj).prev().text("수정하기");
+				$(obj).prev().attr("onclick", "updateComment(this, "+qnaNo+", "+qnaCommentNo+")");
 				
+				$(obj).text("삭제하기");
+				$(obj).attr("onclick", "deleteComment("+qnaNo+", "+qnaCommentNo+")");
 			}//댓글 수정 취소
 			
-		/*function updateQna(qnaNo, memberNo){
+		function updateQna(qnaNo){
 				swal({
 					title: "게시글 수정",
 					text: "게시글을 수정하시겠습니까?",
@@ -631,30 +673,11 @@
 					}
 				}).then(function(isConfirm){
 					if(isConfirm){
-						$.ajax({
-							url: "/qna/updateFrm",
-							type: "post",
-							data: {qnaNo : qnaNo, memberNo : memberNo},
-							success: function(result){
-								if(result === 1){									
-								swal({
-									title: "결과",
-									text: "게시글 수정 완료",
-									icon: "success",
-									buttons: {
-										confirm: {
-											text
-											}
-										}
-									})
-								}
-							}
-						});
-					}else{
-						
+						location.href="/qna/updateFrm?qnaNo="+qnaNo;
 					}
+					
 				});
-			}*/ //게시글 수정
+			}//게시글 수정
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
