@@ -116,4 +116,6 @@ public class QnaController {
 		System.out.println(result);
 		return "redirect:/qna/view?qnaNo="+q.getQnaNo();
 	}
+	
+	
 }
