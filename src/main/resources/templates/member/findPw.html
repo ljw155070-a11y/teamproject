@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.findPwFrm{
+    background-color: #F4F4F4;
+    width: 100%;
+    height: 1150px;
+    display: inline-block;
+    padding-bottom: 80px;
+}
+.content-title{
+    margin-top: 220px;
+    font-size: 22px;
+    color: #EBA854;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 70px;
+}
+.findPw-content{
+    background-color: #fff;
+    width: 700px;
+    padding-bottom : 75px;
+    margin: 0 auto;
+    border-radius: 9px;
+    padding-top: 70px;
+}
+.search-pw-box{
+    width: 580px;
+    padding-bottom: 40px;
+    border: 1px solid #BFBFBF;
+    margin: 0 auto;
+    padding-left: 30px;
+	padding-top: 40px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.id-box>label{
+    font-size: 16px;
+    font-weight: 500;
+}
+.id-box>input{
+    font-size: 16px;
+    font-weight: 500;
+    width: 250px;
+    height: 30px;
+}
+.email-box>label{
+    font-size: 16px;
+    font-weight: 500;
+}
+.email-box>input{
+    font-size: 16px;
+    font-weight: 500;
+    width: 250px;
+    height: 30px;
+}
+.input-box{
+    padding-left: 70px;
+    padding-top: 40px;
+}
+#auth-code{
+    font-size: 16px;
+    font-weight: 500;
+    width: 170px;
+    display: inline-block;
+    margin-left: 57px;
+    height: 30px;
+    text-align: center;
+}
+.input-box>div{
+    padding: 8px;
+}
+#send-btn{
+    width: 90px;
+    height: 34px;
+    margin-left: 5px;
+}
+#auth-btn{
+    width: 90px;
+    height: 34px;
+    margin-left: 5px;
+}
+#find-pw-btn{
+    margin-left: 110px;
+    width: 200px;
+    height: 70px;
+    margin-top: 35px;
+    border: none;
+    border-radius: 9px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #FF9D23;
+    color: #fff;
+    cursor: pointer;
+}
+#send-btn{
+    border: none;
+    border-radius: 9px;
+    font-weight: 700;
+    background-color: #FF9D23;
+    color: #fff;
+    cursor: pointer;
+}
+#auth-btn{
+    border: none;
+    border-radius: 9px;
+    font-weight: 700;
+    background-color: #FF9D23;
+    color: #fff;
+    cursor: pointer;
+}
+.hi{
+	display: none;
+}
+.valid{
+	color: blue;
+}
+.invalid{
+	color: red;
+}
+#check-id{
+	text-align: left;
+	padding-left: 58px;
+}
+#check-email{
+	text-align: left;
+	padding-left: 58px;
+}
+#time-zone{
+	padding-left: 5px;
+}
+#authMsg{
+	text-align: left;
+	padding-left: 65px;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main>
+		<div class="findPwFrm">
+			<div class="content-title">비밀번호 찾기</div>
+			<div class="findPw-content">
+				<div class="search-pw-box">
+					<p><span class="material-icons agree">check</span> 회원 정보에 등록한 이메일 주소로 비밀번호 찾기</p>
+					<form action="/member/newPwFrm" method="get">
+						<div class="input-box">
+							<div class="id-box">
+								<p id="check-id" class="idConfirm"></p>
+								<label for="memberId">아이디 : </label>
+								<input type="text" name="memberId" id="memberId">
+							</div>
+							<div class="email-box">
+								<p id="check-email" class="emailConfirm"></p>
+								<label for="memberEmail">이메일 : </label>
+								<input type="text" name="memberEmail" id="memberEmail">
+								<button type="button" id="send-btn">인증요청</button>
+							</div>
+							<div class="auth-code hi">
+								<label for="memberEmail"></label>
+								<input type="text" name="auth-code" id="auth-code" placeholder="인증 번호 6자리">
+								<button type="button" id="auth-btn">인증확인</button>
+								<span id="time-zone" class="emailConfirm">5:00</span>
+							</div>
+							<span id="authMsg" class="emailConfirm"></span>
+							<div class="findPw-btn">
+								<button type="submit" id="find-pw-btn">다음으로 이동</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script>
+		//아이디=이메일 확인
+		
+		$("#find-pw-btn").on("click",function(e){
+			const invalid = $(".invalid");
+			const valid = $(".valid");
+			const authCode = $("#auth-code").val();
+	    	if(invalid.length > 0){
+	    		alert("입력 내용을 다시 확인해 주세요.");
+	    		e.preventDefault();
+	    	}else if(valid.length === 0){
+	    		alert("아이디,이메일,인증번호를 다시 확인 해 주세요.");
+	    		e.preventDefault();
+	    	}else if(authCode === ""){
+	    		alert("아이디, 이메일,인증번호를 다시 확인 해 주세요.");
+	    		e.preventDefault();
+	    	}
+		});
+		
+		$("#send-btn").on("click",function(){
+			const memberId = $("#memberId").val();
+			const memberEmail = $("#memberEmail").val();
+			$.ajax({
+				url : "/member/findIdEmail",
+				type : "get",
+				data : {memberId:memberId, memberEmail:memberEmail},
+				success : function(result){
+					if(result===1){
+						//성공
+						//location.href = "/member/newPw";
+					}else if(result===0){
+						//실패
+						alert("이메일과 아이디를 다시 확인해 주세요.");
+			    		return;
+					}	
+				}
+			});
+				
+		});
+		
+		//이메일확인
+	    $("#memberEmail").on("keyup",function(){
+	    	const memberEmail = $("#memberEmail").val();
+	    	$("#check-email").removeClass("valid").removeClass("invalid");
+	    	$.ajax({
+	    		url : "/member/checkEmail",
+	    		type : "get",
+	    		data : {memberEmail : memberEmail},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		$("#check-email").text("없는 이메일 입니다.")
+	    		    	$("#check-email").addClass("invalid");
+	    	    	}else if(result === 1){
+	    	    		$("#check-email").text("")
+	    		    	$("#check-email").addClass("valid");	
+	    	    	}	    			
+	    		}
+	    	})
+	    });
+	
+		//아이디 확인
+		$("#memberId").on("keyup",function(){
+	    	const memberId = $("#memberId").val();
+	    	$("#check-id").removeClass("valid").removeClass("invalid");
+	    	$.ajax({
+	    		url : "/member/checkId",
+	    		type : "get",
+	    		data : {memberId : memberId},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		$("#check-id").text("없는 아이디 입니다.")
+	    		    	$("#check-id").addClass("invalid");
+	    	    	}else if(result === 1){
+	    	    		$("#check-id").text("")
+	    		    	$("#check-id").addClass("valid");	
+	    	    	}	    			
+	    		}
+	    	})
+	    });
+	    
+	  	//이메일 인증
+	    let mailCode = null;
+	    let intervalId = null;
+	    
+		$("#send-btn").on("click",function(){
+	    	$("#auth-code").text("").removeClass("valid").removeClass("invalid");
+	    	const receiver = $("#memberEmail").val();
+	    	if(receiver === ""){
+	    		alert("이메일을 입력하세요.");
+	    		return;
+	    	}else{
+	    		alert("인증 메일이 발송 되었습니다. 이메일을 확인해 주세요.");
+	    	}
+	    	$.ajax({
+	    		url : "/emailApi/sendCode",
+	    		type : "get",
+	    		data : {receiver:receiver},
+	    		success : function(data){
+	    			console.log("메일코드:", data);
+	    			mailCode = data;
+	    			$(".auth-code").removeClass("hi");
+	    			startAuthTime();
+	    		},
+	    		error : function(){
+	    			alert("메일 전송 실패. 이메일을 확인해 주세요");
+	    		}
+	    	});
+		});
+	    
+	  //인증버튼 클릭
+	    $("#auth-btn").on("click",function(){
+	    	//e.preventDefault();
+	    	$("#authMsg").removeClass("valid").removeClass("invalid");
+	    	const inputCode = $("#auth-code").val();
+	    	if(mailCode === inputCode){
+	    		//e.preventDefault();
+	    		$("#authMsg").text("인증 완료 되었습니다.").addClass("valid");
+	    		clearInterval(intervalId);
+	    		$("#time-zone").text("");
+	    	}else{
+	    		//e.preventDefault();
+	    		$("#authMsg").text("인증 실패. 다시 인증해 주세요.").addClass("invalid");
+	    		$("#time-zone").text("");
+	    	}
+	    });
+	
+	    //타이머 시작 함수
+	    function startAuthTime(){
+	    	clearInterval(intervalId);
+	    	let min = 5;
+	    	let sec = 0;
+	    	$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec : sec}`);
+	    	
+	    	intervalId = setInterval(function(){
+				if(sec === 0){
+					if(min === 0){
+						clearInterval(intervalId);
+						mailCode = null;
+						$("#authMsg").text("인증시간이 만료되었습니다.").addClass("invalid");
+						//$("#time-zone").css("display", "none");-->? 인증번호 재발급 하려면 span이 사라지지 않음.
+						return;
+					}else{
+						min--;
+						sec = 59;
+					}
+				}else{
+					sec--;
+				}
+	    		$("#time-zone").text(`${min < 10 ? "0"+min : min} : ${sec < 10 ? "0"+sec : sec}`);
+	    	}, 1000);
+	    }
+	</script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

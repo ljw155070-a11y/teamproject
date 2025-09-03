@@ -297,32 +297,9 @@
 	      const modal = $(this).parents('.dialog');
 	      modal.fadeOut();
 	    });
-		/*
-		$("#find-id-btn").on("click",function(){
-	    	const invalid = $(".invalid");
-	    	if(invalid.length > 0){
-	    		alert("입력 내용을 다시 확인해 주세요.");
-	    		e.preventDefault();
-	    	}else{
-	    		function modal(id){
-	   			  $("#" + id).fadeIn()
-	   			}
-	    	}
-		});*/
-	/*
-		//모달 열기
-	    function modal(id){
-	    	const invalid = $(".invalid");
-			if(invalid.length > 0){
-				alert("입력 내용을 다시 확인해 주세요.");
-	    		e.preventDefault();	
-			}else{
-		      $("." + id).fadeIn()
-			}
-	    }*/
+
 	
-	
-	    //이메일중복
+	    //이메일확인
 	    $("#memberEmail").on("keyup",function(){
 	    	const memberEmail = $("#memberEmail").val();
 	    	$("#check-email").removeClass("valid").removeClass("invalid");
@@ -377,7 +354,7 @@
 	    	const inputCode = $("#auth-code").val();
 	    	if(mailCode === inputCode){
 	    		//e.preventDefault();
-	    		$("#authMsg").text("인증 완료").addClass("valid");
+	    		$("#authMsg").text("인증 완료 되었습니다.").addClass("valid");
 	    		clearInterval(intervalId);
 	    		$("#time-zone").text("");
 	    	}else{

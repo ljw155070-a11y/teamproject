@@ -3,170 +3,237 @@
 
 <head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+	rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	body{
-		background-color:#f3f4f6;
-		
-	}
-	.main-content{
-		width:1080px;
-		margin:24px auto;
-		background-color:white;
-		display:flex;
-		flex-direction: column;
-		border-radius:18px;
-		box-shadow:0 12px 30px rgba(0,0,0,.06);
-	}
-	
-	.image-wrap{
-    	justify-content: center;
-		margin:10px auto;
-		border-radius:12px;
-		
-	}
-	.image-wrap img{
-		height:300px;
-		border-radius:12px;
-	}
-	.recommend-wrap{
-		margin:0 auto;
-		overflow:hidden;
-	}
-	.recommend-content{
-		width: 800px;
-		margin: 0 auto;		
-		display: flex;
-		justify-content: space-between;
-	}
-	.recommend-content>div{
-		width:30%;
-	}
-	.recommend-content>div img{
-		width:100%;
-	}
-	.recommend-title>p{
-		text-align: center;
-		margin-top:140px;
-		margin-bottom:40px;
-		font-size: 22px;
-		font-weight: 900;
-	}
-	.recommend-content>div>p:nth-child(2){
-		margin:8px 0px;
-		font-size: 18px;
-		font-weight: 900;
-	}
-	
-	.new-wrap{
-		margin:0 auto;
-		overflow:hidden;
-	}
-	.new-title>p{
-		text-align: center;
-		margin-top:140px;
-		margin-bottom:50px;
-		font-size: 22px;
-		font-weight: 900;
-	}
-	.new-content{
-		width: 700px;
-		margin: 0 auto;	
-		overflow:hidden;
-		margin-bottom: 40px;
-			
-	}
-	.new-content>div{
-		background-color: #FBF8E8;
-		width: 100%;
-		margin-bottom: 50px;
-		padding:20px;
-		overflow: hidden;
-		
-	}
-	
-	.new-content>div img{
-		width: 300px;
-		height: 200px;
-	}
-	.new-content>div>div{
-		float:left;
-	}
-	.new-content>div>div:nth-child(2){
-		background-color: #F0D0A9;
-		width: 60px;
-		height: 20px;
-		
-		border: 1px solid transparent;
-		border-radius: 10px;
-		text-align: center;
-		margin-top:10px;
-		margin-left: 20px;
-		margin-right:200px;
-		font-size: 14px;
-	}
-	.new-content>div>div:nth-child(2)>p{
-		line-height:20px;
-	}
-	.new-content>div>div:nth-child(3)>p:nth-child(1){
-		font-size: 18px;
-		font-weight: 700;
-		margin-left: 20px;
-		margin-top:10px;
-	}
-	.new-content>div>div:nth-child(3)>p:nth-child(2){
-		margin-left: 20px;	
-		margin-top: 70px;
-		color:#BFBFBF;
-	}
-	.new-content>div>div:nth-child(3)>p:nth-child(3){
-		margin-top: 10px;
-		margin-left: 200px;
-		color:#BFBFBF;	
-	}
-	.space{
-		height:70px;
-	}
-	.image-info{
-		margin:0 auto;
-		text-align:center;
-		padding:16px;
-		border-radius:12px;
-		box-shadow:0 4px 14px rgba(0,0,0,0.2);
-		transition-duration:0.3s;
-  		text-align:left;
-	}
-	.image-info h2{
-		margin:5px 0;
-		font-size:22px;
-		font-weight:900
-	}
-	.image-info span{
-		margin:5px 0;
-		font-size:18px;
-		font-weight:400;
-	}
-	
-	.image-info a{
-	  	text-decoration:none;
-	  	color: #444;
-	}
-	.image-info .material-icons{
-		color:var(--main1);
-	}
-	.image-info:hover{
-	  	box-shadow:0 12px 28px rgba(0,0,0,0.2);
-	}
 
-	#main-content-title{
- 		color:#222; 
-		font-size:24px;
-		font-weight:900;
-		margin:0 auto;
-		margin-top:48px;
-		text-align:center;
+.main-content {
+	width: 1080px;
+	margin: 24px auto;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	border-radius: 18px;
+}
+
+.image-wrap {
+	justify-content: center;
+	margin: 10px auto;
+	border-radius: 12px;
+}
+
+.image-wrap img {
+	height: 300px;
+	border-radius: 12px;
+}
+
+.recommend-wrap {
+	margin: 0 auto;
+	padding: 20px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.recommend-content {
+	width: 800px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.recommend-title>p {
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 40px;
+	font-size: 22px;
+	font-weight: 900;
+}
+
+.recommend-content>div>p:nth-child(2) {
+	margin: 8px 0px;
+	font-size: 18px;
+	font-weight: 900;
+}
+
+.new-wrap {
+	margin: 0 auto;
+}
+
+.new-title>p {
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	font-size: 22px;
+	font-weight: 900;
+}
+
+.new-content {
+	width: 700px;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-bottom: 40px;
+}
+
+.new-content>div {
+	background-color: #FBF8E8;
+	width: 100%;
+	margin-bottom: 50px;
+	padding: 20px;
+	overflow: hidden;
+}
+
+.new-content>div img {
+	width: 300px;
+	height: 200px;
+}
+
+.new-content>div>div {
+	float: left;
+}
+
+.new-content>div>div:nth-child(2) {
+	background-color: #F0D0A9;
+	width: 60px;
+	height: 20px;
+	border: 1px solid transparent;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 200px;
+	font-size: 14px;
+}
+
+.new-content>div>div:nth-child(2)>p {
+	line-height: 20px;
+}
+
+.new-content>div>div:nth-child(3)>p:nth-child(1) {
+	font-size: 18px;
+	font-weight: 700;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.new-content>div>div:nth-child(3)>p:nth-child(2) {
+	margin-left: 20px;
+	margin-top: 70px;
+	color: #BFBFBF;
+}
+
+.new-content>div>div:nth-child(3)>p:nth-child(3) {
+	margin-top: 10px;
+	margin-left: 200px;
+	color: #BFBFBF;
+}
+
+.space {
+	height: 20px;
+}
+
+.image-info {
+	margin: 0 auto;
+	text-align: center;
+	padding: 16px;
+	border-radius: 12px;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+	transition-duration: 0.3s;
+	text-align: left;
+}
+
+.image-info h2 {
+	margin: 5px 0;
+	font-size: 22px;
+	font-weight: 900
+}
+
+.image-info span {
+	margin: 5px 0;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+a {
+	text-decoration: none;
+	color: #444;
+}
+
+.material-icons {
+	color: var(--main1);
+}
+
+.image-info:hover {
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+#main-content-title {
+	color: #222;
+	font-size: 24px;
+	font-weight: 900;
+	margin: 0 auto;
+	margin-top: 48px;
+	text-align: center;
+}
+
+.indexTag {
+	font-size: 18px;
+	font-weight: 400;
+	color: white;
+	text-align: center;
+}
+
+.indexTag-box {
+	background-color: var(--main1);
+	border-radius: 25px;
+	display: inline-block;
+	min-width: 100px;
+	margin-bottom: 10px;
+}
+
+.recommend-content>div {
+	text-align: center;
+}
+
+.sub-image-wrap img {
+	border-radius: 12px;
+	width: 150px;
+	height: 150px;
+}
+
+.sub-image-info {
+	margin: 0 auto;
+	text-align: center;
+	padding: 5px;
+	border-radius: 12px;
+	text-align: left;
+}
+
+.recommend-subtitle {
+	width: 200px;
+	box-sizing: border-box;
+	border-radius: 12px;
+	transition-duration: 0.3s;
+	padding: 20px;
+}
+
+.recommend-subtitle:hover {
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.sub-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.indexTag {
+	line-height: 25.5px;
+}
+tbody tr:hover{
+		background-color:#f9fafb;
+		cursor:pointer;
+		
 	}
 </style>
 </head>
@@ -175,79 +242,205 @@
 	<div class="space"></div>
 	<main class="content">
 		<div class="main-content">
-		
+	<img src="/img/bg2.jpg">
+
 			<div id="main-content-title">
-				<div style="margin-bottom:50px;">오늘의 인기 레시피</div>
-				<div style="background-color:var(--main1); border-radius:10px; display:inline-block; min-width:100px;"><p th:text="${r.recipeType}" style="font-size:0.8em; font-weight:400; color:white;"></p></div>
+				<div style="margin-bottom: 50px; font-size: 30px;">오늘의 인기 레시피</div>
+				<div
+					style="background-color: var(--main1); border-radius: 10px; display: inline-block; min-width: 100px;">
+					<p th:text="${topRecipeInfo.r.recipeType}"
+						style="font-size: 0.8em; font-weight: 400; color: white;"></p>
+				</div>
 				<div class="image-wrap">
-					<a th:href="@{/recipe/detail(reqRecipeNo=${r.recipeNo})}"><img th:src="${r.recipeThumbnailPath}" name="title-img"></a>
+					<a
+						th:href="@{/recipe/detail(reqRecipeNo=${topRecipeInfo.r.recipeNo})}"><img
+						th:src="${topRecipeInfo.r.recipeThumbnailPath}" name="title-img"></a>
 				</div>
 				<div class="image-info">
-					<a th:href="@{/recipe/detail(reqRecipeNo=${r.recipeNo})}">
-					  <h2 th:text="${r.recipeTitle}">레시피 제목</h2>
-					  <div><span class="material-icons">account_circle</span><span th:text="${m.memberNickname}">작성자 아이디</span></div>
-					  <div><span class="material-icons">star</span><span th:text="${avgrate}"></span></div>
-				  	</a>
+					<a
+						th:href="@{/recipe/detail(reqRecipeNo=${topRecipeInfo.r.recipeNo})}">
+						<h2 th:text="${topRecipeInfo.r.recipeTitle}">레시피 제목</h2>
+						<div>
+							<span class="material-icons">account_circle</span><span
+								th:text="${topRecipeInfo.m.memberNickname}">작성자 닉네임</span>
+						</div>
+						<div>
+							<span class="material-icons">star</span><span
+								th:text="${topRecipeInfo.avgrate}"></span>
+						</div>
+					</a>
 				</div>
 			</div>
 			<div class="recommend-wrap">
-				<div class="recommend-title"><p>오늘의 추천 레시피</p></div>
-					<div class="recommend-content">
-						<div>
-							<div style="background-color:var(--main1); border-radius:10px; display:inline-block; min-width:100px;"><p style="font-size:0.8em; font-weight:400; color:white;">한식</p></div>
-							<img src="/img/test.jpg" name="recommend-img">
-							<p>떡볶이</p>
-							<p>한식</p>
-						</div>	
-						<div>
-							<div style="background-color:var(--main1); border-radius:10px; display:inline-block; min-width:100px;"><p style="font-size:0.8em; font-weight:400; color:white;">중식</p></div>
-							<img src="/img/test.jpg" name="recommend-img">
-							<p>닭갈비</p>
-							<p>중식</p>
+				<div class="recommend-title">
+					<p style="font-size: 30px;">오늘의 추천 레시피</p>
+				</div>
+				<div class="recommend-content">
+					<div class="recommend-subtitle">
+						<div class="indexTag-box">
+							<p class="indexTag">한식</p>
 						</div>
-						<div>
-							<div style="background-color:var(--main1); border-radius:10px; display:inline-block; min-width:100px;"><p style="font-size:0.8em; font-weight:400; color:white;">일식</p></div>
-							<img src="/img/test.jpg" name="recommend-img">
-							<p>스파게티</p>
-							<p>양식</p>
+						<div class="shadow-box">
+							<div class="sub-image-wrap">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${koTypeOfRecipeInfo.koR.recipeNo})}"><img
+									th:src="${koTypeOfRecipeInfo.koR.recipeThumbnailPath}"
+									name="title-img"></a>
+							</div>
+							<div class="sub-image-info">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${koTypeOfRecipeInfo.koR.recipeNo})}">
+									<div class="sub-title"
+										th:text="${koTypeOfRecipeInfo.koR.recipeTitle}">레시피 제목</div>
+									<div>
+										<span class="material-icons">account_circle</span><span
+											th:text="${koTypeOfRecipeInfo.koM.memberNickname}">작성자
+											닉네임</span>
+									</div>
+									<div>
+										<span class="material-icons">star</span><span
+											th:text="${koTypeOfRecipeInfo.koAvgrate}"></span>
+									</div>
+								</a>
+							</div>
 						</div>
-						<div>
-							<div style="background-color:var(--main1); border-radius:10px; display:inline-block; min-width:100px;"><p style="font-size:0.8em; font-weight:400; color:white;">양식</p></div>
-							<img src="/img/test.jpg" name="recommend-img">
-							<p>스파게티</p>
-							<p>양식</p>
+					</div>
+					<div class="recommend-subtitle">
+						<div class="indexTag-box">
+							<p class="indexTag">중식</p>
+						</div>
+						<div class="shadow-box">
+							<div class="sub-image-wrap">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${cnTypeOfRecipeInfo.cnR.recipeNo})}"><img
+									th:src="${cnTypeOfRecipeInfo.cnR.recipeThumbnailPath}"
+									name="title-img"></a>
+							</div>
+							<div class="sub-image-info">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${cnTypeOfRecipeInfo.cnR.recipeNo})}">
+									<div class="sub-title"
+										th:text="${cnTypeOfRecipeInfo.cnR.recipeTitle}">레시피 제목</div>
+									<div>
+										<span class="material-icons">account_circle</span><span
+											th:text="${cnTypeOfRecipeInfo.cnM.memberNickname}">작성자
+											닉네임</span>
+									</div>
+									<div>
+										<span class="material-icons">star</span><span
+											th:text="${cnTypeOfRecipeInfo.cnAvgrate}"></span>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="recommend-subtitle">
+						<div class="indexTag-box">
+							<p class="indexTag">일식</p>
+						</div>
+						<div class="shadow-box">
+							<div class="sub-image-wrap">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${jpTypeOfRecipeInfo.jpR.recipeNo})}"><img
+									th:src="${jpTypeOfRecipeInfo.jpR.recipeThumbnailPath}"
+									name="title-img"></a>
+							</div>
+							<div class="sub-image-info">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${jpTypeOfRecipeInfo.jpR.recipeNo})}">
+									<div class="sub-title"
+										th:text="${jpTypeOfRecipeInfo.jpR.recipeTitle}">레시피 제목</div>
+									<div>
+										<span class="material-icons">account_circle</span><span
+											th:text="${jpTypeOfRecipeInfo.jpM.memberNickname}">작성자
+											닉네임</span>
+									</div>
+									<div>
+										<span class="material-icons">star</span><span
+											th:text="${jpTypeOfRecipeInfo.jpAvgrate}"></span>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="recommend-subtitle">
+						<div class="indexTag-box">
+							<p class="indexTag">양식</p>
+						</div>
+						<div class="shadow-box">
+							<div class="sub-image-wrap">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${enTypeOfRecipeInfo.enR.recipeNo})}"><img
+									th:src="${enTypeOfRecipeInfo.enR.recipeThumbnailPath}"
+									name="title-img"></a>
+							</div>
+							<div class="sub-image-info">
+								<a
+									th:href="@{/recipe/detail(reqRecipeNo=${enTypeOfRecipeInfo.enR.recipeNo})}">
+									<div class="sub-title"
+										th:text="${enTypeOfRecipeInfo.enR.recipeTitle}">레시피 제목</div>
+									<div>
+										<span class="material-icons">account_circle</span><span
+											th:text="${enTypeOfRecipeInfo.enM.memberNickname}">작성자
+											닉네임</span>
+									</div>
+									<div>
+										<span class="material-icons">star</span><span
+											th:text="${enTypeOfRecipeInfo.enAvgrate}"></span>
+									</div>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 			<div class="new-wrap">
-				<div class="new-title"><p>인기/최신 레시피</p></div>
-				<div class="new-content">
-					<div>
-						<div>
-							<img src="/img/test.jpg" name="new-img">
-						</div>	
-						<div><p>한식</p></div>
-						<div>
-							<p>이 계란찜 해보세요</p>
-							<p>asda**</p>
-							<p>2025.08.22 오후 8:00</p>
-						</div>	
-					</div>
-					<div>
-						<div>
-							<img src="/img/test.jpg" name="new-img">
-						</div>
-						<div><p>한식</p></div>
-						<div>
-							<p>이 계란찜 해보세요</p>
-							<p>asda**</p>
-							<p>2025.08.22 오후 8:00</p>
-						</div>	
-					</div>		
+				<div class="new-title">
+					<p style="font-size: 30px;">최근 전체 게시글 보기</p>
 				</div>
-			</div>		
+				<section class="common content-body">
+					<div class="common listbox">
+						<table style="width: 100%; border-spacing: 0;">
+							<thead>
+								<tr>
+									<th style="width: 10%;">글 번호</th>
+									<th style="width: 10%;">유형</th>
+									<th style="width: 65%;">제목</th>
+									<th style="width: 15%;">날짜</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr>
+									<td colspan="4"><hr style="display: none;"></td>
+								</tr>
+								<th:block th:each="common:${commonList}">
+									<tr th:onclick="connectDetail([[${common.no}]],[[${common.type}]])">
+										<td th:text="${common.no}" style="text-align: center;"></td>
+										<td th:text="${common.type}" style="text-align: center;"></td>
+										<td th:text="${common.title}" style="text-align: left"></td>
+										<td th:text="${common.date}" style="text-align: center"></td>
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</div>
 		</div>
 	</main>
+	<script>
+	function connectDetail(no,type){
+		console.log(type);
+		if(type==="레시피"){
+			location.href="/recipe/detail?reqRecipeNo="+no;
+		}else if(type==="공지"){
+			location.href="/notice/detail?noticeNo="+no;
+		}else if(type==="질문"){
+			location.href="/qna/view?qnaNo="+no;
+		}
+	}
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

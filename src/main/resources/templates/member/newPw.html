@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.newPwFrm{
+    background-color: #F4F4F4;
+    width: 100%;
+    height: 1150px;
+    display: inline-block;
+    padding-bottom: 80px;
+}
+.content-title{
+    margin-top: 220px;
+    font-size: 22px;
+    color: #EBA854;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 70px;
+}
+.new-pw-content{
+    background-color: #fff;
+    width: 700px;
+    margin: 0 auto;
+    border-radius: 9px;
+    padding-top: 70px;
+    padding-bottom : 75px;
+}
+.search-pw-box{
+    width: 580px;
+    padding-bottom: 40px;
+    border: 1px solid #BFBFBF;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-top: 40px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.pw-box>label{
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 15px;
+}
+.pw-box>input{
+    font-size: 16px;
+    font-weight: 500;
+    width: 250px;
+    height: 30px;
+}
+.pw-re-box>label{
+    font-size: 16px;
+    font-weight: 500;
+}
+.pw-re-box>input{
+    font-size: 16px;
+    font-weight: 500;
+    width: 250px;
+    height: 30px;    
+}
+.input-box>form{
+    padding-left: 70px;
+    padding-top: 40px;
+}
+.input-box>form>div{
+    padding: 8px;
+}
+#new-pw-btn{
+    margin-left: 110px;
+    width: 200px;
+    height: 70px;
+    margin-top: 35px;
+    border: none;
+    border-radius: 9px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #FF9D23;
+    color: #fff;
+    cursor: pointer;
+}
+.pw-box>#hide-btn{
+    display: none;
+    cursor: pointer;
+}
+.pw-re-box>#hide-btn-2{
+    display: none;
+    cursor: pointer;
+}
+.valid{
+	color: blue;
+}
+.invalid{
+	color: red;
+}
+#pw-check-msg{
+	padding-left: 115px;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main>
+		<div class="newPwFrm">
+			<div class="content-title">비밀번호 찾기</div>
+			<div class="new-pw-content">
+				<div class="search-pw-box">
+					<p><span class="material-icons agree">check</span> 비밀번호 재설정</p>
+					<div class="input-box">
+						<form action="/member/newPw" method="post" autocomplete="off">
+							<div class="pw-box">
+								<label for="memberPw">새 비밀번호 : </label>
+								<input type="password" name="memberPw" id="memberPw">
+		                        <span class="material-icons" onclick="hidePw1();" id="hide-btn">visibility</span>
+		                        <span class="material-icons" onclick="showPw1();" id="show-btn">visibility_off</span>
+							</div>
+							<div class="pw-re-box">
+								<label for="memberPwRe">비밀번호 확인 : </label>
+								<input type="password" name="memberPwRe" id="memberPwRe">
+		                        <span class="material-icons" onclick="hidePw2();" id="hide-btn-2">visibility</span>
+		                        <span class="material-icons" onclick="showPw2();" id="show-btn-2">visibility_off</span>
+							</div>
+							<input type="hidden" name="memberId" th:value="${member.memberId}">
+							<input type="hidden" name="memberEmail" th:value="${member.memberEmail}">
+							<p id="pw-check-msg"></p>
+							<div class="new-pw-btn">
+								<button type="submit" id="new-pw-btn">비밀번호 재설정 완료</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script>
+	function hidePw1() {
+	    $("#memberPw").attr("type", "password");
+	    $("#hide-btn").hide();
+	    $("#show-btn").show();
+	}
+
+	function showPw1() {
+	    $("#memberPw").attr("type", "text");
+	    $("#hide-btn").show();
+	    $("#show-btn").hide();
+	}
+
+	function hidePw2() {
+	    $("#memberPwRe").attr("type", "password");
+	    $("#hide-btn-2").hide();
+	    $("#show-btn-2").show();
+	}
+
+	function showPw2() {
+	    $("#memberPwRe").attr("type", "text");
+	    $("#hide-btn-2").show();
+	    $("#show-btn-2").hide();
+	}	
+	
+	$("#memberPwRe").on("keyup",function(){
+    	$("#pw-check-msg").removeClass("valid").removeClass("invalid");
+    	const memberPw = $("#memberPw").val();
+    	const memberPwRe = $("#memberPwRe").val();
+    	if(memberPw === memberPwRe){
+    		$("#pw-check-msg").text("비밀번호가 일치 합니다.");
+    		$("#pw-check-msg").addClass("valid");
+    	}else{
+    		$("#pw-check-msg").text("비밀번호가 일치하지 않습니다.");
+    		$("#pw-check-msg").addClass("invalid");
+    	}
+    });
+	</script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>
