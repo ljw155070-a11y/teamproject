@@ -45,10 +45,16 @@
   </select>
   
    <select id="login" resultType="member">
-	SELECT * FROM MEMBER_TBL
-    LEFT JOIN MEMBER_SUSPEND USING (MEMBER_NO)
+	SELECT m.*,
+    (select suspend_reason from member_suspend where member_no=m.member_no) suspend_reason,
+    nvl((select suspend_days from member_suspend
+            where member_no= m.member_no and sysdate between suspend_date and suspend_date + suspend_days),0) suspend_days,
+    (select count(*)
+    from member_suspend
+     where member_no=m.member_no and sysdate between suspend_date and suspend_date + suspend_days) suspend_yn
+     FROM MEMBER_TBL m
 	WHERE MEMBER_ID = #{memberId}
-	AND MEMBER_PW = #{memberPw}	
+	AND MEMBER_PW = #{memberPw}
   </select>
   
   <update id="changeLevel">
@@ -133,5 +139,9 @@
   		member_nickname = #{memberNickname} 
   	where member_id = #{memberId}
   </update>
+  <select id="findMemberId" resultType="member">
+  	SELECT member_id FROM MEMBER_TBL
+	where member_email = #{memberEmail}
+  </select>
 </mapper>
 

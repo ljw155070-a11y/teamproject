@@ -8,7 +8,7 @@
 		height:50px;
 	}
 	body{
-		background-color:#eeeeee;
+		background-color:#f3f4f6;
 	}
 	.recipe.content{
 		width:1080px;
@@ -21,6 +21,7 @@
 		border-radius:20px;
 		padding:40px;
 		text-align:center;
+		box-shadow:0 6px 18px rgba(0,0,0,.08);
 	}
 	.recipe.title{
 		width : 100%;
@@ -148,7 +149,7 @@ hr{
 	<th:block th:include="common/header"></th:block>
 	<div class="space"></div>
 	<main class="recipe content">
-		<div class="recipe title"><span>게시글 작성</span></div>
+		<div class="recipe title"><span>게시글 수정</span></div>
 		<section>
 			<form action="/recipe/edit" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="recipeNo" th:value="${recipe.recipeNo}">

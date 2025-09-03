@@ -303,10 +303,21 @@ public class RecipeController {
 	    }
 		return "common/msg";
 	}
+	
 	@ResponseBody
 	@PostMapping(value="editComment")
-	public String editComment(int recipeCommentNo,int recipeNo,String recipeCommentContent) {
-		return "fail";
+	public String editComment(int recipeCommentNo,int recipeNo,String editText) {
+		System.out.println(recipeCommentNo);
+		System.out.println(recipeNo);
+		System.out.println(editText);
+		int result = recipeService.editComment(recipeCommentNo,recipeNo,editText);
+		String r = null;
+		if(result==1) {
+			r = "success";
+		}else {
+			r = "fail"; 
+		}
+		return r;
 	}
 }
 		

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.content {
+	padding: 100px 0px;
+	background-color: #f4f4f4;
+}
+
+.content-title {
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+.statistics-section {
+	width: 1080px;
+	margin: 0 auto;
+	background-color: #ffffff;
+	padding: 30px 40px;
+	border-radius: 9px;
+	
+}
+.charts-wrap{
+	display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap:20px;
+    align-items: center;
+}
+.chart-title{
+	width:150px;
+	height:40px;
+	background-color: #FFFBEB;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+}
+.chart-title span{
+	color: #DEB17A;
+}
+.charts{
+	width:960px;
+	height: 600px;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content">
+		<div class="content-title">사이트 통계</div>
+		<section class="statistics-section">
+			<div class="charts-wrap monthly-join-users-wrap">
+				<div class="chart-title monthly-join-users-title">
+					<span>월별 가입자 수</span>
+				</div>
+				<div class="monthly-join-users">
+	  				<canvas id="monthlyJoinUsersChart" class="charts"></canvas>
+				</div>
+			</div>
+		</section>
+	</main>
+	<script>
+		const months = new Array();
+		const counts = new Array();
+		const ctx = document.getElementById('monthlyJoinUsersChart');
+
+		new Chart(ctx,
+				{
+					type : 'bar',
+					data : {
+						labels : months,
+						datasets : [ {
+							label : '가입자 수',
+							data : counts,
+							borderWidth : 1
+						} ]
+					},
+					options : {
+						scales : {
+							y : {
+								beginAtZero : true
+							}
+						}
+					}
+				});
+	</script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

@@ -8,11 +8,12 @@
 		height:50px;
 	}
 	body{
-		background-color:#eeeeee;
+		background-color:#f3f4f6;
 	}
 	.recipe.content{
 		width:1080px;
-		margin:100px auto;
+		margin:60px auto;
+		
 	}
 	.recipe.content-box{
 		background-color:white;
@@ -21,6 +22,7 @@
 		border-radius:20px;
 		padding:40px;
 		text-align:center;
+		box-shadow:0 6px 18px rgba(0,0,0,.08);
 	}
 	.recipe.title{
 		width : 100%;
@@ -47,6 +49,7 @@
 		font-size:16px;
 		border:1px solid #dddddd;
 		text-align:center;
+	 	border-radius:10px; 
 	}
 	*{
 		box-sizing:border-box;
@@ -64,6 +67,7 @@
 	  font-weight: 800;
 	  font-size: 18px;
 	  cursor: pointer;
+	  transition-duration:0.3s;
 	}
 
 #ingredientPlusBtn, #stepPlusBtn{
@@ -122,17 +126,33 @@
 }
 
 #ingredientBox{
-	margin-bottom:50px;
+	margin-bottom:36px;
 }
 #ingredientBox .dynamic{
-	margin-top:10px;
+	margin-top:12px;
 }
 
 #stepBox{
-	margin-top:10px;
+	margin-top:12px;
 }
 #stepBox .dynamic{
-	margin-top:10px;
+	margin-top:12px;
+}
+#ingredientBox .ingredient.dynamic input{
+  height:38px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:0 10px;
+  margin:0 8px 0 6px;
+}
+
+.recipe.cooking.order textarea{
+  width:100%;
+  min-height:96px;
+  padding:10px 12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px;
 }
 
 .caution{
@@ -142,6 +162,7 @@ hr{
 	margin:20px 0px;
 	border:1px solid #eee;
 }
+
 </style>
 </head>
 <body>
