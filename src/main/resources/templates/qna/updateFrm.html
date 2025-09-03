@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.update-content{
+		width: 1000px;
+		overflow: hidden;
+		margin: 0 auto;
+		padding: 0;
+	}
+	.qna-update-content-frm{
+		margin: 0 auto;
+	}
+	.space{
+		height: 100px;
+	}
+	
+	.updateTitle{	
+		text-align: center;
+		color: orange;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	.qna-update-wrap{
+		border: 1px solid orange;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		width: 1000px;
+		height: 700px;
+		border-radius: 10px;
+	}
+	
+	.contentTitle>th{
+		border: 1px solid gray;
+		border-left: none;
+		border-top: none;
+		font-size: 20px;
+	}
+	.inputTitle{
+		margin-top: 0;
+		margin-bottom: 0;
+		margin: 0 auto;
+		float: left;
+		width: 100%;
+		height: 100%;
+	}
+	.inputTitle>[name=qnaTitle]{
+		width: 100%;
+		box-sizing: border-box;
+		height: 100%;
+		border: none;
+		border-bottom: 1px solid gray;
+		box-sizing: border-box;
+		font-size: 20px;
+		padding-left: 10px;
+	}
+	
+	.qnaInputContent>th{
+		border-right: 1px solid gray;
+		border-bottom: 1px solid gray;
+	}
+	.inputContent{
+		margin: 0 auto;
+		float: left;
+		width:100%;
+		height:100%;
+	}
+	.inputContent>[name=qnaContent]{
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+		border-spacing: 0;
+		border-left: none;
+		border-top: none;
+		border-right: none;
+		font-size: 18px;
+	}
+	
+	.submitContent{
+		margin: 0 auto;
+		text-align: center;
+		height: 200px;
+	}
+	
+	.updateSubmit{
+		border: none;
+		border: 1px solid orange;
+		border-radius: 10px;
+		background-color: orange;
+		color: white;
+		padding: 20px;
+		font-size: 20px;
+		margin-right: 15px;
+	}
+	
+	.cancelUpdate{
+		text-decoration: none;
+		color: white;
+		border: 1px solid orange;
+		background-color: orange;
+		border-radius: 10px;
+		padding: 20px;
+		font-size: 20px;
+	}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="update-content">
+		<section class="qna-update-content-frm">
+			<div class="space"></div>
+			<div class="updateTitle">질문 게시판 수정</div>
+			<form action="/qna/update" method="post">
+				<table class="qna-update-wrap">
+					<tr class="contentTitle">
+						<th>제목</th>
+						<td>
+							<div class="inputTitle">
+								<input type="text" name="qnaTitle" th:value="${q.qnaTitle}">
+							</div>
+						</td>
+					</tr>
+					
+					<tr class="qnaInputContent">
+						<th>내용</th>
+						<td>
+							<div class="inputContent">
+								<textarea name="qnaContent" th:text="${q.qnaContent}"></textarea>
+							</div>
+						</td>
+					</tr>
+					
+					<tr class="submitContent">
+						<td colspan="2">
+							<button type="submit" class="updateSubmit">수정 완료</button>
+							<a class="cancelUpdate" th:href="@{/qna/view(qnaNo=${q.qnaNo})}">수정 취소</a>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="qnaNo" th:value="${q.qnaNo}">
+			</form>
+		</section>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

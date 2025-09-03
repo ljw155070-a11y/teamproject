@@ -148,6 +148,12 @@
 	</insert>
 	
 	<update id="updateQnaComment">
-		update qna_comment_tbl set qna_comment_content = #{qnaCommentContent} where qna_comment_no = #{qnaCommentNo}
+		update qna_comment_tbl set qna_comment_content = #{qnaCommentContent} where qna_comment_no = #{qnaCommentNo} and qna_no = #{qnaNo}
+	</update>
+	
+	<update id="updateQna">
+		update qna_tbl
+		set qna_title = #{qnaTitle}, qna_content = #{qnaContent}
+		where qna_no = #{qnaNo}	
 	</update>
 </mapper>

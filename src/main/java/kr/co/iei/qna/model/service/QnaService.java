@@ -19,7 +19,7 @@ public class QnaService {
 	private QnaDao qnaDao;
 
 	public QnaListData selectAllQnaList(int reqPage) {
-		int numPerPage = 15; //한 페이지에 보여줄 게시물
+		int numPerPage = 20; //한 페이지에 보여줄 게시물
 		
 		int endPage = reqPage * numPerPage;
 		int startPage = endPage - numPerPage + 1;
@@ -249,6 +249,14 @@ public class QnaService {
 	@Transactional
 	public int updateQnaComment(QnaComment qc) {
 		int result = qnaDao.updateQnaComment(qc);
+		System.out.println(result);
+		return result;
+	}
+
+	@Transactional
+	public int updateQna(Qna q) {
+		int result = qnaDao.updateQna(q);
+		System.out.println(q);
 		return result;
 	}
 }

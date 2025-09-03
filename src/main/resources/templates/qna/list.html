@@ -84,6 +84,7 @@
    		margin-left:10px;
    		overflow: hidden;
    		margin-top: 3px;
+   		background-color: white;
 	}
 	
 	.qnaSearch>.qnaSearchInput{
@@ -97,10 +98,11 @@
 	}	
 	
 	#qnaSearchBox{
-    color: #FF9D23;
-    font-weight: bold;
-    cursor: pointer;
-    
+	    color: #FF9D23;
+    	font-weight: bold;
+    	cursor: pointer;
+    	background-color: white;
+    	padding-right: 10px;
 	}
 	
 	.content-list{
@@ -162,6 +164,11 @@
 		text-decoration: none;
 		margin-left: 3px;
 	}
+	
+	.listInfo:hover{
+		font-weight: bold;
+		box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+	}
 </style>
 </head>
 <body>
@@ -176,7 +183,7 @@
 				</form>
 				
 				<div class="menuSearchBox">
-					<form action="/" method="get">
+					<form action="/" method="post">
 						<select class="menu-checkBox">
 							<option>제목</option>
 							<option>음식이름</option>
@@ -215,8 +222,5 @@
 	</main>
 	<th:block th:include="common/footer"></th:block>
 </body>
-<script src="/js/sweetalert.min.js"></script>
-<script>
-	
-</script>
+
 </html>
