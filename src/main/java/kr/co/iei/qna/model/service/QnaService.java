@@ -249,6 +249,7 @@ public class QnaService {
 	@Transactional
 	public int updateQnaComment(QnaComment qc) {
 		int result = qnaDao.updateQnaComment(qc);
+		System.out.println(result);
 		return result;
 	}
 

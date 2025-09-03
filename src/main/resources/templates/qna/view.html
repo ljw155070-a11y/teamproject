@@ -605,11 +605,49 @@
 			}//댓글 수정
 		
 			function updateCommentComplete(obj, qnaNo, qnaCommentNo){
-				
+				const qnaCommentContent = $(obj).parent().prev().children().last().children().last().children().val();
+				$.ajax({
+					url: "/qna/updateComment",
+					type: "post",
+					data: {qnaNo : qnaNo, qnaCommentNo : qnaCommentNo, qnaCommentContent : qnaCommentContent},
+					success: function(result){
+						if(result === 1){
+							swal({
+								title: "결과",
+								text: "댓글 수정 완료",
+								icon: "success",
+								buttons: {
+									confirm: {
+										text: "확인",
+										value: true,
+										visible: true,
+										className: "btn-primary",
+										closeModal: true
+									}
+								}
+							}).then(function(isConfirm){
+								$(obj).parent().prev().children().last().children().eq(2).show(); //감춰놨던 댓글창을 보여줌
+								$(obj).parent().prev().children().last().children().eq(2).text(qnaCommentContent);//이전 댓글에 새로운 댓글을 덮어씌움
+								$(obj).parent().prev().children().last().children().eq(3).remove();//댓글 수정창을 감춤
+								
+								$(obj).text("수정하기");
+								$(obj).attr("onclick", "updateComment(this, "+qnaNo+", "+qnaCommentNo+")");
+								$(obj).next().text("삭제하기");
+								$(obj).next().attr("onclick", "deleteComment("+qnaNo+", "+qnaCommentNo+")");
+							});
+						}
+					}
+				});
 			}//댓글 수정 완료
 			
 		function updateCommentCancel(obj, qnaNo, qnaCommentNo){
+				$(obj).parent().prev().children().last().children().eq(2).show(); //댓글 수정창에서
+				$(obj).parent().prev().children().last().children().eq(3).remove(); // 댓글 수정창 없애기
+				$(obj).prev().text("수정하기");
+				$(obj).prev().attr("onclick", "updateComment(this, "+qnaNo+", "+qnaCommentNo+")");
 				
+				$(obj).text("삭제하기");
+				$(obj).attr("onclick", "deleteComment("+qnaNo+", "+qnaCommentNo+")");
 			}//댓글 수정 취소
 			
 		function updateQna(qnaNo){
