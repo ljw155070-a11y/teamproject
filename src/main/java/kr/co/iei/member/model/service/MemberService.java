@@ -225,6 +225,13 @@ public class MemberService {
 
 
 
+	public int newPw(Member m) {
+		int result = memberDao.newPw(m);
+		return result;
+	}
+
+
+
 
 
 

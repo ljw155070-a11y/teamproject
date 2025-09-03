@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -175,8 +176,33 @@ public class MemberController {
 	
 	
 	@GetMapping(value = "/newPwFrm")
-	public String newPw() {
+	public String newPwFrm(Member member,Model model) {
+		model.addAttribute("member",member);
+		System.out.println(member);
 		return "member/newPw";
+	}
+	
+	@PostMapping(value = "/newPw")
+	public String newPw(Member m,Model model) {
+		
+		System.out.println(m);
+		
+		int result = memberService.newPw(m);
+		
+		if(result==1) {
+			model.addAttribute("title","비밀번호 변경 성공.");
+			model.addAttribute("text","비밀번호 변경에 성공하였습니다.");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/member/loginFrm");
+			return "common/msg";
+		}else if (result == 0) {
+			model.addAttribute("title","비밀번호 변경 실패.");
+			model.addAttribute("text","비밀번호 변경에 실패하였습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/member/loginFrm");
+			return "common/msg";
+		}
+		return "redirect:/member/loginFrm";
 	}
 	
 	

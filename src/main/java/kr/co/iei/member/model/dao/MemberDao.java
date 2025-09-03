@@ -41,6 +41,8 @@ public interface MemberDao {
 
 	Member findIdEmail(Member m);
 
+	int newPw(Member m);
+
 	
 
 	

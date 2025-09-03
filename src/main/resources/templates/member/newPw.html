@@ -22,18 +22,18 @@
 .new-pw-content{
     background-color: #fff;
     width: 700px;
-    height: 500px;
     margin: 0 auto;
     border-radius: 9px;
     padding-top: 70px;
+    padding-bottom : 75px;
 }
 .search-pw-box{
     width: 580px;
-    height: 420px;
+    padding-bottom: 40px;
     border: 1px solid #BFBFBF;
     margin: 0 auto;
     padding-left: 30px;
-    padding-top: 10px;
+    padding-top: 40px;
     font-size: 18px;
     font-weight: 500;
 }
@@ -58,11 +58,11 @@
     width: 250px;
     height: 30px;    
 }
-.input-box{
+.input-box>form{
     padding-left: 70px;
     padding-top: 40px;
 }
-.input-box>div{
+.input-box>form>div{
     padding: 8px;
 }
 #new-pw-btn{
@@ -92,6 +92,9 @@
 .invalid{
 	color: red;
 }
+#pw-check-msg{
+	padding-left: 115px;
+}
 </style>
 </head>
 <body>
@@ -103,22 +106,26 @@
 				<div class="search-pw-box">
 					<p><span class="material-icons agree">check</span> 비밀번호 재설정</p>
 					<div class="input-box">
-						<div class="pw-box">
-							<label for="memberPw">새 비밀번호 : </label>
-							<input type="password" name="memberPw" id="memberPw">
-	                        <span class="material-icons" onclick="hidePw1();" id="hide-btn">visibility</span>
-	                        <span class="material-icons" onclick="showPw1();" id="show-btn">visibility_off</span>
-						</div>
-						<div class="pw-re-box">
-							<label for="memberPwRe">비밀번호 확인 : </label>
-							<input type="password" name="memberPwRe" id="memberPwRe">
-	                        <span class="material-icons" onclick="hidePw2();" id="hide-btn-2">visibility</span>
-	                        <span class="material-icons" onclick="showPw2();" id="show-btn-2">visibility_off</span>
-						</div>
-						<p id="pw-check-msg"></p>
-						<div class="new-pw-btn">
-							<button type="submit" id="new-pw-btn">비밀번호 재설정 완료</button>
-						</div>
+						<form action="/member/newPw" method="post" autocomplete="off">
+							<div class="pw-box">
+								<label for="memberPw">새 비밀번호 : </label>
+								<input type="password" name="memberPw" id="memberPw">
+		                        <span class="material-icons" onclick="hidePw1();" id="hide-btn">visibility</span>
+		                        <span class="material-icons" onclick="showPw1();" id="show-btn">visibility_off</span>
+							</div>
+							<div class="pw-re-box">
+								<label for="memberPwRe">비밀번호 확인 : </label>
+								<input type="password" name="memberPwRe" id="memberPwRe">
+		                        <span class="material-icons" onclick="hidePw2();" id="hide-btn-2">visibility</span>
+		                        <span class="material-icons" onclick="showPw2();" id="show-btn-2">visibility_off</span>
+							</div>
+							<input type="hidden" name="memberId" th:value="${member.memberId}">
+							<input type="hidden" name="memberEmail" th:value="${member.memberEmail}">
+							<p id="pw-check-msg"></p>
+							<div class="new-pw-btn">
+								<button type="submit" id="new-pw-btn">비밀번호 재설정 완료</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
