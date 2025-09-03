@@ -268,9 +268,10 @@
 	cursor:pointer;
 	
 }
-.reportPath{
+.path{
 	display: flex;
     justify-content: flex-end;
+    gap:20px;
 }
 .select-wrap>select{
 	width : 60px;
@@ -292,6 +293,12 @@
 	cursor:pointer;
 	
 }
+.pathBtn{
+	display:flex;
+	gap:30px;
+	align-items: center;
+	justify-content: center;
+}
 </style>
 </head>
 <body>
@@ -306,8 +313,9 @@
 						<span class="material-icons" id="qnaSearchBox">search</span>
 					</div>
 				</form>
-					<div class="reportPath">
-						<button class="pathBtn">신고 관리</button>
+					<div class="path">
+						<button class="pathBtn reportPath">신고 관리</button>
+						<button class="pathBtn statisticsPath">통계 페이지</button>
 					</div>
 			</div>
 			<table class="allMember-tbl">
@@ -449,8 +457,12 @@
 		});
 		
 		
-		$(".pathBtn").on("click",function(){
+		$(".reportPath").on("click",function(){
 			location.href = "/admin/recipeReport";
+		});	
+		
+		$(".statisticsPath").on("click",function(){
+			location.href = "/admin/webStatistics";
 		});	
 	</script>
 	<th:block th:include="common/footer"></th:block>
