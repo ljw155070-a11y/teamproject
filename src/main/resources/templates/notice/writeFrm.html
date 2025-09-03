@@ -90,7 +90,20 @@ body {
 
 .add-btn {
 	cursor: pointer;
+	color: #fff;
 	background-color: #FF9D23;
+	width: 215px;
+	height: 50px;
+	border: none;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 9px;
+	margin: 20px;
+	margin-left: 235px;
+}
+.add-btn2 {
+	cursor: pointer;
+	background-color: #EAEAEA;
 	width: 215px;
 	height: 50px;
 	border: none;
@@ -98,7 +111,7 @@ body {
 	font-weight: 700;
 	border-radius: 9px;
 	margin: 20px;
-	margin-left: 365px;
+	color: #848484;
 }
 
 .add-btn a {
@@ -117,7 +130,7 @@ body {
 			<form action="/notice/write" method="post" enctype="multipart/form-data">
 				<div class="content-header">			
 					<div class="input-item">
-						<input type="text" placeholder="제목을 입력하세요.">
+						<input type="text" name="noticeTitle" placeholder="제목을 입력하세요.">
 					</div>
 						<hr style="border: 1px solid #E6E6E6">
 					<div class="noticeSelect">
@@ -138,9 +151,12 @@ body {
 	                    </div>
 					</div>
 				</div>
-	            <textarea name=noticeWriteContent></textarea>							
+	            <textarea name=noticeContent></textarea>
+	            <input type="hidden" name="noticeWriter" th:value="${session.member.memberNo}">	
+	            						
+			<button class="add-btn" type="submit">등록하기</button>
+			<button class="add-btn2" type="button" th:onclick="back();">취소하기</button>
 			</form>
-			<button class="add-btn" type="submit"><a href="/notice/list">추가하기</a></button>
 			</div>
 		</section>
 	</main>
@@ -148,7 +164,7 @@ body {
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
-	$("[name=noticeWriteContent]").summernote({
+	$("[name=noticeContent]").summernote({
 		width : 850,
 		height : 500,
 		lang : "ko-KR",
@@ -158,7 +174,13 @@ body {
 			}
 		}
 	});
-
+	
+	$(".add-btn").on("click",function(){
+		location.href = "/notice/list?reqPage=1";
+	})
+	function back(){
+		location.href = "/notice/list?reqPage=1";
+	}
 	</script>
     <th:block th:include="common/footer"></th:block>
 </body>

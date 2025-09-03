@@ -42,4 +42,5 @@ public interface MemberDao {
 	Member findIdEmail(Member m);
 
 
+
 }

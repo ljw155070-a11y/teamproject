@@ -1,26 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 수정</title>
+<title>Insert title here</title>
 <style>
 body {
 	background-color: #f4f4f4;
 	}
-
+.page-title {
+	padding-top: 110px;
+    padding-bottom: 35px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: #EBA854;
+	}
+	
 .section-notice-write-wrap {
-	padding-top: 150px;
-	padding-bottom: 100px;
+	padding-bottom: 60px;
 }
 .content-box form {
 	margin: 0 auto;
+	padding-top: 20px;	
 	}
 .content-box {
 	margin: 0 auto;
-	width: 820px;
+	width: 950px;
+	height: 800px;
 	border-radius: 9px;
-    padding-bottom: 8px;
 	background-color: #fff;
 	}
 .content-box .content-header {
@@ -69,21 +76,7 @@ body {
     border: 0.5px solid #E5E5E5;
     border-radius: 50px;
 }
-
-.detail-content-box textarea {
-    width: 700px;  
-    min-height: 350px;       
-    font-size: 16px;        
-    box-sizing: border-box;
-    border: none;
-    margin-left: 60px;
-    padding-top: 20px;
-    align-items: center;
-}
-
 .noticeSelect span {
-    color: #656565;
-    font-weight: 500;
 	font-size: 17px;
 }
 
@@ -95,38 +88,34 @@ body {
     margin: 0 auto;
 }
 
-.detail-content-box ::placeholder{
-    color: #B2B2B2;
-}
-
-.add-btn button {
-    border: none;
-    cursor: pointer;
-    background-color: #FF9D23;
-    width: 215px;
-    height: 50px;
-    font-weight: 600;
-    border-radius: 9px;
-    font-size: 18px;
-}
-
-.section-notice-write-wrap .add-btn {
-    padding: 10px;
-    padding-left: 310px;
+.add-btn {
+	cursor: pointer;
+	background-color: #FF9D23;
+	width: 215px;
+	height: 50px;
+	border: none;
+	font-size: 18px;
+	font-weight: 700;
+	border-radius: 9px;
+	margin: 20px;
+	margin-left: 365px;
 }
 
 .add-btn a {
-    text-decoration: none;
-    color: #fff;
+	text-decoration: none;
+	color: #fff;
 }
+
 </style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<main class="content notice-write-container">
 		<section class="section-notice-write-wrap">
+			<div class="page-title">공지사항 입력(에디터)</div>
 			<div class="content-box">
-			<form action="/notice/write" method="post" enctype="multipart/form-data">			
+			<form action="/notice/write" method="post" enctype="multipart/form-data">
+				<div class="content-header">			
 					<div class="input-item">
 						<input type="text" placeholder="제목을 입력하세요.">
 					</div>
@@ -134,8 +123,8 @@ body {
 					<div class="noticeSelect">
 						<span>고정여부 : </span>
 						<select name="fixType">
-	                        <option value="yes">예</option>
-	                        <option value="no">아니오</option>
+	                        <option value="yes" th:text="${notice.noticeFixTop == 1}">예</option>
+	                        <option value="no" th:text="${notice.noticeFixTop == 0}">아니오</option>
 	                    <span class="fileAdd">첨부파일
 	                    	<input type="file" name="upfile" multiple>
 	                    </span>
@@ -148,18 +137,46 @@ body {
 	                    	</select>
 	                    </div>
 					</div>
-                    <hr style="border: 1px solid #E6E6E6">
-	                <div class="detail-content-box">
-                        <textarea name="content-text" placeholder="운영 정책에 위반되는 글을 작성할 시 게시글이 삭제 조치될 수 있으며, 신고 누적 5회 시 회원 탈퇴가 될 수 있음을 알립니다."></textarea>
-                        <hr>
-                    </div>						
+				</div>
+	            <textarea name=noticeWriteContent></textarea>							
+			<button class="add-btn" type="submit">등록하기</button>
 			</form>
-            <div class="add-btn">
-                <button type="submit"><a href="/notice/list">추가하기</a></button>
-            </div>
 			</div>
 		</section>
 	</main>
-	<th:block th:include="common/footer"></th:block>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<script>
+	$("#noticeWriteContent").summernote({
+		width : 850,
+		height : 500,
+		lang : "ko-KR",
+		callbacks : {
+			onImageUpload : function(file) {
+				uploadImage(file[0], this);
+			}
+		}
+	});
+	
+	function uploadImg(file, editor){
+		const form = new FormData();
+		form.append("upfile", file);
+		
+		$.ajax({
+			url : "/notice/editorImg",
+			type: "post",
+			data: form,
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				console.log(result);
+				$(editor).summernote("insertImage",
+						"/notice/editor/" + result);
+			}
+		});
+	}
+	</script>
+    <th:block th:include="common/footer"></th:block>
 </body>
 </html>
