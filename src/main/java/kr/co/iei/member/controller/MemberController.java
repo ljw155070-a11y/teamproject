@@ -173,7 +173,8 @@ public class MemberController {
 		return 0;
 	}
 	
-	@GetMapping(value = "/newPw")
+	
+	@GetMapping(value = "/newPwFrm")
 	public String newPw() {
 		return "member/newPw";
 	}

@@ -225,10 +225,7 @@ public class MemberService {
 
 
 
-	public static Member selectAllEmail(String receiver) {
-		Member m = new Member();
-		m.setMemberEmail(receiver);
-		return null;
-	}
+
+
 
 }
