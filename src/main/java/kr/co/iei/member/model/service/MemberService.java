@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.member.model.dao.MemberDao;
+import kr.co.iei.member.model.vo.JoinUserDate;
 import kr.co.iei.member.model.vo.Member;
 
 @Service
@@ -216,6 +217,10 @@ public class MemberService {
 		m.setMemberId(memberId);
 		Member member = memberDao.findIdEmail(m);
 		return member;
+	}
+	public List<JoinUserDate> monthlyJoinUsers() {
+		List<JoinUserDate> stats = memberDao.monthlyJoinUsers();
+		return stats;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.iei.member.model.vo.JoinUserDate;
 import kr.co.iei.member.model.vo.Member;
 
 @Mapper
@@ -34,10 +35,11 @@ public interface MemberDao {
 
 	int updateMember(Member m);
 
+	List<JoinUserDate> monthlyJoinUsers();
+
 	Member findMemberId(Member m);
 
 	Member findIdEmail(Member m);
-
 
 
 }
