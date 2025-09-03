@@ -156,7 +156,7 @@ hr{
 				<div class="recipe content-box">
 					<div class="recipe insert-title">
 					<!-- ★★★★★★★★★★★★★★제목 텍스트 값 전송★★★★★★★★★★★★★★★ -->
-						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피" th:value="${recipe.recipeTitle}">
+						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피" th:value="${recipe.recipeTitle}" required>
 					</div>
 					<hr>
 					<div class="recipe insert-info">
@@ -166,7 +166,7 @@ hr{
 								<div class="ingredient dynamic" th:each="ri:${recipeIngredientList}">
 									<span>재료명 : </span>
 									<!-- ★★★★★★★★★★★★★★레시피 재료명 전송★★★★★★★★★★★★★★★ -->
-									<input type="text" name="recipeIngredientName" th:value="${ri.recipeIngredientName}">
+									<input type="text" name="recipeIngredientName" th:value="${ri.recipeIngredientName}" required>
 									<span>용량 : </span>
 									<!-- ★★★★★★★★★★★★★★레시피 재료 용량 전송★★★★★★★★★★★★★★★ -->
 									<input type="text" name="recipeIngredientVolume" th:value="${ri.recipeIngredientVolume}">
@@ -177,7 +177,7 @@ hr{
 						<div class="recipe caution">
 							<span>주의 사항 : </span>
 							<!-- ★★★★★★★★★★★★★★주의사항 전송★★★★★★★★★★★★★★★ -->
-							<input type="text" name="recipeCaution" placeholder = "이곳에 설명을 입력하세요" th:value="${recipe.recipeCaution}">
+							<input type="text" name="recipeCaution" style="width:100%; border:1px solid #ddd;" placeholder = "이곳에 설명을 입력하세요" th:value="${recipe.recipeCaution}" required>
 						</div>
 						<div class="recipe insertBtn">
 							<input type="submit" value="게시글 작성하기">
