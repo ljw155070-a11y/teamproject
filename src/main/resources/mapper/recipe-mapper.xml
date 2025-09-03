@@ -348,4 +348,19 @@ SELECT * FROM (SELECT ROWNUM R,A.* FROM (SELECT * FROM (SELECT RECIPE_NO,AVG(REC
 		SELECT AVGRATE FROM (
 SELECT * FROM (SELECT ROWNUM R,A.* FROM (SELECT * FROM (SELECT RECIPE_NO,AVG(RECIPE_RATE) AVGRATE FROM RECIPE_GRADE_TBL GROUP BY RECIPE_NO) JOIN RECIPE_TBL USING(RECIPE_NO) ORDER BY AVGRATE DESC) A) WHERE R=1) JOIN MEMBER_TBL USING(MEMBER_NO)
 	</select>
+	
+	<select id="dailyRecipe" resultType="recipe">
+		with dates15 as(
+    		select
+        		sysdate - 15 + level as dates
+   			from dual
+    		connect by level <![CDATA[<=]]>15
+		)
+		select 
+    		to_char(d.dates,'yyyy-mm-dd') dd,
+    		count(recipe_title) recipe_count
+		from dates15 d left join (select * from recipe_tbl where recipe_type = #{recipeType}) r on (to_char(d.dates,'yyyy-mm-dd') = to_char(r.recipe_write_date,'yyyy-mm-dd'))
+		group by to_char(d.dates,'yyyy-mm-dd')
+		order by 1
+	</select>
 </mapper>

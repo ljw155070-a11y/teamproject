@@ -95,6 +95,8 @@ public interface RecipeDao {
 	Member recipeGradeRankingm();
 
 	double recipeGradeRankingDouble();
+
+	List<Recipe> dailyRecipe(String recipeType);
 	
 
 	

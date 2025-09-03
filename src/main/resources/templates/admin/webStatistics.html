@@ -60,12 +60,24 @@
 				<div class="monthly-join-users">
 	  				<canvas id="monthlyJoinUsersChart" class="charts"></canvas>
 				</div>
+				<div class="chart-title daily-add-recipe-title">
+					<span>일별 레시피 등록 건수</span>
+				</div>
+				<div class="daily-add-recipes">
+					<select class="typeSelect">
+						<option value="한식">한식</option>
+						<option value="중식">중식</option>
+						<option value="일식">일식</option>
+						<option value="양식">양식</option>
+					</select>
+	  				<canvas id="dailyRecipesChart" class="charts"></canvas>
+				</div>
 			</div>
 		</section>
 	</main>
-	<script>
-		const months = new Array();
-		const counts = new Array();
+	<script th:inline="javascript">
+		const months = [[${months}]];
+		const counts = [[${counts}]];
 		const ctx = document.getElementById('monthlyJoinUsersChart');
 
 		new Chart(ctx,
@@ -82,11 +94,105 @@
 					options : {
 						scales : {
 							y : {
-								beginAtZero : true
+								beginAtZero : true,
+								max : 100
 							}
 						}
 					}
 				});
+		/*
+		let dailyChart;
+		
+		$(".typeSelect").on("change",function(){
+			const type = $(".typeSelect").val();
+			console.log(type);
+			$.ajax({
+				url:"/admin/dailyRecipe",
+				type:"get",
+				data:{recipeType:type},
+				success:function(response){
+					console.log(response);
+					if (dailyChart) {
+			            dailyChart.destroy();
+			        }	
+					
+					const ctx2 = document.getElementById('dailyRecipesChart');
+					
+					 new Chart(ctx2, {
+						    type: 'bar',
+						    data: {
+						      labels: reponse.dd,
+						      datasets: [{
+						        label: '일별 레시피 등록 수',
+						        data: response.counts,
+						        borderWidth: 1
+						      }]
+						    },
+						    options: {
+						      scales: {
+						        y: {
+						          beginAtZero: true
+						        }
+						      }
+						    }
+						  });
+				},
+				error:function(){
+					console.log("에러");
+				}
+			})
+		});
+	*/
+	let chart;
+
+	function currentDailyRecipeChart(type) {
+	    $.ajax({
+	        url: "/admin/dailyRecipe",
+	        type: "get",
+	        data: {recipeType: type},
+	        success: function(response) {
+	            if (chart) {
+	                chart.destroy();
+	            }
+
+	            const ctx2 = document.getElementById('dailyRecipesChart');
+	            chart = new Chart(ctx2, {
+	                type: 'bar',
+	                data: {
+	                    labels: response.dd,
+	                    datasets: [{
+	                        label: type + ' 일별 레시피 등록 수',
+	                        data: response.counts,
+	                        borderWidth: 1,
+	                        backgroundColor: 'rgba(75, 192, 192, 0.5)'
+	                    }]
+	                },
+	                options: {
+	                    scales: {
+	                        y: {
+	                            beginAtZero: true,
+	                             max:50
+	                            }
+	                        }
+	                    
+	                	}
+	           		});
+	       		 },
+	       		 error: function() {
+	            	console.log("에러 발생");
+	        	}
+	   		 });
+		 }
+
+	$(function() {
+		currentDailyRecipeChart("한식");
+	});
+
+	$(".typeSelect").on("change", function() {
+	    const type = $(this).val();
+	    currentDailyRecipeChart(type);
+	});
+		
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

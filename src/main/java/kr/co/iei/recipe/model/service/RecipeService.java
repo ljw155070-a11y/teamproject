@@ -539,6 +539,13 @@ public class RecipeService {
 		return avgrate;
 	}
 
+	public List<Recipe> dailyRecipe(String recipeType) {
+		List<Recipe> recipeLists = recipeDao.dailyRecipe(recipeType);
+		return recipeLists;
+	}
+
+
+	
 	
 	
 }
