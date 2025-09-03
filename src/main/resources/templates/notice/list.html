@@ -96,14 +96,15 @@ body {
     margin: 0 auto;
     background-color: #fff;
     border-radius: 10px;
+	margin-bottom: 30px;
 }
 
 #list-text {
 	color: #696969; 
 }
 
-#list-text :hover{
-	background-color: #F9F9F9;
+.content-tbl tbody #list-text:hover{
+	background-color: #FEFCFA;
 	color: #696969; 
 }
 
@@ -157,6 +158,7 @@ body {
     text-overflow: ellipsis;  /* ... 표시 */
 }
 
+/*
 #pageNav {
 	margin-top: 20px;
 	margin-bottom: 40px;
@@ -197,14 +199,12 @@ body {
 }
 .pagination li a .page-item {
   	display: block;
-  	text-decoration: none;
   	width: 100%;
   	height: 100%;
   	font-size: 18px;
 }
 
-.pagination li a .page-item > span.material-icons {
-
+.pagination > li > a .page-item > span.material-icons {
   	display: block;
   	width: 100%;
   	height: 100%;
@@ -214,6 +214,45 @@ body {
   background-color: var(--main2);
   color: #fff;
 }
+*/
+.pagination {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination > li {
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding-bottom: 50px;
+  line-height: 40px;
+  overflow: hidden;
+}
+
+.pagination > li > a.page-item {
+  border-radius: 50px;
+  background-color: #fff;
+  color: #696969;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+}
+.pagination > li > a.page-item > span.material-icons {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 40px;
+}
+.pagination .page-item.active-page {
+  background-color: var(--main2);
+  color: #fff;
+}
+
 </style>
 </head>
 <body>

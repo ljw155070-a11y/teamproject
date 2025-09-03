@@ -101,33 +101,36 @@ body {
 }
 
 .add-btn button {
-    border: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+    text-decoration: none;
+	border: none;
     cursor: pointer;
     background-color: #FF9D23;
-    width: 215px;
-    height: 50px;
-    font-weight: 600;
-    border-radius: 9px;
-    color: #fff;
-    font-size: 18px;
+    width: 110px;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #FFF;
 }
 
 #delete {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-left: 10px;
+	text-decoration: none;
 	border: none;
     cursor: pointer;
     background-color: #EAEAEA;
-    width: 215px;
-    height: 50px;
-    font-weight: 600;
-    border-radius: 9px;
-    color: #fff;
-    font-size: 18px;
+    width: 110px;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #848484;
 }
 
 .section-notice-write-wrap .add-btn {
     padding-top: 17px;
     padding-bottom: 10px;
-    padding-left: 217px;
+    padding-left: 320px;
 }
 
 .add-btn a {
@@ -187,7 +190,7 @@ body {
 	<script>
 	$("[name=noticeContent]").summernote({
 		width : 870,
-		height : 370,
+		height : 390,
 		lang : "ko-KR",
 		callbacks : {
 			onImageUpload : function(file) {

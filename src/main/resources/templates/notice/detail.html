@@ -84,11 +84,12 @@ body {
 
 .detail-textbar .writer {
     padding-left: 10px;
+    padding-right: 30px;
     font-size: 16px;
 }
 
 .notice-view {
-    padding-left: 500px;
+    padding-left: 150px;
     float: right;
 }
 
@@ -158,6 +159,7 @@ body {
     font-size: 16px;
     color: #FFF;
 }
+
 </style>
 </head>
 <body>
@@ -172,6 +174,7 @@ body {
                     <div class="detail-textbar">
                         <span class="material-icons">campaign</span>
                             <span class="writer">작성자 : 관리자</span>
+                            <span class="fileAdd">첨부파일 : <input type="file" name="upfile" multiple></span>
                         <div class="notice-view">
                         <span>작성일 : </span>
                             <span class="date" th:text="${notice.noticeWriteDate}"></span>
@@ -196,6 +199,7 @@ body {
                     <div class="detail-textbar">
                         <span class="material-icons">warning_amber</span>
                             <span class="writer">작성자 : 관리자</span>
+                            <span class="fileAdd">첨부파일 : <input type="file" name="upfile" multiple></span>
                         <div class="notice-view">
                         <span>작성일 : </span>
                             <span class="date" th:text="${notice.noticeWriteDate}"></span>
