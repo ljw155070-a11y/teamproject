@@ -4,7 +4,7 @@
       rel="stylesheet">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 list</title>
 <style>
 body {
     background-color: #f4f4f4;
@@ -34,6 +34,10 @@ body {
     margin: 0 auto;
     padding-bottom: 25px;
 }
+
+.notice-title h1 {
+	padding-top: 100px;
+}
 .notice-search-top {
 	padding-bottom: 15px;
     display: flex;
@@ -50,14 +54,14 @@ body {
     border: 0.5px solid #E5E5E5;
     border-radius: 50px;
 }
-.search-box {
+.searchTitle {
     cursor: pointer;
     position: relative;
     display: inline-block;
     flex-grow: 1;
     max-width: 650px;
 }
-.search-box input {
+.searchTitle input {
     width: 100%;
     padding: 10px 0px 10px 10px; 
     font-size: 17px;
@@ -65,11 +69,11 @@ body {
     border: 0.5px solid #E5E5E5;
     border-radius: 50px;
 }
-.search-box ::placeholder {
+.searchTitle ::placeholder {
     color: #999999;
     text-align: center;
 }
-.search-box .search-btn {
+.searchTitle .search-btn {
 	color: #FBA854;
     position: absolute;
     right: 10px;
@@ -79,20 +83,34 @@ body {
     background: transparent;
     cursor: pointer;
 }
-.search-box .search-btn {
+.searchTitle .search-btn {
     width: 30px;
     background-color: transparent;
 }
-.search-box button {
+.searchTitle button {
     background-color: transparent;
 }
 .notice-list-box {
-	padding-top: 20px;
     width: 950px;
-    min-height: 950px;
+    height: 718px;
     margin: 0 auto;
     background-color: #fff;
-    border-radius: 9px;
+    border-radius: 10px;
+}
+
+#list-text {
+	color: #696969; 
+}
+
+.notice-list-box table {
+	border-spacing: 0;
+}
+
+.notice-list-box td{
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #F5F5F5;
 }
 .content-tbl tr th{
     font-size: 20px;
@@ -110,22 +128,87 @@ body {
 .list tr a {
     color: #505050;
 }
-.to {
-    width: 150px;         
-    white-space: nowrap;      /* 줄바꿈 금지 */
-    overflow: hidden;         /* 넘치면 숨김 */
-    text-overflow: ellipsis;  /* ... 표시 */
-}
+
 .content-tbl {
     padding-top: 30px;
     width: 900px;
 }
-.notice-list-box hr {
-    border: 1.5px solid #E6E6E6;
-    width: 82%;
-    margin-top: 25px;
+
+.content-tbl a {
+    color: #696969;
+    text-align: center;
+    margin: 0 auto;
+}
+.notice-list-box tr {
+	border-bottom: 0.5px;
+    width: 100%;
 }
 
+.to {
+    width: 150px;     
+    margin: 0 auto;    
+    white-space: nowrap;      /* 줄바꿈 금지 */
+    overflow: hidden;         /* 넘치면 숨김 */
+    text-overflow: ellipsis;  /* ... 표시 */
+}
+
+#pageNav {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.pagination {
+  	list-style-type: none;
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	gap: 10px;
+}
+
+.pagination li {
+  	background-color: #fff;	
+  	width: 40px;
+  	height: 40px;
+  	text-align: center;
+  	line-height: 40px;
+  	overflow: hidden;
+}
+
+.pagination.circle-style li {
+  	border-radius: 50%;
+}
+
+.pagination.circle-style li {
+  	border-radius: 50%;
+}
+
+.pagination.circle-style li a {
+	text-decoration: none;
+	color: #787878;
+}
+
+#arrow {
+	border: none;
+}
+.pagination li a .page-item {
+  	display: block;
+  	text-decoration: none;
+  	width: 100%;
+  	height: 100%;
+  	font-size: 18px;
+}
+
+.pagination li a .page-item > span.material-icons {
+
+  	display: block;
+  	width: 100%;
+  	height: 100%;
+  	line-height: 50px;
+}
+.pagination .page-item.active-page {
+  background-color: var(--main2);
+  color: #fff;
+}
 </style>
 </head>
 <body>
@@ -135,17 +218,12 @@ body {
         	<div class="notice-title">
            	 	<div class="notice-title">공지사항</div>
         	</div>
-            <form action="notice/search" method="get" id="noticeSearch">
+            <form action="/notice/searchTitle" method="get" id="noticeSearch">
                 <div class="notice-search-top" style="width:100%;">
-                <a href="/notice/writeFrm" class="write-btn">글쓰기</a>
-                <!--<a th:if = "${session.member != null && session.member.memberLevel == 1}" href="/notice/writeFrm" style="display: inline-block;">글쓰기</a>-->
-                    <select name="searchType">
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                        <option value="date">작성일</option>
-                    </select>
-                    <div class="search-box">
-                        <input type="text" name="search" placeholder="검색할 내용을 입력하세요.">
+                <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" href="/notice/writeFrm" class="write-btn">글쓰기</a>
+                    <div class="searchTitle">
+                        <input type="text" name="searchTitle" placeholder="검색할 제목을 입력하세요.">
+                        <input type=hidden name="reqPage" id="reqPage" value="1">
                         <button type="submit" class="search-btn"><span class="material-icons">search</span></button>
                     </div>
                 </div>
@@ -153,26 +231,27 @@ body {
         </section>
         <section class="notice content-body">
         <div class="notice-list-box">
-            <table style="width:100%" class="content-tbl">
+            <table style="width:100%;" class="content-tbl" >
                  <tr>
                      <th style="width: 25%;">글 번호</th>
                      <th style="width: 25%;">제목</th>
                      <th style="width: 25%;">내용</th>
                      <th style="width: 20%;">작성일</th>
                  </tr>
-            	 <tr th:each="notice : ${list}">
-            	 	<td th:text="${notice.noticeNo}"></td>
+            	 <tr th:each="notice : ${list}" id="list-text">
+            	 	<th:block th:if="${list != '작성된 게시글이 존재하지 않습니다.'}">
+            	 	<td style="text-align:center;" th:text="${notice.noticeNo}"></td>
             	 	<td>
-            	 		<a th:href="@{/notice/view(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a>
+            	 		<a style="text-align:center;" th:href="@{/notice/detail(noticeNo=${notice.noticeNo})}"><div class="to" th:text="${notice.noticeTitle}"></div></a> 
             	 	</td>  
-            	 	<td th:text="${notice.noticeContent}"></td>
-            	 	<td th:text="${notice.noticeWriteDate}"></td>
+            	 	<td style="text-align:center;"><div class="to" th:utext="${notice.noticeContent}"></div></td>
+            	 	<td style="text-align:center;" th:text="${notice.noticeWriteDate}"></td>
             	 </tr>
             </table>
         </div>   
         <div id="pageNav" th:utext="${pageNav}"></div>
         </section>
     </main>
-    <<th:block th:include="common/footer"></th:block>
+    <th:block th:include="common/footer"></th:block>
 </body>
 </html>

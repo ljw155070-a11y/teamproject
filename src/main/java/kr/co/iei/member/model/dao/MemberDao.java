@@ -40,4 +40,5 @@ public interface MemberDao {
 	Member findMemberId(Member m);
 
 
+
 }

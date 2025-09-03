@@ -11,9 +11,39 @@ import kr.co.iei.notice.model.vo.NoticeFile;
 @Mapper
 public interface NoticeDao {
 
-	List selectNoticeList(int reqPage);
+	int selectNoticeTotal();
 
-	List selectNoticeList();
+	List selectNoticeList(HashMap<String, Object> param);
+
+	int getNoticeNo();
+
+	int writeNotice(Notice notice);
+
+	int insertNoticeFile(NoticeFile noticeFile);
+
+	Notice selectOneNotice(int noticeNo);
+
+	List selectNoticeFile(int noticeNo);
+
+	NoticeFile selectOneNoticeFile(int noticeFileNo);
+
+    int updateNotice(Notice notice);
+
+	List selectNoticeFileList(int[] delFileNo);
+
+	int deleteNoticeFile(int noticeFileNo);
+
+	int deleteNotice(int noticeNo);
+	
+	int searchTitleCount(String searchTitle);
+
+	List searchTitleNotice(HashMap<String, Object> param);
+
+	int insertNotice(Notice notice);
+
+
+
+	
 
 
 }

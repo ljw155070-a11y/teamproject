@@ -1,7 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.iei.notice.model.dao.NoticeDao">
-  <select id="selectNoticeList" resultType="int">
-  	select * from notice_tbl
+  <select id="selectNoticeList" resultType="notice">
+  	select * from
+		(select rownum as rnum, n.* from
+		(select
+		notice_no,
+		notice_title, notice_content, notice_write_date
+		from notice_tbl order by notice_no
+		desc
+		)n
+		)
+		where #{start} <![CDATA[ <= ]]>
+		rnum and rnum <![CDATA[ <= ]]>
+		#{end}
   </select>
+  
+  <select id="searchTitleCount" resultType="int">
+  	select count(*) from notice_tbl where notice_title like '%'||'${searchTitle}'||'%'
+  </select>
+  
+  <select id="searchTitleNotice" resultType="notice">
+  	select * from 
+  	(select rownum as rnum, n. * from
+  		(select
+  			notice_no, notice_title, member_no, notice_write_date
+  			from notice_tbl where notice_title like '%'||'${searchTitle}'||'%'
+  			order by notice_no desc
+  		)n
+  	)
+  	where #{start} <![CDATA[ <= ]]> rnum and rnum <![CDATA[ <= ]]> #{end}
+  </select>
+  
+  <select id="selectNoticeTotal" resultType="int">
+  	<![CDATA[ 
+  	select count(*) from notice_tbl
+	]]>
+  </select>
+   
+   <insert id="insertNotice">
+  	insert into notice_tbl values (#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, sysdate, sysdate, #{memberNo})
+  </insert>
+   
+  <insert id="insertNoticeFile">
+  	insert into notice_file_tbl values(notice_file_seq.nextval, #{filename}, #{noticeNo}, #{filepath})
+  </insert>
+  
+  <select id="getNoticeNo" resultType="int">
+  	select notice_seq.nextval from dual
+  </select>
+  
+  <select id="selectOneNotice" resultType="notice">
+  	select * from notice_tbl where notice_no = #{noticeNo}
+  </select>
+  
+  <select id="selectNoticeFile" resultType="noticeFile">
+	select * from notice_file_tbl where notice_no = #{noticeNo}
+	</select>
+  
+  <select id="selectOneNoticeFile" resultType="noticeFile">
+  	select * from notice_file_tbl where notice_file_no = #{noticeFileNo}
+  </select>
+  
+   <update id="updateNotice">
+   	update notice_tbl set notice_title = #{noticeTitle}, notice_content = #{noticeContent} where notice_no = #{noticeNo}
+   </update>
+   
+  <delete id="deleteNoticeFile">
+  	delete from notice_file_tbl where notice_no = #{noticeFileNo}
+  </delete>
+  
+  <delete id="deleteNotice">
+  	delete notice_tbl where notice_no = #{noticeNo}
+  </delete>
+  
+  <select id="selectNoticeFileList" resultType="noticeFile">
+		select *
+		from notice_file_tbl
+		where notice_file_no in
+		<foreach collection="array" item="noticeFileNo" open="("
+			close=")" separator=",">
+			#{noticeFileNo}
+		</foreach>
+	</select>
+	
 </mapper>

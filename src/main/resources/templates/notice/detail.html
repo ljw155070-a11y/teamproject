@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<head>
+<meta charset="UTF-8">
+<title>공지사항 detail</title>
+<style>
+body {
+    background-color: #f4f4f4; 
+}
+
+.main {
+	padding-top: 120px;  
+}
+
+.notice-detail-wrap {
+	padding-top: 120px;
+}
+.detail-box {
+    width: 950px;
+    height: 590px;
+    background-color: #fff;
+    border-radius: 9px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.detail-box .detail-box-title{
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    padding: 20px;
+}
+
+.detail-box .detail-box-title span{
+	font-size: 20px;
+    font-weight: 600;
+    color: #515151;
+}
+
+.detail-box hr {
+    border: 0.5px solid #e6e6e6;
+    width: 100%;
+}
+
+.detail-box2 {
+    width: 950px;
+    height: 590px;
+    background-color: #fff;
+    border-radius: 9px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.detail-box2 .detail-box-title{
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    padding: 20px;
+}
+
+.detail-box2 .detail-box-title h3{
+    font-weight: 600;
+    color: #515151;
+}
+
+.detail-box2 hr {
+    border: 0.5px solid #e6e6e6;
+    width: 100%;
+}
+
+.detail-textbar{
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    font-size: 16px;
+    font-weight: 500;
+    color: #656565;
+    padding-top: 20px; 
+    padding-left: 10px;
+    padding-bottom: 20px;
+}
+
+.detail-textbar .writer {
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.notice-view {
+    padding-left: 500px;
+    float: right;
+}
+
+.notice-view .date {
+    padding-left: 20px;
+}
+
+.detail-content-box span {
+    width: 830px;  
+    min-height: 350px;       
+    font-size: 16px;        
+    box-sizing: border-box;
+    border: none;
+    margin-left: 70px;
+	margin-top: 20px;
+    align-items: center;
+}
+
+.detail-content-box {
+	padding-top: 10px;
+	padding-left: 70px;
+	height: 360px;
+    color: #B2B2B2;
+}
+
+.detail-content-btn {
+	border-top: 2px solid #e6e6e6;
+    display: flex;
+    justify-content: center;  
+    align-items: center; 
+    gap: 15px;
+    padding-top: 20px;
+}
+
+.detail-content-btn .modify-btn {
+	text-decoration: none;
+    border: none;
+    cursor: pointer;
+    background-color: #FF9D23;
+    width: 130px;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.detail-content-btn a {
+	text-align: center;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.detail-content-btn .delete-btn {
+    border: none;
+    cursor: pointer;
+    background-color: #EAEAEA;
+    width: 130px;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #848484;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+    <main class="notice-detail">
+        <section class="notice-detail-wrap">
+            <div class="detail-box">
+                <div class="detail-box-title">
+                    <span th:utext="${notice.noticeTitle}"></span>
+                </div>
+                <hr>
+                    <div class="detail-textbar">
+                        <span class="material-icons">campaign</span>
+                            <span class="writer">작성자 : 관리자</span>
+                        <div class="notice-view">
+                        <span>작성일 : </span>
+                            <span class="date" th:text="${notice.noticeWriteDate}"></span>
+                        </div>
+                    </div>
+                <hr>
+                    <div class="detail-content-box">
+                        <span class="content-text" th:utext="${notice.noticeContent}"></span>
+                    </div>
+                    <div class="detail-content-btn">
+                        <a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
+                        <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" th:onclick="deleteNotice([[${notice.noticeNo}]]);" class="delete-btn">게시글 삭제</a>
+                    </div>
+            </div>
+        </section>
+            <div class="detail-box2">
+                <div class="detail-box-title">
+                    <h3>이용 제한 조치된 회원 안내</h3>
+                </div>
+                <hr>
+                    <div class="detail-textbar">
+                        <span class="material-icons">warning_amber</span>
+                            <span class="writer">작성자 : 관리자</span>
+                        <div class="notice-view">
+                        <span>작성일 : </span>
+                            <span class="date" th:text="${notice.noticeWriteDate}"></span>
+                        </div>
+                    </div>
+                <hr>
+                    <div class="detail-content-box">
+                        <span class="content-text" th:utext="${notice.noticeContent}"></span>
+                        
+                    </div>
+                    <div class="detail-content-btn">
+                        <a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
+                        <a th:onclick="deleteNotice([[${notice.noticeNo}]]);" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="delete-btn">게시글 삭제</a>
+                    </div>
+            </div>
+    	</main>
+    <script src="/js/sweetalert.min.js"></script>
+    <script>
+    	function deleteNotice(noticeNo){
+    		swal({
+    			title : "게시물 삭제",
+    			text : "게시물을 삭제하시겠습니까?",
+    			icon : "warning",
+    			buttons : {
+    				cancel:{
+    					text: "취소",
+    					value: false,
+    					visible: true,
+    					ClassName :"btn-swal",
+    					colseModal: true
+    				},
+    				confirm:{
+    					text: "삭제하기",
+    					value: true,
+    					visible : true,
+    					ClassName : "btn-swal-color",
+    					closeModal : true
+    				}
+    			}
+    		}).then(function(isConfirm){
+    			if(isConfirm){
+    				location.href="/notice/delete?noticeNo="+noticeNo;
+    			}
+    		});
+    	};
+    </script>
+    <th:block th:include="common/footer"></th:block>
+</body>
+</html>

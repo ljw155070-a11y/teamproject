@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 작성</title>
+<title>Insert title here</title>
 <style>
 body {
 	background-color: #f4f4f4;
@@ -90,20 +90,7 @@ body {
 
 .add-btn {
 	cursor: pointer;
-	color: #fff;
 	background-color: #FF9D23;
-	width: 215px;
-	height: 50px;
-	border: none;
-	font-size: 18px;
-	font-weight: 600;
-	border-radius: 9px;
-	margin: 20px;
-	margin-left: 235px;
-}
-.add-btn2 {
-	cursor: pointer;
-	background-color: #EAEAEA;
 	width: 215px;
 	height: 50px;
 	border: none;
@@ -111,7 +98,7 @@ body {
 	font-weight: 700;
 	border-radius: 9px;
 	margin: 20px;
-	color: #848484;
+	margin-left: 365px;
 }
 
 .add-btn a {
@@ -125,19 +112,19 @@ body {
 	<th:block th:include="common/header"></th:block>
 	<main class="content notice-write-container">
 		<section class="section-notice-write-wrap">
-			<div class="page-title">공지사항 입력</div>
+			<div class="page-title">공지사항 입력(에디터)</div>
 			<div class="content-box">
 			<form action="/notice/write" method="post" enctype="multipart/form-data">
 				<div class="content-header">			
 					<div class="input-item">
-						<input type="text" name="noticeTitle" placeholder="제목을 입력하세요.">
+						<input type="text" placeholder="제목을 입력하세요.">
 					</div>
 						<hr style="border: 1px solid #E6E6E6">
 					<div class="noticeSelect">
 						<span>고정여부 : </span>
 						<select name="fixType">
-	                        <option value="yes">예</option>
-	                        <option value="no">아니오</option>
+	                        <option value="yes" th:text="${notice.noticeFixTop == 1}">예</option>
+	                        <option value="no" th:text="${notice.noticeFixTop == 0}">아니오</option>
 	                    <span class="fileAdd">첨부파일
 	                    	<input type="file" name="upfile" multiple>
 	                    </span>
@@ -151,11 +138,8 @@ body {
 	                    </div>
 					</div>
 				</div>
-	            <textarea name=noticeContent></textarea>
-	            <input type="hidden" name="noticeWriter" th:value="${session.member.memberNo}">	
-	            						
+	            <textarea name=noticeWriteContent></textarea>							
 			<button class="add-btn" type="submit">등록하기</button>
-			<button class="add-btn2" type="button" th:onclick="back();">취소하기</button>
 			</form>
 			</div>
 		</section>
@@ -164,7 +148,7 @@ body {
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<script>
-	$("[name=noticeContent]").summernote({
+	$("#noticeWriteContent").summernote({
 		width : 850,
 		height : 500,
 		lang : "ko-KR",
@@ -175,11 +159,22 @@ body {
 		}
 	});
 	
-	$(".add-btn").on("click",function(){
-		location.href = "/notice/list?reqPage=1";
-	})
-	function back(){
-		location.href = "/notice/list?reqPage=1";
+	function uploadImg(file, editor){
+		const form = new FormData();
+		form.append("upfile", file);
+		
+		$.ajax({
+			url : "/notice/editorImg",
+			type: "post",
+			data: form,
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				console.log(result);
+				$(editor).summernote("insertImage",
+						"/notice/editor/" + result);
+			}
+		});
 	}
 	</script>
     <th:block th:include="common/footer"></th:block>
