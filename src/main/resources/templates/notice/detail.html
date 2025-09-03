@@ -199,7 +199,10 @@ body {
                     <div class="detail-textbar">
                         <span class="material-icons">warning_amber</span>
                             <span class="writer">작성자 : 관리자</span>
-                            <span class="fileAdd">첨부파일 : <input type="file" name="upfile" multiple></span>
+                            <span class="fileAdd">첨부파일 : <th:block th:each="file : ${notice.fileList}">
+                            	<a th:href="@{/notice/fildown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
+                            	</th:block>
+                            </span>
                         <div class="notice-view">
                         <span>작성일 : </span>
                             <span class="date" th:text="${notice.noticeWriteDate}"></span>
