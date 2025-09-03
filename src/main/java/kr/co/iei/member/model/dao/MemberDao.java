@@ -43,6 +43,8 @@ public interface MemberDao {
 
 	int newPw(Member m);
 
+	int deleteMember(int memberNo);
+
 	
 
 	

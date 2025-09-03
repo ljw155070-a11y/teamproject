@@ -156,6 +156,10 @@
   	where member_id = #{memberId}
     and member_email = #{memberEmail}
   </update>
+  <delete id="deleteMember">
+  	delete from member_tbl where member_no = #{memberNo}
+  </delete>
+ 
   
 </mapper>
 
