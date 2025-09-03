@@ -84,11 +84,12 @@ body {
 
 .detail-textbar .writer {
     padding-left: 10px;
+    padding-right: 30px;
     font-size: 16px;
 }
 
 .notice-view {
-    padding-left: 500px;
+    padding-left: 350px;
     float: right;
 }
 
@@ -102,16 +103,22 @@ body {
     font-size: 16px;        
     box-sizing: border-box;
     border: none;
-    margin-left: 70px;
 	margin-top: 20px;
     align-items: center;
 }
 
 .detail-content-box {
-	padding-top: 10px;
+	padding-right: 70px;
+	padding-top: 20px;
 	padding-left: 70px;
 	height: 360px;
     color: #B2B2B2;
+}
+
+.content-text {
+	word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .detail-content-btn {
@@ -120,7 +127,7 @@ body {
     justify-content: center;  
     align-items: center; 
     gap: 15px;
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 .detail-content-btn .modify-btn {
@@ -149,6 +156,17 @@ body {
     font-size: 16px;
     color: #848484;
 }
+#backList {
+	text-decoration: none;
+	border: none;
+    cursor: pointer;
+    background-color: #FF9D23;
+    width: 130px;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #FFF;
+}
+
 </style>
 </head>
 <body>
@@ -163,6 +181,11 @@ body {
                     <div class="detail-textbar">
                         <span class="material-icons">campaign</span>
                             <span class="writer">작성자 : 관리자</span>
+                            <span class="fileAdd">첨부파일 : 
+                            	<th:block th:each="file : ${notice.fileList}">
+                            		<a th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
+                            	</th:block>
+                            </span>
                         <div class="notice-view">
                         <span>작성일 : </span>
                             <span class="date" th:text="${notice.noticeWriteDate}"></span>
@@ -173,6 +196,7 @@ body {
                         <span class="content-text" th:utext="${notice.noticeContent}"></span>
                     </div>
                     <div class="detail-content-btn">
+                    	<a th:href="@{/notice/list?reqPage=1}" id="backList">목록으로</a>
                         <a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
                         <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" th:onclick="deleteNotice([[${notice.noticeNo}]]);" class="delete-btn">게시글 삭제</a>
                     </div>
@@ -193,10 +217,11 @@ body {
                     </div>
                 <hr>
                     <div class="detail-content-box">
-                        <span class="content-text" th:utext="${notice.noticeContent}"></span>
+                        <span class="content-text" th:utext="${notice.noticeReportContent}"></span>
                         
                     </div>
                     <div class="detail-content-btn">
+                    	<a th:href="@{/notice/list?reqPage=1}" id="backList">목록으로</a>
                         <a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
                         <a th:onclick="deleteNotice([[${notice.noticeNo}]]);" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="delete-btn">게시글 삭제</a>
                     </div>
@@ -231,6 +256,9 @@ body {
     			}
     		});
     	};
+    	function back(){
+			location.href = "/notice/list?reqPage=1";
+		}
     </script>
     <th:block th:include="common/footer"></th:block>
 </body>

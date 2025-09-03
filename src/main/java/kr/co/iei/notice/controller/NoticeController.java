@@ -64,6 +64,7 @@ public class NoticeController {
 	public String detail(int noticeNo, Model model) {
 		Notice notice = noticeService.selectOnetNotice(noticeNo);
 		model.addAttribute("notice", notice);
+		System.out.println("공지사항 파일: "+notice.getFileList());
 		return "notice/detail";
 	}
 	@GetMapping(value="/delete")

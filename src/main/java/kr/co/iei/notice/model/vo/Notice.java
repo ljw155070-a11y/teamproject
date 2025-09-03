@@ -21,6 +21,7 @@ public class Notice {
 	private Date noticeWriteDate;
 	private Date noticeUpdateDate;
 	private int memberNo;
+	private String noticeReportContent;
 	
 	private List<NoticeFile> fileList;
 
