@@ -181,6 +181,7 @@ body {
                     <div class="detail-textbar">
                         <span class="material-icons">campaign</span>
                             <span class="writer">작성자 : 관리자</span>
+                            <span th:text=${notice.fileList}></span>
                             <span class="fileAdd">첨부파일 : 
                             	<th:block th:each="file : ${notice.fileList}">
                             		<a th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
