@@ -25,12 +25,13 @@
                     <li><a href="/qna/list?reqPage=1">질문 게시판</a></li>
                 </ul>
             </nav>
+            <!-- 
             <form action="/member/headerSearch" method="get">
                 <div class="header-search-box">
                     <input type="text" class="header-search" placeholder="제목으로 입력">
                     <span class="material-icons header-search-icon">search</span>
                 </div>
-            </form>
+            </form> -->
             <div class="header-user-btns">
             	<th:block th:if="${session.member == null}">
 	                <button type="button" class="header-login-btn" id="headerLoginBtn">로그인</button>
