@@ -275,15 +275,19 @@ public class QnaService {
 		System.out.println(q);
 		return result;
 	}
-
+	
+	/*
 	public QnaListData selectSearchQnaList(int reqPage, String menu, String searchContent) {
 		HashMap<String, Object> selectSearchQnaListSet = new HashMap<>();
 		selectSearchQnaListSet.put("reqPage", reqPage);
 		selectSearchQnaListSet.put("menu", menu);
 		selectSearchQnaListSet.put("searchContent", searchContent);
-		QnaListData qld = qnaDao.selectSearchQnaList(selectSearchQnaListSet);
+		List list = qnaDao.selectSearchQnaList(selectSearchQnaListSet);
+		QnaListData qld = new QnaListData(list);
+		System.out.println("서비스 : "+qld);
 		return qld;
 	}
+	*/
 }
 
 
