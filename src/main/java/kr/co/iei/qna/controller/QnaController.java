@@ -30,8 +30,7 @@ public class QnaController {
 		System.out.println(reqPage);
 		System.out.println(menu);
 		System.out.println(searchContent);
-		HashMap<Object, String> qList = qnaService.selectSearchQnaList(reqPage, menu, searchContent);
-		QnaListData qld = qnaService.selectAllQnaList(reqPage);
+		QnaListData qld = qnaService.selectSearchQnaList(reqPage, menu, searchContent);
 		model.addAttribute("list", qld.getList());
 		model.addAttribute("pageNavi", qld.getPageNavi());
 		return "qna/searchList";
