@@ -38,7 +38,7 @@
 }
 .header{
     background-color: #fff;
-    width: 100%;
+    min-width: 1200px;
     position: fixed;
     display: block;
     overflow: hidden;
@@ -50,6 +50,7 @@
     display: flex;
     margin: 0 auto;
     overflow: hidden;
+    
 }
 .header-logo{
     float: left;
@@ -92,7 +93,7 @@
     margin-top: 10px;
     margin-left: 80px;
     height: 40px;
-    
+    display: inline-flex;
 }
 .header-search{
     font-size: 16px;
