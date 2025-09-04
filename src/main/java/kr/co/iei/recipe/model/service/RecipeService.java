@@ -189,7 +189,7 @@ public class RecipeService {
 		HashMap<String, Object> recipeReportedListSet = new HashMap<>();
 		recipeReportedListSet.put("start", start);
 		recipeReportedListSet.put("end", end);
-		List<Member> list = recipeDao.recipeReportedList(start, end);
+		List<Member> list = recipeDao.recipeReportedList(recipeReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
