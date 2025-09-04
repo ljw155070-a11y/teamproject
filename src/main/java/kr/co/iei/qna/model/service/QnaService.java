@@ -94,9 +94,12 @@ public class QnaService {
 
 	@Transactional
 	public int qnaReport(int qnaNo, int memberNo) {
-		int count = qnaDao.selectAllQnaReport(qnaNo, memberNo);
+		HashMap<String, Object> qnaReportSet = new HashMap<>();
+		qnaReportSet.put("qnaNo", qnaNo);
+		qnaReportSet.put("memberNo", memberNo);
+		int count = qnaDao.selectAllQnaReport(qnaReportSet);
 		if(count == 0) {
-			int result = qnaDao.insertQnaReport(qnaNo, memberNo);			
+			int result = qnaDao.insertQnaReport(qnaReportSet);			
 			return result;
 		}else {
 			return 0;
@@ -133,7 +136,10 @@ public class QnaService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = qnaDao.qnaReportedList(start, end);
+		HashMap<String, Object> qnaReportedListSet = new HashMap<>();
+		qnaReportedListSet.put("start", start);
+		qnaReportedListSet.put("end", end);
+		List<Qna> list = qnaDao.qnaReportedList(qnaReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
@@ -188,8 +194,14 @@ public class QnaService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = qnaDao.qnaCommentReportedList(start, end);
+
+
+		HashMap<String, Object> qnaCommentReportedListSet = new HashMap<>();
+		qnaCommentReportedListSet.put("start", start);
+		qnaCommentReportedListSet.put("end", end);
+		List<Qna> list = qnaDao.qnaCommentReportedList(qnaCommentReportedListSet);
 		
+
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
 		
@@ -237,11 +249,15 @@ public class QnaService {
 	
 	@Transactional
 	public int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo) {
-		int count = qnaDao.selectAllQnaCommentReport(qnaNo, qnaCommentNo, memberNo);
+		HashMap<String, Object> reportQnaCommentSet = new HashMap<>();
+		reportQnaCommentSet.put("qnaNo", qnaNo);
+		reportQnaCommentSet.put("qnaCommentNo", qnaCommentNo);
+		reportQnaCommentSet.put("memberNo", memberNo);
+		int count = qnaDao.selectAllQnaCommentReport(reportQnaCommentSet);
 		if(count == 1) {
 			return 0;
 		}else {			
-			int result = qnaDao.reportQnaComment(qnaNo, qnaCommentNo, memberNo);
+			int result = qnaDao.reportQnaComment(reportQnaCommentSet);
 			return result;
 		}
 	}//댓글 신고
@@ -258,6 +274,15 @@ public class QnaService {
 		int result = qnaDao.updateQna(q);
 		System.out.println(q);
 		return result;
+	}
+
+	public QnaListData selectSearchQnaList(int reqPage, String menu, String searchContent) {
+		HashMap<String, Object> selectSearchQnaListSet = new HashMap<>();
+		selectSearchQnaListSet.put("reqPage", reqPage);
+		selectSearchQnaListSet.put("menu", menu);
+		selectSearchQnaListSet.put("searchContent", searchContent);
+		QnaListData qld = qnaDao.selectSearchQnaList(selectSearchQnaListSet);
+		return qld;
 	}
 }
 

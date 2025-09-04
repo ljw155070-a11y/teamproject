@@ -34,6 +34,8 @@ public class RecipeController {
 	public String recipeSearch(Model model,int reqPage,String field,String searchInput){
 		HashMap<String,Object> searchReqpageSet = recipeService.recipeSearchList(reqPage,field,searchInput);
 		model.addAttribute("reqPageSet",searchReqpageSet);
+		searchReqpageSet.put("field", field);
+		searchReqpageSet.put("searchInput", searchInput);
 		System.out.println(field);
 		System.out.println(searchInput);
 		return "recipe/list";
@@ -44,6 +46,10 @@ public class RecipeController {
 	public String recipeList(Model model,int reqPage, @SessionAttribute(required = false) Member member) {
 		//reqPage 의 값에 해당하는 페이지에 리스트를 전달
 		HashMap<String,Object> reqPageSet = recipeService.recipeList(reqPage);
+		String field=null;
+		String searchInput = null;
+		reqPageSet.put("field", field);
+		reqPageSet.put("searchInput", searchInput);
 		model.addAttribute("reqPageSet",reqPageSet);
 		return "recipe/list";
 	}

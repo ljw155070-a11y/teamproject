@@ -29,7 +29,10 @@ public class MemberService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = memberDao.selectMemberList(start, end);
+		HashMap<String, Object> selectMemberListSet = new HashMap<>();
+		selectMemberListSet.put("start", start);
+		selectMemberListSet.put("end", end);
+		List<Member> list = memberDao.selectMemberList(selectMemberListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
@@ -128,7 +131,11 @@ public class MemberService {
 
 	@Transactional
 	public int suspendMember(int memberNo, int suspendDays, String suspendReason) {
-		int result = memberDao.suspendMember(memberNo, suspendDays, suspendReason);
+		HashMap<String, Object> suspendMemberSet = new HashMap<>();
+		suspendMemberSet.put("memberNo", memberNo);
+		suspendMemberSet.put("suspendDays", suspendDays);
+		suspendMemberSet.put("suspendReason", suspendReason);
+		int result = memberDao.suspendMember(suspendMemberSet);
 		return result;
 	}
 
@@ -141,7 +148,11 @@ public class MemberService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = memberDao.searchMemberList(start, end, memberNickname);
+		HashMap<String, Object> searchMemberListSet = new HashMap<>();
+		searchMemberListSet.put("start", start);
+		searchMemberListSet.put("end", end);
+		searchMemberListSet.put("memberNickname", memberNickname);
+		List<Member> list = memberDao.searchMemberList(searchMemberListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		

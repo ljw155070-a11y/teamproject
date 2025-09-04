@@ -238,44 +238,80 @@
 			</div>
 		</section>
 		<section class="recipe content-footer">
-			<div class="recipe pageBtn">
-				<!-- 맨처음 버튼 -->
-				<a href="/recipe/list?reqPage=1"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
-				<!-- 이전 버튼 -->
-				<th:block th:if="${(reqPageSet.pageInfo.reqPage)-5 <= 1}">
-					<a href="/recipe/list?reqPage=1"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
-				</th:block>
-				
-				<th:block th:if="${(reqPageSet.pageInfo.reqPage)-5 > 1}">
-					<a th:href="@{/recipe/list(reqPage=${(reqPageSet.pageInfo.reqPage)-5})}"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
-				</th:block>
-				
-				
-				<!-- 일단 띄워야할 시작 페이지 번호 -->
-				<!-- th:each="num : ${#numbers.sequence(시작값, 끝값)}" -->
-				<a th:each="i:${#numbers.sequence(reqPageSet.pageInfo.startPageNo,reqPageSet.pageInfo.endPageNo)}" 
-				 th:href="@{/recipe/list(reqPage=${i})}"
-				th:classappend="${i==reqPageSet.pageInfo.reqPage}?'recipe currPage'"><span th:text="${i}"></span></a>
+		
+			<div th:if="${reqPageSet.field==null}">
+				<div class="recipe pageBtn" th:if="${reqPageSet.pageInfo.endPageNo != 0}">
+					<!-- 맨처음 버튼 -->
+					<a href="/recipe/list?reqPage=1"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
+					<!-- 이전 버튼 -->
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)-5 <= 1}">
+						<a href="/recipe/list?reqPage=1"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+					</th:block>
 					
-				<!-- 다음 버튼 -->
-				<th:block th:if="${(reqPageSet.pageInfo.reqPage)+5 >= (reqPageSet.pageInfo.totalPageNo)}">
-					<a th:href="@{/recipe/list(reqPage=${(reqPageSet.pageInfo.totalPageNo)})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
-				</th:block>
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)-5 > 1}">
+						<a th:href="@{/recipe/list(reqPage=${(reqPageSet.pageInfo.reqPage)-5})}"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+					</th:block>
+					
+					
+					<!-- 일단 띄워야할 시작 페이지 번호 -->
+					<!-- th:each="num : ${#numbers.sequence(시작값, 끝값)}" -->
+					<a th:each="i:${#numbers.sequence(reqPageSet.pageInfo.startPageNo,reqPageSet.pageInfo.endPageNo)}" 
+					 th:href="@{/recipe/list(reqPage=${i})}"
+					th:classappend="${i==reqPageSet.pageInfo.reqPage}?'recipe currPage'"><span th:text="${i}"></span></a>
+						
+					<!-- 다음 버튼 -->
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)+5 >= (reqPageSet.pageInfo.totalPageNo)}">
+						<a th:href="@{/recipe/list(reqPage=${(reqPageSet.pageInfo.totalPageNo)})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
+					</th:block>
+					
+					<!-- 맨뒤로 버튼 -->
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)+5 < (reqPageSet.pageInfo.totalPageNo)}">
+						<a th:href="@{/recipe/list(reqPage=${(reqPageSet.pageInfo.reqPage)+5})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
+					</th:block>
+					
+					<a th:href="@{/recipe/list(reqPage=${reqPageSet.pageInfo.totalPageNo})}"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a>
+				</div>
+				<!-- 이전/다음 버튼 생성 --> 
 				
-				<!-- 맨뒤로 버튼 -->
-				<th:block th:if="${(reqPageSet.pageInfo.reqPage)+5 < (reqPageSet.pageInfo.totalPageNo)}">
-					<a th:href="@{/recipe/list(reqPage=${(reqPageSet.pageInfo.reqPage)+5})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
-				</th:block>
+				<!-- 이전 버튼 규칙 : reqPage -5했을 때 1보다 작으면 1으로 작동--> 
+				<!-- reqPage 가 3보다 작으면 이전 버튼 제거 --> 
 				
-				<a th:href="@{/recipe/list(reqPage=${reqPageSet.pageInfo.totalPageNo})}"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a>
+				<!-- 이후 버튼 규칙 : reqPage +5했을 때 totalPageNo 보다 크면 totalPageNo 로 작동 --> 
+				<!-- reqPage가 totalPageNo -3 보다 크면 이후 버튼 제거 -->
 			</div>
-			<!-- 이전/다음 버튼 생성 --> 
-			
-			<!-- 이전 버튼 규칙 : reqPage -5했을 때 1보다 작으면 1으로 작동--> 
-			<!-- reqPage 가 3보다 작으면 이전 버튼 제거 --> 
-			
-			<!-- 이후 버튼 규칙 : reqPage +5했을 때 totalPageNo 보다 크면 totalPageNo 로 작동 --> 
-			<!-- reqPage가 totalPageNo -3 보다 크면 이후 버튼 제거 -->
+			<div th:if="${reqPageSet.field!=null}">
+				<div class="recipe pageBtn" th:if="${reqPageSet.pageInfo.endPageNo!=0}">
+					<!-- 맨처음 버튼 -->
+					<a th:href="@{/recipe/search(reqPage=1,field=${reqPageSet.field},searchInput=${reqPageSet.searchInput})}"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a>
+					<!-- 이전 버튼 -->
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)-5 <= 1}">
+						<a th:href="@{/recipe/search(reqPage=1,field=${reqPageSet.field},searchInput=${reqPageSet.searchInput})}"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+					</th:block>
+					
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)-5 > 1}">
+						<a th:href="@{/recipe/search(reqPage=${(reqPageSet.pageInfo.reqPage)-5},field=${reqPageSet.field},searchInput=${reqPageSet.searchInput})}"><span class="material-symbols-outlined">keyboard_arrow_left</span></a>
+					</th:block>
+					
+					
+					<!-- 일단 띄워야할 시작 페이지 번호 -->
+					<!-- th:each="num : ${#numbers.sequence(시작값, 끝값)}" -->
+					<a th:each="i:${#numbers.sequence(reqPageSet.pageInfo.startPageNo,reqPageSet.pageInfo.endPageNo)}" 
+					 th:href="@{/recipe/search(reqPage=${i},field=${reqPageSet.field},searchInput=${reqPageSet.searchInput})}"
+					th:classappend="${i==reqPageSet.pageInfo.reqPage}?'recipe currPage'"><span th:text="${i}"></span></a>
+						
+					<!-- 다음 버튼 -->
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)+5 >= (reqPageSet.pageInfo.totalPageNo)}">
+						<a th:href="@{/recipe/search(reqPage=${(reqPageSet.pageInfo.totalPageNo)},field=${reqPageSet.field},searchInput=${reqPageSet.searchInput})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
+					</th:block>
+					
+					<!-- 맨뒤로 버튼 -->
+					<th:block th:if="${(reqPageSet.pageInfo.reqPage)+5 < (reqPageSet.pageInfo.totalPageNo)}">
+						<a th:href="@{/recipe/search(reqPage=${(reqPageSet.pageInfo.reqPage)+5},field=${reqPageSet.field},searchInput=${reqPageSet.searchInput})}"><span class="material-symbols-outlined">keyboard_arrow_right</span></a>
+					</th:block>
+					
+					<a th:href="@{/recipe/search(reqPage=${reqPageSet.pageInfo.totalPageNo},field=${reqPageSet.field},searchInput=${reqPageSet.searchInput})}"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a>
+				</div>
+			</div>
 		</section>
 	</main>
 	

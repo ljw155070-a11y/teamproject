@@ -377,7 +377,8 @@ public class RecipeService {
 		recipeSearchListSet.put("endNum", endNum);
 		recipeSearchListSet.put("searchInput", searchInput);
 		
-		List<Recipe> list = new ArrayList<>();
+		List<Recipe> list = new ArrayList<>();
+
 		switch (field) {
 		case "title" : 
 		    list = recipeDao.titleSearchList(recipeSearchListSet);
