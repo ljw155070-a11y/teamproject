@@ -48,6 +48,8 @@ public interface MemberDao {
 
 	List selectAllRecipe();
 
+	List headerSearch();
+
 	
 
 	
