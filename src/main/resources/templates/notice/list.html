@@ -157,6 +157,15 @@ body {
     overflow: hidden;         /* 넘치면 숨김 */
     text-overflow: ellipsis;  /* ... 표시 */
 }
+
+.to2 {
+    width: 150px;     
+    margin: 0 auto;    
+    white-space: nowrap;      /* 줄바꿈 금지 */
+    overflow: hidden;         /* 넘치면 숨김 */
+    text-overflow: ellipsis;  /* ... 표시 */
+}
+
 #list-text td {
     width: 150px;     
     margin: 0 auto;    
@@ -237,7 +246,7 @@ body {
             	 	<th:block th:if="${list != '작성된 게시글이 존재하지 않습니다.'}">
             	 	<td style="text-align:center;" th:text="${notice.noticeNo}"></td>
             	 	<td>
-            	 		<a style="text-align:center;" th:href="@{/notice/detail(noticeNo=${notice.noticeNo})}"><div class="to" th:text="${notice.noticeTitle}"></div></a> 
+            	 		<a style="text-align:center;" th:href="@{/notice/detail(noticeNo=${notice.noticeNo})}"><div class="to2" th:text="${notice.noticeTitle}"></div></a> 
             	 	</td>  
             	 	<td style="text-align:center;"><div class="to" th:utext="${notice.noticeContent}"></div></td>
             	 	<td style="text-align:center;" th:text="${notice.noticeWriteDate}"></td>
