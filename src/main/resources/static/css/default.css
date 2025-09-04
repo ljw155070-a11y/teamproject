@@ -38,7 +38,8 @@
 }
 .header{
     background-color: #fff;
-    min-width: 1200px;
+    width: 100%;
+    /*min-width: 1200px;*/
     position: fixed;
     display: block;
     overflow: hidden;

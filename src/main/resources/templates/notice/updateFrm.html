@@ -145,6 +145,9 @@ body {
 .reportTitle {
 	padding: 20px;
 }
+.fileAdd{
+	display: none;
+}
 
 </style>
 </head>
@@ -165,7 +168,7 @@ body {
 	                        <option value="yes">예</option>
 	                        <option value="no">아니오</option>
 	                    </select>
-	                    <span class="file">첨부파일 : 
+	                    <span class="fileAdd">첨부파일 : 
 	                    	<th:block th:each="file : ${notice.fileList}">
                             	<a th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
                         	</th:block>

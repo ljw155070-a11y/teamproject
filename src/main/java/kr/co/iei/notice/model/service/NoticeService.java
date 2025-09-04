@@ -166,35 +166,23 @@ public class NoticeService {
 		}
 	}
 	
-	public List<NoticeFile> updateNotice(Notice notice, List<NoticeFile> fileList, int[] delFileNo) {
+	@Transactional
+	public int updateNotice(Notice notice) {
 		int result = noticeDao.updateNotice(notice);
-		for (NoticeFile noticeFile : fileList) {
-			noticeFile.setNoticeNo(notice.getNoticeNo());
-			result += noticeDao.insertNoticeFile(noticeFile);
-		}
-		List<NoticeFile> delFileList = new ArrayList<NoticeFile>();
-		if (delFileNo != null) {
-			List list = noticeDao.selectNoticeFileList(delFileNo);
-
-			for (int noticeFileNo : delFileNo) {
-				result += noticeDao.deleteNoticeFile(noticeFileNo);
-
-			}
-		}
-		return delFileList;
+		return result;
 	}
 
-	public int insertNotice(Notice notice, List<NoticeFile> fileList) {
+	public int insertNotice(Notice notice) {
 		System.out.println("공지사항 : "+notice);
 		int newNoticeNo = noticeDao.getNoticeNo();
 		notice.setNoticeNo(newNoticeNo);
 		notice.setMemberNo(notice.getNoticeWriter());
 		int result = noticeDao.insertNotice(notice);
-		for (NoticeFile noticeFile : fileList) {
-			noticeFile.setNoticeNo(newNoticeNo);
-			System.out.println("최종 파일 : "+noticeFile);
-			result += noticeDao.insertNoticeFile(noticeFile);
-		}
+//		for (NoticeFile noticeFile : fileList) {
+//			noticeFile.setNoticeNo(newNoticeNo);
+//			System.out.println("최종 파일 : "+noticeFile);
+//			result += noticeDao.insertNoticeFile(noticeFile);
+//		}
 		return result;
 	}
 }

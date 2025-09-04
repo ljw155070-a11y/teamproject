@@ -97,10 +97,10 @@ public class NoticeController {
 		return filepath;
 	}
 	@PostMapping(value = "/write")
-	public String write(Notice notice, Model model, MultipartFile[] upfile) {
+	public String write(Notice notice, Model model) {
 		System.out.println(11);
+		/*
 		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-	
 		if (!upfile[0].isEmpty()) {
 			
 			String savepath = root + "/notice/";
@@ -117,7 +117,8 @@ public class NoticeController {
 				fileList.add(noticeFile);
 			}
 		}
-		int result = noticeService.insertNotice(notice, fileList);
+		*/
+		int result = noticeService.insertNotice(notice);
 		model.addAttribute("title", "공지사항 작성 완료!");
 		model.addAttribute("text", "공지사항이 등록되었습니다.");
 		model.addAttribute("icon", "success");
@@ -132,28 +133,21 @@ public class NoticeController {
 		return "notice/updateFrm";
 	}
 	@PostMapping(value="/update")
-	public String update(Notice notice, MultipartFile[] upfile, int[] delFileNo) {
-		// 새로 추가한 파일 업로드
-		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
-		String savepath = root + "/notice/";
-		if (!upfile[0].isEmpty()) {
-			for (MultipartFile file : upfile) {
-				String filename = file.getOriginalFilename();
-				String filepath = fileUtil.upload(savepath, file);
-				NoticeFile nf = new NoticeFile();
-				nf.setFilename(filename);
-				nf.setFilepath(filepath);
-				fileList.add(nf);
-			}
+	public String update(Notice notice, Model model) {
+		int result = noticeService.updateNotice(notice);
+		if(result >0) {
+			model.addAttribute("title", "수정 성공");
+			model.addAttribute("text", "게시글이 수정되었습니다.");
+			model.addAttribute("icon", "success");
+			model.addAttribute("loc", "/notice/detail?noticeNo="+notice.getNoticeNo());
+			return "common/msg";
+		}else {
+			model.addAttribute("title", "수정 실패");
+			model.addAttribute("text", "잠시후 다시 시도해 주세요.");
+			model.addAttribute("icon", "warning");
+			model.addAttribute("loc", "/notice/detail?noticeNo="+notice.getNoticeNo());
+			return "common/msg";
 		}
-		List<NoticeFile> delFileList = noticeService.updateNotice(notice, fileList, delFileNo);
-
-		for (NoticeFile noticeFile : delFileList) {
-			File delFile = new File(savepath + noticeFile.getFilepath());
-			delFile.delete();
-		}
-
-		return "redirect:/notice/detail?noticeNo=" + notice.getNoticeNo();
 	}
 	
 	@GetMapping(value="/fileDown")
