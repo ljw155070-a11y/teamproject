@@ -167,7 +167,7 @@ body {
 	                    </select>
 	                    <span class="file">첨부파일 : 
 	                    	<th:block th:each="file : ${notice.fileList}">
-                            		<a th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
+                            	<a th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
                         	</th:block>
 	                    </span>
 	                    <div class="noticeType">
