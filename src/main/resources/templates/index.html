@@ -263,14 +263,12 @@ border-radius: 14px;
 	<div class="space"></div>
 	<main class="content">
 		<div class="main-content">
-	<img src="/img/bg2.jpg">
+			<a href="/recipe/list?reqPage=1" style="display:inline-block; width:100%;"><img src="/img/bg2.jpg" style="width:100%;"></a>
 
 			<div id="main-content-title">
 				<div style="margin-bottom: 50px; font-size: 30px;">오늘의 인기 레시피</div>
-				<div
-					style="background-color: var(--main1); border-radius: 25px; display: inline-block; min-width: 100px;">
-					<p th:text="${topRecipeInfo.r.recipeType}"
-						style="font-size: 0.8em; font-weight: 400; color: white;"></p>
+				<div style="background-color: var(--main1); border-radius: 25px; display: inline-block; min-width: 100px;">
+					<p th:text="${topRecipeInfo.r.recipeType}" style="font-size: 0.8em; font-weight: 400; color: white;"></p>
 				</div>
 				<div class="image-wrap">
 					<a
