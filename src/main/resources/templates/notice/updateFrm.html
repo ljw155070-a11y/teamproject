@@ -228,8 +228,10 @@ body {
 	const contentValue = $('.hidden').text();
 	$('[name=noticeContent]').summernote('code',contentValue);
 	
+	<!--
 	const reportValue = $('.noticeReport').text();
 	$('[name=noticeReportContent]').summernote('code',reportValue);
+	-->
 	
 		function deleteFile(noticeFileNo, obj){
 			const input = $("<input>");
@@ -264,7 +266,7 @@ body {
 	            $(".form").submit();
 	        }
 		})
-		
+
 		$("#submit").on('click',function(e){
 			const content = $("[name=noticeReportContent]").summernote('isEmpty');
 			if(content){
@@ -287,6 +289,7 @@ body {
 	            $(".form").submit();
 	        }
 		})
+
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
