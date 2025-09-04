@@ -27,6 +27,7 @@ public interface RecipeDao {
 
 	List<RecipeComment> recipeCommentList(int reqRecipeNo);
 
+	List<Recipe> recipeReportedList(HashMap<String, Object> recipeReportedListSet);
 
 	List<Member> recipeReportedList(HashMap<String, Object> recipeReportedListSet);
 
@@ -66,7 +67,6 @@ public interface RecipeDao {
 
 	int writerSearchCount(String searchInput);
 
-
 	List<Recipe> ingredientSearchList(HashMap<String, Object> recipeSearchListSet);
 
 	List<Recipe> writerSearchList(HashMap<String, Object> recipeSearchListSet);
@@ -76,19 +76,20 @@ public interface RecipeDao {
 	ArrayList<RecipeIngredient> editRecipeIngredientInfo(int recipeNo);
 
 	ArrayList<RecipeCookingOrder> editRecipeCookingOrderInfo(int recipeNo);
+
 	int recipeCommentReportedTotalCount();
+
+	List<Recipe> recipeCommentReportedList(HashMap<String, Object> recipeCommentReportedListSet);
 
 	List<Member> recipeCommentReportedList(HashMap<String, Object> recipeCommentReportedListSet);
 
 	int deleteIngredient(int recipeNo);
-
 
 	Recipe recipeGradeRankingr();
 
 	Member recipeGradeRankingm();
 
 	double recipeGradeRankingDouble();
-
 
 	List<Recipe> dailyRecipe(String recipeType);
 
@@ -121,7 +122,6 @@ public interface RecipeDao {
 	int recipeUpdate(HashMap<String, Object> editRecipeSet);
 
 	List<Recipe> titleSearchList(HashMap<String, Object> recipeSearchListSet);
-	
 
 	
 }
