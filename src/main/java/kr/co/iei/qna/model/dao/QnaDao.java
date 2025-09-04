@@ -53,7 +53,7 @@ public interface QnaDao {
 
 	int updateQna(Qna q);
 
-	QnaListData selectSearchQnaList(int reqPage, String menu, String searchContent);
+	HashMap<Object, String> selectSearchQnaList(int reqPage, String menu, String searchContent);
 
 
 }

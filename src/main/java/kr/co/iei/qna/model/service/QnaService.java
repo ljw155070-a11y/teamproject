@@ -260,9 +260,9 @@ public class QnaService {
 		return result;
 	}
 
-	public QnaListData selectSearchQnaList(int reqPage, String menu, String searchContent) {
-		QnaListData qld = qnaDao.selectSearchQnaList(reqPage, menu, searchContent);
-		return qld;
+	public HashMap<Object, String> selectSearchQnaList(int reqPage, String menu, String searchContent) {
+		HashMap<Object, String> qList = qnaDao.selectSearchQnaList(reqPage, menu, searchContent);
+		return qList;
 	}
 }
 
