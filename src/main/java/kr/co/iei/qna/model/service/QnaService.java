@@ -276,9 +276,13 @@ public class QnaService {
 		return result;
 	}
 
-	public HashMap<Object, String> selectSearchQnaList(int reqPage, String menu, String searchContent) {
-		HashMap<Object, String> qList = qnaDao.selectSearchQnaList(reqPage, menu, searchContent);
-		return qList;
+	public QnaListData selectSearchQnaList(int reqPage, String menu, String searchContent) {
+		HashMap<String, Object> selectSearchQnaListSet = new HashMap<>();
+		selectSearchQnaListSet.put("reqPage", reqPage);
+		selectSearchQnaListSet.put("menu", menu);
+		selectSearchQnaListSet.put("searchContent", searchContent);
+		QnaListData qld = qnaDao.selectSearchQnaList(selectSearchQnaListSet);
+		return qld;
 	}
 }
 
