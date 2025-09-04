@@ -186,10 +186,15 @@ public class RecipeController {
 		
 		//재료랑 조리 순서 준비해야함
 		ArrayList<RecipeIngredient> ingredientList = new ArrayList<>();
-		if(recipeIngredientName[0] != null) {
+		System.out.println("1길이"+recipeIngredientName.length);
+		System.out.println("2길이"+recipeIngredientVolume.length);
+		
 			for(int i=0; i<recipeIngredientName.length; i++) {
 				String name = recipeIngredientName[i];
-				String vol  = recipeIngredientVolume[i];
+				String vol=null;
+				if(recipeIngredientVolume.length!=0) {
+					vol  = recipeIngredientVolume[i];
+				}
 				RecipeIngredient ri = new RecipeIngredient();
 				/*
 				 * 재료
@@ -204,7 +209,7 @@ public class RecipeController {
 				ri.setRecipeIngredientVolume(vol);
 				ingredientList.add(ri);
 			}
-		}
+		
 		ArrayList<RecipeCookingOrder> cookingOrderList = new ArrayList<>(); 
 		String cookingOrderfileSavepath = root+"/recipe/";
 		if(recipeCookingContent != null) {

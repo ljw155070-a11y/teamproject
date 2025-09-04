@@ -7,7 +7,7 @@
 .mypage{
     background-color: #F4F4F4;
     width: 100%;
-    height: 1300px;
+    height: 850px;
     display: inline-block;
     padding-bottom: 30px;
 }
@@ -17,7 +17,7 @@
     color: #EBA854;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 .mypage-input-box{ 
     width: 900px;
@@ -25,8 +25,8 @@
     border-radius: 15px;
     background-color: white;
     margin: 0 auto;
-    padding: 20px;
-    padding-bottom: 50px;
+    padding: 50px;
+    padding-bottom: 80px;
 }
 .info-update{
     border: 1px solid #BFBFBF;
@@ -49,18 +49,29 @@
     color: #DEB17A;
     font-size: 18px;
     font-weight: bold;
+    height: 35px;
+    padding-top: 15px;
 }
 .info-content{
     text-align: center;
     background-color: #fff;
     border: 1px solid #bfbfbf;
     border-radius: 0 0 9px 9px;
-    padding: 10px 35px;
+    padding: 30px 35px;
     display: flex;
+    height: 230px;
 }
+/*
+form>div{
+	margin-top: 10px;
+	margin-bottom: 50px;
+	
+}*/
 .info-input>div{
     float: right;
     margin: 8px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 .info-input>div>label{
     color: #606060;
@@ -88,20 +99,22 @@
 }
 
 .my-info-btn{
-    overflow : hidden;
+	overflow: hidden;
+    display: inline;
     
 }
 .my-info-btn>button{
     padding: 6px;
     padding-left: 20px;
     padding-right: 20px;
-    margin-top: 8px;
+    margin-top: 30px;
     margin-bottom: 5px;
     border: none;
     border-radius: 9px;
-    margin-left : 5px;
+    margin-left: 8px;
     justify-content: center;
     float: right;
+    height: 40px;
 }
 #pw-check-msg{
 	padding-top: 130px;
@@ -317,10 +330,10 @@
     background-color: #F5EFD5;
 }
 */
-
+/*
 .tab-content>div{
     display: none;
-}
+}*/
 
 .tab-content>.active-content{
     display: block;
@@ -417,17 +430,17 @@
                         </form>
 					</div>
 		      </div>
-            </div>
+            </div><!-- 
             <div class="page-bottom-content">
                 <div class="tab-content-box">
                     <div class="my-tab">
-                        <div>내 레시피</div>
+                        <div id="my-recipe">내 레시피</div>
                         <div>내 Q&A</div>
                         <div>내가 쓴 댓글</div>
                         <div>평점 남긴 레시피</div>
                     </div>
                     <div class="tab-content">
-                        <!-- 레시피 -->
+                        <!-- 레시피 
                         <div class="my-recipe">
                             <div class="tbl-box">
                                 <table>
@@ -436,24 +449,20 @@
                                         <th class="to1" width="60%">레시피 제목</th>
                                         <th class="to1" width="20%">작성일</th>
                                     </tr>
-                                    <tr th:each="recipe : ${list}" class="td-css2" >
-                                        <td width="20%" >
-                                        	<div class="to1" th:text=${recipe.recipeNo}></div>
-                                        </td>
-                                        <td width="60%" >
-	                                        <div class="to1">
-	                                        	<a th:href="@{/recipe/detail(reqRecipeNo=${recipe.recipeNo})}" th:text=${recipe.recipeTitle}></a>
-	                                        </div>
-										</td>
-                                        <td width="20%">
-                                        	<div class="to1" th:text=${recipe.recipeWriteDate}></div>
-                                        </td>
+                                    <tr th:each="recipe:${list}">
+                                    	<th:block th:if="${list != '작성된 게시글이 존재하지 않습니다.'}"></th:block>
+                                    	<td th:text="${session.recipe.recipeNo}"></td>
+                                    	<td>
+                                    		<a th:text="${session.recipe.recipeNo}"></a>
+                                    	</td>
+                                    	<td th:text="${session.recipe.recipeWriteDate}"></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <!-- 레시피 -->
-                        <!-- Q&A -->
+                        <!-- 
+                        <!-- Q&A 
                         <div class="my-qna">
                             <div class="tbl-box">
                                 <table>
@@ -475,8 +484,8 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- Q&A -->
-                        <!-- 댓글 -->
+                        <!-- Q&A
+                        <!-- 댓글 
                         <div class="my-comment">
                             <div class="tbl-box">
                                 <table>
@@ -538,8 +547,8 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- 댓글 -->
-                        <!-- grade -->
+                        <!-- 댓글 
+                        <!-- grade
                         <div class="my-grade">
                             <div class="tbl-box">
                                 <table>
@@ -577,6 +586,7 @@
                                 </table>
                             </div>
                         </div>
+                         -->
                         <!-- grade -->
 						<!-- 네비 -->
 						<!--네비 -->
@@ -588,6 +598,16 @@
     <script src="/js/sweetalert.min.js"></script>
     <script>
     //탭 이동
+	$("#my-recipe").on("click",function(){
+		
+	});
+    
+    
+    
+    
+    
+    
+    /*탭이동
     $('.my-tab > div').each(function(i) {
         $(this).on('click', function() {
             $('.my-tab > div').removeClass('active-tab');
@@ -598,16 +618,13 @@
         });
         $('.tab-content > div').eq(0).addClass('active-content');
     });
-    
-    $('.tab-content > div').eq(0).on("click",function(){
-    	
-    });
+*/    
     
     
     
     
-    //tabs[0].classList.add('active-tab');
-	//content[0].classList.add('active-content');
+    
+
     
     //정보(닉네임수정)
     $("#info-update-btn").on("click",function(){
@@ -648,11 +665,11 @@
 	    	    		$("#nickname-check-msg").text("이미 사용중인 닉네임 입니다.")
 	    		    	$("#nickname-check-msg").addClass("invalid");
 	    	    	}	    
-	    	    	 /*
+	    	    	 
 	    	    	 if(result === $("#memberNickname")){
 		    	    		$("#nickname-check-msg").text("현재 닉네임 입니다.")
 		    	    		$("#nickname-check-msg").addClass("valid");
-		    	    }*/
+		    	    }
 	    		}
 	    	})
 	    });

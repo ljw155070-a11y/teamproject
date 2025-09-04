@@ -15,7 +15,7 @@ import kr.co.iei.recipe.model.vo.RecipeIngredient;
 @Mapper
 public interface RecipeDao {
 
-	List<Recipe> recipeList(int startNum, int endNum);
+	List<Recipe> recipeList(HashMap<String, Object> recipeListSet);
 
 	int allRecipeCount();
 
@@ -27,28 +27,29 @@ public interface RecipeDao {
 
 	List<RecipeComment> recipeCommentList(int reqRecipeNo);
 
-
 	List<Recipe> recipeReportedList(HashMap<String, Object> recipeReportedListSet);
+
+	List<Member> recipeReportedList(HashMap<String, Object> recipeReportedListSet);
 
 	int recipeReportedTotalCount();
 
 	int recipeCommentInsert(RecipeComment rc);
 
-	int recipeGradeInsert(int recipeNo, int memberNo, int recipeRate);
+	int recipeGradeInsert(HashMap<String, Object> recipeGradeInsertSet);
 
-	int recipeGradeSelect(int recipeNo, int memberNo);
+	int recipeGradeSelect(HashMap<String,Object> recipeGradeInsertSet2);
 
-	int recipeGradeUpdate(int recipeNo, int memberNo, int recipeRate);
+	int recipeGradeUpdate(HashMap<String, Object> recipeGradeInsertSet);
 
-	int recipeReportSelect(int recipeNo, int memberNo);
+	int recipeReportSelect(HashMap<String, Object> recipeReportSet);
 
-	int recipeReport(int recipeNo, int memberNo);
+	int recipeReport(HashMap<String, Object> recipeReportSet);
 
 	int recipeDelete(int recipeNo);
 
-	int recipeCommentReport(int recipeCommentNo, int memberNo);
+	int recipeCommentReport(HashMap<String, Object> recipeCommentReportSet);
 
-	int recipeCommentReportSelect(int recipeCommentNo, int memberNo);
+	int recipeCommentReportSelect(HashMap<String, Object> recipeCommentReportSet);
 
 	int recipeCommentDelete(int recipeCommentNo);
 
@@ -60,42 +61,35 @@ public interface RecipeDao {
 
 	int recipeRCOLInsert(RecipeCookingOrder rco);
 
-	HashMap<String, Object> recipeTitleSearchList(int reqPage, String searchInput);
-
 	int titleSearchCount(String searchInput);
 
 	int ingredientSearchCount(String searchInput);
 
 	int writerSearchCount(String searchInput);
 
-	List<Recipe> titleSearchList(int startNum, int endNum, String searchInput);
+	List<Recipe> ingredientSearchList(HashMap<String, Object> recipeSearchListSet);
 
-	List<Recipe> ingredientSearchList(int startNum, int endNum, String searchInput);
-
-	List<Recipe> writerSearchList(int startNum, int endNum, String searchInput);
+	List<Recipe> writerSearchList(HashMap<String, Object> recipeSearchListSet);
 
 	Recipe editRecipeInfo(int recipeNo);
 
 	ArrayList<RecipeIngredient> editRecipeIngredientInfo(int recipeNo);
 
 	ArrayList<RecipeCookingOrder> editRecipeCookingOrderInfo(int recipeNo);
+
 	int recipeCommentReportedTotalCount();
 
 	List<Recipe> recipeCommentReportedList(HashMap<String, Object> recipeCommentReportedListSet);
 
+	List<Member> recipeCommentReportedList(HashMap<String, Object> recipeCommentReportedListSet);
+
 	int deleteIngredient(int recipeNo);
-
-	int recipeUpdate(int recipeNo, String recipeTitle, String recipeCaution);
-
-	int editComment(int recipeCommentNo, int recipeNo, String editText);
-
 
 	Recipe recipeGradeRankingr();
 
 	Member recipeGradeRankingm();
 
 	double recipeGradeRankingDouble();
-
 
 	List<Recipe> dailyRecipe(String recipeType);
 
@@ -122,7 +116,12 @@ public interface RecipeDao {
 	Member enTypeOfTopInfoM();
 
 	double enTypeOfTopInfoAvgrate();
-	
+
+	int editComment(HashMap<String, Object> editCommentSet);
+
+	int recipeUpdate(HashMap<String, Object> editRecipeSet);
+
+	List<Recipe> titleSearchList(HashMap<String, Object> recipeSearchListSet);
 
 	
 }

@@ -137,7 +137,7 @@
 	text-align: center;
 	padding: 16px;
 	border-radius: 12px;
-	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 	transition-duration: 0.3s;
 	text-align: left;
 }
@@ -196,7 +196,7 @@ a {
 }
 
 .sub-image-wrap img {
-	border-radius: 12px;
+	border-radius: 15px;
 	width: 150px;
 	height: 150px;
 }
@@ -205,36 +205,57 @@ a {
 	margin: 0 auto;
 	text-align: center;
 	padding: 5px;
-	border-radius: 12px;
+	border-radius: 15px;
 	text-align: left;
 }
 
 .recommend-subtitle {
 	width: 200px;
 	box-sizing: border-box;
-	border-radius: 12px;
+	border-radius: 15px;
 	transition-duration: 0.3s;
 	padding: 20px;
 }
 
 .recommend-subtitle:hover {
-	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
-.sub-title {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
 
 .indexTag {
 	line-height: 25.5px;
 }
 tbody tr:hover{
-		background-color:#f9fafb;
+		background-color:#f9f9f9;
 		cursor:pointer;
 		
 	}
+.new-wrap .common.listbox > table {
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  width: 1024px; 
+  border-spacing: 0;
+  font-size: 15px;
+}
+
+.common.listbox>table th {
+  background-color: #eee;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.common.listbox>table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.common.listbox{
+border-radius: 14px;
+}
+
+
+	
 </style>
 </head>
 <body>
@@ -242,14 +263,12 @@ tbody tr:hover{
 	<div class="space"></div>
 	<main class="content">
 		<div class="main-content">
-	<img src="/img/bg2.jpg">
+			<a href="/recipe/list?reqPage=1" style="display:inline-block; width:100%;"><img src="/img/bg2.jpg" style="width:100%;"></a>
 
 			<div id="main-content-title">
 				<div style="margin-bottom: 50px; font-size: 30px;">오늘의 인기 레시피</div>
-				<div
-					style="background-color: var(--main1); border-radius: 10px; display: inline-block; min-width: 100px;">
-					<p th:text="${topRecipeInfo.r.recipeType}"
-						style="font-size: 0.8em; font-weight: 400; color: white;"></p>
+				<div style="background-color: var(--main1); border-radius: 25px; display: inline-block; min-width: 100px;">
+					<p th:text="${topRecipeInfo.r.recipeType}" style="font-size: 0.8em; font-weight: 400; color: white;"></p>
 				</div>
 				<div class="image-wrap">
 					<a
@@ -400,7 +419,7 @@ tbody tr:hover{
 				</div>
 				<section class="common content-body">
 					<div class="common listbox">
-						<table style="width: 100%; border-spacing: 0;">
+						<table>
 							<thead>
 								<tr>
 									<th style="width: 10%;">글 번호</th>
@@ -411,9 +430,6 @@ tbody tr:hover{
 							</thead>
 
 							<tbody>
-								<tr>
-									<td colspan="4"><hr style="display: none;"></td>
-								</tr>
 								<th:block th:each="common:${commonList}">
 									<tr th:onclick="connectDetail([[${common.no}]],[[${common.type}]])">
 										<td th:text="${common.no}" style="text-align: center;"></td>

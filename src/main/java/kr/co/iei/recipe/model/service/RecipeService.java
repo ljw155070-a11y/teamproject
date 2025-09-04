@@ -37,8 +37,10 @@ public class RecipeService {
 		
 		int endNum=reqPage*listSize;
 		int startNum=endNum-listSize+1;
-		
-		List<Recipe> list = recipeDao.recipeList(startNum,endNum);
+		HashMap<String, Object> recipeListSet = new HashMap<>();
+		recipeListSet.put("startNum", startNum);
+		recipeListSet.put("endNum", endNum);
+		List<Recipe> list = recipeDao.recipeList(recipeListSet);
 		
 		//띄워줘야 할 페이지 버튼들 계산
 		//전체 게시글 개수(allRecipeCount)/페이지당 띄울 게시글 개수(listSize)
@@ -187,7 +189,7 @@ public class RecipeService {
 		HashMap<String, Object> recipeReportedListSet = new HashMap<>();
 		recipeReportedListSet.put("start", start);
 		recipeReportedListSet.put("end", end);
-		List<Recipe> list = recipeDao.recipeReportedList(recipeReportedListSet);
+		List<Member> list = recipeDao.recipeReportedList(recipeReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
@@ -248,12 +250,20 @@ public class RecipeService {
 		System.out.println(recipeNo);
 		System.out.println(memberNo);
 		System.out.println(recipeRate);
-		int count = recipeDao.recipeGradeSelect(recipeNo,memberNo);
+		HashMap<String, Object> recipeGradeInsertSet = new HashMap<>();
+		recipeGradeInsertSet.put("recipeNo", recipeNo);
+		recipeGradeInsertSet.put("memberNo", memberNo);
+		recipeGradeInsertSet.put("recipeRate", recipeRate);
+		
+		HashMap<String,Object> recipeGradeInsertSet2 = new HashMap<>();
+		recipeGradeInsertSet2.put("recipeNo", recipeNo);
+		recipeGradeInsertSet2.put("memberNo", memberNo);
+		int count = recipeDao.recipeGradeSelect(recipeGradeInsertSet2);
 		int result=0;
 		if(count==0) {
-			result = recipeDao.recipeGradeInsert(recipeNo,memberNo,recipeRate);
+			result = recipeDao.recipeGradeInsert(recipeGradeInsertSet);
 		}else {
-			result = recipeDao.recipeGradeUpdate(recipeNo,memberNo,recipeRate);
+			result = recipeDao.recipeGradeUpdate(recipeGradeInsertSet);
 		}
 		System.out.println(count);
 		return result;
@@ -264,10 +274,13 @@ public class RecipeService {
 		System.out.println("★★★★★★★");
 		System.out.println(recipeNo);
 		System.out.println(memberNo);
-		int count = recipeDao.recipeReportSelect(recipeNo,memberNo);
+		HashMap<String, Object> recipeReportSet = new HashMap<>();
+		recipeReportSet.put("recipeNo", recipeNo);
+		recipeReportSet.put("memberNo", memberNo);
+		int count = recipeDao.recipeReportSelect(recipeReportSet);
 		int result = 0;
 		if(count==0) {
-			result = recipeDao.recipeReport(recipeNo, memberNo);
+			result = recipeDao.recipeReport(recipeReportSet);
 			return result;
 		}else {
 			return 0;
@@ -288,10 +301,13 @@ public class RecipeService {
 		System.out.println("★★★★★★★");
 		System.out.println(recipeCommentNo);
 		System.out.println(memberNo);
-		int count = recipeDao.recipeCommentReportSelect(recipeCommentNo,memberNo);
+		HashMap<String, Object> recipeCommentReportSet = new HashMap<>();
+		recipeCommentReportSet.put("recipeCommentNo", recipeCommentNo);
+		recipeCommentReportSet.put("memberNo",memberNo);
+		int count = recipeDao.recipeCommentReportSelect(recipeCommentReportSet);
 		int result = 0;
 		if(count==0) {
-			result = recipeDao.recipeCommentReport(recipeCommentNo, memberNo);
+			result = recipeDao.recipeCommentReport(recipeCommentReportSet);
 			return result;
 		}else {
 			return 0;
@@ -356,16 +372,22 @@ public class RecipeService {
 		int endNum=reqPage*listSize;
 		int startNum=endNum-listSize+1;
 		
+		HashMap<String, Object> recipeSearchListSet = new HashMap<>();
+		recipeSearchListSet.put("startNum", startNum);
+		recipeSearchListSet.put("endNum", endNum);
+		recipeSearchListSet.put("searchInput", searchInput);
+		
 		List<Recipe> list = new ArrayList<>();
+
 		switch (field) {
-		case "title":
-		    list = recipeDao.titleSearchList(startNum, endNum, searchInput);
+		case "title" : 
+		    list = recipeDao.titleSearchList(recipeSearchListSet);
 		    break;
 		case "ingredient":
-		    list = recipeDao.ingredientSearchList(startNum, endNum, searchInput);
+		    list = recipeDao.ingredientSearchList(recipeSearchListSet);
 		    break;
 		case "writer":
-		    list = recipeDao.writerSearchList(startNum, endNum, searchInput);
+		    list = recipeDao.writerSearchList(recipeSearchListSet);
 		    break;
 		default:
 		    list = null;
@@ -447,7 +469,8 @@ public class RecipeService {
 		HashMap<String, Object> recipeCommentReportedListSet = new HashMap<>();
 		recipeCommentReportedListSet.put("start", start);
 		recipeCommentReportedListSet.put("end", end);
-		List<Recipe> list = recipeDao.recipeCommentReportedList(recipeCommentReportedListSet);
+		
+		List<Member> list = recipeDao.recipeCommentReportedList(recipeCommentReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
@@ -520,13 +543,21 @@ public class RecipeService {
 			result+=recipeDao.recipeRIInsert(ri); //재료 넣기
 		}
 		//제목, 주의사항 수정 (업데이트)
-		result+= recipeDao.recipeUpdate(recipeNo, recipeTitle,recipeCaution);
+		HashMap<String, Object> editRecipeSet = new HashMap<>();
+		editRecipeSet.put("recipeNo", recipeNo);
+		editRecipeSet.put("recipeTitle", recipeTitle);
+		editRecipeSet.put("recipeCaution", recipeCaution);
+		result+= recipeDao.recipeUpdate(editRecipeSet);
 		return result;
 	}
 	
 	@Transactional
 	public int editComment(int recipeCommentNo, int recipeNo, String editText) {
-		int result = recipeDao.editComment(recipeCommentNo,recipeNo,editText);
+		HashMap<String, Object> editCommentSet = new HashMap<>();
+		editCommentSet.put("recipeCommentNo", recipeCommentNo);
+		editCommentSet.put("recipeNo", recipeNo);
+		editCommentSet.put("editText", editText);
+		int result = recipeDao.editComment(editCommentSet);
 		return result;
 	}
 
@@ -613,7 +644,6 @@ public class RecipeService {
 		double avgrate = recipeDao.enTypeOfTopInfoAvgrate(); 
 		return avgrate;
 	}
-
 
 
 	

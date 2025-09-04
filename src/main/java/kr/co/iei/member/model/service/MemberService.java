@@ -250,6 +250,13 @@ public class MemberService {
 
 
 
+	public List selectAllRecipe() {
+		List list = memberDao.selectAllRecipe();
+		return list;
+	}
+
+
+
 
 
 
