@@ -259,6 +259,11 @@ public class QnaService {
 		System.out.println(q);
 		return result;
 	}
+
+	public QnaListData selectSearchQnaList(int reqPage, String menu, String searchContent) {
+		QnaListData qld = qnaDao.selectSearchQnaList(reqPage, menu, searchContent);
+		return qld;
+	}
 }
 
 

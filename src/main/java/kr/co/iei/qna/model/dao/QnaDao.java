@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.vo.Qna;
 import kr.co.iei.qna.model.vo.QnaComment;
+import kr.co.iei.qna.model.vo.QnaListData;
 
 @Mapper
 public interface QnaDao {
@@ -51,6 +52,8 @@ public interface QnaDao {
 	int updateQnaComment(QnaComment qc);
 
 	int updateQna(Qna q);
+
+	QnaListData selectSearchQnaList(int reqPage, String menu, String searchContent);
 
 
 }
