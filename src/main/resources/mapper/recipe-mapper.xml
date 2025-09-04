@@ -100,7 +100,7 @@ ORDER BY RECIPE_NO DESC
   	</select>
   	<select id="recipeDetail" resultType="recipe">
   		SELECT * 
-FROM RECIPE_TBL
+FROM RECIPE_TBL JOIN MEMBER_TBL USING(MEMBER_NO)
 WHERE RECIPE_NO=#{reqRecipeNo}
   	</select>
   	
