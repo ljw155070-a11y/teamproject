@@ -144,6 +144,13 @@
 	where member_email = #{memberEmail}
   </select>
   
+  <select id="monthlyJoinUsers" resultType="joinUserDate">
+	select to_char(member_join_date,'yyyy-mm') months,
+	count(*) as join_counts
+	from member_tbl
+	group by to_char(member_join_date,'yyyy-mm')
+	order by months
+  </select>
   <select id="findIdEmail" resultType="member">
   	SELECT * FROM MEMBER_TBL
 	where member_email = #{memberEmail}

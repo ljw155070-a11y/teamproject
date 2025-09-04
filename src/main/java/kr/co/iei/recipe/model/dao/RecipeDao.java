@@ -96,7 +96,9 @@ public interface RecipeDao {
 
 	double recipeGradeRankingDouble();
 
-	//
+
+	List<Recipe> dailyRecipe(String recipeType);
+
 	Recipe koTypeOfTopInfoR();
 
 	Member koTypeOfTopInfoM();

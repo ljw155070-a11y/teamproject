@@ -20,6 +20,7 @@ import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.service.QnaService;
 import kr.co.iei.qna.model.vo.QnaComment;
 import kr.co.iei.recipe.model.service.RecipeService;
+import kr.co.iei.recipe.model.vo.Recipe;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -125,17 +126,35 @@ public class AdminController {
 		return "redirect:/admin/recipeReport";
 	}
 	@GetMapping(value="/webStatistics")
-	public String webStatistics() {
-		List<JoinUserDate> stats = memberService.monthlyJoinUsers();
+	public String webStatistics(Model model) {
+		List<JoinUserDate> lists = memberService.monthlyJoinUsers();
 		List<String> months = new ArrayList<>();
 		List<Integer> counts = new ArrayList<>();
-		for(JoinUserDate stat : stats) {
-			months.add(stat.getMonths());
-			counts.add(stat.getJoinCounts());
+		for(JoinUserDate list : lists) {
+			months.add(list.getMonths());
+			counts.add(list.getJoinCounts());
 		}
-		Map<String, Object> result = new HashMap<>();
-		result.put("months", months);
-		result.put("counts", counts);
+		model.addAttribute("months", months);
+		model.addAttribute("counts", counts);
+		
+		
 		return "admin/webStatistics";
+	}
+	@ResponseBody
+	@GetMapping(value="/dailyRecipe")
+	public Map<String, Object> dailyRecipe(String recipeType) {
+		List<Recipe> recipeLists = recipeService.dailyRecipe(recipeType);
+		List<String> dd = new ArrayList<>();
+		List<Integer> counts = new ArrayList<>();
+		for(Recipe recipe : recipeLists) {
+			dd.add(recipe.getDd());
+			counts.add(recipe.getRecipeCount());
+		}
+		Map<String, Object> param = new HashMap<>();
+		param.put("dd", dd);
+		param.put("counts", counts);
+		
+		return param;
+		
 	}
 }

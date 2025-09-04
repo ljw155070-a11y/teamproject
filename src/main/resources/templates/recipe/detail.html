@@ -260,7 +260,7 @@
 											<td>
 												
 												<!-- ★★★★★★★★★★★★★★★★★★★★★★★ 데이터 준비 - 댓글 내용 ★★★★★★★★★★★★★★★★★★★★★★★ -->
-												<textarea name= "recipeCommentContent" class="recipe textarea"></textarea>
+												<textarea name= "recipeCommentContent" class="recipe textarea" required></textarea>
 											
 											</td>
 										</tr>
@@ -285,7 +285,7 @@
 				</div>
 				</th:block>
 				<th:block th:if="${session.member !=null}">
-				<div class="recipe comment-box-output">
+				<div class="recipe comment-box-output" th:if=${recipeDetailSet.recipeCommentList.size}!=0>
 					<th:block th:each="rcomment:${recipeDetailSet.recipeCommentList}">
 						<div th:id="recipecommentbox+'-'+${rcomment.recipeCommentNo}">
 							<table class="recipe line" style="width:100%;">
@@ -305,6 +305,9 @@
 							</div>
 						</div>
 					</th:block>
+				</div>
+				<div class="recipe comment-box-output" th:if=${recipeDetailSet.recipeCommentList.size}==0 style="display:flex; align-items:center; justify-content:center;">
+				댓글이 없습니다.🤦‍♂️ 첫 댓글을 입력해보세요!
 				</div>
 				</th:block>
 			</section>

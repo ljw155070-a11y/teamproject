@@ -539,6 +539,15 @@ public class RecipeService {
 		return avgrate;
 	}
 
+
+	public List<Recipe> dailyRecipe(String recipeType) {
+		List<Recipe> recipeLists = recipeDao.dailyRecipe(recipeType);
+		return recipeLists;
+	}
+
+
+	
+
 	public Recipe koTypeOfTopInfoR() {
 		Recipe r = recipeDao.koTypeOfTopInfoR();
 		return r;
@@ -598,6 +607,7 @@ public class RecipeService {
 		double avgrate = recipeDao.enTypeOfTopInfoAvgrate(); 
 		return avgrate;
 	}
+
 
 	
 	
