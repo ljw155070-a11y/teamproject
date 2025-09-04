@@ -27,8 +27,6 @@ public interface RecipeDao {
 
 	List<RecipeComment> recipeCommentList(int reqRecipeNo);
 
-	List<Recipe> recipeReportedList(HashMap<String, Object> recipeReportedListSet);
-
 	List<Member> recipeReportedList(HashMap<String, Object> recipeReportedListSet);
 
 	int recipeReportedTotalCount();
@@ -78,8 +76,6 @@ public interface RecipeDao {
 	ArrayList<RecipeCookingOrder> editRecipeCookingOrderInfo(int recipeNo);
 
 	int recipeCommentReportedTotalCount();
-
-	List<Recipe> recipeCommentReportedList(HashMap<String, Object> recipeCommentReportedListSet);
 
 	List<Member> recipeCommentReportedList(HashMap<String, Object> recipeCommentReportedListSet);
 
