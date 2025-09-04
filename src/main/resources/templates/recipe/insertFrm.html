@@ -175,13 +175,13 @@ hr{
 				<div class="recipe content-box">
 					<div class="recipe insert-title">
 					<!-- ★★★★★★★★★★★★★★제목 텍스트 값 전송★★★★★★★★★★★★★★★ -->
-						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피">
+						<span>게시글 제목:</span><input type="text" name="recipeTitle" placeholder="예: 감자볶음 초간단 레시피" required>
 					</div>
 					<hr>
 					<div class="recipe insert-thumbnail">
 						<span>썸네일:</span>
 						<!-- ★★★★★★★★★★★★★★썸네일 파일 이름 전송★★★★★★★★★★★★★★★ -->
-						<input type="file" name="recipeThumbnailFile" accept="image/*">
+						<input type="file" name="recipeThumbnailFile" accept="image/*" required>
 					</div>
 					<hr>
 					<div class="recipe insert-info">
@@ -224,7 +224,7 @@ hr{
 								<div class="ingredient dynamic">
 									<span>재료명 : </span>
 									<!-- ★★★★★★★★★★★★★★레시피 재료명 전송★★★★★★★★★★★★★★★ -->
-									<input type="text" name="recipeIngredientName">
+									<input type="text" name="recipeIngredientName" required>
 									<span>용량 : </span>
 									<!-- ★★★★★★★★★★★★★★레시피 재료 용량 전송★★★★★★★★★★★★★★★ -->
 									<input type="text" name="recipeIngredientVolume">
@@ -238,9 +238,9 @@ hr{
 								<div class="order dynamic">
 									<span>Step 1</span>
 									<!-- ★★★★★★★★★★★★★★레시피 조리내용 전송★★★★★★★★★★★★★★★ -->
-									<textarea name=recipeCookingContent></textarea>
+									<textarea name="recipeCookingContent" required></textarea>
 									<!-- ★★★★★★★★★★★★★★레시피 조리 이미지 전송★★★★★★★★★★★★★★★ -->
-									<input type="file" name="recipeCookingOrderImgFile" accept="image/*">
+									<input type="file" name="recipeCookingOrderImgFile" accept="image/*" required>
 								</div>
 							</div>
 						</div>				
@@ -248,7 +248,7 @@ hr{
 						<div class="recipe caution">
 							<span>주의 사항 : </span>
 							<!-- ★★★★★★★★★★★★★★주의사항 전송★★★★★★★★★★★★★★★ -->
-							<input type="text" name="recipeCaution" placeholder = "이곳에 설명을 입력하세요">
+							<input type="text" name="recipeCaution" style="width:100%; border:1px solid #ddd;" placeholder = "이곳에 설명을 입력하세요" required>
 						</div>
 						<div class="recipe insertBtn">
 							<input type="submit" value="게시글 작성하기">

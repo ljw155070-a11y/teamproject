@@ -96,9 +96,15 @@ body {
     margin: 0 auto;
     background-color: #fff;
     border-radius: 10px;
+	margin-bottom: 30px;
 }
 
 #list-text {
+	color: #696969; 
+}
+
+.content-tbl tbody #list-text:hover{
+	background-color: #FEFCFA;
 	color: #696969; 
 }
 
@@ -152,63 +158,44 @@ body {
     text-overflow: ellipsis;  /* ... 표시 */
 }
 
-#pageNav {
-	margin-top: 20px;
-	margin-bottom: 40px;
-}
-
 .pagination {
-  	list-style-type: none;
-  	display: flex;
-  	justify-content: center;
-  	align-items: center;
-  	gap: 10px;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.pagination li {
-  	background-color: #fff;	
-  	width: 40px;
-  	height: 40px;
-  	text-align: center;
-  	line-height: 40px;
-  	overflow: hidden;
+.pagination > li {
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding-bottom: 50px;
+  line-height: 40px;
+  overflow: hidden;
 }
 
-.pagination.circle-style li {
-  	border-radius: 50%;
+.pagination > li > a.page-item {
+  border-radius: 50px;
+  background-color: #fff;
+  color: #696969;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
 }
-
-.pagination.circle-style li {
-  	border-radius: 50%;
-}
-
-.pagination.circle-style li a {
-	text-decoration: none;
-	color: #787878;
-}
-
-#arrow {
-	border: none;
-}
-.pagination li a .page-item {
-  	display: block;
-  	text-decoration: none;
-  	width: 100%;
-  	height: 100%;
-  	font-size: 18px;
-}
-
-.pagination li a .page-item > span.material-icons {
-
-  	display: block;
-  	width: 100%;
-  	height: 100%;
-  	line-height: 50px;
+.pagination > li > a.page-item > span.material-icons {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 40px;
 }
 .pagination .page-item.active-page {
   background-color: var(--main2);
   color: #fff;
 }
+
 </style>
 </head>
 <body>
@@ -222,7 +209,7 @@ body {
                 <div class="notice-search-top" style="width:100%;">
                 <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" href="/notice/writeFrm" class="write-btn">글쓰기</a>
                     <div class="searchTitle">
-                        <input type="text" name="searchTitle" placeholder="검색할 제목을 입력하세요.">
+                        <input type="text" name="searchTitle" placeholder="검색할 제목을 입력하세요." required>
                         <input type=hidden name="reqPage" id="reqPage" value="1">
                         <button type="submit" class="search-btn"><span class="material-icons">search</span></button>
                     </div>

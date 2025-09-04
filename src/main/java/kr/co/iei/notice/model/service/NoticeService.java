@@ -103,7 +103,7 @@ public class NoticeService {
 		int result = noticeDao.deleteNotice(noticeNo);
 		return result;
 	}
-
+	
 	public NoticeListData searchTitle(int reqPage, String searchTitle) {
 		int pageList = 10;
 		
@@ -165,7 +165,7 @@ public class NoticeService {
 			return null;
 		}
 	}
-
+	
 	public List<NoticeFile> updateNotice(Notice notice, List<NoticeFile> fileList, int[] delFileNo) {
 		int result = noticeDao.updateNotice(notice);
 		for (NoticeFile noticeFile : fileList) {

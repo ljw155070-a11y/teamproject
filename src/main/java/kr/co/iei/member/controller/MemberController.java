@@ -178,6 +178,24 @@ public class MemberController {
 	}
 	
 	
+
+	@RequestMapping(value="/adminMsg")
+	public String adminMsg(Model model) {
+		model.addAttribute("title", "접근 제한");
+		model.addAttribute("text", "관리자만 접근 가능합니다.");
+		model.addAttribute("icon", "warning");
+		model.addAttribute("loc", "/");
+		return "common/msg";
+	}
+	@RequestMapping(value="/loginMsg")
+	public String loginMsg(Model model) {
+		model.addAttribute("title", "로그인 확인");
+		model.addAttribute("text", "로그인 후 이용 가능합니다.");
+		model.addAttribute("icon", "info");
+		model.addAttribute("loc", "/member/loginFrm");
+		return "common/msg";
+	}
+
 	@GetMapping(value = "/newPwFrm")
 	public String newPwFrm(Member member,Model model) {
 		model.addAttribute("member",member);
