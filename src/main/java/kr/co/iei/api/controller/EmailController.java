@@ -58,7 +58,7 @@ public class EmailController {
 			}
 			String emailContent = "<h1>안녕하세요 레시피허브 입니다.</h1>";
 			
-			emailContent += "<h3>인증번호 {";
+			emailContent += "<h3>인증번호 [";
 			emailContent += "<span style='color:red;'>";
 			emailContent += sb.toString();
 			emailContent += "</span>";

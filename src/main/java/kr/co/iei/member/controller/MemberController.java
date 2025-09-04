@@ -227,10 +227,13 @@ public class MemberController {
 	}
 	
 	@GetMapping(value = "/deleteMember")
-	public String deleteMember(@SessionAttribute Member member, Model model) {
+	public String deleteMember(@SessionAttribute Member member, Model model, HttpSession session) {
 		int memberNo = member.getMemberNo();
 		int result = memberService.deleteMember(memberNo);
-
+		if(result == 1) {
+			session.invalidate();
+		}
+		
 		model.addAttribute("title","회원 탈퇴 완료");
 		model.addAttribute("text","탈퇴가 완료 되었습니다.");
 		model.addAttribute("icon","success");
