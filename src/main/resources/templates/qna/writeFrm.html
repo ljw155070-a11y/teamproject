@@ -79,7 +79,7 @@
 					<tr>
 						<td colspan="3">
 							<div class="inputTitle">
-								<input type="text" name="qnaTitle" th:value="${qnaTitle}" placeholder="제목을 입력해주세요">
+								<input type="text" name="qnaTitle" th:value="${qnaTitle}" placeholder="제목을 입력해주세요" required>
 							</div>
 						</td>
 					</tr><!-- 제목 -->
@@ -95,7 +95,7 @@
 					<tr>
 						<td colspan="4">
 							<div class="inputContent">
-								<textarea name="qnaContent" th:text="${qnaContent}"></textarea>
+								<textarea name="qnaContent" th:text="${qnaContent}" required></textarea>
 							</div>
 						</td>
 					</tr><!-- 작성할 내용 -->

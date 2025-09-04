@@ -9,7 +9,7 @@
 </head>
 <style>
 	.content{
-		width: 1100px;
+		width: 1200px;
 		overflow: hidden;
 		background-color: #F4F4F4;
 		margin: 0 auto;
@@ -18,6 +18,7 @@
 		height : 80px;
 	}
 	.view-title{
+		width: 100%;
 		margin: 0 auto;
 		text-align: center;
 		color: orange;
@@ -29,7 +30,7 @@
 		border: 1px solid orange;
 		border-radius: 15px;
 		box-sizing: border-box;
-		width: 1000px;
+		width: 90%;
 		height: 600px;
 		margin: 0 auto;
 		background-color: white;
@@ -38,19 +39,25 @@
 	
 	.writtenTitle{
 		width: 100%;
-		height: 50px;
+		margin: 0 auto;
+		height: 70px;
 		text-align: center;
+		box-sizing: border-box;
 	}
 	.writtenTitle>td{
+		width: 100%;
 		margin: 0 auto;
 		border-bottom: 1px solid gray;
 		font-weight: bold;
+		overflow: hidden;
+		white-space: pre-line;
 	}
 	
 	.contentInfo{
 		width: 100%;
 		height: 50px;
 		padding-top: 5px;
+		box-sizing: border-box;
 	}
 	.contentInfo>td{	
 		margin: 0 auto;
@@ -62,6 +69,7 @@
 		width: 100%;
 		height: 400px;
 	}
+	
 	.writtenContent>td{
 		border-bottom: 1px solid gray;
 		padding-left: 5px;
@@ -204,7 +212,6 @@
 					
 					<tr class="contentInfo"><!-- 작성자, 조회수, 작성일 -->
 						<td>작성자 : <span th:text="${q.memberName}"></span></td>
-						<td>조회수 : <span th:text="${q.qnaCount}"></span></td>
 						<td>작성일 : <span th:text="${q.qnaDate}"></span></td>
 					</tr>
 				

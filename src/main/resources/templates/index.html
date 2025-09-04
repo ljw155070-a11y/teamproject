@@ -236,6 +236,7 @@ tbody tr:hover{
   width: 1024px; 
   border-spacing: 0;
   font-size: 15px;
+  margin:0 auto;
 }
 
 .common.listbox>table th {
@@ -438,9 +439,9 @@ tbody tr:hover{
 								<th:block th:each="common:${commonList}">
 									<tr th:onclick="connectDetail([[${common.no}]],[[${common.type}]])">
 										<td th:text="${common.no}" style="text-align: center;"></td>
-										<td th:text="${common.type}" style="text-align: center;"></td>
-										<td th:text="${common.title}" style="text-align: left"></td>
-										<td th:text="${common.date}" style="text-align: center"></td>
+										<td th:text="${common.type} " style="text-align: center;"></td>
+										<td style="text-align: left;"><div th:text="${common.title}" style="width:600px; overflow:hidden; text-overflow: ellipsis;"></div></td>
+										<td th:text="${common.date}" style="text-align: center;"></td>
 									</tr>
 								</th:block>
 									<tr >
