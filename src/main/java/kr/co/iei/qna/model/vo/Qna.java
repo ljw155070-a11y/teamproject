@@ -19,7 +19,6 @@ public class Qna {
 	private String qnaTitle;
 	private String qnaContent;
 	private Date qnaDate;
-	private int qnaCount;
 	private Date qnaUpdateDate;
 	private String memberName;
 	private List<QnaComment> qnaCommentList;
