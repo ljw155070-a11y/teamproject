@@ -145,11 +145,15 @@
   </select>
   
   <select id="monthlyJoinUsers" resultType="joinUserDate">
-	select to_char(member_join_date,'yyyy-mm') months,
-	count(*) as join_counts
-	from member_tbl
-	group by to_char(member_join_date,'yyyy-mm')
-	order by months
+	with month6 as(
+    select to_char(add_months(sysdate,-1*(level-1)),'yyyy-mm') mon from dual connect by level<![CDATA[<=]]>6
+	)
+	select ms.mon as months,
+	count(member_no) as join_counts
+	from month6 ms
+	left join member_tbl m on(ms.mon = to_char(m.member_join_date,'yyyy-mm'))
+	group by ms.mon
+	order by 1
   </select>
   <select id="findIdEmail" resultType="member">
   	SELECT * FROM MEMBER_TBL

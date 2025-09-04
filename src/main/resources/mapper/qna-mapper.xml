@@ -157,8 +157,9 @@
 		where qna_no = #{qnaNo}	
 	</update>
 	
+	<!--  
 	<select id = "selectSearchQnaList" resultType="qna">
 		select qt.qna_no, qt.qna_title, mt.member_name, qt.qna_date from qna_tbl qt join member_tbl mt 
-		on (qt.member_no = mt.member_no) where qt.qna_title = #{menu} and mt.member_name = #{searchContent}
-	</select>
+		on (qt.member_no = mt.member_no) where qt.qna_title = #{qnaTitle} and mt.member_name = #{memberName} and qna_no = #{qnaNo}
+	</select>-->
 </mapper>

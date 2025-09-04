@@ -39,7 +39,6 @@
 .header{
     background-color: #fff;
     width: 100%;
-    /*min-width: 1200px;*/
     position: fixed;
     display: block;
     overflow: hidden;
@@ -127,7 +126,9 @@
     border-radius: 15px;
     font-weight: bold;
 }
-
+.header-user-btns{
+	margin-left: 450px;
+}
 .header-user-btns>button{
     padding: 4px 16px;
     margin-top: 14px;
@@ -162,12 +163,14 @@
     color: #C9BDA9;
     margin: 0 auto;
     padding: 20px 15px;
-    float: right;
+    display: block;
+    overflow: hidden;
 }
 .footer>.footer-content>p{
     text-align: left;
     font-size: 14px;
     margin: 10px 0;
     justify-content: flex-end;
-    padding-left: 400px;
+    padding-left: 500px;
+    display: block;
 }
