@@ -1,5 +1,6 @@
 package kr.co.iei.member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +14,7 @@ public interface MemberDao {
 
 	int selectMemberTotalCount();
 
-	List<Member> selectMemberList(int start, int end);
+	List<Member> selectMemberList(HashMap<String, Object> selectMemberListSet);
 
 	Member login(Member m);
 
@@ -27,11 +28,11 @@ public interface MemberDao {
 
 	Member selectOneEmail(Member m);
 
-	int suspendMember(int memberNo, int suspendDays, String suspendReason);
+	int suspendMember(HashMap<String, Object> suspendMemberSet);
 
 	int searchMemberTotalCount(String memberNickname);
 
-	List<Member> searchMemberList(int start, int end, String memberNickname);
+	List<Member> searchMemberList(HashMap<String, Object> searchMemberListSet);
 
 	int updateMember(Member m);
 

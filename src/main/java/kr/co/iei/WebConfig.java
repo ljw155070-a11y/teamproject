@@ -48,7 +48,8 @@ public class WebConfig implements WebMvcConfigurer{
 							"/qna/view",
 							"/recipe/list",
 							"/recipe/detail",
-							"/recipe/search"
+							"/recipe/search",
+							"/qna/searchList"
 						);
 		registry.addInterceptor(new AdminInterceptor())
 				.addPathPatterns("/admin/**","/notice/**")

@@ -25,11 +25,24 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	
+	@GetMapping(value="/searchList")
+	public String searchList(int reqPage, Model model, String menu, String searchContent) {	
+		System.out.println(reqPage);
+		System.out.println(menu);
+		System.out.println(searchContent);
+		HashMap<Object, String> qList = qnaService.selectSearchQnaList(reqPage, menu, searchContent);
+		QnaListData qld = qnaService.selectAllQnaList(reqPage);
+		model.addAttribute("list", qld.getList());
+		model.addAttribute("pageNavi", qld.getPageNavi());
+		return "qna/searchList";
+	}
+	
 	@GetMapping(value="/list")
 	public String qnaList(int reqPage, Model model) {	
 		QnaListData qld = qnaService.selectAllQnaList(reqPage);
 		model.addAttribute("list", qld.getList());
 		model.addAttribute("pageNavi", qld.getPageNavi());
+		
 		return "qna/list";
 	}
 	
@@ -109,11 +122,8 @@ public class QnaController {
 	}
 	@PostMapping(value="/update")
 	public String update(Qna q) {
-		System.out.println(q);
 		int result = qnaService.updateQna(q);
-		System.out.println(result);
 		return "redirect:/qna/view?qnaNo="+q.getQnaNo();
 	}
-	
 	
 }

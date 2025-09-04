@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.co.iei.member.model.vo.Member;
 import kr.co.iei.qna.model.vo.Qna;
 import kr.co.iei.qna.model.vo.QnaComment;
+import kr.co.iei.qna.model.vo.QnaListData;
 
 @Mapper
 public interface QnaDao {
@@ -22,9 +23,9 @@ public interface QnaDao {
 
 	int insertQnaComment(QnaComment qc);
 
-	int insertQnaReport(int qnaNo, int memberNo);
+	int insertQnaReport(HashMap<String, Object> qnaReportSet);
 
-	int selectAllQnaReport(int qnaNo, int memberNo);
+	int selectAllQnaReport(HashMap<String, Object> qnaReportSet);
 
 	int deleteQnaComment(int qnaCommentNo);
 
@@ -34,23 +35,25 @@ public interface QnaDao {
 
 	int deleteQna(int qnaNo);
 
-	int selectAllQnaCommentReport(int qnaNo, int qnaCommentNo, int memberNo);
+	int selectAllQnaCommentReport(HashMap<String, Object> reportQnaCommentSet);
 
-	List<Member> qnaReportedList(int start, int end);
+	List<Qna> qnaReportedList(HashMap<String, Object> qnaReportedListSet);
 
 	int qnaReportedTotalCount();
 
-	List<Member> qnaCommentReportedList(int start, int end);
+	List<Qna> qnaCommentReportedList(HashMap<String, Object> qnaCommentReportedListSet);
 
 	int qnaCommentReportedTotalCount();
 
 	
 
-	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
+	int reportQnaComment(HashMap<String, Object> reportQnaCommentSet);
 
 	int updateQnaComment(QnaComment qc);
 
 	int updateQna(Qna q);
+
+	QnaListData selectSearchQnaList(HashMap<String, Object> selectSearchQnaListSet);
 
 
 }
