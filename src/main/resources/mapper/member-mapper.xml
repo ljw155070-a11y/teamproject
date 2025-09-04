@@ -166,7 +166,12 @@
   <delete id="deleteMember">
   	delete from member_tbl where member_no = #{memberNo}
   </delete>
- 
+ 	
+ <select id="selectAllRecipe" resultType="member">
+ 	SELECT RECIPE_NO,RECIPE_TITLE,RECIPE_WRITE_DATE FROM MEMBER_TBL
+	LEFT JOIN RECIPE_TBL USING (MEMBER_NO)
+	WHERE MEMBER_NO= #{memberNo}
+ </select>
   
 </mapper>
 

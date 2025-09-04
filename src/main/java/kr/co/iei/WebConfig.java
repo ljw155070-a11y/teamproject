@@ -44,6 +44,7 @@ public class WebConfig implements WebMvcConfigurer{
 							"/notice/filedown",
 							"/notice/editor/**",
 							"/notice/searchTitle",
+							"/qna/list",
 							"/qna/view",
 							"/recipe/list",
 							"/recipe/detail",

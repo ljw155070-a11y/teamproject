@@ -1,6 +1,9 @@
 package kr.co.iei.member.controller;
 import kr.co.iei.notice.controller.NoticeController;
 import kr.co.iei.notice.model.service.NoticeService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -233,6 +236,14 @@ public class MemberController {
 		model.addAttribute("icon","success");
 		model.addAttribute("loc","/member/loginFrm");
 		return "common/msg";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/myRecipe")
+	public String myRecipe(Model model) {
+		List list = memberService.selectAllRecipe();
+		model.addAttribute("List",list);
+		return "member/mypage";
 	}
 	
 }
