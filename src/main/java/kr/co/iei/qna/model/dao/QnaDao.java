@@ -36,11 +36,11 @@ public interface QnaDao {
 
 	int selectAllQnaCommentReport(int qnaNo, int qnaCommentNo, int memberNo);
 
-	List<Member> qnaReportedList(int start, int end);
+	List<Qna> qnaReportedList(HashMap<String, Object> qnaReportedListSet);
 
 	int qnaReportedTotalCount();
 
-	List<Member> qnaCommentReportedList(int start, int end);
+	List<Qna> qnaCommentReportedList(HashMap<String, Object> qnaCommentReportedListSet);
 
 	int qnaCommentReportedTotalCount();
 

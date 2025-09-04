@@ -133,7 +133,10 @@ public class QnaService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = qnaDao.qnaReportedList(start, end);
+		HashMap<String, Object> qnaReportedListSet = new HashMap<>();
+		qnaReportedListSet.put("start", start);
+		qnaReportedListSet.put("end", end);
+		List<Qna> list = qnaDao.qnaReportedList(qnaReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
@@ -188,7 +191,10 @@ public class QnaService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = qnaDao.qnaCommentReportedList(start, end);
+		HashMap<String, Object> qnaCommentReportedListSet = new HashMap<>();
+		qnaCommentReportedListSet.put("start", "end");
+		qnaCommentReportedListSet.put("end", end);
+		List<Qna> list = qnaDao.qnaCommentReportedList(qnaCommentReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		

@@ -184,7 +184,10 @@ public class RecipeService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = recipeDao.recipeReportedList(start, end);
+		HashMap<String, Object> recipeReportedListSet = new HashMap<>();
+		recipeReportedListSet.put("start", start);
+		recipeReportedListSet.put("end", end);
+		List<Recipe> list = recipeDao.recipeReportedList(recipeReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
@@ -441,7 +444,10 @@ public class RecipeService {
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage+1;
 		
-		List<Member> list = recipeDao.recipeCommentReportedList(start, end);
+		HashMap<String, Object> recipeCommentReportedListSet = new HashMap<>();
+		recipeCommentReportedListSet.put("start", start);
+		recipeCommentReportedListSet.put("end", end);
+		List<Recipe> list = recipeDao.recipeCommentReportedList(recipeCommentReportedListSet);
 		
 		HashMap<String, Object> reqSet = new HashMap<>();
 		
@@ -607,6 +613,7 @@ public class RecipeService {
 		double avgrate = recipeDao.enTypeOfTopInfoAvgrate(); 
 		return avgrate;
 	}
+
 
 
 	
