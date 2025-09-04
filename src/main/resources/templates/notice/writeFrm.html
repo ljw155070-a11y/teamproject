@@ -162,7 +162,6 @@ body {
 					<div class="input-item">
 						<h3 class="reportTitle">이용 제한 조치된 회원 안내</h3>
 					</div>
-						<hr style="border: 1px solid #E6E6E6">
 				</div>
 	            <textarea name=noticeReportContent></textarea>
 	            						
@@ -205,6 +204,7 @@ body {
 	function back(){
 		location.href = "/notice/list?reqPage=1";
 	}
+	
 	$("#submit").on('click',function(e){
 		const content = $("[name=noticeContent]").summernote('isEmpty');
 		if(content){
@@ -226,30 +226,8 @@ body {
 		}else {
             $(".form").submit();
         }
-	})
+	});
 	
-	$("#submit").on('click',function(e){
-		const content = $("[name=noticeReportContent]").summernote('isEmpty');
-		if(content){
-			e.preventDefault(); // 전송 막기
-		      swal({
-		          title : "내용 확인",
-		          text : "내용을 입력해주세요!",
-		          icon : "warning",
-		          buttons : {
-		              confirm:{
-		                  text: "확인",
-		                  value: true,
-		                  visible : true,
-		                  className : "btn-swal-color",
-		                  closeModal : true
-		              }
-		          }
-		   		});
-		}else {
-            $(".form").submit();
-        }
-	})
 	</script>
     <th:block th:include="common/footer"></th:block>
 </body>

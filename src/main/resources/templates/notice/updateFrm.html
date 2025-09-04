@@ -165,9 +165,10 @@ body {
 	                        <option value="yes">예</option>
 	                        <option value="no">아니오</option>
 	                    </select>
-	                    <span class="file">첨부파일 : </span>
-	                    <span class="fileAdd">추가파일 : 
-	                    	<input type="file" name="upfile" multiple>
+	                    <span class="file">첨부파일 : 
+	                    	<th:block th:each="file : ${notice.fileList}">
+                            		<a th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
+                        	</th:block>
 	                    </span>
 	                    <div class="noticeType">
 	                    	<span>공지유형 : </span>
@@ -246,6 +247,7 @@ body {
 		}
 		$("#submit").on('click',function(e){
 			const content = $("[name=noticeContent]").summernote('isEmpty');
+			console.log(content);
 			if(content){
 				e.preventDefault(); // 전송 막기
 			      swal({
