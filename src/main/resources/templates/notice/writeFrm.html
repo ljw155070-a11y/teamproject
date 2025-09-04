@@ -37,8 +37,7 @@ body {
 	}
 
 .input-item input {
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 20px;
 	border: none;
 	background-color: transparent;
 	font-size: 22px;
@@ -89,25 +88,28 @@ body {
 	cursor: pointer;
 	color: #fff;
 	background-color: #FF9D23;
-	width: 215px;
-	height: 50px;
-	border: none;
-	font-size: 18px;
-	font-weight: 600;
-	border-radius: 9px;
-	margin: 20px;
-	margin-left: 235px;
+	text-decoration: none;
+    border: none;
+    cursor: pointer;
+    background-color: #FF9D23;
+    width: 130px;
+    border-radius: 50px;
+    margin-left: 335px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: #fff;
 }
 .add-btn2 {
 	cursor: pointer;
 	background-color: #EAEAEA;
-	width: 215px;
-	height: 50px;
-	border: none;
-	font-size: 18px;
-	font-weight: 700;
-	border-radius: 9px;
-	margin: 20px;
+	text-decoration: none;
+    border: none;
+    cursor: pointer;
+    width: 130px;
+    padding: 5px;
+    border-radius: 50px;
+    font-size: 16px;
 	color: #848484;
 }
 
@@ -127,6 +129,12 @@ body {
 .fileAdd div{
 	display: none;
 }
+
+form button {
+	margin: 10px;
+	margin-top:20px;
+	margin-bottom:20px;
+}
 </style>
 </head>
 <body>
@@ -139,26 +147,6 @@ body {
 				<div class="content-header">			
 					<div class="input-item">
 						<input type="text" name="noticeTitle" placeholder="제목을 입력하세요." required>
-					</div>
-						<hr style="border: 1px solid #E6E6E6">
-					<div class="noticeSelect">
-						<span>고정여부 : </span>
-						<select name="fixType">
-	                        <option value="yes">예</option>
-	                        <option value="no">아니오</option>
-	                    <!-- 
-	                    <span class="fileAdd">첨부파일 
-	                    	<input type="file" name="upfile">
-	                    </span>
-	                     -->    
-	                    </select>
-	                    <div class="noticeType">
-	                    	<span>공지유형 : </span>
-							<select name="searchType">
-	                        	<option value="general">일반</option>
-	                        	<option value="check">점검</option>
-	                    	</select>
-	                    </div>
 					</div>
 				</div>
 	            <textarea name=noticeContent></textarea>
