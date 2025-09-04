@@ -161,26 +161,7 @@ body {
     				<input type="hidden" name="noticeNo" id="noticeNo" th:value="${notice.noticeNo}">
         			<input type="text" name="noticeTitle" th:value="${notice.noticeTitle}" required>
     			</div>
-    			<hr style="border: 1px solid #E6E6E6">
-    			<div class="noticeSelect">
-						<span>고정여부 : </span>
-						<select name="fixType">
-	                        <option value="yes">예</option>
-	                        <option value="no">아니오</option>
-	                    </select>
-	                    <span class="fileAdd">첨부파일 : 
-	                    	<th:block th:each="file : ${notice.fileList}">
-                            	<a th:href="@{/notice/filedown(noticeFileNo=${file.noticeFileNo})}" th:text="${file.filename}"></a>
-                        	</th:block>
-	                    </span>
-	                    <div class="noticeType">
-	                    	<span>공지유형 : </span>
-							<select name="searchType">
-	                        	<option value="general">일반</option>
-	                        	<option value="check">점검</option>
-	                    	</select>
-	                    </div>
-					</div>
+    			
     			<div class="detail-content-box">
         			<textarea name="noticeContent" th:value="${notice.noticeContent}"></textarea>
         			<a class="hidden"  th:text="${notice.noticeContent}"></a>
@@ -189,11 +170,9 @@ body {
 					<div class="input-item">
 						<h3 class="reportTitle">이용 제한 조치된 회원 안내</h3>
 					</div>
-						<hr style="border: 1px solid #E6E6E6">
 				</div>
 	            <textarea name=noticeReportContent></textarea>
 	            <a class="noticeReport"  th:utext="${notice.noticeReportContent}"></a>
-    			<hr style="border: 1px solid #E6E6E6">
     			<div class="add-btn">
         			<button type="submit" id="submit">수정하기</button>
         			<button type="button" id="delete" th:onclick="back([[${notice.noticeNo}]]);">취소하기</button>
