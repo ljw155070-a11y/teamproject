@@ -223,7 +223,7 @@
 								<td>
 									<div><a th:text="${r.recipeTitle}" th:href="@{/recipe/detail(reqRecipeNo=${r.recipeNo})}" style="font-size:18px; font-weight:900; color:#444;"></a></div>
 									<div class="recipe subtitle"><span class="material-icons">account_circle</span><span th:text="${r.memberNickname}"></span></div>
-									<div class="recipe subtitle"><span class="material-icons">access_time</span>  <span th:text="${r.recipeCookingTime}"></span></div>
+									<div class="recipe subtitle"><span class="material-icons">access_time</span>  <span th:text="${r.recipeCookingTime}"></span><span>분 미만</span></div>
 									<div class="recipe subtitle"><span class="material-icons">star</span> <span th:text="${r.recipeRate}"></span></div>
 									<div class="recipe subtitle">난이도 : <span th:text="${r.recipeLevel}"></span></div>
 									<!-- 
