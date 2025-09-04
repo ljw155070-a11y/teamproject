@@ -35,6 +35,8 @@ public class QnaService {
 		int pageNaviSize = 5; //페이지 길이
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
 		String pageNavi = "<ul class='qna-paging'>";
+		
+		//첫 페이지가 아닌 경우의 이전 버튼
 		if(pageNo != 1) {			
 			pageNavi += "<li>";
 			pageNavi += "<a class='qnaPage' href='/qna/list?reqPage="+(pageNo-1)+"'>";
@@ -43,6 +45,7 @@ public class QnaService {
 			pageNavi += "</li>";
 		}
 		
+		//페이지 이동하는 숫자
 		for(int i=0;i<pageNaviSize;i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
@@ -55,10 +58,14 @@ public class QnaService {
 			pageNavi += "</li>";
 			
 			pageNo++;
+			
+			//최종 페이지에 반복문 종료
 			if(pageNo > totalPage) {
 				break;
 			}
 		}
+		
+		//다음버튼
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='qnaPage' href='/qna/list?reqPage="+pageNo+"'>";
