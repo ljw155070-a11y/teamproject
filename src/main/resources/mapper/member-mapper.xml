@@ -173,5 +173,11 @@
 	WHERE MEMBER_NO= #{memberNo}
  </select>
   
+  <select id="headerSearch" resultType="member">
+  	SELECT qna_title,qna_date, recipe_title,recipe_write_date,member_nickname FROM MEMBER_TBL
+	LEFT JOIN RECIPE_TBL USING (MEMBER_NO)
+	LEFT JOIN QNA_TBL USING (MEMBER_NO)
+  </select>
+  
 </mapper>
 
