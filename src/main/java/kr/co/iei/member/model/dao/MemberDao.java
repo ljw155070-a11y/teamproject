@@ -45,6 +45,8 @@ public interface MemberDao {
 
 	int deleteMember(int memberNo);
 
+	List selectAllRecipe();
+
 	
 
 	
