@@ -119,18 +119,22 @@
 	.content-list>*{
 		width: 1000px;
 		margin: 0 auto;
-		min-height: 700px;
+		min-height: 200px;
 	}
 	th{
-		height: 40px;
+		height: 80px;
 		border-bottom: 1px solid #eee;
 	}
 	td{
 		border-bottom: 1px solid #eee;
-		
+		height: 80px;
 	}
-
-	.listInfo>td>a{
+	
+	.listInfo>td>div{
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.listInfo>td>div>a{
 		text-decoration: none;
 		color: black;
 	}
@@ -141,7 +145,7 @@
 		margin: 0 auto;
 		float: left;
 		margin-top: 30px;
-		margin-bottom: 20px;
+		margin-bottom: 0;
 	}
 	.qna-paging{
 		display: flex;
@@ -212,7 +216,7 @@
 				</tr>
 				<tr class="listInfo" th:each="qna : ${list}">
 					<td th:text="${qna.qnaNo}" style="text-align:center;"></td>
-					<td style="text-align:center;"><a th:href="@{/qna/view(qnaNo=${qna.qnaNo})}" th:text="${qna.qnaTitle}"></a></td>
+					<td style="text-align:center;"><div style="width:400px;"><a th:href="@{/qna/view(qnaNo=${qna.qnaNo})}" th:text="${qna.qnaTitle}"></a></div></td>
 					<td th:text="${qna.memberName}" style="text-align:center;"></td>
 					<td th:text="${qna.qnaDate}" style="text-align:center;"></td>
 				</tr>
