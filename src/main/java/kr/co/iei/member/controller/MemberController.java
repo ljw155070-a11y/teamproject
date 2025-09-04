@@ -238,12 +238,24 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	@ResponseBody
-	@GetMapping(value = "/myRecipe")
-	public String myRecipe(Model model) {
-		List list = memberService.selectAllRecipe();
-		model.addAttribute("List",list);
-		return "member/mypage";
+//	@ResponseBody
+//	@GetMapping(value = "/myRecipe")
+//	public String myRecipe(Model model) {
+//		List list = memberService.selectAllRecipe();
+//		model.addAttribute("List",list);
+//		return "member/mypage";
+//	}
+	
+	@GetMapping(value = "/headerSearchFrm")
+	public String headerSearchFrm() {
+		return "member/headerSearch";
 	}
+	
+	@GetMapping(value = "/headerSearch")
+	public String headerSearch() {
+		List list = memberService.headerSearch();
+		return "member/headerSearch";
+	}
+	
 	
 }
