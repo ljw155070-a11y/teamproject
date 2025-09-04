@@ -23,9 +23,9 @@ public interface QnaDao {
 
 	int insertQnaComment(QnaComment qc);
 
-	int insertQnaReport(int qnaNo, int memberNo);
+	int insertQnaReport(HashMap<String, Object> qnaReportSet);
 
-	int selectAllQnaReport(int qnaNo, int memberNo);
+	int selectAllQnaReport(HashMap<String, Object> qnaReportSet);
 
 	int deleteQnaComment(int qnaCommentNo);
 
@@ -35,7 +35,7 @@ public interface QnaDao {
 
 	int deleteQna(int qnaNo);
 
-	int selectAllQnaCommentReport(int qnaNo, int qnaCommentNo, int memberNo);
+	int selectAllQnaCommentReport(HashMap<String, Object> reportQnaCommentSet);
 
 	List<Member> qnaReportedList(int start, int end);
 
@@ -47,7 +47,7 @@ public interface QnaDao {
 
 	
 
-	int reportQnaComment(int qnaNo, int qnaCommentNo, int memberNo);
+	int reportQnaComment(HashMap<String, Object> reportQnaCommentSet);
 
 	int updateQnaComment(QnaComment qc);
 
