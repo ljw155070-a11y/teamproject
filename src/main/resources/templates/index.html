@@ -239,19 +239,24 @@ tbody tr:hover{
 }
 
 .common.listbox>table th {
-  background-color: #eee;
+  background-color: #FFE08C;
   padding: 10px;
   border-bottom: 1px solid #eee;
+}
+.common.listbox>table th:nth-of-type(1) {
+  background-color: #FFE08C;
+  border-radius: 15px 0px 0px 0px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+.common.listbox>table th:nth-of-type(4){
+	border-radius: 0px 15px 0px 0px;
 }
 
 
 .common.listbox>table td {
   padding: 10px;
   border-bottom: 1px solid #eee;
-}
-
-.common.listbox{
-border-radius: 14px;
 }
 
 
@@ -438,6 +443,9 @@ border-radius: 14px;
 										<td th:text="${common.date}" style="text-align: center"></td>
 									</tr>
 								</th:block>
+									<tr >
+										<td colspan="4" style="border-bottom:none;"></td>
+									</tr>
 							</tbody>
 						</table>
 					</div>
