@@ -8,10 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 </head>
 <style>
+	body{		
+		background-color: #F4F4F4;
+	}
 	.content{
 		width: 1200px;
 		overflow: hidden;
-		background-color: #F4F4F4;
 		margin: 0 auto;
 	}
 	.space{
@@ -27,7 +29,6 @@
 	}
 	
 	.view-content{
-		border: 1px solid orange;
 		border-radius: 15px;
 		box-sizing: border-box;
 		width: 90%;
@@ -71,11 +72,11 @@
 	}
 	
 	.writtenContent>td{
-		border-bottom: 1px solid gray;
 		padding-left: 5px;
 	}
 	
 	.reportInput>td{
+		border-top: 1px solid gray;
 		margin-right: 20px;
 	}
 	.reportInput>td>button{
@@ -125,7 +126,6 @@
 		width: 800px;
 		height: 75px;
 		border: none;
-		border: 1px solid orange;
 		border-radius: 15px;
 		margin-left: 5px;
 	}
@@ -151,9 +151,8 @@
 		margin: 0 auto;
 		margin-left: 5px;
 		margin-top: 5px;
-		border:1px solid orange;
 		background-color: white;
-		width: 800px;
+		width: 850px;
 		padding-left: 10px;
 		border-radius: 15px;
 		height: 100px;
@@ -219,8 +218,8 @@
 					<td colspan="3"><span th:text="${q.qnaContent}"></span></td>
 				</tr>
 				
-				<tr class="reportInput" th:if="${session.member != null}">
-					<td colspan ="5">
+				<tr class="reportInput">
+					<td colspan ="5" th:if="${session.member != null}">
 						<button colspan="3" onShow="showReportBtn()" th:if="${session.member.memberName} != ${q.memberName}"><span class="material-icons">cell_tower</span>신고하기</button>
 					</td>	
 				</tr>
@@ -268,7 +267,7 @@
 					</li>
 					
 					<li id="commentInfo">
-						<p th:text="${qc.memberName}"></p>
+						<p th:text="${qc.memberNickname}" style="width: 100px;"></p>
 						<p class="commentDate" th:text="${qc.qnaCommentDate}"></p>
 						<p th:text="${qc.qnaCommentContent}"></p>
 					</li>

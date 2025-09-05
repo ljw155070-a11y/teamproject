@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="selectAllQnaCommentList" resultType="qnaComment">
-	SELECT M.MEMBER_NAME, QC.QNA_COMMENT_CONTENT, QC.QNA_COMMENT_DATE, QC.qna_comment_no, M.member_no, QC.QNA_NO
+	SELECT M.MEMBER_NAME, m.member_nickname, QC.QNA_COMMENT_CONTENT, QC.QNA_COMMENT_DATE, QC.qna_comment_no, M.member_no, QC.QNA_NO
     FROM QNA_COMMENT_TBL QC 
     JOIN MEMBER_TBL M ON QC.MEMBER_NO = M.MEMBER_NO WHERE QNA_NO = #{qnaNo} order by qna_comment_no desc
 	</select>

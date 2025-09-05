@@ -59,7 +59,7 @@
     border-radius: 0 0 9px 9px;
     padding: 30px 35px;
     display: flex;
-    height: 230px;
+    /*height: 230px;*/
 }
 /*
 form>div{
@@ -107,17 +107,16 @@ form>div{
     padding: 6px;
     padding-left: 20px;
     padding-right: 20px;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     margin-bottom: 5px;
     border: none;
     border-radius: 9px;
     margin-left: 8px;
-    justify-content: center;
     float: right;
     height: 40px;
+    cursor: pointer;
 }
 #pw-check-msg{
-	padding-top: 130px;
 	padding-left: 350px;
 	text-align: right;
 }
@@ -374,6 +373,12 @@ form>div{
 	background-color: #b3b3b3;
     color: #f0f0f0;
 }
+#pp{
+	margin-bottom: 10px;
+	font-size: 14px;
+	padding-right: 410px;
+}
+
 </style>
 </head>
 <body>
@@ -387,10 +392,11 @@ form>div{
             <div class="page-top-content">
                 <div class="top-content">
                     <div class="page-top-title">
-                        내 정보
+                        내 정보 / 닉네임 변경
                     </div>
                     <div class="info-content">
-                    	<form action="/member/update" method="post" >
+						<form action="/member/update" method="post" >
+		                    <p id="pp">*닉네임만 변경 가능 합니다</p>
 	                        <div class="info-input">
 	                        	<input type="hidden" name="memberNo" id="memberNo" th:value=${session.member.memberNo}>
 	                        	<p class="input-msg nickname-check-msg" id="nickname-check-msg"></p>
@@ -640,10 +646,14 @@ form>div{
 	    	$("#pw-check-msg").removeClass("valid").removeClass("invalid");
 	    	const memberPw = $("#memberPw").val();
 	    	const memberPwRe = $("#memberPwRe").val();
-	    	if(memberPw === memberPwRe){
+	    	
+	    	if(memberPwRe === ""){
+	    		$("#pw-check-msg").removeClass("valid").removeClass("invalid");
+	    		$("#pw-check-msg").text("");
+	    	} else if(memberPw === memberPwRe){
 	    		$("#pw-check-msg").text("비밀번호가 일치 합니다.");
 	    		$("#pw-check-msg").addClass("valid");
-	    	}else{
+	    	}else if(memberPw !== memberPwRe){
 	    		$("#pw-check-msg").text("비밀번호가 일치하지 않습니다.");
 	    		$("#pw-check-msg").addClass("invalid");
 	    	}

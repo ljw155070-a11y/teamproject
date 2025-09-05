@@ -36,6 +36,7 @@
     font-size: 18px;
     font-weight: 500;
     padding-bottom: 40px;
+    border-radius: 9px; 
 }
 
 .email-box>label{
@@ -282,15 +283,31 @@
 		function modal(id){
 			const memberEmail = $("#memberEmail").val();
 			const inputCode = $("#auth-code").val();
+			const invalid = $(".invalid");
 			if(memberEmail===""){
 				e.preventDefault();
 			}else if(inputCode !== mailCode){
-				alert("인증번호를 입력하세요.");
+				alert("인증번호를 확인하세요.");
 				e.preventDefault();
-			} else {
+			} else if(invalid.length > 0){
+				alert("등록되지 않은 이메일 입니다.");
+				e.preventDefault();
+			}else {
 			  $("." + id).fadeIn()
 			}
+			$.ajax({
+	    		url : "/member/checkEmail",
+	    		type : "get",
+	    		data : {memberEmail : memberEmail},
+	    		success : function(result){
+	    	    	if(result===0){
+	    	    		alert("등록되지 않은 이메일 입니다.");
+	    				e.preventDefault();
+	    	    	}	    			
+	    		}
+	    	})
     	}
+    	
 	    //모달 닫기
 	    $('.p_close').on('click', function(e){
 	      e.preventDefault();
@@ -326,10 +343,14 @@
 	    $("#send-btn").on("click",function(){
 	    	$("#auth-code").text("").removeClass("valid").removeClass("invalid");
 	    	const receiver = $("#memberEmail").val();
+	    	const invalid = $(".invalid");
 	    	if(receiver === ""){
 	    		alert("이메일을 입력하세요.");
 	    		return;
-	    	}else{
+	    	}else if(invalid.length > 0){
+	    		alert("등록되지 않은 이메일 입니다.");
+	    		return;
+	    	} else {
 	    		alert("인증 메일이 발송 되었습니다. 이메일을 확인해 주세요.");
 	    	}
 	    	$.ajax({

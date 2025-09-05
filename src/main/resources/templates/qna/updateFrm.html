@@ -118,7 +118,7 @@
 						<th>제목</th>
 						<td>
 							<div class="inputTitle">
-								<input type="text" name="qnaTitle" th:value="${q.qnaTitle}">
+								<input type="text" name="qnaTitle" th:value="${q.qnaTitle}" required>
 							</div>
 						</td>
 					</tr>
@@ -127,7 +127,7 @@
 						<th>내용</th>
 						<td>
 							<div class="inputContent">
-								<textarea name="qnaContent" th:text="${q.qnaContent}"></textarea>
+								<textarea name="qnaContent" th:text="${q.qnaContent}" required></textarea>
 							</div>
 						</td>
 					</tr>
