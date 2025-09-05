@@ -195,7 +195,7 @@ form button {
 	function back(){
 		location.href = "/notice/list?reqPage=1";
 	}
-	
+	<!--
 	$("#submit").on('click',function(e){
 		const content = $("[name=noticeContent]").summernote('isEmpty');
 		if(content){
@@ -218,6 +218,52 @@ form button {
             $(".form").submit();
         }
 	});
+	
+	$("#submit").on('click', function(e) {
+		const title = $("input[name=noticeTitle]").val().trim(); // 제목 공백 체크
+		const content = $("[name=noticeContent]").summernote('code').trim(); // 내용 공백 체크
+		
+		if (title === "") { // 제목 공백 확인
+			e.preventDefault();
+			swal({
+				title: "제목 확인",
+				text: "제목을 입력해주세요!",
+				icon: "warning",
+				buttons: {
+					confirm: {
+						text: "확인",
+						value: true,
+						visible: true,
+						className: "btn-swal-color",
+						closeModal: true
+					}
+				}
+			});
+			return;
+		}
+		
+		else if (content === "") { // 내용 공백 확인
+			e.preventDefault();
+			swal({
+				title: "내용 확인",
+				text: "내용을 입력해주세요!",
+				icon: "warning",
+				buttons: {
+					confirm: {
+						text: "확인",
+						value: true,
+						visible: true,
+						className: "btn-swal-color",
+						closeModal: true
+					}
+				}
+			});
+			return;
+		}
+		
+		$(".form").submit(); // 모든 체크가 통과하면 폼 제출
+	});
+	
 	
 	</script>
     <th:block th:include="common/footer"></th:block>
