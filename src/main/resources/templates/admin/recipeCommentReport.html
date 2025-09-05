@@ -153,6 +153,18 @@
 	color : #fff;
 	font-weight: 600;
 }
+.backBtn{
+	width : 80px;
+	height:25px;
+	border : none;
+	border-radius:15px;
+	text-align:center;
+	background-color: #FBA854;
+	color : #fff;
+	font-weight: 600;
+	cursor:pointer;
+	margin-left: 440px;
+}
 </style>
 </head>
 <body>
@@ -165,6 +177,7 @@
 					<button class="pathBtn recipe-comment-report">레시피 댓글</button>
 					<button class="pathBtn qna-report">Q&A</button>
 					<button class="pathBtn qna-comment-report">Q&A 댓글</button>
+					<button class="backBtn">돌아가기</button>
 				</div>
 				<table class="recipeReport-tbl">
 					<tr>
@@ -288,6 +301,10 @@
 			}
 			
 		})
+	});
+	
+	$(".backBtn").on("click",function(){
+		location.href="/admin/allMember";
 	});
 	</script>
 	<th:block th:include="common/footer"></th:block>				
