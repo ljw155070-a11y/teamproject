@@ -54,6 +54,23 @@
 	text-align:center;
 	cursor:pointer;
 }
+.back-btn-wrap{
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.backBtn{
+	width : 80px;
+	height:30px;
+	border : none;
+	border-radius:15px;
+	text-align:center;
+	background-color: #FBA854;
+	color : #fff;
+	font-weight: 600;
+	cursor:pointer;
+	margin-right: 50px;
+}
 </style>
 </head>
 <body>
@@ -61,6 +78,9 @@
 	<main class="content">
 		<div class="content-title">사이트 통계</div>
 		<section class="statistics-section">
+			<div class="back-btn-wrap">
+				<button class="backBtn">돌아가기</button>
+			</div>
 			<div class="charts-wrap monthly-join-users-wrap">
 				<div class="chart-title monthly-join-users-title">
 					<span>월별 가입자 수</span>
@@ -199,6 +219,9 @@
 	$(".typeSelect").on("change", function() {
 	    const type = $(this).val();
 	    currentDailyRecipeChart(type);
+	});
+	$(".backBtn").on("click",function(){
+		location.href="/admin/allMember";
 	});
 		
 	</script>
