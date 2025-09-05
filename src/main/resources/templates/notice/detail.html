@@ -201,7 +201,7 @@ body {
                         <span class="content-text" th:utext="${notice.noticeContent}"></span>
                     </div>
                     <div class="detail-content-btn">
-                    	<a th:href="@{/notice/list?reqPage=1}" id="backList">목록으로</a>
+                    	
                         <a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}" th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" class="modify-btn">게시글 수정</a>
                         <a th:if ="${session.member != null && session.member.memberLevel == '매운맛'}" th:onclick="deleteNotice([[${notice.noticeNo}]]);" class="delete-btn">게시글 삭제</a>
                     </div>
