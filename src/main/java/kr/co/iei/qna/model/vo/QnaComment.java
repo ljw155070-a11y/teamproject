@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class QnaComment {
 	private int qnaCommentNo;
 	private int memberNo;
+	private String memberNickname;
 	private int qnaNo;
 	private String memberName;
 	private String qnaCommentContent;
