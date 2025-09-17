@@ -24,6 +24,7 @@ public class HomeController {
 	
 	@GetMapping(value="/")
 	public String main(Model model) {
+		System.out.println("[HomeController] main() 들어옴");
 		//최상위
 		HashMap<String, Object> topRecipeInfo = new HashMap<>();
 		
@@ -96,7 +97,6 @@ public class HomeController {
 		model.addAttribute("enTypeOfRecipeInfo",enTypeOfTopInfo);
 		
 		ArrayList<Common> commonList = new ArrayList<>();
-		System.out.println("컨트롤러 호출됨");
 		commonList = commonService.selectAllList();
 		model.addAttribute(commonList);
 		return "index";
