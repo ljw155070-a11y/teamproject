@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 .main-content {
 	width: 1080px;
 	margin: 24px auto;
@@ -221,47 +220,45 @@ a {
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
-
 .indexTag {
 	line-height: 25.5px;
 }
-tbody tr:hover{
-		background-color:#f9f9f9;
-		cursor:pointer;
-		
-	}
-.new-wrap .common.listbox > table {
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-  width: 1024px; 
-  border-spacing: 0;
-  font-size: 15px;
-  margin:0 auto;
+
+tbody tr:hover {
+	background-color: #f9f9f9;
+	cursor: pointer;
+}
+
+.new-wrap .common.listbox>table {
+	border-radius: 15px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+	width: 1024px;
+	border-spacing: 0;
+	font-size: 15px;
+	margin: 0 auto;
 }
 
 .common.listbox>table th {
-  background-color: #FFE08C;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+	background-color: #FFE08C;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
 }
+
 .common.listbox>table th:nth-of-type(1) {
-  background-color: #FFE08C;
-  border-radius: 15px 0px 0px 0px;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+	background-color: #FFE08C;
+	border-radius: 15px 0px 0px 0px;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
 }
-.common.listbox>table th:nth-of-type(4){
+
+.common.listbox>table th:nth-of-type(4) {
 	border-radius: 0px 15px 0px 0px;
 }
 
-
 .common.listbox>table td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
 }
-
-
-	
 </style>
 </head>
 <body>
@@ -269,12 +266,16 @@ tbody tr:hover{
 	<div class="space"></div>
 	<main class="content">
 		<div class="main-content">
-			<a href="/recipe/list?reqPage=1" style="display:inline-block; width:100%;"><img src="/img/bg2.jpg" style="width:100%;"></a>
+			<a href="/recipe/list?reqPage=1"
+				style="display: inline-block; width: 100%;"><img
+				src="/img/bg2.jpg" style="width: 100%;"></a>
 
 			<div id="main-content-title">
 				<div style="margin-bottom: 50px; font-size: 30px;">오늘의 인기 레시피</div>
-				<div style="background-color: var(--main1); border-radius: 25px; display: inline-block; min-width: 100px;">
-					<p th:text="${topRecipeInfo.r.recipeType}" style="font-size: 0.8em; font-weight: 400; color: white;"></p>
+				<div
+					style="background-color: var(--main1); border-radius: 25px; display: inline-block; min-width: 100px;">
+					<p th:text="${topRecipeInfo.r.recipeType}"
+						style="font-size: 0.8em; font-weight: 400; color: white;"></p>
 				</div>
 				<div class="image-wrap">
 					<a
@@ -437,16 +438,19 @@ tbody tr:hover{
 
 							<tbody>
 								<th:block th:each="common:${commonList}">
-									<tr th:onclick="connectDetail([[${common.no}]],[[${common.type}]])">
+									<tr
+										th:onclick="connectDetail([[${common.no}]],[[${common.type}]])">
 										<td th:text="${common.no}" style="text-align: center;"></td>
 										<td th:text="${common.type} " style="text-align: center;"></td>
-										<td style="text-align: left;"><div th:text="${common.title}" style="width:600px; overflow:hidden; text-overflow: ellipsis;"></div></td>
+										<td style="text-align: left;"><div
+												th:text="${common.title}"
+												style="width: 600px; overflow: hidden; text-overflow: ellipsis;"></div></td>
 										<td th:text="${common.date}" style="text-align: center;"></td>
 									</tr>
 								</th:block>
-									<tr >
-										<td colspan="4" style="border-bottom:none;"></td>
-									</tr>
+								<tr>
+									<td colspan="4" style="border-bottom: none;"></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -455,16 +459,16 @@ tbody tr:hover{
 		</div>
 	</main>
 	<script>
-	function connectDetail(no,type){
-		console.log(type);
-		if(type==="레시피"){
-			location.href="/recipe/detail?reqRecipeNo="+no;
-		}else if(type==="공지"){
-			location.href="/notice/detail?noticeNo="+no;
-		}else if(type==="질문"){
-			location.href="/qna/view?qnaNo="+no;
+		function connectDetail(no, type) {
+			console.log(type);
+			if (type === "레시피") {
+				location.href = "/recipe/detail?reqRecipeNo=" + no;
+			} else if (type === "공지") {
+				location.href = "/notice/detail?noticeNo=" + no;
+			} else if (type === "질문") {
+				location.href = "/qna/view?qnaNo=" + no;
+			}
 		}
-	}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
